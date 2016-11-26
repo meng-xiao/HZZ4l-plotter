@@ -1,2 +1,2 @@
-# HZZ4l_Plotter
+# HZZ4l-plotter
 HZZ4l plotter
