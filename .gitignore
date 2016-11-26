@@ -9,4 +9,5 @@
 *.root
 *.pdf
 
+run
 __init__.py
