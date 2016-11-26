@@ -1,0 +1,12 @@
+# Compiled Object files
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.d
+*.pcm
+
+*.root
+*.pdf
+
+__init__.py
