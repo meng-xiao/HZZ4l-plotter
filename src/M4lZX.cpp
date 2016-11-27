@@ -10,11 +10,6 @@ M4lZX::M4lZX()
 {
    _n_entries = 1000000;
    
-   // Z+X normalization from combination of SS and OS method
-   _norm_ZX_full_SR_4e    = 9.8;
-   _norm_ZX_full_SR_4mu   = 10.2; // To be defined for the 2016 dataset
-   _norm_ZX_full_SR_2e2mu = 20.4; // To be defined for the 2016 dataset
-   
    f_4e_comb    = new TF1("f_4e_comb", "landau(0)*(1 + exp( pol1(3))) + [5]*(TMath::Landau(x, [6], [7]))", 70, 1000);
    f_4mu_comb   = new TF1("f_4mu_comb","landau(0)", 70, 1000);
    f_2e2mu_comb = new TF1("f_2e2mu_comb","landau(0)", 70, 1000);
@@ -32,7 +27,13 @@ M4lZX::M4lZX()
 
 
 //================
-M4lZX::~M4lZX() {}
+M4lZX::~M4lZX() {
+    delete h_4e;
+    delete h_4mu;
+    delete h_2e2mu;
+    delete h_4l;
+    
+}
 //================
 
 
@@ -60,10 +61,10 @@ TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, int cat
    cout << "yield in 2e2mu    = " << _norm_2e2mu << endl;
    cout << "total yield in 4l = " << _norm_4mu + _norm_4e + _norm_2e2mu << endl;
 
-   h_4mu   = new TH1F("h_4mu"  , ";;", n_bins, x_min, x_max);
+   h_4mu   = new TH1F("h_4mu" , ";;", n_bins, x_min, x_max);
    h_4e    = new TH1F("h_4e"   , ";;", n_bins, x_min, x_max);
    h_2e2mu = new TH1F("h_2e2mu", ";;", n_bins, x_min, x_max);
-   h_4l     = new TH1F("h_4l"   , ";;", n_bins, x_min, x_max);
+   h_4l    = new TH1F("h_4l"   , ";;", n_bins, x_min, x_max);
  
    h_4mu  ->FillRandom("f_4mu_comb"  , _n_entries);
    h_4e   ->FillRandom("f_4e_comb"   , _n_entries);
@@ -87,11 +88,6 @@ TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, int cat
       abort();
    }
     
-    delete h_4mu;
-    delete h_4e;
-    delete h_2e2mu;
-    delete h_4l;
-
 }
 //===================================================================================
 
@@ -151,6 +147,8 @@ void M4lZX::SetNormalization( int category)
         break;
         
         default:
+        cout << "[ERROR] Computing Z+X histogram normalization wrong category: " << category << endl;
+        abort();
         break;
     }
 

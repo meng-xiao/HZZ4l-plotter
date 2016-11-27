@@ -109,6 +109,8 @@ void Histograms::MakeZXShape( int current_final_state, int current_category, flo
 	M4lZX *ZXShape = new M4lZX();
     current_final_state = (current_final_state==3) ? 2 : current_final_state;
    M4lV2_ZX_shape[current_final_state][current_category]->Add(ZXShape->GetM4lZX(Variables::M4lV2().var_N_bin, Variables::M4lV2().var_min, Variables::M4lV2().var_max, current_final_state, current_category, lumi));
+    ZXShape->~M4lZX();
+    
 }
 //====================================================================================
 
