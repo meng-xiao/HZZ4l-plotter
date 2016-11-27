@@ -61,6 +61,7 @@ int main( int argc, char *argv[] )
    plotter->MakeHistograms(ggZZ2mu2tau);
    
    plotter->MakeHistogramsZX(Data, FakeRates);
+   plotter->MakeM4lZX();
    
    plotter->FillInclusive();
 

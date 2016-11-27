@@ -64,9 +64,10 @@ Histograms::Histograms()
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
          _histo_name = "ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
-   
-         M4lV2_ZX[i_fs][i_cat] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lV2().var_N_bin, Variables::M4lV2().var_min,
-                                          Variables::M4lV2().var_max);
+         M4lV2_ZX[i_fs][i_cat] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lV2().var_N_bin, Variables::M4lV2().var_min, Variables::M4lV2().var_max);
+
+         _histo_name = "ZX_shape_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
+         M4lV2_ZX_shape[i_fs][i_cat] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lV2().var_N_bin, Variables::M4lV2().var_min, Variables::M4lV2().var_max);
       }
    }
    
@@ -97,6 +98,16 @@ void Histograms::FillM4l( float M4l, float weight, int fs, int cat, int rs, int 
 void Histograms::FillM4lZX( float M4l, float weight, int fs, int cat )
 {
    M4lV2_ZX[fs][cat]->Fill(M4l, weight);
+}
+//====================================================================================
+
+
+
+//====================================================================================
+void Histograms::MakeZXShape( float current_final_state, float lumi )
+{
+	M4lZX *ZXShape = new M4lZX();
+   M4lV2_ZX_shape[4][6]->Add(ZXShape->GetM4lZX(Variables::M4lV2().var_N_bin, Variables::M4lV2().var_min, Variables::M4lV2().var_max, current_final_state, lumi));
 }
 //====================================================================================
 
@@ -174,6 +185,7 @@ void Histograms::FillInclusive()
       for ( int i_cat = 0; i_cat < num_of_categories - 1; i_cat++ )
       {
          M4lV2_ZX[num_of_final_states - 1][i_cat]->Add(M4lV2_ZX[i_fs][i_cat]);
+			//M4lV2_ZX_shape[num_of_final_states - 1][i_cat]->Add(M4lV2_ZX_shape[i_fs][i_cat]);
       }
    }
 
@@ -182,6 +194,7 @@ void Histograms::FillInclusive()
       for ( int i_cat = 0; i_cat < num_of_categories - 1; i_cat++ )
       {
          M4lV2_ZX[i_fs][num_of_categories - 1]->Add(M4lV2_ZX[i_fs][i_cat]);
+			//M4lV2_ZX_shape[i_fs][num_of_categories - 1]->Add(M4lV2_ZX_shape[i_fs][i_cat]);
       }
    }
 
@@ -255,7 +268,9 @@ void Histograms::SaveHistos( string file_name )
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
          M4lV2_ZX[i_fs][i_cat]->Write();
+			M4lV2_ZX_shape[i_fs][i_cat]->Write();
          delete M4lV2_ZX[i_fs][i_cat];
+			delete M4lV2_ZX_shape[i_fs][i_cat];
       
          for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
          {
@@ -313,10 +328,13 @@ void Histograms::GetHistos( string file_name )
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
          _histo_name = "ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
-   
          M4lV2_ZX[i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
       
+			_histo_name = "ZX_shape_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
+			M4lV2_ZX_shape[i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
+			
          M4lV2_ZX[i_fs][i_cat]->SetFillColor(kGreen + 2);
+			M4lV2_ZX_shape[i_fs][i_cat]->SetFillColor(kGreen + 2);
       }
    }
 
@@ -337,16 +355,18 @@ void Histograms::Plot1D( string variable_name, int fs, int cat )
    M4lV2[fs][cat][Settings::all_resonant][Settings::H125]->SetFillColor(kRed+1);
    M4lV2[fs][cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(kAzure-9);
    M4lV2[fs][cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(kAzure);
-   M4lV2_ZX[fs][cat]->SetFillColor(kGreen + 2);
+   M4lV2_ZX_shape[fs][cat]->SetFillColor(kGreen + 2);
    
    THStack *stack = new THStack( "stack", "stack" );
-   stack->Add(M4lV2_ZX[fs][cat]);
+   stack->Add(M4lV2_ZX_shape[fs][cat]);
    stack->Add(M4lV2[fs][cat][Settings::all_resonant][Settings::ggZZ]);
    stack->Add(M4lV2[fs][cat][Settings::all_resonant][Settings::qqZZ]);
    stack->Add(M4lV2[fs][cat][Settings::all_resonant][Settings::H125]);
    
    stack->Draw("HIST");
-   
+   stack->SetMinimum(0);
+	stack->SetMaximum(40);
+	
    M4lV2[fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
    M4lV2[fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
    M4lV2[fs][cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);

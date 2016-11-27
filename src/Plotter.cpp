@@ -288,6 +288,15 @@ void Plotter::MakeHistograms( TString input_file_name )
 
 
 
+//=======================
+void Plotter::MakeM4lZX()
+{
+	blinded_histos_110_150->MakeZXShape( 4, _lumi );
+}
+//=======================
+
+
+
 //===============================================================================
 void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_file_FR_name )
 {

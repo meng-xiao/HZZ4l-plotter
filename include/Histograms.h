@@ -41,6 +41,7 @@ public:
    void RenormalizeZX( vector<float> );
    void GetHistos( string );
    void Plot1D( string, int, int );
+	void MakeZXShape(float, float);
    
 private:
 
@@ -87,7 +88,7 @@ private:
    TH1F *M4l_110150_HighKD;
    
    // Z+X
-   TH1F *M4lV2_ZX[num_of_final_states][num_of_categories];
+   TH1F *M4lV2_ZX[num_of_final_states][num_of_categories], *M4lV2_ZX_shape[num_of_final_states][num_of_categories];
    
 };
 

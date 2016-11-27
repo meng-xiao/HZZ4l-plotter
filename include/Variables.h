@@ -64,7 +64,7 @@ public:
       Int_t var_N_bin = 204;
       Float_t var_min = 70;
       Float_t var_max = 886;
-      Bool_t var_log_x = 0;
+      Bool_t var_log_x = 1;
       Bool_t var_log_y = 0;
       Int_t restrict_count_var = 0;
       Float_t var_min_factor = 0;

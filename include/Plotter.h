@@ -51,8 +51,9 @@ public:
 	Plotter();
 	~Plotter();
    
-	void MakeHistograms( TString );
+   void MakeHistograms( TString );
    void MakeHistogramsZX( TString, TString );
+   void MakeM4lZX( );
    float calculate_K_factor();
    int FindFinalState();
    int FindFinalStateZX();
@@ -74,7 +75,7 @@ private:
    
    TColor *_tclr;
 
-   TH1F* hCounters;
+   TH1F* hCounters, *M4lZXShape;
    
    Long64_t n_gen_events;
    

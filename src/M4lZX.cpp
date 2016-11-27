@@ -10,9 +10,9 @@ M4lZX::M4lZX()
    _n_entries = 1000000;
    
    // Z+X normalization from combination of SS and OS method
-   _norm_ZX_full_SR_4e    = 0.; // To be defined for the 2016 dataset
-   _norm_ZX_full_SR_4mu   = 0.; // To be defined for the 2016 dataset
-   _norm_ZX_full_SR_2e2mu = 0.; // To be defined for the 2016 dataset
+   _norm_ZX_full_SR_4e    = 9.8;
+   _norm_ZX_full_SR_4mu   = 10.2; // To be defined for the 2016 dataset
+   _norm_ZX_full_SR_2e2mu = 20.4; // To be defined for the 2016 dataset
    
    f_4e_comb    = new TF1("f_4e_comb", "landau(0)*(1 + exp( pol1(3))) + [5]*(TMath::Landau(x, [6], [7]))", 70, 1000);
    f_4mu_comb   = new TF1("f_4mu_comb","landau(0)", 70, 1000);
@@ -44,9 +44,7 @@ TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, double 
    h_full_range_2e2mu->FillRandom("f_2e2mu_comb", _n_entries);
   
    _norm_4mu = _norm_ZX_full_SR_4mu * h_full_range_4mu->Integral(h_full_range_4mu->FindBin(x_min), h_full_range_4mu->FindBin(x_max)-1) / h_full_range_4mu->Integral();
-   
    _norm_4e = _norm_ZX_full_SR_4e * h_full_range_4e->Integral(h_full_range_4e->FindBin(x_min), h_full_range_4e->FindBin(x_max)-1) / h_full_range_4e->Integral();
-  
    _norm_2e2mu = _norm_ZX_full_SR_2e2mu * h_full_range_2e2mu->Integral(h_full_range_2e2mu->FindBin(x_min), h_full_range_2e2mu->FindBin(x_max)-1) / h_full_range_2e2mu->Integral();
    
    delete h_full_range_4e;
@@ -75,7 +73,7 @@ TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, double 
    h_4l->Add(h_4mu);
    h_4l->Add(h_4e);
    h_4l->Add(h_2e2mu);
-
+	
    if ( final_state == Settings::fs4mu ) return h_4mu;
    else if (final_state == Settings::fs4e) return h_4e;
    else if (final_state == Settings::fs2e2mu) return h_2e2mu;
