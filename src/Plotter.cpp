@@ -6,7 +6,7 @@
 Plotter::Plotter():Tree()
 {
 //   blinded_histos = new Histograms();
-   blinded_histos_110_150_500 = new Histograms();
+   blinded_histos_110_150 = new Histograms();
 
    g_FR_mu_EB = 0;
    g_FR_mu_EE = 0;
@@ -64,96 +64,6 @@ Plotter::Plotter():Tree()
    _var_name.push_back("NJets");
    _var_name.push_back("NJetsBTagged");
    _var_name.push_back("M4l_100180_HighKD");
-
-   
-//   _var_X_label.push_back("m_{4#font[12]{l}} (GeV)");
-//   _var_X_label.push_back("m_{4#font[12]{l}} (GeV)");
-//   _var_X_label.push_back("m_{4#font[12]{l}} (GeV)");
-//   _var_X_label.push_back("m_{4#font[12]{l}} (GeV)");
-//   _var_X_label.push_back("m_{4#font[12]{l}} (GeV)");
-//   _var_X_label.push_back("m_{4#font[12]{l}} (GeV)");
-//   _var_X_label.push_back("m_{4#font[12]{l}} (GeV)");
-//   _var_X_label.push_back("m_{4#font[12]{l}} (GeV)");
-//   _var_X_label.push_back("m_{4#font[12]{l}} (GeV)");
-//   _var_X_label.push_back("m_{4#font[12]{l}} (GeV)");
-//   _var_X_label.push_back("m_{Z_{1}} (GeV)");
-//   _var_X_label.push_back("m_{Z_{1}} (GeV)");
-//   _var_X_label.push_back("m_{Z_{1}} (GeV)");
-//   _var_X_label.push_back("m_{Z_{2}} (GeV)");
-//   _var_X_label.push_back("m_{Z_{2}} (GeV)");
-//   _var_X_label.push_back("m_{Z_{2}} (GeV)");
-//   _var_X_label.push_back("D_{bkg}^{kin}");
-//   _var_X_label.push_back("D_{jet}");
-//   _var_X_label.push_back("D_{jet}");
-//   _var_X_label.push_back("p_{T}^{4#font[12]{l}} (GeV)");
-//   _var_X_label.push_back("#eta^{4#font[12]{l}}");
-//   _var_X_label.push_back("number of additional leptons");
-//   _var_X_label.push_back("number of jets");
-//   _var_X_label.push_back("number of b-tagged jets");
-//   _var_X_label.push_back("m_{4#font[12]{l}} (GeV)");
-//   
-//	
-//   _var_Y_label.push_back("Events / 3 GeV");
-//   _var_Y_label.push_back("Events / 4 GeV");
-//   _var_Y_label.push_back("Events / 5 GeV");
-//   _var_Y_label.push_back("Events / 10 GeV");
-//   _var_Y_label.push_back("Events / 10 GeV");
-//   _var_Y_label.push_back("Events / 4 GeV");
-//   _var_Y_label.push_back("Events / 5 GeV");
-//   _var_Y_label.push_back("Events / 3 GeV");
-//   _var_Y_label.push_back("Events / 3 GeV");
-//   _var_Y_label.push_back("Events / 20 GeV");
-//   _var_Y_label.push_back("Events / 2 GeV");
-//   _var_Y_label.push_back("Events / 2 GeV");
-//   _var_Y_label.push_back("Events / 5 GeV");
-//   _var_Y_label.push_back("Events / 2 GeV");
-//   _var_Y_label.push_back("Events / 2 GeV");
-//   _var_Y_label.push_back("Events / 5 GeV");
-//   _var_Y_label.push_back("Events / 0.05 GeV");
-//   _var_Y_label.push_back("Events / 0.1 GeV");
-//   _var_Y_label.push_back("Events / 0.05 GeV");
-//   _var_Y_label.push_back("Events / 10 GeV");
-//   _var_Y_label.push_back("Events / 0.5 GeV");
-//   _var_Y_label.push_back("Events");
-//   _var_Y_label.push_back("Events");
-//   _var_Y_label.push_back("Events");
-//   _var_Y_label.push_back("Events / 3 GeV");
-//
-//	
-//   _var_cut_label = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "D_{bkg}^{kin} > 0.5" };
-//   
-//   _var_N_bin = { 272, 204, 163, 82, 82, 10, 8, 13, 37, 30, 40, 40, 30, 54, 54, 30, 20, 20, 20, 40, 20, 6, 17, 8, 27 };
-//   
-//	_var_min = { 70, 70, 70, 70, 70, 70, 70, 70, 70, 150, 40, 40, 0, 12, 12, 0, 0, 0, 0, 0, -10, 0, 0, 0, 100 };
-//   _var_max = { 886, 886, 885, 890, 890, 110, 110, 109, 181, 750, 120, 120, 150, 120, 120, 150, 1, 2, 1, 400, 10, 6, 17, 8, 181 };
-//	
-//   _var_log_x = { 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-//	_var_log_y = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0 };
-//  
-//   _restrict_count_var = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4, 2, 0 };
-//   
-//   _var_min_factor = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2000, 0, 0, 2000, 0, 0, 0, 0, 0, 0, 1000000, 2000, 100000, 0 };
-//	
-//   _var_CMS_pos = { 33, 33, 33, 33, 33, 11, 11, 11, 33, 33, 33, 33, 33, 33, 33, 33, 11, 33, 33, 33, 11, 11, 11, 11, 11 };
-//   
-//   _var_leg_pos = { 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 11, 11, 11, 11, 11, 11, 33, 33, 33, 33, 33, 33, 33, 33, 33 };
-//   
-//   _rebinning = { 16, 1, 1, 8, 1, 2, 2, 1, 1, 3, 5, 5, 2, 5, 5, 2, 4, 4, 4, 2, 2, 1, 1, 1, 1 };
-
-   bool plot_this_var[4][_n_variables] = {
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},
-		{0,1,0,0,0,1,0,0,0,1,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0,},
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,},
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,},
-	};
-	
-   float var_max_corrector[_n_blindings][_n_variables] = {
-		{ 1. , 1., 1., 1., 1., 1.3, 1., 1., 1., 1., 1., 1., 1., 1. , 1., 1. , 1.3, 1., 1., 1., 1.4, 1.,  1., 1., 1. , },
-		{ 1. , 1., 1., 1., 1., 1. , 1., 1., 1., 1., 1., 1., 1., 1. , 1., 1. , 1.1, 1., 1., 1., 1. , 1.,  1., 1., 1. , },
-		{ 1.2, 1., 1., 1., 1., 1. , 1., 1., 1., 1., 1., 1., 1., 1. , 1., 1. , 1.1, 1., 1., 1., 1. , 1., 10., 1., 1. , },
-		{ 1. , 1., 1., 1., 1., 1. , 1., 1., 1., 1., 1., 1., 1., 1. , 1., 1. , 1.1, 1., 1., 1., 1.5, 1., 10., 1., 1.6, },
-		{ 1. , 1., 1., 1., 1., 1. , 1., 1., 1., 1., 1., 1., 1., 1. , 1., 1. , 1.1, 1., 1., 1., 1. , 1.,  5., 1., 1.   }
-	};
 
    _var_pair_name.push_back("M4lVsKD");
    _var_pair_name.push_back("M4lVsKD_M4L70110");
@@ -306,7 +216,6 @@ void Plotter::MakeHistograms( TString input_file_name )
    hCounters = (TH1F*)input_file->Get("ZZTree/Counters");
    n_gen_events = (Long64_t)hCounters->GetBinContent(1);
    gen_sum_weights = (Long64_t)hCounters->GetBinContent(40);
-   partial_sample_weight = _lumi * 1000 / gen_sum_weights;
    
    input_tree = (TTree*)input_file->Get("ZZTree/candTree");
    Init(input_tree);
@@ -360,7 +269,7 @@ void Plotter::MakeHistograms( TString input_file_name )
       if ( APPLY_K_FACTORS ) _k_factor = calculate_K_factor();
    
       // Final event weight
-      _event_weight = partial_sample_weight * xsec * _k_factor * overallEventWeight;
+      _event_weight = (_lumi * 1000 * xsec * _k_factor * overallEventWeight) / gen_sum_weights;
    
    
       // Fill histograms
@@ -368,10 +277,10 @@ void Plotter::MakeHistograms( TString input_file_name )
       {
 //         blinded_histos->FillM4l( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       }
-      if ( (_current_process == Settings::Data && (ZZMass < 110 || (ZZMass > 150 && ZZMass < 500))) || _current_process != Settings::Data )
-      {
-         blinded_histos_110_150_500->FillM4l( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-      }
+      if ( (_current_process == Settings::Data && (ZZMass < 110 || ZZMass > 150)) || _current_process != Settings::Data )
+       {
+           blinded_histos_110_150->FillM4l( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+       }
    } // end for loop
    
 }
@@ -421,7 +330,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       // cout << "[INFO] Filling Z+X histograms..." << endl;
    
 //      blinded_histos->FillM4lZX( ZZMass, _yield_SR, _current_final_state, _current_category );
-      blinded_histos_110_150_500->FillM4lZX( ZZMass, _yield_SR, _current_final_state, _current_category);
+      blinded_histos_110_150->FillM4lZX( ZZMass, _yield_SR, _current_final_state, _current_category);
    
       _expected_yield_SR.at(_current_final_state) += _yield_SR;
       _number_of_events_CR.at(_current_final_state)++;
@@ -448,7 +357,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
    if ( SMOOTH_ZX_FULL_RUN2_SS )
    {
       cout << "[INFO] Smoothing Z+X histograms..." << endl;
-      blinded_histos_110_150_500->SmoothHistograms();
+      blinded_histos_110_150->SmoothHistograms();
    }
    
    // Renormalize Z+X histograms
@@ -457,7 +366,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       if ( MERGE_2E2MU )
       {
          cout << "[INFO] Renormalizing Z+X histograms..." << endl;
-         blinded_histos_110_150_500->RenormalizeZX( _expected_yield_SR );
+         blinded_histos_110_150->RenormalizeZX( _expected_yield_SR );
       }
    }
 
@@ -470,7 +379,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
 //=========================================
 void Plotter::GetHistos( string file_name )
 {
-   blinded_histos_110_150_500->GetHistos( file_name );
+   blinded_histos_110_150->GetHistos( file_name );
 }
 //=========================================
 
@@ -480,7 +389,7 @@ void Plotter::GetHistos( string file_name )
 void Plotter::FillInclusive()
 {
 //   blinded_histos->FillInclusive();
-   blinded_histos_110_150_500->FillInclusive();
+   blinded_histos_110_150->FillInclusive();
 }
 //===========================
 
@@ -490,7 +399,7 @@ void Plotter::FillInclusive()
 void Plotter::Save()
 {
 //   blinded_histos->SaveHistos("Blinded_test.root");
-   blinded_histos_110_150_500->SaveHistos("Blinded_110_150_500_test.root");
+   blinded_histos_110_150->SaveHistos("Blinded_110_150_test.root");
 }
 //==================
 
@@ -499,7 +408,7 @@ void Plotter::Save()
 //==================
 void Plotter::Plot1D( string variable_name, int fs, int cat )
 {
-   blinded_histos_110_150_500->Plot1D( variable_name, fs, cat );
+   blinded_histos_110_150->Plot1D( variable_name, fs, cat );
 }
 //==================
 

@@ -1,7 +1,7 @@
 # HZZ4l-plotter
 HZZ4l plotter
 
-Please use CMSSW_8_0_8.
+Please use CMSSW_8_0_21.
 
 Download and execute the setup script:
 ```
@@ -21,7 +21,7 @@ git pull
 Installation:
 ------------------------------
 ```
-cd ext
+cd ext/
 sh compile_ext.sh
 cd ..
 source set_library.sh

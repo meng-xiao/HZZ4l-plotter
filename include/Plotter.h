@@ -70,7 +70,7 @@ private:
    
    TGraph *g_FR_mu_EB, *g_FR_mu_EE, *g_FR_e_EB, *g_FR_e_EE;
 
-   Histograms *blinded_histos, *unblinded_histos, *blinded_histos_110, *blinded_histos_150, *blinded_histos_110_150_500;
+   Histograms *blinded_histos, *unblinded_histos, *blinded_histos_110_150;
    
    TColor *_tclr;
 

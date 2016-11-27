@@ -341,13 +341,11 @@ void Histograms::Plot1D( string variable_name, int fs, int cat )
    
    THStack *stack = new THStack( "stack", "stack" );
    stack->Add(M4lV2_ZX[fs][cat]);
-	stack->Add(M4lV2[fs][cat][Settings::all_resonant][Settings::ggZZ]);
-	stack->Add(M4lV2[fs][cat][Settings::all_resonant][Settings::qqZZ]);
-	stack->Add(M4lV2[fs][cat][Settings::all_resonant][Settings::H125]);
+   stack->Add(M4lV2[fs][cat][Settings::all_resonant][Settings::ggZZ]);
+   stack->Add(M4lV2[fs][cat][Settings::all_resonant][Settings::qqZZ]);
+   stack->Add(M4lV2[fs][cat][Settings::all_resonant][Settings::H125]);
    
    stack->Draw("HIST");
-   stack->SetMinimum(0);
-   stack->SetMaximum(5);
    
    M4lV2[fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
    M4lV2[fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
