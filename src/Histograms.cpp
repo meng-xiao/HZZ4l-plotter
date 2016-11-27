@@ -104,10 +104,11 @@ void Histograms::FillM4lZX( float M4l, float weight, int fs, int cat )
 
 
 //====================================================================================
-void Histograms::MakeZXShape( float current_final_state, float lumi )
+void Histograms::MakeZXShape( int current_final_state, int current_category, float lumi )
 {
 	M4lZX *ZXShape = new M4lZX();
-   M4lV2_ZX_shape[4][6]->Add(ZXShape->GetM4lZX(Variables::M4lV2().var_N_bin, Variables::M4lV2().var_min, Variables::M4lV2().var_max, current_final_state, lumi));
+    current_final_state = (current_final_state==3) ? 2 : current_final_state;
+   M4lV2_ZX_shape[current_final_state][current_category]->Add(ZXShape->GetM4lZX(Variables::M4lV2().var_N_bin, Variables::M4lV2().var_min, Variables::M4lV2().var_max, current_final_state, current_category, lumi));
 }
 //====================================================================================
 
@@ -365,7 +366,7 @@ void Histograms::Plot1D( string variable_name, int fs, int cat )
    
    stack->Draw("HIST");
    stack->SetMinimum(0);
-	stack->SetMaximum(40);
+   stack->SetMaximum(2);
 	
    M4lV2[fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
    M4lV2[fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);

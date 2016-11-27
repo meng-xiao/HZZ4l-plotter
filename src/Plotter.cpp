@@ -291,7 +291,14 @@ void Plotter::MakeHistograms( TString input_file_name )
 //=======================
 void Plotter::MakeM4lZX()
 {
-	blinded_histos_110_150->MakeZXShape( 4, _lumi );
+    for (int i_fs = 0; i_fs < num_of_final_states; i_fs++)
+    {
+        for(int i_cat = 0; i_cat < num_of_categories; i_cat++)
+        {
+            blinded_histos_110_150->MakeZXShape( i_fs, i_cat, _lumi );
+        }
+    }
+	
 }
 //=======================
 

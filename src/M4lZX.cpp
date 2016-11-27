@@ -1,5 +1,6 @@
 // Include classes
 #include "M4lZX.h"
+#include "ZXVariables.h"
 
 using namespace std;
 
@@ -18,9 +19,9 @@ M4lZX::M4lZX()
    f_4mu_comb   = new TF1("f_4mu_comb","landau(0)", 70, 1000);
    f_2e2mu_comb = new TF1("f_2e2mu_comb","landau(0)", 70, 1000);
 
-   f_4e_comb->SetParameters(4.404e-05, 151.2, 36.6, 7.06, -0.00497, 0.01446, 157.3, 26.00);
-   f_4mu_comb->SetParameters(0.04276, 134.6, 24.4);
-   f_2e2mu_comb->SetParameters(0.04130, 144.5, 25.3);
+   f_4e_comb->SetParameters(ZXVariables::ZX4e().par0, ZXVariables::ZX4e().par1, ZXVariables::ZX4e().par2, ZXVariables::ZX4e().par3, ZXVariables::ZX4e().par4, ZXVariables::ZX4e().par5, ZXVariables::ZX4e().par6, ZXVariables::ZX4e().par7);
+   f_4mu_comb->SetParameters(ZXVariables::ZX4mu().par0, ZXVariables::ZX4mu().par1, ZXVariables::ZX4mu().par2);
+   f_2e2mu_comb->SetParameters(ZXVariables::ZX2e2mu().par0, ZXVariables::ZX2e2mu().par1, ZXVariables::ZX2e2mu().par2);
 
    h_full_range_4mu   = new TH1F("h_full_range_4mu"  , ";;", 1000, 0, 1000);
    h_full_range_4e    = new TH1F("h_full_range_4e"   , ";;", 1000, 0, 1000);
@@ -36,13 +37,15 @@ M4lZX::~M4lZX() {}
 
 
 //===================================================================================
-TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, double lumi)
+TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, int category, double lumi)
 {
 
    h_full_range_4mu  ->FillRandom("f_4mu_comb"  , _n_entries);
    h_full_range_4e   ->FillRandom("f_4e_comb"   , _n_entries);
    h_full_range_2e2mu->FillRandom("f_2e2mu_comb", _n_entries);
   
+    SetNormalization(category);
+    
    _norm_4mu = _norm_ZX_full_SR_4mu * h_full_range_4mu->Integral(h_full_range_4mu->FindBin(x_min), h_full_range_4mu->FindBin(x_max)-1) / h_full_range_4mu->Integral();
    _norm_4e = _norm_ZX_full_SR_4e * h_full_range_4e->Integral(h_full_range_4e->FindBin(x_min), h_full_range_4e->FindBin(x_max)-1) / h_full_range_4e->Integral();
    _norm_2e2mu = _norm_ZX_full_SR_2e2mu * h_full_range_2e2mu->Integral(h_full_range_2e2mu->FindBin(x_min), h_full_range_2e2mu->FindBin(x_max)-1) / h_full_range_2e2mu->Integral();
@@ -80,9 +83,14 @@ TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, double 
    else if (final_state == Settings::num_of_final_states - 1) return h_4l;
    else
    {
-      cout << "[ERROR] Computing Z+X histogram: wrong final state" << endl;
+      cout << "[ERROR] Computing Z+X histogram: wrong final state: " << final_state << endl;
       abort();
    }
+    
+    delete h_4mu;
+    delete h_4e;
+    delete h_2e2mu;
+    delete h_4l;
 
 }
 //===================================================================================
@@ -93,5 +101,58 @@ TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, double 
 void M4lZX::RenormalizeZX( vector<float> expected_yield_SR, TH1F* M4lV1_ZX )
 {
    // TBD
+}
+//==========================================================================
+
+//==========================================================================
+void M4lZX::SetNormalization( int category)
+{
+    switch (category) {
+        case 0:
+        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_untagged;
+        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_untagged;
+        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_untagged;
+        break;
+        
+        case 1:
+        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_VBF_1j_tagged;
+        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_VBF_1j_tagged;
+        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_VBF_1j_tagged;
+        break;
+        
+        case 2:
+        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_VBF_2j_tagged;
+        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_VBF_2j_tagged;
+        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_VBF_2j_tagged;
+        break;
+        
+        case 3:
+        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_VH_lepton_tagged;
+        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_VH_lepton_tagged;
+        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_VH_lepton_tagged;
+        break;
+        
+        case 4:
+        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_VH_hadron_tagged;
+        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_VH_hadron_tagged;
+        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_VH_hadron_tagged;
+        break;
+        
+        case 5:
+        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_ttH_tagged;
+        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_ttH_tagged;
+        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_ttH_tagged;
+        break;
+        
+        case 6:
+        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_inclusive;
+        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_inclusive;
+        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_inclusive;
+        break;
+        
+        default:
+        break;
+    }
+
 }
 //==========================================================================

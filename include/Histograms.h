@@ -41,7 +41,7 @@ public:
    void RenormalizeZX( vector<float> );
    void GetHistos( string );
    void Plot1D( string, int, int );
-	void MakeZXShape(float, float);
+   void MakeZXShape(int, int, float);
    
 private:
 

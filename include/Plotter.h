@@ -53,7 +53,7 @@ public:
    
    void MakeHistograms( TString );
    void MakeHistogramsZX( TString, TString );
-   void MakeM4lZX( );
+   void MakeM4lZX();
    float calculate_K_factor();
    int FindFinalState();
    int FindFinalStateZX();
@@ -75,7 +75,7 @@ private:
    
    TColor *_tclr;
 
-   TH1F* hCounters, *M4lZXShape;
+   TH1F* hCounters;
    
    Long64_t n_gen_events;
    

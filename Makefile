@@ -19,7 +19,8 @@ SRCPP = run.cpp\
 		  Settings.cpp\
 		  M4lZX.cpp\
 		  FakeRates.cpp\
-		  Category.cpp
+		  Category.cpp\
+		  ZXVariables.cpp
          
 OBJCPP = $(patsubst %.cpp,obj/%.o,$(SRCPP))
 

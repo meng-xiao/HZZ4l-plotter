@@ -45,30 +45,30 @@ int main( int argc, char *argv[] )
    TString ggZZ2mu2tau = path + "ggTo2mu2tau" + file_name;
    TString FakeRates   = path + "FakeRates" + file_name_FR;
 
-	Plotter *plotter = new Plotter();   
+   Plotter *plotter = new Plotter();
   
-   plotter->MakeHistograms(Data);
-   plotter->MakeHistograms(ggH125);
-   plotter->MakeHistograms(VBFH125);
-   plotter->MakeHistograms(ZH125);
-   plotter->MakeHistograms(ttH125);
-   plotter->MakeHistograms(ZZTo4l);
-   plotter->MakeHistograms(ggZZ4e);
-   plotter->MakeHistograms(ggZZ4mu);
-   plotter->MakeHistograms(ggZZ4tau);
-   plotter->MakeHistograms(ggZZ2e2mu);
-   plotter->MakeHistograms(ggZZ2e2tau);
-   plotter->MakeHistograms(ggZZ2mu2tau);
-   
-   plotter->MakeHistogramsZX(Data, FakeRates);
-   plotter->MakeM4lZX();
-   
-   plotter->FillInclusive();
-
-   plotter->Save();
+//   plotter->MakeHistograms(Data);
+//   plotter->MakeHistograms(ggH125);
+//   plotter->MakeHistograms(VBFH125);
+//   plotter->MakeHistograms(ZH125);
+//   plotter->MakeHistograms(ttH125);
+//   plotter->MakeHistograms(ZZTo4l);
+//   plotter->MakeHistograms(ggZZ4e);
+//   plotter->MakeHistograms(ggZZ4mu);
+//   plotter->MakeHistograms(ggZZ4tau);
+//   plotter->MakeHistograms(ggZZ2e2mu);
+//   plotter->MakeHistograms(ggZZ2e2tau);
+//   plotter->MakeHistograms(ggZZ2mu2tau);
+//   
+//   plotter->MakeHistogramsZX(Data, FakeRates);
+//   plotter->MakeM4lZX();
+//   
+//   plotter->FillInclusive();
+//
+//   plotter->Save();
    
    plotter->GetHistos( "Blinded_110_150_test.root" );
-   plotter->Plot1D( "M4lV1b", 4, 6 );
+   plotter->Plot1D( "M4lV1b", 4, 1 );
    
    
    
