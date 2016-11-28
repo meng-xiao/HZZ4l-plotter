@@ -67,16 +67,9 @@ int main( int argc, char *argv[] )
 
    plotter->Save();
    
-   plotter->GetHistos( "Blinded_110_150_test.root" );
-   plotter->Plot1D_single( "M4lMain", 4, 6 );
-   plotter->Plot1D_all( "M4lMain");
+   plotter->GetHistos( "Blinded" );
+   plotter->Plot1D_all( "Blinded", "Plots/M4l_main_blinded_");
     
-   plotter->GetHistos( "Unblinded_test.root" );
-   plotter->Plot1D_all( "M4lMain_unblinded");
-
-   
-   
-   
-//   cout << Variables::M4lV2().var_Y_label << endl;
-   
+   plotter->GetHistos( "Unblinded" );
+   plotter->Plot1D_all( "Unblinded", "Plots/M4l_main_" );
 }

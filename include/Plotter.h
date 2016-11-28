@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iomanip> // For setprecision
 #include <vector>
+#include <map>
 
 // ROOT
 #include "TApplication.h"
@@ -61,9 +62,9 @@ public:
    int find_resonant_status();
    void FillInclusive();
    void Save();
-   void GetHistos( string );
-   void Plot1D_single( string, int, int );
-   void Plot1D_all( string);
+   void GetHistos( TString );
+   void Plot1D_single( TString, TString, int, int );
+   void Plot1D_all( TString, TString);
    
 private:
 
@@ -72,7 +73,9 @@ private:
    
    TGraph *g_FR_mu_EB, *g_FR_mu_EE, *g_FR_e_EB, *g_FR_e_EE;
 
-   Histograms *blinded_histos, *unblinded_histos, *blinded_histos_110_150;
+   Histograms *blinded_histos, *unblinded_histos;
+   
+   map<TString, Histograms*> histo_map;
    
    TColor *_tclr;
 

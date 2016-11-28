@@ -300,12 +300,12 @@ void Histograms::SaveHistos( string file_name )
 
 
 //============================================
-void Histograms::GetHistos( string file_name )
+void Histograms::GetHistos( TString file_name )
 {
 
    cout << "[INFO] Getting histograms from ROOT file." << endl;
    
-   TFile* histo_file = TFile::Open(file_name.c_str());
+   TFile* histo_file = TFile::Open(file_name);
 
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
    {
@@ -345,10 +345,10 @@ void Histograms::GetHistos( string file_name )
 
 
 //============================================
-void Histograms::Plot1D_single( string variable_name, int fs, int cat )
+void Histograms::Plot1D_single( TString variable_name, int fs, int cat )
 {
    
-   TCanvas *c = new TCanvas(variable_name.c_str(), variable_name.c_str(), 500, 500);
+   TCanvas *c = new TCanvas(variable_name, variable_name, 500, 500);
    
    if ( Variables::M4lMain().var_log_x ) c->SetLogx(); // Generalize
    if ( Variables::M4lMain().var_log_y ) c->SetLogy(); // Generalize
@@ -374,50 +374,53 @@ void Histograms::Plot1D_single( string variable_name, int fs, int cat )
 
    M4lMain[fs][cat][Settings::all_resonant][Settings::Data]->Draw("SAMEpE");
 
-   c->SaveAs(variable_name.c_str());
+   c->SaveAs(variable_name + ".root");
+   c->SaveAs(variable_name + ".pdf");
 }
 //============================================
 
 
 
 //============================================
-void Histograms::Plot1D_all( string variable_name )
+void Histograms::Plot1D_all( TString variable_name )
 {
     
-    TCanvas *c = new TCanvas(variable_name.c_str(), variable_name.c_str(), 500, 500);
+   TCanvas *c = new TCanvas(variable_name, variable_name, 500, 500);
     
-    if ( Variables::M4lMain().var_log_x ) c->SetLogx(); // Generalize
-    if ( Variables::M4lMain().var_log_y ) c->SetLogy(); // Generalize
+   if ( Variables::M4lMain().var_log_x ) c->SetLogx(); // Generalize
+   if ( Variables::M4lMain().var_log_y ) c->SetLogy(); // Generalize
     
-    for( int i_cat = 0; i_cat < num_of_categories; i_cat++)
-    {
+   for( int i_cat = 0; i_cat < num_of_categories; i_cat++)
+   {     
+      M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]->SetFillColor(kRed+1);
+      M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(kAzure-9);
+      M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(kAzure);
+      M4lMain_ZX_shape[Settings::fs4l][i_cat]->SetFillColor(kGreen + 2);
         
-        M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]->SetFillColor(kRed+1);
-        M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(kAzure-9);
-        M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(kAzure);
-        M4lMain_ZX_shape[Settings::fs4l][i_cat]->SetFillColor(kGreen + 2);
+      THStack *stack = new THStack( "stack", "stack" );
+      stack->Add(M4lMain_ZX_shape[Settings::fs4l][i_cat]);
+      stack->Add(M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]);
+      stack->Add(M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]);
+      stack->Add(M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]);
         
-        THStack *stack = new THStack( "stack", "stack" );
-        stack->Add(M4lMain_ZX_shape[Settings::fs4l][i_cat]);
-        stack->Add(M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]);
-        stack->Add(M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]);
-        stack->Add(M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]);
+      stack->Draw("HIST");
+      stack->SetMinimum(0);
+      stack->SetMaximum(46);
         
-        stack->Draw("HIST");
-        stack->SetMinimum(0);
-        stack->SetMaximum(46);
+      M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
+      M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
+      M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
         
-        M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
-        M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
-        M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
+      M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Draw("SAMEpE");
         
-        M4lMain[Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Draw("SAMEpE");
+      stringstream ss;
+      ss << variable_name << i_cat;
         
-        stringstream ss;
-        ss << variable_name << i_cat << ".pdf" ;
-        c->SaveAs(ss.str().c_str());
-        c->SaveAs("Test.root");
-
-    }
+      c->SaveAs((ss.str() + ".pdf").c_str());
+      c->SaveAs((ss.str() + ".png").c_str());
+      c->SaveAs((ss.str() + ".jpeg").c_str());
+      c->SaveAs((ss.str() + ".root").c_str());
+      c->SaveAs((ss.str() + ".C").c_str());
+      c->SaveAs((ss.str() + ".eps").c_str());
+   }
 }
-

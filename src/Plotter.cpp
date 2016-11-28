@@ -6,7 +6,10 @@
 Plotter::Plotter():Tree()
 {
    unblinded_histos = new Histograms();
-   blinded_histos_110_150 = new Histograms();
+   blinded_histos = new Histograms();
+   
+   histo_map["Unblinded"] = unblinded_histos;
+   histo_map["Blinded"] = blinded_histos;
 
    g_FR_mu_EB = 0;
    g_FR_mu_EE = 0;
@@ -266,7 +269,7 @@ void Plotter::MakeHistograms( TString input_file_name )
       // Fill histograms
       if ( (_current_process == Settings::Data && (ZZMass < 110 || ZZMass > 150)) || _current_process != Settings::Data )
        {
-           blinded_histos_110_150->FillM4l( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+           blinded_histos->FillM4l( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
        }
        
        unblinded_histos->FillM4l( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
@@ -284,7 +287,7 @@ void Plotter::MakeM4lZX()
     {
         for(int i_cat = 0; i_cat < num_of_categories; i_cat++)
         {
-            blinded_histos_110_150->MakeZXShape( i_fs, i_cat, _lumi );
+            blinded_histos->MakeZXShape( i_fs, i_cat, _lumi );
             unblinded_histos->MakeZXShape( i_fs, i_cat, _lumi);
         }
     }
@@ -335,7 +338,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       // cout << "[INFO] Filling Z+X histograms..." << endl;
    
       unblinded_histos->FillM4lZX( ZZMass, _yield_SR, _current_final_state, _current_category );
-      blinded_histos_110_150->FillM4lZX( ZZMass, _yield_SR, _current_final_state, _current_category);
+      blinded_histos->FillM4lZX( ZZMass, _yield_SR, _current_final_state, _current_category);
    
       _expected_yield_SR.at(_current_final_state) += _yield_SR;
       _number_of_events_CR.at(_current_final_state)++;
@@ -362,12 +365,12 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
    if ( SMOOTH_ZX_FULL_RUN2_SS )
    {
       cout << "[INFO] Smoothing Z+X histograms..." << endl;
-      blinded_histos_110_150->SmoothHistograms();
+      blinded_histos->SmoothHistograms();
       unblinded_histos->SmoothHistograms();
    }
     
    unblinded_histos->RenormalizeZX();
-   blinded_histos_110_150->RenormalizeZX();
+   blinded_histos->RenormalizeZX();
     
     
 }
@@ -376,10 +379,9 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
 
 
 //=========================================
-void Plotter::GetHistos( string file_name )
+void Plotter::GetHistos( TString file_name )
 {
-   blinded_histos_110_150->GetHistos( file_name );
-   unblinded_histos->GetHistos( file_name);
+   histo_map[file_name]->GetHistos( file_name + ".root" );
 }
 //=========================================
 
@@ -389,7 +391,7 @@ void Plotter::GetHistos( string file_name )
 void Plotter::FillInclusive()
 {
    unblinded_histos->FillInclusive();
-   blinded_histos_110_150->FillInclusive();
+   blinded_histos->FillInclusive();
 }
 //===========================
 
@@ -398,26 +400,24 @@ void Plotter::FillInclusive()
 //==================
 void Plotter::Save()
 {
-   unblinded_histos->SaveHistos("Unblinded_test.root");
-   blinded_histos_110_150->SaveHistos("Blinded_110_150_test.root");
+   unblinded_histos->SaveHistos("Unblinded.root");
+   blinded_histos->SaveHistos("Blinded.root");
 }
 //==================
 
 
 
 //==================
-void Plotter::Plot1D_single( string variable_name, int fs, int cat )
+void Plotter::Plot1D_single( TString file_name, TString variable_name, int fs, int cat )
 {
-   blinded_histos_110_150->Plot1D_single( variable_name, fs, cat );
-   unblinded_histos->Plot1D_single( variable_name, fs, cat);
+   histo_map[file_name]->Plot1D_single( variable_name, fs, cat );   
 }
 //==================
 
 //==================
-void Plotter::Plot1D_all( string variable_name)
+void Plotter::Plot1D_all( TString file_name, TString variable_name)
 {
-    blinded_histos_110_150->Plot1D_all( variable_name);
-    unblinded_histos->Plot1D_all( variable_name);
+   histo_map[file_name]->Plot1D_all( variable_name);   
 }
 //==================
 

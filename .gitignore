@@ -8,6 +8,10 @@
 
 *.root
 *.pdf
+*.png
+*.jpeg
+*.C
+*.eps
 
 ICHEP_2016/*.sh
 

@@ -39,9 +39,9 @@ public:
    void FillInclusive();
    void SmoothHistograms();
    void RenormalizeZX();
-   void GetHistos( string );
-   void Plot1D_single( string, int, int );
-   void Plot1D_all( string);
+   void GetHistos( TString );
+   void Plot1D_single( TString, int, int );
+   void Plot1D_all( TString );
    void MakeZXShape(int, int, float);
    
 private:
