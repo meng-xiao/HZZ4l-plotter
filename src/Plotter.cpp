@@ -248,7 +248,6 @@ void Plotter::MakeHistograms( TString input_file_name )
       _current_final_state = FindFinalState();
    
       // Categories
-   
       for ( int j = 0; j < nCleanedJetsPt30; j++)
       {
          jetPt[j] = JetPt->at(j);
@@ -298,7 +297,6 @@ void Plotter::MakeM4lZX()
             blinded_histos_110_150->MakeZXShape( i_fs, i_cat, _lumi );
         }
     }
-	
 }
 //=======================
 
@@ -461,7 +459,7 @@ float Plotter::calculate_K_factor()
    
    if ( _current_process == Settings::qqZZ )
    {
-//      k_factor = KFactor_EW_qqZZ * KFactor_QCD_qqZZ_M; // As of Moriond2016
+      k_factor = KFactor_EW_qqZZ * KFactor_QCD_qqZZ_M; // As of Moriond2016
    }
    else if ( _current_process == Settings::ggZZ )
    {

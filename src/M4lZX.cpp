@@ -14,18 +14,17 @@ M4lZX::M4lZX()
     _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_combined;
     _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_combined;
    
-   f_4e_comb    = new TF1("f_4e_comb", "landau(0)*(1 + exp( pol1(3))) + [5]*(TMath::Landau(x, [6], [7]))", 70, 1000);
-   f_4mu_comb   = new TF1("f_4mu_comb","landau(0)", 70, 1000);
-   f_2e2mu_comb = new TF1("f_2e2mu_comb","landau(0)", 70, 1000);
+   f_4e_comb    = new TF1("f_4e_comb", "TMath::Landau(x, [0], [1])", 70, 3000);
+   f_4mu_comb   = new TF1("f_4mu_comb","TMath::Landau(x, [0], [1])", 70, 3000);
+   f_2e2mu_comb = new TF1("f_2e2mu_comb","[0]*TMath::Landau(x, [1], [2]) + [3]*TMath::Landau(x, [4], [5])", 70, 3000);
 
-   f_4e_comb->SetParameters(ZXVariables::ZX4e().par0, ZXVariables::ZX4e().par1, ZXVariables::ZX4e().par2, ZXVariables::ZX4e().par3, ZXVariables::ZX4e().par4, ZXVariables::ZX4e().par5, ZXVariables::ZX4e().par6, ZXVariables::ZX4e().par7);
-   f_4mu_comb->SetParameters(ZXVariables::ZX4mu().par0, ZXVariables::ZX4mu().par1, ZXVariables::ZX4mu().par2);
-   f_2e2mu_comb->SetParameters(ZXVariables::ZX2e2mu().par0, ZXVariables::ZX2e2mu().par1, ZXVariables::ZX2e2mu().par2);
+   f_4e_comb->SetParameters(ZXVariables::ZX4e().par0, ZXVariables::ZX4e().par1);
+   f_4mu_comb->SetParameters(ZXVariables::ZX4mu().par0, ZXVariables::ZX4mu().par1);
+   f_2e2mu_comb->SetParameters(ZXVariables::ZX2e2mu().par0, ZXVariables::ZX2e2mu().par1, ZXVariables::ZX2e2mu().par2, ZXVariables::ZX2e2mu().par3, ZXVariables::ZX2e2mu().par4, ZXVariables::ZX2e2mu().par5);
 
-   h_full_range_4mu   = new TH1F("h_full_range_4mu"  , ";;", 1000, 0, 1000);
-   h_full_range_4e    = new TH1F("h_full_range_4e"   , ";;", 1000, 0, 1000);
-   h_full_range_2e2mu = new TH1F("h_full_range_2e2mu", ";;", 1000, 0, 1000);
-   
+   h_full_range_4mu   = new TH1F("h_full_range_4mu"  , ";;", 2930, 70, 3000);
+   h_full_range_4e    = new TH1F("h_full_range_4e"   , ";;", 2930, 70, 3000);
+   h_full_range_2e2mu = new TH1F("h_full_range_2e2mu", ";;", 2930, 70, 3000);   
 }
 //=====================
 

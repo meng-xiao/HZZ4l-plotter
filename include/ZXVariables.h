@@ -26,14 +26,8 @@ public:
        float norm_ttH_tagged       = 0.193 * N;
        
        
-       float par0 = 4.404e-05;
-       float par1 = 151.2;
-       float par2 = 36.6;
-       float par3 = 7.06;
-       float par4 = -0.00497;
-       float par5 = 0.01446;
-       float par6 = 157.3;
-       float par7 = 26.00;
+       float par0 = 141.9;
+       float par1 = 21.3;
    };
     
     struct ZX4mu
@@ -49,10 +43,9 @@ public:
         float norm_ttH_tagged       = 0.193 * N;
         
         
-        float par0 = 0.04276;
-        float par1 = 134.6;
-        float par2 = 24.4;
-    };
+        float par0 = 130.4;
+        float par1 = 15.6;
+     };
    
     struct ZX2e2mu
     {
@@ -67,9 +60,12 @@ public:
         float norm_ttH_tagged       = (0.319 + 0.203) * N;
         
         
-        float par0 = 0.04130;
-        float par1 = 144.5;
-        float par2 = 25.3;
+        float par0 = 0.45;
+        float par1 = 131.1;
+        float par2 = 18.1;
+        float par3 = 0.55;
+        float par4 = 133.8;
+        float par5 = 18.9;        
     };
 private:
 

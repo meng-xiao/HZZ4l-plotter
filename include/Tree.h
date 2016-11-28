@@ -218,6 +218,11 @@ public :
    Float_t         KFactor_QCD_ggZZ_AsUp;
    Float_t         KFactor_QCD_ggZZ_PDFReplicaDn;
    Float_t         KFactor_QCD_ggZZ_PDFReplicaUp;
+   Float_t         KFactor_EW_qqZZ;
+   Float_t         KFactor_EW_qqZZ_unc;
+   Float_t         KFactor_QCD_qqZZ_dPhi;
+   Float_t         KFactor_QCD_qqZZ_M;
+   Float_t         KFactor_QCD_qqZZ_Pt;
    Short_t         genFinalState;
    Int_t           genProcessId;
    Float_t         genHEPMCweight;
@@ -469,6 +474,11 @@ public :
    TBranch        *b_KFactor_QCD_ggZZ_AsUp;   //!
    TBranch        *b_KFactor_QCD_ggZZ_PDFReplicaDn;   //!
    TBranch        *b_KFactor_QCD_ggZZ_PDFReplicaUp;   //!
+   TBranch        *b_KFactor_EW_qqZZ;   //!
+   TBranch        *b_KFactor_EW_qqZZ_unc;   //!
+   TBranch        *b_KFactor_QCD_qqZZ_dPhi;   //!
+   TBranch        *b_KFactor_QCD_qqZZ_M;   //!
+   TBranch        *b_KFactor_QCD_qqZZ_Pt;   //!
    TBranch        *b_genFinalState;   //!
    TBranch        *b_genProcessId;   //!
    TBranch        *b_genHEPMCweight;   //!
@@ -822,6 +832,11 @@ void Tree::Init(TTree *tree)
    fChain->SetBranchAddress("KFactor_QCD_ggZZ_AsUp", &KFactor_QCD_ggZZ_AsUp, &b_KFactor_QCD_ggZZ_AsUp);
    fChain->SetBranchAddress("KFactor_QCD_ggZZ_PDFReplicaDn", &KFactor_QCD_ggZZ_PDFReplicaDn, &b_KFactor_QCD_ggZZ_PDFReplicaDn);
    fChain->SetBranchAddress("KFactor_QCD_ggZZ_PDFReplicaUp", &KFactor_QCD_ggZZ_PDFReplicaUp, &b_KFactor_QCD_ggZZ_PDFReplicaUp);
+   fChain->SetBranchAddress("KFactor_EW_qqZZ", &KFactor_EW_qqZZ, &b_KFactor_EW_qqZZ);
+   fChain->SetBranchAddress("KFactor_EW_qqZZ_unc", &KFactor_EW_qqZZ_unc, &b_KFactor_EW_qqZZ_unc);
+   fChain->SetBranchAddress("KFactor_QCD_qqZZ_dPhi", &KFactor_QCD_qqZZ_dPhi, &b_KFactor_QCD_qqZZ_dPhi);
+   fChain->SetBranchAddress("KFactor_QCD_qqZZ_M", &KFactor_QCD_qqZZ_M, &b_KFactor_QCD_qqZZ_M);
+   fChain->SetBranchAddress("KFactor_QCD_qqZZ_Pt", &KFactor_QCD_qqZZ_Pt, &b_KFactor_QCD_qqZZ_Pt);
    fChain->SetBranchAddress("genFinalState", &genFinalState, &b_genFinalState);
    fChain->SetBranchAddress("genProcessId", &genProcessId, &b_genProcessId);
    fChain->SetBranchAddress("genHEPMCweight", &genHEPMCweight, &b_genHEPMCweight);

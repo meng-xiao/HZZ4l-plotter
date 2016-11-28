@@ -249,8 +249,7 @@ void Histograms::RenormalizeZX( )
    {
       for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
       {
-          cout << "i_cat: " << i_cat << "i_fs: " << i_fs << endl;
-          if( i_fs == Settings::fs2mu2e) continue;
+         if( i_fs == Settings::fs2mu2e) continue;
          M4lV2_ZX[i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
       }
    }
@@ -273,9 +272,9 @@ void Histograms::SaveHistos( string file_name )
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
          M4lV2_ZX[i_fs][i_cat]->Write();
-			M4lV2_ZX_shape[i_fs][i_cat]->Write();
+         M4lV2_ZX_shape[i_fs][i_cat]->Write();
          delete M4lV2_ZX[i_fs][i_cat];
-			delete M4lV2_ZX_shape[i_fs][i_cat];
+         delete M4lV2_ZX_shape[i_fs][i_cat];
       
          for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
          {
@@ -322,10 +321,6 @@ void Histograms::GetHistos( string file_name )
          }
       }
    }
-   
-//   TCanvas *c1 = new TCanvas();
-//   M4lV2[num_of_final_states - 1][num_of_categories - 1][num_of_resonant_statuses - 1][1]->Draw();
-//   c1->SaveAs("Test.pdf");
       
    // Z+X
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
@@ -370,7 +365,7 @@ void Histograms::Plot1D( string variable_name, int fs, int cat )
    
    stack->Draw("HIST");
    stack->SetMinimum(0);
-   stack->SetMaximum(2);
+   stack->SetMaximum(46);
 	
    M4lV2[fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
    M4lV2[fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
@@ -379,4 +374,5 @@ void Histograms::Plot1D( string variable_name, int fs, int cat )
    M4lV2[fs][cat][Settings::all_resonant][Settings::Data]->Draw("SAMEpE");
 
    c->SaveAs("Test.pdf");
+   c->SaveAs("Test.root");
 }
