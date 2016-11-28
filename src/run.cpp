@@ -68,7 +68,12 @@ int main( int argc, char *argv[] )
    plotter->Save();
    
    plotter->GetHistos( "Blinded_110_150_test.root" );
-   plotter->Plot1D( "M4lV1b", 4, 6 );
+   plotter->Plot1D_single( "M4lMain", 4, 6 );
+   plotter->Plot1D_all( "M4lMain");
+    
+   plotter->GetHistos( "Unblinded_test.root" );
+   plotter->Plot1D_all( "M4lMain_unblinded");
+
    
    
    

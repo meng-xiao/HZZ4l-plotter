@@ -40,7 +40,8 @@ public:
    void SmoothHistograms();
    void RenormalizeZX();
    void GetHistos( string );
-   void Plot1D( string, int, int );
+   void Plot1D_single( string, int, int );
+   void Plot1D_all( string);
    void MakeZXShape(int, int, float);
    
 private:
@@ -48,20 +49,8 @@ private:
    vector<string> _s_category, _s_resonant_status, _s_final_state, _s_process;
    string _histo_name, _histo_labels;
    
-   TH1F *M4lV1[num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes];
-   TH1F *M4lV1b;
-   TH1F *M4lV2[num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes];
-   TH1F *M4lV2Refit;
-   TH1F *M4lV2b;
-   TH1F *M4lV3;
-   TH1F *M4lV4;
-   TH1F *M4lV5;
-   TH1F *M4l_70110B4;
-   TH1F *M4l_70110B5;
-   TH1F *M4l_110150;
-   TH1F *M4l_105140;
-   TH1F *M4l_70182;
-   TH1F *M4l_above150;
+   TH1F *M4lMain[num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes];
+   TH1F *M4l_70182[num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes];
    
    TH1F *MZ1V1;
    TH1F *MZ1V1Log;
@@ -88,7 +77,7 @@ private:
    TH1F *M4l_110150_HighKD;
    
    // Z+X
-   TH1F *M4lV2_ZX[num_of_final_states][num_of_categories], *M4lV2_ZX_shape[num_of_final_states][num_of_categories];
+   TH1F *M4lMain_ZX[num_of_final_states][num_of_categories], *M4lMain_ZX_shape[num_of_final_states][num_of_categories];
    
 };
 

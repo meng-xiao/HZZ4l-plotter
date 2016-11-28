@@ -62,7 +62,8 @@ public:
    void FillInclusive();
    void Save();
    void GetHistos( string );
-   void Plot1D( string, int, int );
+   void Plot1D_single( string, int, int );
+   void Plot1D_all( string);
    
 private:
 

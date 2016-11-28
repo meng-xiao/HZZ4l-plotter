@@ -21,42 +21,7 @@ public:
    Variables ();
    ~Variables();
    
-   struct M4lV1
-   {
-      TString var_name = "M4lV1";
-      string var_X_label = "m_{4#font[12]{l}} (GeV)";
-      string var_Y_label = "Events / 3 GeV";
-      TString var_cut_label = "";
-      Int_t var_N_bin = 272;
-      Float_t var_min = 70;
-      Float_t var_max = 886;
-      Bool_t var_log_x = 1;
-      Bool_t var_log_y = 0;
-      Int_t restrict_count_var = 0;
-      Float_t var_min_factor = 0;
-      Int_t var_CMS_pos = 33;
-      Int_t varLegPos = 33;
-      Int_t rebinningDYTTbar = 16;
-   };
-   
-   struct M4lV1b
-   {
-      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
-      TString var_Y_label = "Events / 3 GeV";
-      TString var_cut_label = "";
-      Int_t var_N_bin = 333;
-      Float_t var_min = 1.5;
-      Float_t var_max = 1000.5;
-      Bool_t var_log_x = 0;
-      Bool_t var_log_y = 0;
-      Int_t restrict_count_var = 0;
-      Float_t var_min_factor = 0;
-      Int_t var_CMS_pos = 33;
-      Int_t varLegPos = 33;
-      Int_t rebinningDYTTbar = 1;
-   };
-   
-   struct M4lV2
+   struct M4lMain
    {
       TString var_X_label = "m_{4#font[12]{l}} (GeV)";
       TString var_Y_label = "Events / 4 GeV";
@@ -72,160 +37,8 @@ public:
       Int_t varLegPos = 33;
       Int_t rebinningDYTTbar = 1;
    };
-   
-   struct M4lV2Refit
-   {
-      TString var_X_label = "m_{4#font[12]{l}}^{refit} (GeV)";
-      TString var_Y_label = "Events / 4 GeV";
-      TString var_cut_label = "";
-      Int_t var_N_bin = 204;
-      Float_t var_min = 70;
-      Float_t var_max = 886;
-      Bool_t var_log_x = 1;
-      Bool_t var_log_y = 0;
-      Int_t restrict_count_var = 0;
-      Float_t var_min_factor = 0;
-      Int_t var_CMS_pos = 33;
-      Int_t varLegPos = 33;
-      Int_t rebinningDYTTbar = 1;
-   };
-   
-   struct M4lV2b
-   {
-      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
-      TString var_Y_label = "Events / 4 GeV";
-      TString var_cut_label = "";
-      Int_t var_N_bin = 204;
-      Float_t var_min = 71;
-      Float_t var_max = 887;
-      Bool_t var_log_x = 1;
-      Bool_t var_log_y = 0;
-      Int_t restrict_count_var = 0;
-      Float_t var_min_factor = 0;
-      Int_t var_CMS_pos = 33;
-      Int_t varLegPos = 33;
-      Int_t rebinningDYTTbar = 1;
-   };
-   
-   struct M4lV3
-   {
-      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
-      TString var_Y_label = "Events / 4 GeV";
-      TString var_cut_label = "";
-      Int_t var_N_bin = 163;
-      Float_t var_min = 70;
-      Float_t var_max = 885;
-      Bool_t var_log_x = 1;
-      Bool_t var_log_y = 0;
-      Int_t restrict_count_var = 0;
-      Float_t var_min_factor = 0;
-      Int_t var_CMS_pos = 33;
-      Int_t varLegPos = 33;
-      Int_t rebinningDYTTbar = 1;
-   };
 
-   struct M4lV4
-   {
-      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
-      TString var_Y_label = "Events / 5 GeV";
-      TString var_cut_label = "";
-      Int_t var_N_bin = 163;
-      Float_t var_min = 70;
-      Float_t var_max = 885;
-      Bool_t var_log_x = 1;
-      Bool_t var_log_y = 0;
-      Int_t restrict_count_var = 0;
-      Float_t var_min_factor = 0;
-      Int_t var_CMS_pos = 33;
-      Int_t varLegPos = 33;
-      Int_t rebinningDYTTbar = 1;
-   };
-   
-   struct M4lV5
-   {
-      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
-      TString var_Y_label = "Events / 10 GeV";
-      TString var_cut_label = "";
-      Int_t var_N_bin = 82;
-      Float_t var_min = 70;
-      Float_t var_max = 890;
-      Bool_t var_log_x = 0;
-      Bool_t var_log_y = 0;
-      Int_t restrict_count_var = 0;
-      Float_t var_min_factor = 0;
-      Int_t var_CMS_pos = 33;
-      Int_t varLegPos = 33;
-      Int_t rebinningDYTTbar = 1;
-   };
-   
-   struct M4l_70110B4
-   {
-      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
-      TString var_Y_label = "Events / 4 GeV";
-      TString var_cut_label = "";
-      Int_t var_N_bin = 10;
-      Float_t var_min = 70;
-      Float_t var_max = 110;
-      Bool_t var_log_x = 0;
-      Bool_t var_log_y = 0;
-      Int_t restrict_count_var = 0;
-      Float_t var_min_factor = 0;
-      Int_t var_CMS_pos = 11;
-      Int_t varLegPos = 33;
-      Int_t rebinningDYTTbar = 2;
-   };
-   
-   struct M4l_70110B5
-   {
-      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
-      TString var_Y_label = "Events / 5 GeV";
-      TString var_cut_label = "";
-      Int_t var_N_bin = 8;
-      Float_t var_min = 70;
-      Float_t var_max = 110;
-      Bool_t var_log_x = 0;
-      Bool_t var_log_y = 0;
-      Int_t restrict_count_var = 0;
-      Float_t var_min_factor = 0;
-      Int_t var_CMS_pos = 11;
-      Int_t varLegPos = 33;
-      Int_t rebinningDYTTbar = 2;
-   };
-   
-   struct M4l_110150
-   {
-      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
-      TString var_Y_label = "Events / 2 GeV";
-      TString var_cut_label = "";
-      Int_t var_N_bin = 20;
-      Float_t var_min = 110;
-      Float_t var_max = 150;
-      Bool_t var_log_x = 0;
-      Bool_t var_log_y = 0;
-      Int_t restrict_count_var = 0;
-      Float_t var_min_factor = 0;
-      Int_t var_CMS_pos = 11;
-      Int_t varLegPos = 33;
-      Int_t rebinningDYTTbar = 1;
-   };
-   
-   struct M4l_105140
-   {
-      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
-      TString var_Y_label = "Events / 1 GeV";
-      TString var_cut_label = "";
-      Int_t var_N_bin = 35;
-      Float_t var_min = 105;
-      Float_t var_max = 140;
-      Bool_t var_log_x = 0;
-      Bool_t var_log_y = 0;
-      Int_t restrict_count_var = 0;
-      Float_t var_min_factor = 0;
-      Int_t var_CMS_pos = 11;
-      Int_t varLegPos = 33;
-      Int_t rebinningDYTTbar = 1;
-   };
-      
+
    struct M4l_70182
    {
       TString var_X_label = "m_{4#font[12]{l}} (GeV)";
@@ -243,22 +56,6 @@ public:
       Int_t rebinningDYTTbar = 1;
    };
    
-   struct M4l_above150
-   {
-      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
-      TString var_Y_label = "Events / 20 GeV";
-      TString var_cut_label = "";
-      Int_t var_N_bin = 30;
-      Float_t var_min = 150;
-      Float_t var_max = 750;
-      Bool_t var_log_x = 0;
-      Bool_t var_log_y = 0;
-      Int_t restrict_count_var = 0;
-      Float_t var_min_factor = 0;
-      Int_t var_CMS_pos = 33;
-      Int_t varLegPos = 33;
-      Int_t rebinningDYTTbar = 3;
-   };
    
    struct MZ1V1
    {
