@@ -375,18 +375,9 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       cout << "[INFO] Smoothing Z+X histograms..." << endl;
       blinded_histos_110_150->SmoothHistograms();
    }
-   
-   // Renormalize Z+X histograms
-   if ( RENORMALIZE_ZX_FULL_RUN2_SS )
-   {
-      if ( MERGE_2E2MU )
-      {
-         cout << "[INFO] Renormalizing Z+X histograms..." << endl;
-         blinded_histos_110_150->RenormalizeZX( _expected_yield_SR );
-      }
-   }
-
-
+    
+   blinded_histos_110_150->RenormalizeZX();
+    
 }
 //===============================================================================
 

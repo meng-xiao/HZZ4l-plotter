@@ -77,7 +77,7 @@ Histograms::Histograms()
 
 
 //==========================
-Histograms::~Histograms() {}
+Histograms::~Histograms(){}
 //==========================
 
 
@@ -226,32 +226,34 @@ void Histograms::SmoothHistograms()
 
 
 //=================================
-void Histograms::RenormalizeZX( vector<float> expected_yield_SR )
+void Histograms::RenormalizeZX( )
 {
    
    M4lZX *ZX = new M4lZX();
    
-   float norm_ZX_full_SR[num_of_final_states];
-   
-   norm_ZX_full_SR[Settings::fs4e] = ZX->GetNormZXFullSR4e();
-   norm_ZX_full_SR[Settings::fs4mu] = ZX->GetNormZXFullSR4mu();
+   float norm_ZX_full_SR[num_of_final_states];   
+   norm_ZX_full_SR[Settings::fs4e]    = ZX->GetNormZXFullSR4e();
+   norm_ZX_full_SR[Settings::fs4mu]   = ZX->GetNormZXFullSR4mu();
    norm_ZX_full_SR[Settings::fs2e2mu] = ZX->GetNormZXFullSR2e2mu();
-   
    norm_ZX_full_SR[num_of_final_states - 1] = ZX->GetNormZXFullSR4e() + ZX->GetNormZXFullSR4mu() + ZX->GetNormZXFullSR2e2mu() ;
    
-   expected_yield_SR.at(Settings::fs2e2mu) += expected_yield_SR.at(Settings::fs2mu2e); // MERGE2E2MU imposed
-   
+   ZX->SetNormalization(Settings::inclusive);
+    
+   float norm_ZX_comb_SR[num_of_final_states];
+   norm_ZX_comb_SR[Settings::fs4e]    = ZX->GetNormZXFullSR4e();
+   norm_ZX_comb_SR[Settings::fs4mu]   = ZX->GetNormZXFullSR4mu();
+   norm_ZX_comb_SR[Settings::fs2e2mu] = ZX->GetNormZXFullSR2e2mu();
+   norm_ZX_comb_SR[num_of_final_states - 1] = ZX->GetNormZXFullSR4e() + ZX->GetNormZXFullSR4mu() + ZX->GetNormZXFullSR2e2mu() ;
+    
    for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
    {
       for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
       {
-         if ( i_fs == Settings::fs2mu2e) continue;
-         M4lV2_ZX[i_fs][i_cat]->Scale( norm_ZX_full_SR[i_fs] / expected_yield_SR.at(i_fs) );
+          cout << "i_cat: " << i_cat << "i_fs: " << i_fs << endl;
+          if( i_fs == Settings::fs2mu2e) continue;
+         M4lV2_ZX[i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
       }
    }
-
-   delete ZX;
-
 }
 //=================================
 

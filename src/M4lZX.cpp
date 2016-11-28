@@ -9,6 +9,10 @@ using namespace std;
 M4lZX::M4lZX()
 {
    _n_entries = 1000000;
+    
+    _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_combined;
+    _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_combined;
+    _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_combined;
    
    f_4e_comb    = new TF1("f_4e_comb", "landau(0)*(1 + exp( pol1(3))) + [5]*(TMath::Landau(x, [6], [7]))", 70, 1000);
    f_4mu_comb   = new TF1("f_4mu_comb","landau(0)", 70, 1000);

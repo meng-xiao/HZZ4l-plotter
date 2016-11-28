@@ -38,7 +38,7 @@ public:
    void SaveHistos( string );
    void FillInclusive();
    void SmoothHistograms();
-   void RenormalizeZX( vector<float> );
+   void RenormalizeZX();
    void GetHistos( string );
    void Plot1D( string, int, int );
    void MakeZXShape(int, int, float);
