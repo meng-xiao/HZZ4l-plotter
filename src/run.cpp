@@ -47,33 +47,33 @@ int main( int argc, char *argv[] )
 
    Plotter *plotter = new Plotter();
   
-   plotter->SetBlinding(110, 150);
-   
-   plotter->MakeHistograms(Data);
-   plotter->MakeHistograms(ggH125);
-   plotter->MakeHistograms(VBFH125);
-   plotter->MakeHistograms(ZH125);
-   plotter->MakeHistograms(ttH125);
-   plotter->MakeHistograms(ZZTo4l);
-   plotter->MakeHistograms(ggZZ4e);
-   plotter->MakeHistograms(ggZZ4mu);
-   plotter->MakeHistograms(ggZZ4tau);
-   plotter->MakeHistograms(ggZZ2e2mu);
-   plotter->MakeHistograms(ggZZ2e2tau);
-   plotter->MakeHistograms(ggZZ2mu2tau);
-   
-   plotter->MakeHistogramsZX(Data, FakeRates);
-   plotter->MakeM4lZX();
-   
-   plotter->FillInclusive();
-
-   plotter->Save();
+//   plotter->SetBlinding(110, 150);
+//   
+//   plotter->MakeHistograms(Data);
+//   plotter->MakeHistograms(ggH125);
+//   plotter->MakeHistograms(VBFH125);
+//   plotter->MakeHistograms(ZH125);
+//   plotter->MakeHistograms(ttH125);
+//   plotter->MakeHistograms(ZZTo4l);
+//   plotter->MakeHistograms(ggZZ4e);
+//   plotter->MakeHistograms(ggZZ4mu);
+//   plotter->MakeHistograms(ggZZ4tau);
+//   plotter->MakeHistograms(ggZZ2e2mu);
+//   plotter->MakeHistograms(ggZZ2e2tau);
+//   plotter->MakeHistograms(ggZZ2mu2tau);
+//   
+//   plotter->MakeHistogramsZX(Data, FakeRates);
+//   plotter->MakeM4lZX();
+//   
+//   plotter->FillInclusive();
+//
+//   plotter->Save();
    
    plotter->GetHistos( "Blinded" );
-   plotter->Plot1D_all( "Blinded", "Plots/M4l_main_blinded_");
+   plotter->Plot1D_all( "Blinded", "M4lMain", "Plots");
    
    plotter->GetHistos( "Unblinded" );
-   plotter->Plot1D_all( "Unblinded", "Plots/M4l_main_" );
+   plotter->Plot1D_all( "Unblinded", "M4lMain" , "Plots");
 
    
 }

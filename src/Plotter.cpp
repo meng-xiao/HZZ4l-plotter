@@ -415,16 +415,16 @@ void Plotter::Save()
 
 
 //==================
-void Plotter::Plot1D_single( TString file_name, TString variable_name, int fs, int cat )
+void Plotter::Plot1D_single( TString file_name, TString variable_name, TString folder, int fs, int cat )
 {
-   histo_map[file_name]->Plot1D_single( variable_name, fs, cat );   
+   histo_map[file_name]->Plot1D_single( file_name, variable_name, folder, fs, cat );
 }
 //==================
 
 //==================
-void Plotter::Plot1D_all( TString file_name, TString variable_name)
+void Plotter::Plot1D_all( TString file_name, TString variable_name, TString folder)
 {
-   histo_map[file_name]->Plot1D_all( variable_name);   
+   histo_map[file_name]->Plot1D_all( file_name, variable_name, folder);
 }
 //==================
 

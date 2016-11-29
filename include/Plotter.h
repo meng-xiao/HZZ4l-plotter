@@ -63,8 +63,8 @@ public:
    void FillInclusive();
    void Save();
    void GetHistos( TString );
-   void Plot1D_single( TString, TString, int, int );
-   void Plot1D_all( TString, TString);
+   void Plot1D_single( TString, TString, TString, int, int );
+   void Plot1D_all( TString, TString, TString);
    void SetBlinding( float, float);
    
 private:

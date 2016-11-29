@@ -12,6 +12,7 @@
 #include "TString.h"
 #include "TFile.h"
 
+
 using namespace std;
 
 class Variables
@@ -39,7 +40,7 @@ public:
    };
 
 
-   struct M4l_70182
+   struct M4lMainZoomed
    {
       TString var_X_label = "m_{4#font[12]{l}} (GeV)";
       TString var_Y_label = "Events / 4 GeV";
@@ -414,7 +415,7 @@ public:
       Int_t rebinningDYTTbar = 1;
    };
 
-   
+
 private:
 
 };
