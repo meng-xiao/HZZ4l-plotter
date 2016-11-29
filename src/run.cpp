@@ -47,6 +47,8 @@ int main( int argc, char *argv[] )
 
    Plotter *plotter = new Plotter();
   
+   plotter->SetBlinding(110, 150);
+   
    plotter->MakeHistograms(Data);
    plotter->MakeHistograms(ggH125);
    plotter->MakeHistograms(VBFH125);
@@ -69,7 +71,9 @@ int main( int argc, char *argv[] )
    
    plotter->GetHistos( "Blinded" );
    plotter->Plot1D_all( "Blinded", "Plots/M4l_main_blinded_");
-    
+   
    plotter->GetHistos( "Unblinded" );
    plotter->Plot1D_all( "Unblinded", "Plots/M4l_main_" );
+
+   
 }

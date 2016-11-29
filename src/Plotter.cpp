@@ -267,7 +267,7 @@ void Plotter::MakeHistograms( TString input_file_name )
    
    
       // Fill histograms
-      if ( (_current_process == Settings::Data && (ZZMass < 110 || ZZMass > 150)) || _current_process != Settings::Data )
+      if ( (_current_process == Settings::Data && (ZZMass < _blinding_lower || ZZMass > _blinding_upper)) || _current_process != Settings::Data )
        {
            blinded_histos->FillM4l( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
        }
@@ -291,6 +291,13 @@ void Plotter::MakeM4lZX()
             unblinded_histos->MakeZXShape( i_fs, i_cat, _lumi);
         }
     }
+}
+//=======================
+
+void Plotter::SetBlinding(float blinding_lower, float blinding_upper)
+{
+   _blinding_lower = blinding_lower;
+   _blinding_upper = blinding_upper;
 }
 //=======================
 

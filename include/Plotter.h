@@ -65,6 +65,7 @@ public:
    void GetHistos( TString );
    void Plot1D_single( TString, TString, int, int );
    void Plot1D_all( TString, TString);
+   void SetBlinding( float, float);
    
 private:
 
@@ -91,6 +92,8 @@ private:
    float jetPgOverPq[99];
 	
    const static int _n_variables = 25, _n_blindings = 5, _n_var_pairs = 8;
+   
+   float _blinding_lower = 110, _blinding_upper = 150;
    
    int _current_process, _current_final_state, _current_category, _current_resonant_status;
    float _lumi, _k_factor, _SMP_signal_strength, _yield_SR, partial_sample_weight;
