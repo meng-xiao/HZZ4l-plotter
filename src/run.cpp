@@ -21,9 +21,8 @@ using namespace std;
 
 int main( int argc, char *argv[] )
 {
-
-gROOT->ProcessLine(".L ./tdrstyle.C+");
-gROOT->ProcessLine("setTDRStyle();");
+   gROOT->ProcessLine(".L ./ext/setTDRStyle_cpp.so");
+   gROOT->ProcessLine("setTDRStyle();");
 
    TString path = "ICHEP_2016/";
    TString file_name = "/ZZ4lAnalysis.root";
@@ -46,7 +45,7 @@ gROOT->ProcessLine("setTDRStyle();");
    TString FakeRates   = path + "FakeRates" + file_name_FR;
 
    Plotter *plotter = new Plotter();
-  
+/*  
    plotter->SetBlinding(110, 150);
    
    plotter->MakeHistograms(Data);
@@ -67,11 +66,11 @@ gROOT->ProcessLine("setTDRStyle();");
    
    plotter->FillInclusive();
 
-   plotter->Save();
-   
-   plotter->GetHistos( "Blinded" );
-   plotter->Plot1D_all( "Blinded", "M4lMain", "Plots");
-   plotter->Plot1D_single( "Blinded", "M4lMain", "Plots", 4, 6);
+   plotter->Save(); 
+*/
+   //plotter->GetHistos( "Blinded" );
+   //plotter->Plot1D_all( "Blinded", "M4lMain", "Plots");
+   //plotter->Plot1D_single( "Blinded", "M4lMain", "Plots", 4, 6);
    
    plotter->GetHistos( "Unblinded" );
    plotter->Plot1D_all( "Unblinded", "M4lMain" , "Plots");  

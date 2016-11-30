@@ -18,6 +18,7 @@
 // Include classes
 #include "Settings.h"
 #include "M4lZX.h"
+#include "CMS_lumi.h"
 
 using namespace std;
 
@@ -32,7 +33,7 @@ class Histograms
 {
    
 public:
-   Histograms ();
+   Histograms ( string );
    ~Histograms();
    void FillM4l( float, float, int, int, int, int );
    void FillM4lZX( float, float, int, int );
@@ -83,7 +84,6 @@ private:
    
    // Z+X
    TH1F *M4lMain_ZX[num_of_plot_names][num_of_final_states][num_of_categories], *M4lMain_ZX_shape[num_of_plot_names][num_of_final_states][num_of_categories];
-   
    
 };
 

@@ -1,12 +1,14 @@
 #include "Histograms.h"
 #include "Variables.h"
+#include "CMS_lumi.h"
+#include <TROOT.h>
 #include <sstream>
 
 using namespace std;
 
 // Constructor
 //==========================================
-Histograms::Histograms()
+Histograms::Histograms( string blinding)
 {
    _s_process.push_back("Data");
    _s_process.push_back("H125");
@@ -36,10 +38,6 @@ Histograms::Histograms()
    _s_resonant_status.push_back("allres");
    
 
-//   TH1F::SetDefaultSumw2(kTRUE);
-
-//   cout << num_of_final_states << num_of_resonant_statuses << num_of_processes << endl;
-
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
@@ -48,9 +46,9 @@ Histograms::Histograms()
          {
             for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
             {
-               _histo_name = _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc);
+               _histo_name = _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + blinding;
                _histo_labels = ";" + Variables::M4lMain().var_X_label + ";" + Variables::M4lMain().var_Y_label;
-            
+                           
                M4lMain[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMain().var_N_bin,
                                                            Variables::M4lMain().var_min, Variables::M4lMain().var_max);
             }
@@ -64,10 +62,10 @@ Histograms::Histograms()
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         _histo_name = "ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
+         _histo_name = "ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + blinding;
          M4lMain_ZX[Settings::M4lMain][i_fs][i_cat] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max);
 
-         _histo_name = "ZX_shape_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
+         _histo_name = "ZX_shape_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + blinding;
          M4lMain_ZX_shape[Settings::M4lMain][i_fs][i_cat] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max);
       }
    }
@@ -77,9 +75,38 @@ Histograms::Histograms()
 
 
 
-//==========================
-Histograms::~Histograms(){}
-//==========================
+//=======================
+Histograms::~Histograms()
+{
+  
+/* 
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+      {
+         for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
+         {
+            for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
+            {                           
+               delete M4lMain[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc];
+            }
+         }
+      }
+   }
+   
+   // Z+X
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+      {
+         delete M4lMain_ZX[Settings::M4lMain][i_fs][i_cat];
+         delete M4lMain_ZX_shape[Settings::M4lMain][i_fs][i_cat];
+      }
+   }
+*/
+   
+}
+//=======================
 
 
 
@@ -347,7 +374,7 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
 {
    int plot_index = SetPlotName( variable_name);
    
-   TCanvas *c = new TCanvas(variable_name, variable_name, 500, 500);
+   TCanvas *c = new TCanvas(variable_name, variable_name, 700, 700);
    
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
@@ -360,6 +387,7 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
    M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
    M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
+   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetLineColor(kBlack);
    
    THStack *stack = new THStack( "stack", "stack" );
    stack->Add(M4lMain_ZX_shape[plot_index][fs][cat]);
@@ -375,7 +403,10 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    stack->SetMinimum(1e-5);      
    stack->SetMaximum((data_max + data_max_error)*1.1);
    
-   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->Draw("SAMEpE");
+   stack->GetXaxis()->SetTitle(M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
+   stack->GetYaxis()->SetTitle(M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
+   
+   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
       
    stringstream ss;
    ss << folder << "/" << variable_name << "_" << filename;
@@ -398,7 +429,7 @@ void Histograms::Plot1D_all( TString filename, TString variable_name , TString f
       
    int plot_index = SetPlotName( variable_name);
     
-   TCanvas *c = new TCanvas(variable_name, variable_name, 500, 500);
+   TCanvas *c = new TCanvas(variable_name, variable_name, 700, 700);
 
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
@@ -412,24 +443,31 @@ void Histograms::Plot1D_all( TString filename, TString variable_name , TString f
       
       M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
       M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);      
-        
+      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
+      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetLineColor(kBlack);
+      
       THStack *stack = new THStack( "stack", "stack" );
       stack->Add(M4lMain_ZX_shape[plot_index][Settings::fs4l][i_cat]);
       stack->Add(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]);
       stack->Add(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]);
       stack->Add(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]);
-
+      
       stack->Draw("HIST");  
       
       float data_max = M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetBinContent(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
       float data_max_error = M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetBinErrorUp(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
       
-      stack->SetMinimum(1e-5);      
+      stack->SetMinimum(1e-15);      
       stack->SetMaximum((data_max + data_max_error)*1.1);
          
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Draw("SAMEpE1");
-        
+      stack->GetXaxis()->SetTitle(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
+      stack->GetYaxis()->SetTitle(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
+      
+      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
+      
+      CMS_lumi *lumi = new CMS_lumi;
+      lumi->set_lumi(c, 0, 0);
+         
       stringstream ss;
       ss << folder << "/" << variable_name << "_" <<filename << "_" << i_cat;
 
@@ -438,7 +476,7 @@ void Histograms::Plot1D_all( TString filename, TString variable_name , TString f
       c->SaveAs((ss.str() + ".jpeg").c_str());
       c->SaveAs((ss.str() + ".root").c_str());
       c->SaveAs((ss.str() + ".C").c_str());
-      c->SaveAs((ss.str() + ".eps").c_str());
+      c->SaveAs((ss.str() + ".eps").c_str());   
    }
 }
 

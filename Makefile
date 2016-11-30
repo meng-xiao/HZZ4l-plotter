@@ -20,8 +20,9 @@ SRCPP = run.cpp\
 		  M4lZX.cpp\
 		  FakeRates.cpp\
 		  Category.cpp\
-		  ZXVariables.cpp
-         
+		  ZXVariables.cpp\
+		  CMS_lumi.cpp
+        
 OBJCPP = $(patsubst %.cpp,obj/%.o,$(SRCPP))
 
 all : run

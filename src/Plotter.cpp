@@ -5,8 +5,8 @@
 //============================================================
 Plotter::Plotter():Tree()
 {
-   unblinded_histos = new Histograms();
-   blinded_histos = new Histograms();
+   unblinded_histos = new Histograms("Unblinded");
+   blinded_histos = new Histograms("Blinded");
    
    histo_map["Unblinded"] = unblinded_histos;
    histo_map["Blinded"] = blinded_histos;
@@ -418,6 +418,7 @@ void Plotter::Save()
 void Plotter::Plot1D_single( TString file_name, TString variable_name, TString folder, int fs, int cat )
 {
    histo_map[file_name]->Plot1D_single( file_name, variable_name, folder, fs, cat );
+   
 }
 //==================
 
@@ -425,6 +426,7 @@ void Plotter::Plot1D_single( TString file_name, TString variable_name, TString f
 void Plotter::Plot1D_all( TString file_name, TString variable_name, TString folder)
 {
    histo_map[file_name]->Plot1D_all( file_name, variable_name, folder);
+   
 }
 //==================
 
