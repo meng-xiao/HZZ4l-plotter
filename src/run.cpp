@@ -22,8 +22,8 @@ using namespace std;
 int main( int argc, char *argv[] )
 {
 
-//	gROOT->ProcessLine(".L ./tdrstyle.C+");
-//	gROOT->ProcessLine("setTDRStyle();");
+gROOT->ProcessLine(".L ./tdrstyle.C+");
+gROOT->ProcessLine("setTDRStyle();");
 
    TString path = "ICHEP_2016/";
    TString file_name = "/ZZ4lAnalysis.root";
@@ -47,33 +47,32 @@ int main( int argc, char *argv[] )
 
    Plotter *plotter = new Plotter();
   
-//   plotter->SetBlinding(110, 150);
-//   
-//   plotter->MakeHistograms(Data);
-//   plotter->MakeHistograms(ggH125);
-//   plotter->MakeHistograms(VBFH125);
-//   plotter->MakeHistograms(ZH125);
-//   plotter->MakeHistograms(ttH125);
-//   plotter->MakeHistograms(ZZTo4l);
-//   plotter->MakeHistograms(ggZZ4e);
-//   plotter->MakeHistograms(ggZZ4mu);
-//   plotter->MakeHistograms(ggZZ4tau);
-//   plotter->MakeHistograms(ggZZ2e2mu);
-//   plotter->MakeHistograms(ggZZ2e2tau);
-//   plotter->MakeHistograms(ggZZ2mu2tau);
-//   
-//   plotter->MakeHistogramsZX(Data, FakeRates);
-//   plotter->MakeM4lZX();
-//   
-//   plotter->FillInclusive();
-//
-//   plotter->Save();
+   plotter->SetBlinding(110, 150);
+   
+   plotter->MakeHistograms(Data);
+   plotter->MakeHistograms(ggH125);
+   plotter->MakeHistograms(VBFH125);
+   plotter->MakeHistograms(ZH125);
+   plotter->MakeHistograms(ttH125);
+   plotter->MakeHistograms(ZZTo4l);
+   plotter->MakeHistograms(ggZZ4e);
+   plotter->MakeHistograms(ggZZ4mu);
+   plotter->MakeHistograms(ggZZ4tau);
+   plotter->MakeHistograms(ggZZ2e2mu);
+   plotter->MakeHistograms(ggZZ2e2tau);
+   plotter->MakeHistograms(ggZZ2mu2tau);
+   
+   plotter->MakeHistogramsZX(Data, FakeRates);
+   plotter->MakeM4lZX();
+   
+   plotter->FillInclusive();
+
+   plotter->Save();
    
    plotter->GetHistos( "Blinded" );
    plotter->Plot1D_all( "Blinded", "M4lMain", "Plots");
+   plotter->Plot1D_single( "Blinded", "M4lMain", "Plots", 4, 6);
    
    plotter->GetHistos( "Unblinded" );
-   plotter->Plot1D_all( "Unblinded", "M4lMain" , "Plots");
-
-   
+   plotter->Plot1D_all( "Unblinded", "M4lMain" , "Plots");  
 }

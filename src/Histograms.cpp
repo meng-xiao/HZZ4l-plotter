@@ -34,7 +34,7 @@ Histograms::Histograms()
    _s_resonant_status.push_back("resonant");
    _s_resonant_status.push_back("nonresonant");
    _s_resonant_status.push_back("allres");
-
+   
 
 //   TH1F::SetDefaultSumw2(kTRUE);
 
@@ -357,6 +357,10 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(kAzure);
    M4lMain_ZX_shape[plot_index][fs][cat]->SetFillColor(kGreen + 2);
    
+   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
+   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
+   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
+   
    THStack *stack = new THStack( "stack", "stack" );
    stack->Add(M4lMain_ZX_shape[plot_index][fs][cat]);
    stack->Add(M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ]);
@@ -364,18 +368,17 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    stack->Add(M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::H125]);
    
    stack->Draw("HIST");
-	stack->SetMaximum( stack->GetMaximum()*2 );
    
-   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
-   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
-   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
-
+   float data_max = M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetBinContent(M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
+   float data_max_error = M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetBinErrorUp(M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
+      
+   stack->SetMinimum(1e-5);      
+   stack->SetMaximum((data_max + data_max_error)*1.1);
+   
    M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->Draw("SAMEpE");
-
-   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetYaxis()->SetRangeUser(0,max(stack->GetMaximum(),M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetBinContent(M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetMaximumBin())+M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetBinError(M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetMaximumBin()))*1.5);
-   
+      
    stringstream ss;
-   ss << folder << "/" << variable_name << "_" <<filename;
+   ss << folder << "/" << variable_name << "_" << filename;
 
    c->SaveAs((ss.str() + ".pdf").c_str());
    c->SaveAs((ss.str() + ".png").c_str());
@@ -392,35 +395,40 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
 //============================================
 void Histograms::Plot1D_all( TString filename, TString variable_name , TString folder)
 {
+      
    int plot_index = SetPlotName( variable_name);
     
    TCanvas *c = new TCanvas(variable_name, variable_name, 500, 500);
 
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
-    
+       
    for( int i_cat = 0; i_cat < num_of_categories; i_cat++)
-   {     
+   {  
       M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]->SetFillColor(kRed+1);
       M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(kAzure-9);
       M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(kAzure);
       M4lMain_ZX_shape[plot_index][Settings::fs4l][i_cat]->SetFillColor(kGreen + 2);
+      
+      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
+      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
+      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);      
         
       THStack *stack = new THStack( "stack", "stack" );
       stack->Add(M4lMain_ZX_shape[plot_index][Settings::fs4l][i_cat]);
       stack->Add(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]);
       stack->Add(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]);
       stack->Add(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]);
-        
-      stack->Draw("HIST");
-      stack->SetMaximum( stack->GetMaximum()*2 );
-        
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
-        
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Draw("SAMEpE");
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetYaxis()->SetRangeUser(0,max(stack->GetMaximum(),M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetBinContent(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetMaximumBin())+M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetBinError(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetMaximumBin()))*1.5);
+
+      stack->Draw("HIST");  
+      
+      float data_max = M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetBinContent(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
+      float data_max_error = M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetBinErrorUp(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
+      
+      stack->SetMinimum(1e-5);      
+      stack->SetMaximum((data_max + data_max_error)*1.1);
+         
+      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Draw("SAMEpE1");
         
       stringstream ss;
       ss << folder << "/" << variable_name << "_" <<filename << "_" << i_cat;
