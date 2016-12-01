@@ -14,6 +14,7 @@
 #include "TFile.h"
 #include "TCanvas.h"
 #include "THStack.h"
+#include "TLegend.h"
 
 // Include classes
 #include "Settings.h"
@@ -49,6 +50,7 @@ public:
    int SetPlotName( TString );
    bool GetVarLogX( TString );
    bool GetVarLogY( TString );
+   TLegend* CreateLegend( TH1F*, TH1F*, TH1F*, TH1F*, TH1F*);
    
 private:
 

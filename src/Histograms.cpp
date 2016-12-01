@@ -465,6 +465,9 @@ void Histograms::Plot1D_all( TString filename, TString variable_name , TString f
       
       M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
       
+      TLegend *legend = CreateLegend(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125],M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ], M4lMain_ZX_shape[plot_index][Settings::fs4l][i_cat]);
+      legend->Draw();
+      
       CMS_lumi *lumi = new CMS_lumi;
       lumi->set_lumi(c, 0, 0);
          
@@ -526,4 +529,29 @@ bool Histograms::GetVarLogY ( TString variable_name)
 //=================================
 
 
+//=================================
+TLegend* Histograms::CreateLegend( TH1F *data, TH1F *h125,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX)
+{
+   TLegend *leg = new TLegend( .70, .72, .95, .9 );
+   leg->SetFillColor(0);
+   leg->SetBorderSize(0);
+   
+   leg->AddEntry( data, "Data", "p" );
+   
+   leg->AddEntry( h125,"H(125)","f"); //, m_{H}=126 GeV
+   
+   leg->AddEntry( qqZZ, "q#bar{q}#rightarrowZZ, Z#gamma*", "f" );
+
+   leg->AddEntry( ggZZ, "gg#rightarrowZZ, Z#gamma*", "f" );
+   
+   leg->AddEntry( ZX, "Z+X", "f" );
+   
+   // leg->Draw();
+   
+   //		datahisto->Draw( "E1same" );
+   
+   return leg;
+
+}
+//=================================
 
