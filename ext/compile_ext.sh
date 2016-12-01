@@ -1,6 +1,6 @@
 #!/bin/bash
 
-root -q bitops.cc++
-root -q FinalStates.cc++
-root -q cConstants.cc++
-root -q setTDRStyle.cpp++
+root -q -l bitops.cc++
+root -q -l FinalStates.cc++
+root -q -l cConstants.cc++
+root -q -l setTDRStyle.cpp++

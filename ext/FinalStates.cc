@@ -1,5 +1,7 @@
 #include "../include/FinalStates.h"
 
+void FinalStates() {}
+
 namespace {
   const unsigned nFS = 29;
 }

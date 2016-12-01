@@ -4,6 +4,7 @@
 #include <cmath>
 #include "TMath.h"
 
+void cConstants() {}
 
 extern "C" float getDVBF2jetsConstant(float ZZMass){
   float par[9]={
