@@ -59,9 +59,9 @@ private:
    float _y_max;
 
    vector<string> _s_category, _s_resonant_status, _s_final_state, _s_process;
-   string _histo_name, _histo_labels;
+   string _histo_name, _histo_labels, _blinding;
    
-   TH1F *M4lMain[num_of_plot_names][num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes];
+   TH1F *histos_1D[num_of_plot_names][num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes];
    TH1F *M4l_70182[num_of_plot_names][num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes];
    
    TH1F *MZ1V1;
@@ -89,7 +89,8 @@ private:
    TH1F *M4l_110150_HighKD;
    
    // Z+X
-   TH1F *M4lMain_ZX[num_of_plot_names][num_of_final_states][num_of_categories], *M4lMain_ZX_shape[num_of_plot_names][num_of_final_states][num_of_categories];
+   TH1F *histos_1D_ZX[num_of_plot_names][num_of_final_states][num_of_categories];
+   TH1F *histos_1D_ZX_shape[num_of_plot_names][num_of_final_states][num_of_categories];
    
 };
 

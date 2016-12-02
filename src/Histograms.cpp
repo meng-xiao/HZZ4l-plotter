@@ -10,6 +10,8 @@ using namespace std;
 //======================================
 Histograms::Histograms( string blinding)
 {
+   _blinding = blinding;
+   
    _s_process.push_back("Data");
    _s_process.push_back("H125");
    _s_process.push_back("H125VBF");
@@ -46,11 +48,13 @@ Histograms::Histograms( string blinding)
          {
             for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
             {
-               _histo_name = _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + blinding;
-               _histo_labels = ";" + Variables::M4lMain().var_X_label + ";" + Variables::M4lMain().var_Y_label;
-                           
-               M4lMain[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMain().var_N_bin,
-                                                           Variables::M4lMain().var_min, Variables::M4lMain().var_max);
+               _histo_name = "M4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               _histo_labels = ";" + Variables::M4lMain().var_X_label + ";" + Variables::M4lMain().var_Y_label;     
+               histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max);
+               
+               _histo_name = "M4l_zoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               _histo_labels = ";" + Variables::M4lMainZoomed().var_X_label + ";" + Variables::M4lMainZoomed().var_Y_label;
+               histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMainZoomed().var_N_bin, Variables::M4lMainZoomed().var_min, Variables::M4lMainZoomed().var_max);
             }
          }
       }
@@ -62,14 +66,19 @@ Histograms::Histograms( string blinding)
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         _histo_name = "ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + blinding;
-         M4lMain_ZX[Settings::M4lMain][i_fs][i_cat] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max);
+         _histo_name = "ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::M4lMain][i_fs][i_cat] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max);
+         
+         _histo_name = "ZX_SS_zoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::M4lMainZoomed][i_fs][i_cat] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMainZoomed().var_N_bin, Variables::M4lMainZoomed().var_min, Variables::M4lMainZoomed().var_max);
 
-         _histo_name = "ZX_shape_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + blinding;
-         M4lMain_ZX_shape[Settings::M4lMain][i_fs][i_cat] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max);
+         _histo_name = "ZX_shape_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max);
+         
+         _histo_name = "ZX_shape_zoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX_shape[Settings::M4lMainZoomed][i_fs][i_cat] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMainZoomed().var_N_bin, Variables::M4lMainZoomed().var_min, Variables::M4lMainZoomed().var_max);
       }
-   }
-   
+   } 
 }
 //======================================
 
@@ -113,7 +122,8 @@ Histograms::~Histograms()
 //====================================================================================
 void Histograms::FillM4l( float M4l, float weight, int fs, int cat, int rs, int proc )
 {
-   M4lMain[Settings::M4lMain][fs][cat][rs][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
+   histos_1D[Settings::M4lMain][fs][cat][rs][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
+   histos_1D[Settings::M4lMainZoomed][fs][cat][rs][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
 }
 //====================================================================================
 
@@ -122,7 +132,8 @@ void Histograms::FillM4l( float M4l, float weight, int fs, int cat, int rs, int 
 //====================================================================
 void Histograms::FillM4lZX( float M4l, float weight, int fs, int cat )
 {
-   M4lMain_ZX[Settings::M4lMain][fs][cat]->Fill(M4l, weight);
+   histos_1D_ZX[Settings::M4lMain][fs][cat]->Fill(M4l, weight);
+   histos_1D_ZX[Settings::M4lMainZoomed][fs][cat]->Fill(M4l, weight);
 }
 //====================================================================
 
@@ -133,10 +144,16 @@ void Histograms::MakeZXShape( int current_final_state, int current_category, flo
 {
    M4lZX *ZXShape = new M4lZX();
    
-   current_final_state = (current_final_state==3) ? 2 : current_final_state;
-   M4lMain_ZX_shape[Settings::M4lMain][current_final_state][current_category]->Add(ZXShape->GetM4lZX(Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max, current_final_state, current_category, lumi));
+   current_final_state = (current_final_state == 3) ? 2 : current_final_state;
+   histos_1D_ZX_shape[Settings::M4lMain][current_final_state][current_category]->Add(ZXShape->GetM4lZX(Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max, current_final_state, current_category, lumi));
    
    ZXShape->~M4lZX();
+   
+   M4lZX *ZXShape_zoomed = new M4lZX();
+   
+   histos_1D_ZX_shape[Settings::M4lMainZoomed][current_final_state][current_category]->Add(ZXShape_zoomed->GetM4lZX(Variables::M4lMainZoomed().var_N_bin, Variables::M4lMainZoomed().var_min, Variables::M4lMainZoomed().var_max, current_final_state, current_category, lumi));
+   
+   ZXShape_zoomed->~M4lZX();
     
 }
 //=======================================================================================
@@ -161,8 +178,11 @@ void Histograms::FillInclusive()
       {
          for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
          {
-            M4lMain[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125]->Add(M4lMain[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            M4lMain[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125]->Add(M4lMain[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125NOVBF]);
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125VBF]);
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125NOVBF]);
+            
+            histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][Settings::H125VBF]);
+            histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][Settings::H125NOVBF]);
          }
       }
    }
@@ -175,7 +195,9 @@ void Histograms::FillInclusive()
          {
             for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
             {
-               M4lMain[Settings::M4lMain][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(M4lMain[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::M4lMain][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::M4lMainZoomed][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][i_proc]);
+                           
             }
          }
       }
@@ -189,7 +211,8 @@ void Histograms::FillInclusive()
          {
             for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
             {
-               M4lMain[Settings::M4lMain][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(M4lMain[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::M4lMain][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::M4lMainZoomed][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][i_proc]);               
             }
          }
       }
@@ -203,7 +226,8 @@ void Histograms::FillInclusive()
          {
             for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
             {
-               M4lMain[Settings::M4lMain][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(M4lMain[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::M4lMain][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][i_proc]);               
             }
          }
       }
@@ -214,7 +238,8 @@ void Histograms::FillInclusive()
    {
       for ( int i_cat = 0; i_cat < num_of_categories - 1; i_cat++ )
       {
-         M4lMain_ZX[Settings::M4lMain][num_of_final_states - 1][i_cat]->Add(M4lMain_ZX[Settings::M4lMain][i_fs][i_cat]);
+         histos_1D_ZX[Settings::M4lMain][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::M4lMain][i_fs][i_cat]);
+         histos_1D_ZX[Settings::M4lMainZoomed][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::M4lMainZoomed][i_fs][i_cat]);         
       }
    }
 
@@ -222,7 +247,8 @@ void Histograms::FillInclusive()
    {
       for ( int i_cat = 0; i_cat < num_of_categories - 1; i_cat++ )
       {
-         M4lMain_ZX[Settings::M4lMain][i_fs][num_of_categories - 1]->Add(M4lMain_ZX[Settings::M4lMain][i_fs][i_cat]);
+         histos_1D_ZX[Settings::M4lMain][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::M4lMain][i_fs][i_cat]);
+         histos_1D_ZX[Settings::M4lMainZoomed][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::M4lMainZoomed][i_fs][i_cat]);         
       }
    }
 
@@ -240,9 +266,9 @@ void Histograms::SmoothHistograms()
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         integral = M4lMain_ZX[Settings::M4lMain][i_fs][i_cat]->Integral();
-         M4lMain_ZX[Settings::M4lMain][i_fs][i_cat]->Smooth(1);
-         M4lMain_ZX[Settings::M4lMain][i_fs][i_cat]->Scale( integral / M4lMain_ZX[Settings::M4lMain][i_fs][i_cat]->Integral() );
+         integral = histos_1D_ZX[Settings::M4lMain][i_fs][i_cat]->Integral();
+         histos_1D_ZX[Settings::M4lMain][i_fs][i_cat]->Smooth(1);
+         histos_1D_ZX[Settings::M4lMain][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::M4lMain][i_fs][i_cat]->Integral() );
       }
    }
 }
@@ -275,7 +301,8 @@ void Histograms::RenormalizeZX()
       for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
       {
          if( i_fs == Settings::fs2mu2e) continue;
-         M4lMain_ZX[Settings::M4lMain][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+         histos_1D_ZX[Settings::M4lMain][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+         histos_1D_ZX[Settings::M4lMainZoomed][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
       }
    }
 }
@@ -296,17 +323,25 @@ void Histograms::SaveHistos( string file_name )
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         M4lMain_ZX[Settings::M4lMain][i_fs][i_cat]->Write();
-         M4lMain_ZX_shape[Settings::M4lMain][i_fs][i_cat]->Write();
-         delete M4lMain_ZX[Settings::M4lMain][i_fs][i_cat];
-         delete M4lMain_ZX_shape[Settings::M4lMain][i_fs][i_cat];
+         histos_1D_ZX[Settings::M4lMain][i_fs][i_cat]->Write();
+         histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat]->Write();
+         histos_1D_ZX[Settings::M4lMainZoomed][i_fs][i_cat]->Write();
+         histos_1D_ZX_shape[Settings::M4lMainZoomed][i_fs][i_cat]->Write();
+         
+         delete histos_1D_ZX[Settings::M4lMain][i_fs][i_cat];
+         delete histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat];
+         delete histos_1D_ZX[Settings::M4lMainZoomed][i_fs][i_cat];
+         delete histos_1D_ZX_shape[Settings::M4lMainZoomed][i_fs][i_cat];
       
          for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
          {
             for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
             {
-               M4lMain[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]->Write();
-               delete M4lMain[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc];
+               histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]->Write();
+               histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][i_proc]->Write();
+                           
+               delete histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc];
+               delete histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][i_proc];
             }
          }
       }
@@ -337,9 +372,11 @@ void Histograms::GetHistos( TString file_name )
          {
             for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
             {
-               _histo_name = _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc);
-            
-               M4lMain[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+               _histo_name = "M4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+               
+               _histo_name = "M4l_zoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
             }
          }
       }
@@ -350,14 +387,17 @@ void Histograms::GetHistos( TString file_name )
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         _histo_name = "ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
-         M4lMain_ZX[Settings::M4lMain][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
+         _histo_name = "ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::M4lMain][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
       
-         _histo_name = "ZX_shape_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
-         M4lMain_ZX_shape[Settings::M4lMain][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
+         _histo_name = "ZX_shape_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
+         
+         _histo_name = "ZX_shape_zoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX_shape[Settings::M4lMainZoomed][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
 
-         M4lMain_ZX[Settings::M4lMain][i_fs][i_cat]->SetFillColor(kTeal-6);
-         M4lMain_ZX_shape[Settings::M4lMain][i_fs][i_cat]->SetFillColor(kTeal-6);
+         //histos_1D_ZX[Settings::M4lMain][i_fs][i_cat]->SetFillColor(kTeal-6);
+         //histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat]->SetFillColor(kTeal-6);
       }
    }
 }
@@ -370,39 +410,39 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
 {
    int plot_index = SetPlotName( variable_name);
    
-   TCanvas *c = new TCanvas(variable_name, variable_name, 700, 700);
+   TCanvas *c = new TCanvas(variable_name, variable_name, 650, 500);
    
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
    
-   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::H125]->SetFillColor(kRed-9);
-   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(kAzure-9);
-   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(kAzure+2);
-   M4lMain_ZX_shape[plot_index][fs][cat]->SetFillColor(kTeal-6);
+   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125]->SetFillColor(kRed-9);
+   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(kAzure-9);
+   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(kAzure+2);
+   histos_1D_ZX_shape[plot_index][fs][cat]->SetFillColor(kTeal-6);
    
-   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
-   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
-   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
-   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetLineColor(kBlack);
+   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
+   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
+   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
+   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetLineColor(kBlack);
    
    THStack *stack = new THStack( "stack", "stack" );
-   stack->Add(M4lMain_ZX_shape[plot_index][fs][cat]);
-   stack->Add(M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ]);
-   stack->Add(M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ]);
-   stack->Add(M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::H125]);
+   stack->Add(histos_1D_ZX_shape[plot_index][fs][cat]);
+   stack->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ]);
+   stack->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ]);
+   stack->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125]);
    
    stack->Draw("HIST");
    
-   float data_max = M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetBinContent(M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
-   float data_max_error = M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetBinErrorUp(M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
+   float data_max = histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetBinContent(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
+   float data_max_error = histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetBinErrorUp(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
       
    stack->SetMinimum(1e-5);      
    stack->SetMaximum((data_max + data_max_error)*1.1);
    
-   stack->GetXaxis()->SetTitle(M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
-   stack->GetYaxis()->SetTitle(M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
+   stack->GetXaxis()->SetTitle(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
+   stack->GetYaxis()->SetTitle(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
    
-   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
+   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
       
    stringstream ss;
    ss << folder << "/" << variable_name << "_" << filename;
@@ -424,56 +464,59 @@ void Histograms::Plot1D_all( TString filename, TString variable_name , TString f
 {
    int plot_index = SetPlotName( variable_name);
     
-   TCanvas *c = new TCanvas(variable_name, variable_name, 700, 700);
+   TCanvas *c = new TCanvas(variable_name, variable_name, 650, 500);
 
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
        
    for( int i_cat = num_of_categories - 1; i_cat >= 0; i_cat--)
    {  
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]->SetFillColor(1180);
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(851);
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(858);
-      M4lMain_ZX_shape[plot_index][Settings::fs4l][i_cat]->SetFillColor(411);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]->SetFillColor(1180);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(851);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(858);
+      histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]->SetFillColor(411);
       
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]->SetLineColor(633);
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]->SetLineColor(602);
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]->SetLineColor(602);
-      M4lMain_ZX_shape[plot_index][Settings::fs4l][i_cat]->SetLineColor(420);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]->SetLineColor(633);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]->SetLineColor(602);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]->SetLineColor(602);
+      histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]->SetLineColor(420);
       
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetLineColor(kBlack);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetLineColor(kBlack);
       
       THStack *stack = new THStack( "stack", "stack" );
-      stack->Add(M4lMain_ZX_shape[plot_index][Settings::fs4l][i_cat]);
-      stack->Add(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]);
-      stack->Add(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]);
-      stack->Add(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]);
+      stack->Add(histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]);
+      stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]);
+      stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]);
+      stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]);
       
       stack->Draw("HIST");  
    
-      float data_max = M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetBinContent(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
-      float data_max_error = M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetBinErrorUp(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
+      float data_max = histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetBinContent(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
+      float data_max_error = histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetBinErrorUp(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
       
       stack->SetMinimum(1e-15);      
       stack->SetMaximum((data_max + data_max_error)*1.1);
-      stack->GetXaxis()->SetNdivisions(0);
       
-      stack->GetXaxis()->SetTitle(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
-      stack->GetYaxis()->SetTitle(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
+      stack->GetXaxis()->SetTitle(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
+      stack->GetYaxis()->SetTitle(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
       
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
       
-      TLegend *legend = CreateLegend(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125],M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ], M4lMain_ZX_shape[plot_index][Settings::fs4l][i_cat]);
+      TLegend *legend = CreateLegend(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]);
       legend->Draw();
       
       CMS_lumi *lumi = new CMS_lumi;
       lumi->set_lumi(c, 0, 0);
       
       // Draw X-axis log scale
-      DrawLogX(c, i_cat);
+      if ( plot_index == Settings::M4lMain )
+      {
+         stack->GetXaxis()->SetNdivisions(0);
+         DrawLogX(c, i_cat);  
+      }
 
       stringstream ss;
       ss << folder << "/" << variable_name << "_" <<filename << "_" << i_cat;

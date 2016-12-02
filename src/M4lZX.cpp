@@ -24,7 +24,11 @@ M4lZX::M4lZX()
 
    h_full_range_4mu   = new TH1F("h_full_range_4mu"  , ";;", 2930, 70, 3000);
    h_full_range_4e    = new TH1F("h_full_range_4e"   , ";;", 2930, 70, 3000);
-   h_full_range_2e2mu = new TH1F("h_full_range_2e2mu", ";;", 2930, 70, 3000);   
+   h_full_range_2e2mu = new TH1F("h_full_range_2e2mu", ";;", 2930, 70, 3000);
+   
+   h_full_range_4mu  ->FillRandom("f_4mu_comb"  , _n_entries);
+   h_full_range_4e   ->FillRandom("f_4e_comb"   , _n_entries);
+   h_full_range_2e2mu->FillRandom("f_2e2mu_comb", _n_entries);
 }
 //=====================
 
@@ -42,13 +46,8 @@ M4lZX::~M4lZX() {
 
 //===================================================================================
 TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, int category, double lumi)
-{
-
-   h_full_range_4mu  ->FillRandom("f_4mu_comb"  , _n_entries);
-   h_full_range_4e   ->FillRandom("f_4e_comb"   , _n_entries);
-   h_full_range_2e2mu->FillRandom("f_2e2mu_comb", _n_entries);
-  
-    SetNormalization(category);
+{ 
+   SetNormalization(category);
     
    _norm_4mu = _norm_ZX_full_SR_4mu * h_full_range_4mu->Integral(h_full_range_4mu->FindBin(x_min), h_full_range_4mu->FindBin(x_max)-1) / h_full_range_4mu->Integral();
    _norm_4e = _norm_ZX_full_SR_4e * h_full_range_4e->Integral(h_full_range_4e->FindBin(x_min), h_full_range_4e->FindBin(x_max)-1) / h_full_range_4e->Integral();
@@ -144,9 +143,9 @@ void M4lZX::SetNormalization( int category)
         break;
         
         case 6:
-        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_inclusive;
-        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_inclusive;
-        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_inclusive;
+        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_combined;
+        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_combined;
+        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_combined;
         break;
         
         default:
