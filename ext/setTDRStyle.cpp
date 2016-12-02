@@ -17,52 +17,53 @@ void fixOverlay() {
 */
 
 
-void setTDRStyle() {
-  TStyle *tdrStyle = new TStyle("tdrStyle","Style for P-TDR");
+void setTDRStyle()
+{
+   TStyle *tdrStyle = new TStyle("tdrStyle","Style for P-TDR");
 
 // For the canvas:
-  tdrStyle->SetCanvasBorderMode(0);
-  tdrStyle->SetCanvasColor(kWhite);
-  tdrStyle->SetCanvasDefH(600); //Height of canvas
-  tdrStyle->SetCanvasDefW(600); //Width of canvas
-  tdrStyle->SetCanvasDefX(0);   //POsition on screen
-  tdrStyle->SetCanvasDefY(0);
+   tdrStyle->SetCanvasBorderMode(0);
+   tdrStyle->SetCanvasColor(kWhite);
+   tdrStyle->SetCanvasDefH(600); //Height of canvas
+   tdrStyle->SetCanvasDefW(600); //Width of canvas
+   tdrStyle->SetCanvasDefX(0);   //POsition on screen
+   tdrStyle->SetCanvasDefY(0);
 
 // For the Pad:
-  tdrStyle->SetPadBorderMode(0);
-  // tdrStyle->SetPadBorderSize(Width_t size = 1);
-  tdrStyle->SetPadColor(kWhite);
-  tdrStyle->SetPadGridX(false);
-  tdrStyle->SetPadGridY(false);
-  tdrStyle->SetGridColor(0);
-  tdrStyle->SetGridStyle(3);
-  tdrStyle->SetGridWidth(1);
+   tdrStyle->SetPadBorderMode(0);
+   //tdrStyle->SetPadBorderSize(Width_t size = 1);
+   tdrStyle->SetPadColor(kWhite);
+   tdrStyle->SetPadGridX(false);
+   tdrStyle->SetPadGridY(false);
+   tdrStyle->SetGridColor(0);
+   tdrStyle->SetGridStyle(3);
+   tdrStyle->SetGridWidth(1);
 
 // For the frame:
-  tdrStyle->SetFrameBorderMode(0);
-  tdrStyle->SetFrameBorderSize(1);
-  tdrStyle->SetFrameFillColor(0);
-  tdrStyle->SetFrameFillStyle(0);
-  tdrStyle->SetFrameLineColor(1);
-  tdrStyle->SetFrameLineStyle(1);
-  tdrStyle->SetFrameLineWidth(1);
+   tdrStyle->SetFrameBorderMode(0);
+   tdrStyle->SetFrameBorderSize(1);
+   tdrStyle->SetFrameFillColor(0);
+   tdrStyle->SetFrameFillStyle(0);
+   tdrStyle->SetFrameLineColor(1);
+   tdrStyle->SetFrameLineStyle(1);
+   tdrStyle->SetFrameLineWidth(1);
   
 // For the histo:
-  // tdrStyle->SetHistFillColor(1);
-  // tdrStyle->SetHistFillStyle(0);
-  tdrStyle->SetHistLineColor(1);
-  tdrStyle->SetHistLineStyle(0);
-  tdrStyle->SetHistLineWidth(1);
-  // tdrStyle->SetLegoInnerR(Float_t rad = 0.5);
-  // tdrStyle->SetNumberContours(Int_t number = 20);
+   //tdrStyle->SetHistFillColor(1);
+   //tdrStyle->SetHistFillStyle(0);
+   tdrStyle->SetHistLineColor(1);
+   tdrStyle->SetHistLineStyle(0);
+   tdrStyle->SetHistLineWidth(1);
+   //tdrStyle->SetLegoInnerR(Float_t rad = 0.5);
+   //tdrStyle->SetNumberContours(Int_t number = 20);
 
-  tdrStyle->SetEndErrorSize(2);
-  // tdrStyle->SetErrorMarker(20);
-  //tdrStyle->SetErrorX(0.);
+   tdrStyle->SetEndErrorSize(2);
+   //tdrStyle->SetErrorMarker(20);
+   //tdrStyle->SetErrorX(0.);
   
-  tdrStyle->SetMarkerStyle(20);
+   tdrStyle->SetMarkerStyle(20);
   
-//For the fit/function:
+// For the fit/function:
   tdrStyle->SetOptFit(1);
   tdrStyle->SetFitFormat("5.4g");
   tdrStyle->SetFuncColor(2);
@@ -111,13 +112,16 @@ void setTDRStyle() {
   // tdrStyle->SetTitleBorderSize(2);
 
 // For the axis titles:
-
-  tdrStyle->SetTitleXOffset(0.9);
-  tdrStyle->SetTitleYOffset(1.25);
+  //tdrStyle->SetTitleColor(1, "XYZ");
+  //tdrStyle->SetTitleFont(42, "XYZ");
+  //tdrStyle->SetTitleSize(0.06, "XYZ");
+  // tdrStyle->SetTitleXSize(Float_t size = 0.02); // Another way to set the size?
+  // tdrStyle->SetTitleYSize(Float_t size = 0.02);
+   tdrStyle->SetTitleXOffset(1.2);
+   tdrStyle->SetTitleYOffset(1.4);
   // tdrStyle->SetTitleOffset(1.1, "Y"); // Another way to set the Offset
 
 // For the axis labels:
-
 //  tdrStyle->SetLabelColor(1, "XYZ");
 //  tdrStyle->SetLabelFont(42, "XYZ");
 //  tdrStyle->SetLabelOffset(0.007, "XYZ");

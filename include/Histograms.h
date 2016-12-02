@@ -15,6 +15,7 @@
 #include "TCanvas.h"
 #include "THStack.h"
 #include "TLegend.h"
+#include "TLatex.h"
 
 // Include classes
 #include "Settings.h"
@@ -50,9 +51,12 @@ public:
    int SetPlotName( TString );
    bool GetVarLogX( TString );
    bool GetVarLogY( TString );
-   TLegend* CreateLegend( TH1F*, TH1F*, TH1F*, TH1F*, TH1F*);
+   TLegend* CreateLegend( TH1F*, TH1F*, TH1F*, TH1F*, TH1F* );
+   void DrawLogX( TCanvas *, int );
    
 private:
+   
+   float _y_max;
 
    vector<string> _s_category, _s_resonant_status, _s_final_state, _s_process;
    string _histo_name, _histo_labels;

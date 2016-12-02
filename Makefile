@@ -9,10 +9,10 @@ CXX = g++
 
 EXTLIBS = ./ext/cConstants_cc.so ./ext/FinalStates_cc.so ./ext/bitops_cc.so
 
-VPATH = ./src/
+VPATH = ./src/ ./include/
 
 SRCPP = run.cpp\
-        Plotter.cpp\
+		  Plotter.cpp\
 		  Histograms.cpp\
 		  Variables.cpp\
 		  Tree.cpp\
@@ -22,12 +22,23 @@ SRCPP = run.cpp\
 		  Category.cpp\
 		  ZXVariables.cpp\
 		  CMS_lumi.cpp
+
+INCLUDES = Plotter.h\
+			  Histograms.h\
+			  Variables.h\
+			  Tree.h\
+			  Settings.h\
+			  M4lZX.h\
+			  FakeRates.h\
+			  Category.h\
+			  ZXVariables.h\
+			  CMS_lumi.h
         
 OBJCPP = $(patsubst %.cpp,obj/%.o,$(SRCPP))
 
 all : run
 
-obj/%.o : %.cpp
+obj/%.o : %.cpp $(INCLUDES)
 	@echo ">> compiling $*"
 	@mkdir -p obj/
 	@$(CXX) -c $< ${CXXFLAGS} -o $@

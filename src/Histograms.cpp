@@ -7,7 +7,7 @@
 using namespace std;
 
 // Constructor
-//==========================================
+//======================================
 Histograms::Histograms( string blinding)
 {
    _s_process.push_back("Data");
@@ -71,7 +71,7 @@ Histograms::Histograms( string blinding)
    }
    
 }
-//==========================================
+//======================================
 
 
 
@@ -113,34 +113,33 @@ Histograms::~Histograms()
 //====================================================================================
 void Histograms::FillM4l( float M4l, float weight, int fs, int cat, int rs, int proc )
 {
-
-//   cout << fs << cat << rs << proc << endl;
    M4lMain[Settings::M4lMain][fs][cat][rs][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
-
 }
 //====================================================================================
 
 
 
-//====================================================================================
+//====================================================================
 void Histograms::FillM4lZX( float M4l, float weight, int fs, int cat )
 {
    M4lMain_ZX[Settings::M4lMain][fs][cat]->Fill(M4l, weight);
 }
-//====================================================================================
+//====================================================================
 
 
 
-//====================================================================================
+//=======================================================================================
 void Histograms::MakeZXShape( int current_final_state, int current_category, float lumi )
 {
-	M4lZX *ZXShape = new M4lZX();
-    current_final_state = (current_final_state==3) ? 2 : current_final_state;
+   M4lZX *ZXShape = new M4lZX();
+   
+   current_final_state = (current_final_state==3) ? 2 : current_final_state;
    M4lMain_ZX_shape[Settings::M4lMain][current_final_state][current_category]->Add(ZXShape->GetM4lZX(Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max, current_final_state, current_category, lumi));
-    ZXShape->~M4lZX();
+   
+   ZXShape->~M4lZX();
     
 }
-//====================================================================================
+//=======================================================================================
 
 
 
@@ -251,8 +250,8 @@ void Histograms::SmoothHistograms()
 
 
 
-//=================================
-void Histograms::RenormalizeZX( )
+//==============================
+void Histograms::RenormalizeZX()
 {
    
    M4lZX *ZX = new M4lZX();
@@ -280,7 +279,7 @@ void Histograms::RenormalizeZX( )
       }
    }
 }
-//=================================
+//==============================
 
 
 
@@ -306,7 +305,6 @@ void Histograms::SaveHistos( string file_name )
          {
             for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
             {
-//               if ( file_name == "Blinded_110_150_500_test.root" ) cout << i_fs << endl;
                M4lMain[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]->Write();
                delete M4lMain[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc];
             }
@@ -318,13 +316,12 @@ void Histograms::SaveHistos( string file_name )
    
    fOutHistos->Close();
    delete fOutHistos;
-
 }
 //=============================================
 
 
 
-//============================================
+//=============================================
 void Histograms::GetHistos( TString file_name )
 {
 
@@ -356,20 +353,19 @@ void Histograms::GetHistos( TString file_name )
          _histo_name = "ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
          M4lMain_ZX[Settings::M4lMain][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
       
-			_histo_name = "ZX_shape_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
-			M4lMain_ZX_shape[Settings::M4lMain][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
-			
-         M4lMain_ZX[Settings::M4lMain][i_fs][i_cat]->SetFillColor(kGreen + 2);
-         M4lMain_ZX_shape[Settings::M4lMain][i_fs][i_cat]->SetFillColor(kGreen + 2);
+         _histo_name = "ZX_shape_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
+         M4lMain_ZX_shape[Settings::M4lMain][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
+
+         M4lMain_ZX[Settings::M4lMain][i_fs][i_cat]->SetFillColor(kTeal-6);
+         M4lMain_ZX_shape[Settings::M4lMain][i_fs][i_cat]->SetFillColor(kTeal-6);
       }
    }
-
 }
-//============================================
+//=============================================
 
 
 
-//============================================
+//========================================================================================================
 void Histograms::Plot1D_single( TString filename, TString variable_name, TString folder, int fs, int cat )
 {
    int plot_index = SetPlotName( variable_name);
@@ -379,10 +375,10 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
    
-   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::H125]->SetFillColor(kRed+1);
+   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::H125]->SetFillColor(kRed-9);
    M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(kAzure-9);
-   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(kAzure);
-   M4lMain_ZX_shape[plot_index][fs][cat]->SetFillColor(kGreen + 2);
+   M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(kAzure+2);
+   M4lMain_ZX_shape[plot_index][fs][cat]->SetFillColor(kTeal-6);
    
    M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
    M4lMain[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
@@ -419,14 +415,13 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    c->SaveAs((ss.str() + ".eps").c_str());
 
 }
-//============================================
+//========================================================================================================
 
 
 
-//============================================
-void Histograms::Plot1D_all( TString filename, TString variable_name , TString folder)
+//=====================================================================================
+void Histograms::Plot1D_all( TString filename, TString variable_name , TString folder )
 {
-      
    int plot_index = SetPlotName( variable_name);
     
    TCanvas *c = new TCanvas(variable_name, variable_name, 700, 700);
@@ -434,12 +429,17 @@ void Histograms::Plot1D_all( TString filename, TString variable_name , TString f
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
        
-   for( int i_cat = 0; i_cat < num_of_categories; i_cat++)
+   for( int i_cat = num_of_categories - 1; i_cat >= 0; i_cat--)
    {  
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]->SetFillColor(kRed+1);
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(kAzure-9);
-      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(kAzure);
-      M4lMain_ZX_shape[plot_index][Settings::fs4l][i_cat]->SetFillColor(kGreen + 2);
+      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]->SetFillColor(1180);
+      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(851);
+      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(858);
+      M4lMain_ZX_shape[plot_index][Settings::fs4l][i_cat]->SetFillColor(411);
+      
+      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]->SetLineColor(633);
+      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]->SetLineColor(602);
+      M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]->SetLineColor(602);
+      M4lMain_ZX_shape[plot_index][Settings::fs4l][i_cat]->SetLineColor(420);
       
       M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
       M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
@@ -453,13 +453,14 @@ void Histograms::Plot1D_all( TString filename, TString variable_name , TString f
       stack->Add(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]);
       
       stack->Draw("HIST");  
-      
+   
       float data_max = M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetBinContent(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
       float data_max_error = M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetBinErrorUp(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
       
       stack->SetMinimum(1e-15);      
       stack->SetMaximum((data_max + data_max_error)*1.1);
-         
+      stack->GetXaxis()->SetNdivisions(0);
+      
       stack->GetXaxis()->SetTitle(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
       stack->GetYaxis()->SetTitle(M4lMain[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
       
@@ -470,7 +471,10 @@ void Histograms::Plot1D_all( TString filename, TString variable_name , TString f
       
       CMS_lumi *lumi = new CMS_lumi;
       lumi->set_lumi(c, 0, 0);
-         
+      
+      // Draw X-axis log scale
+      DrawLogX(c, i_cat);
+
       stringstream ss;
       ss << folder << "/" << variable_name << "_" <<filename << "_" << i_cat;
 
@@ -482,12 +486,15 @@ void Histograms::Plot1D_all( TString filename, TString variable_name , TString f
       c->SaveAs((ss.str() + ".eps").c_str());   
    }
 }
+//=====================================================================================
 
-//=================================
-int Histograms::SetPlotName(TString variable_name)
+
+
+//==================================================
+int Histograms::SetPlotName( TString variable_name )
 {
-   if(variable_name == "M4lMain")                return Settings::M4lMain;
-   else if (variable_name == "M4lMainZoomed")    return Settings::M4lMainZoomed;
+   if ( variable_name == "M4lMain" )            return Settings::M4lMain;
+   else if ( variable_name == "M4lMainZoomed" ) return Settings::M4lMainZoomed;
    else
    {
       cout << "[ERROR] Wrong variable name choosen! Setting it to M4lMain. Only possible implementations for now are: \n - M4lMain \n - M4lMainZoomed" << endl;
@@ -495,11 +502,12 @@ int Histograms::SetPlotName(TString variable_name)
       return Settings::M4lMain;
    }
 }
-//=================================
+//==================================================
 
 
-//=================================
-bool Histograms::GetVarLogX ( TString variable_name)
+
+//===================================================
+bool Histograms::GetVarLogX ( TString variable_name )
 {
    if(variable_name == "M4lMain")                return bool(Variables::M4lMain().var_log_x);
    else if (variable_name == "M4lMainZoomed")    return bool(Variables::M4lMainZoomed().var_log_x);
@@ -510,12 +518,12 @@ bool Histograms::GetVarLogX ( TString variable_name)
       return bool(Variables::M4lMain().var_log_x);
    }
 }
-//=================================
+//===================================================
 
 
-//=================================
 
-bool Histograms::GetVarLogY ( TString variable_name)
+//===================================================
+bool Histograms::GetVarLogY ( TString variable_name )
 {
    if(variable_name == "M4lMain")                return bool(Variables::M4lMain().var_log_y);
    else if (variable_name == "M4lMainZoomed")    return bool(Variables::M4lMainZoomed().var_log_y);
@@ -526,32 +534,64 @@ bool Histograms::GetVarLogY ( TString variable_name)
       return bool(Variables::M4lMain().var_log_y);
    }
 }
-//=================================
+//===================================================
 
 
-//=================================
-TLegend* Histograms::CreateLegend( TH1F *data, TH1F *h125,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX)
+
+//========================================================================================
+TLegend* Histograms::CreateLegend( TH1F *data, TH1F *h125,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX )
 {
    TLegend *leg = new TLegend( .70, .72, .95, .9 );
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
    
    leg->AddEntry( data, "Data", "p" );
-   
-   leg->AddEntry( h125,"H(125)","f"); //, m_{H}=126 GeV
-   
+   leg->AddEntry( h125,"H(125)","f");
    leg->AddEntry( qqZZ, "q#bar{q}#rightarrowZZ, Z#gamma*", "f" );
-
    leg->AddEntry( ggZZ, "gg#rightarrowZZ, Z#gamma*", "f" );
-   
    leg->AddEntry( ZX, "Z+X", "f" );
    
-   // leg->Draw();
-   
-   //		datahisto->Draw( "E1same" );
-   
    return leg;
-
 }
-//=================================
+//========================================================================================
 
+
+//================================================
+void Histograms::DrawLogX( TCanvas *c, int i_cat )
+{
+   int x_low = 100;
+   int x_up  = 700;
+   int step  = 100;
+      
+   float u_y_max = c->GetUymax();
+   
+   if ( i_cat == 6 ) _y_max = u_y_max;
+   
+   float factor = u_y_max/_y_max;
+   float y_latex = -0.4;
+       
+   TLatex *latex_80 = new TLatex(80, y_latex*factor, "80");  
+   latex_80->SetTextAlign(23);
+   latex_80->SetTextFont (42);
+   latex_80->SetTextSize (0.035);
+   latex_80->Draw();
+    
+   TLatex *latex_800 = new TLatex(800, y_latex*factor, "800");  
+   latex_800->SetTextAlign(23);
+   latex_800->SetTextFont (42);
+   latex_800->SetTextSize (0.035);
+   latex_800->Draw();
+    
+   for ( int i = x_low; i < x_up; i += step )
+   {
+      float i_x = i;
+      
+      TLatex *latex = new TLatex(i, y_latex*factor, Form("%.0f", i_x));
+      
+      latex->SetTextAlign(23);
+      latex->SetTextFont (42);
+      latex->SetTextSize (0.035);
+      latex->Draw();
+   }
+}
+//================================================
