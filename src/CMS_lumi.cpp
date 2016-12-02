@@ -17,7 +17,6 @@ CMS_lumi::~CMS_lumi(){}
 
 void CMS_lumi::set_lumi( TPad* pad, int iPeriod, int iPosX )
 {           
-   
    bool outOfFrame = false;
   
    if( iPosX / 10 == 0 )
@@ -54,7 +53,7 @@ void CMS_lumi::set_lumi( TPad* pad, int iPeriod, int iPosX )
       alignX_ = 3;
    }
    
-   if( iPosX == 0  ) relPosX = 0.12;
+   if( iPosX == 0  ) relPosX = 0.09;
   
    int align_ = 10*alignX_ + alignY_;
 

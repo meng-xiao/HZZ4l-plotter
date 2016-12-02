@@ -508,6 +508,7 @@ void Histograms::Plot1D_all( TString filename, TString variable_name , TString f
       TLegend *legend = CreateLegend(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]);
       legend->Draw();
       
+      // Draw lumi
       CMS_lumi *lumi = new CMS_lumi;
       lumi->set_lumi(c, 0, 0);
       

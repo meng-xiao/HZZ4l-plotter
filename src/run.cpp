@@ -45,7 +45,8 @@ int main( int argc, char *argv[] )
    TString FakeRates   = path + "FakeRates" + file_name_FR;
 
    Plotter *plotter = new Plotter();
- 
+
+ /*
    plotter->SetBlinding(110, 150);
  
    plotter->MakeHistograms(Data);
@@ -67,7 +68,8 @@ int main( int argc, char *argv[] )
    plotter->FillInclusive();
 
    plotter->Save(); 
-
+*/
+   
    //plotter->GetHistos( "Blinded" );
    //plotter->Plot1D_all( "Blinded", "M4lMain", "Plots");
    //plotter->Plot1D_single( "Blinded", "M4lMain", "Plots", 4, 6);
