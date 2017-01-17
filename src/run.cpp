@@ -73,11 +73,12 @@ int main( int argc, char *argv[] )
    plotter->GetHistos( "Blinded" );
 //   plotter->Plot1D_all( "Blinded", "M4lMain", "Plots");
 //   plotter->Plot1D_all( "Blinded", "M4lMainZoomed", "Plots");
-   plotter->Plot1D_all( "Blinded", "MZ1_M4L118130", "Plots");
+   plotter->Plot1D_all( "Blinded", "MZ2", "Plots");
 //   plotter->Plot1D_single( "Blinded", "MZ1", "Plots", 1, 0);
    
    plotter->GetHistos( "Unblinded" );
 //   plotter->Plot1D_all( "Unblinded", "M4lMain" , "Plots");
 //   plotter->Plot1D_all( "Unblinded", "M4lMainZoomed" , "Plots");
-   plotter->Plot1D_all( "Unblinded", "MZ1_M4L118130", "Plots");
+   plotter->Plot1D_all( "Unblinded", "MZ2_M4L118130", "Plots");
+   plotter->Plot1D_all( "Unblinded", "MZ2", "Plots");
 }

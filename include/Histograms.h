@@ -39,10 +39,14 @@ public:
    ~Histograms();
    void FillM4l( float, float, int, int, int, int );
    void FillM4lZX( float, float, int, int );
-   void FillMZ( float, float, int, int, int, int );
-   void FillMZZX( float, float, int, int );
-   void FillMZ_cut( float, float, float, int, int, int, int );
-   void FillMZZX_cut( float, float, float, int, int );
+   void FillMZ1( float, float, int, int, int, int );
+   void FillMZ1ZX( float, float, int, int );
+   void FillMZ1_cut( float, float, float, int, int, int, int );
+   void FillMZ1ZX_cut( float, float, float, int, int );
+   void FillMZ2( float, float, int, int, int, int );
+   void FillMZ2ZX( float, float, int, int );
+   void FillMZ2_cut( float, float, float, int, int, int, int );
+   void FillMZ2ZX_cut( float, float, float, int, int );
    void SaveHistos( string );
    void FillInclusive();
    void SmoothHistograms();

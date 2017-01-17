@@ -130,6 +130,9 @@ public:
       Int_t var_CMS_pos = 0;
       Int_t varLegPos = 33;
       Int_t rebinningDYTTbar = 5;
+      
+      Float_t cut_d = 118;
+      Float_t cut_u = 130;
    };
    
    

@@ -276,11 +276,20 @@ void Plotter::MakeHistograms( TString input_file_name )
       // Fill MZ1 histograms
       if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
       {
-         blinded_histos->FillMZ( Z1Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+         blinded_histos->FillMZ1( Z1Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       }
       
-      unblinded_histos->FillMZ( Z1Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-      unblinded_histos->FillMZ_cut( ZZMass, Z1Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      unblinded_histos->FillMZ1( Z1Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      unblinded_histos->FillMZ1_cut( ZZMass, Z1Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      
+      // Fill MZ2 histograms
+      if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
+      {
+         blinded_histos->FillMZ2( Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      }
+      
+      unblinded_histos->FillMZ2( Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      unblinded_histos->FillMZ2_cut( ZZMass, Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       
    } // end for loop
    
@@ -358,13 +367,23 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       blinded_histos->FillM4lZX( ZZMass, _yield_SR, _current_final_state, _current_category);
       
       // Fill mZ1 Z+X histograms
-      unblinded_histos->FillMZZX( Z1Mass, _yield_SR, _current_final_state, _current_category );
-      unblinded_histos->FillMZZX_cut( ZZMass, Z1Mass, _yield_SR, _current_final_state, _current_category );
+      unblinded_histos->FillMZ1ZX( Z1Mass, _yield_SR, _current_final_state, _current_category );
+      unblinded_histos->FillMZ1ZX_cut( ZZMass, Z1Mass, _yield_SR, _current_final_state, _current_category );
       
       if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
       {
-         blinded_histos->FillMZZX( Z1Mass, _yield_SR, _current_final_state, _current_category);
+         blinded_histos->FillMZ1ZX( Z1Mass, _yield_SR, _current_final_state, _current_category);
       }
+      
+      // Fill mZ2 Z+X histograms
+      unblinded_histos->FillMZ2ZX( Z2Mass, _yield_SR, _current_final_state, _current_category );
+      unblinded_histos->FillMZ2ZX_cut( ZZMass, Z2Mass, _yield_SR, _current_final_state, _current_category );
+      
+      if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
+      {
+         blinded_histos->FillMZ2ZX( Z2Mass, _yield_SR, _current_final_state, _current_category);
+      }
+
    
       _expected_yield_SR.at(_current_final_state) += _yield_SR;
       _number_of_events_CR.at(_current_final_state)++;
