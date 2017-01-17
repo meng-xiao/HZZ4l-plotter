@@ -43,13 +43,11 @@ Plotter::Plotter():Tree()
    _use_gray_scale = false;
 		
    _var_name.push_back("M4lMain");
-   _var_name.push_back("M4l_70181");
-   _var_name.push_back("MZ1V1");
-   _var_name.push_back("MZ1V1Log");
-   _var_name.push_back("MZ1V2");
-   _var_name.push_back("MZ2V1");
-   _var_name.push_back("MZ2V1Log");
-   _var_name.push_back("MZ2V2");
+   _var_name.push_back("M4lMainZoomed");
+   _var_name.push_back("MZ1");
+   _var_name.push_back("MZ1_M4L118130");
+   _var_name.push_back("MZ2");
+   _var_name.push_back("MZ2_M4L118130");
    _var_name.push_back("KD");
    _var_name.push_back("Fisher");
    _var_name.push_back("VbfMela");
@@ -266,13 +264,24 @@ void Plotter::MakeHistograms( TString input_file_name )
       _event_weight = (_lumi * 1000 * xsec * _k_factor * overallEventWeight) / gen_sum_weights;
    
    
-      // Fill histograms
+      // Fill M4l histograms
       if ( (_current_process == Settings::Data && (ZZMass < _blinding_lower || ZZMass > _blinding_upper)) || _current_process != Settings::Data )
        {
            blinded_histos->FillM4l( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+           
        }
        
        unblinded_histos->FillM4l( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      
+      // Fill MZ1 histograms
+      if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
+      {
+         blinded_histos->FillMZ1( Z1Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+         
+      }
+      
+      unblinded_histos->FillMZ1( Z1Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      
    } // end for loop
    
 }
@@ -344,8 +353,17 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       // START fill histograms
       // cout << "[INFO] Filling Z+X histograms..." << endl;
    
+      // Fill m4l Z+X histograms
       unblinded_histos->FillM4lZX( ZZMass, _yield_SR, _current_final_state, _current_category );
       blinded_histos->FillM4lZX( ZZMass, _yield_SR, _current_final_state, _current_category);
+      
+      // Fill mZ1 Z+X histograms
+      unblinded_histos->FillMZ1ZX( Z1Mass, _yield_SR, _current_final_state, _current_category );
+      
+      if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
+      {
+         blinded_histos->FillMZ1ZX( Z1Mass, _yield_SR, _current_final_state, _current_category);
+      }
    
       _expected_yield_SR.at(_current_final_state) += _yield_SR;
       _number_of_events_CR.at(_current_final_state)++;
@@ -372,13 +390,13 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
    if ( SMOOTH_ZX_FULL_RUN2_SS )
    {
       cout << "[INFO] Smoothing Z+X histograms..." << endl;
-      blinded_histos->SmoothHistograms();
-      unblinded_histos->SmoothHistograms();
+    //  blinded_histos->SmoothHistograms();
+    //  unblinded_histos->SmoothHistograms();
    }
     
    unblinded_histos->RenormalizeZX();
    blinded_histos->RenormalizeZX();
-    
+   
     
 }
 //===============================================================================
@@ -512,7 +530,7 @@ int Plotter::FindFinalState()
       cerr << "[ERROR] in event " << RunNumber << ":" << LumiNumber << ":" << EventNumber << ", Z1Flav = " << Z1Flav << endl;
    }
    
-   if ( MERGE_2E2MU && final_state == Settings::Settings::fs2mu2e ) final_state = Settings::fs2e2mu;
+   if ( MERGE_2E2MU && final_state == Settings::fs2mu2e ) final_state = Settings::fs2e2mu;
 
    return final_state;
 }
@@ -548,7 +566,7 @@ int Plotter::FindFinalStateZX()
       cerr << "[ERROR] in event " << RunNumber << ":" << LumiNumber << ":" << EventNumber << ", Z1Flav = " << Z1Flav << endl;
    }
    
-   if ( MERGE_2E2MU && final_state == Settings::Settings::fs2mu2e ) final_state = Settings::fs2e2mu;
+   if ( MERGE_2E2MU && final_state == Settings::fs2mu2e ) final_state = Settings::fs2e2mu;
    
    return final_state;
 }

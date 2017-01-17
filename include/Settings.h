@@ -21,7 +21,7 @@ public:
    enum _resonant_status { resonant = 0, nonresonant = 1, all_resonant = 2, MAX_NUM_OF_RESONANT_STATUSES };
    enum _category { untagged = 0, VBF_1j_tagged = 1, VBF_2j_tagged = 2, VH_lepton_tagged = 3, VH_hadron_tagged = 4, ttH_tagged = 5,
                     inclusive = 6, MAX_NUM_OF_CATEGORIES };
-   enum _plot_name { M4lMain = 0, M4lMainZoomed = 1, MAX_NUM_OF_PLOT_NAMES};
+   enum _plot_name { M4lMain = 0, M4lMainZoomed = 1, MZ1 = 2, MAX_NUM_OF_PLOT_NAMES};
 
 
    static const int num_of_processes    = MAX_NUM_OF_PROCESSES;

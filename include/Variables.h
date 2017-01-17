@@ -58,7 +58,7 @@ public:
    };
    
    
-   struct MZ1V1
+   struct MZ1
    {
       TString var_X_label = "m_{Z1} (GeV)";
       TString var_Y_label = "Events / 2 GeV";
@@ -75,24 +75,8 @@ public:
       Int_t rebinningDYTTbar = 5;
    };
    
-   struct MZ1V1Log
-   {
-      TString var_X_label = "m_{Z1} (GeV)";
-      TString var_Y_label = "Events / 2 GeV";
-      TString var_cut_label = "";
-      Int_t var_N_bin = 40;
-      Float_t var_min = 40;
-      Float_t var_max = 120;
-      Bool_t var_log_x = 0;
-      Bool_t var_log_y = 1;
-      Int_t restrict_count_var = 0;
-      Float_t var_min_factor = 2000;
-      Int_t var_CMS_pos = 33;
-      Int_t varLegPos = 11;
-      Int_t rebinningDYTTbar = 5;
-   };
    
-   struct MZ1V1_M4L118130
+   struct MZ1_M4L118130
    {
       TString var_X_label = "m_{Z1} (GeV)";
       TString var_Y_label = "Events / 4 GeV";
@@ -109,24 +93,8 @@ public:
       Int_t rebinningDYTTbar = 2;
    };
    
-   struct MZ1V2
-   {
-      TString var_X_label = "m_{Z1} (GeV)";
-      TString var_Y_label = "Events / 5 GeV";
-      TString var_cut_label = "";
-      Int_t var_N_bin = 30;
-      Float_t var_min = 0;
-      Float_t var_max = 150;
-      Bool_t var_log_x = 0;
-      Bool_t var_log_y = 0;
-      Int_t restrict_count_var = 0;
-      Float_t var_min_factor = 0;
-      Int_t var_CMS_pos = 33;
-      Int_t varLegPos = 11;
-      Int_t rebinningDYTTbar = 2;
-   };
    
-   struct MZ2V1
+   struct MZ2
    {
       TString var_X_label = "m_{Z2} (GeV)";
       TString var_Y_label = "Events / 2 GeV";
@@ -143,24 +111,8 @@ public:
       Int_t rebinningDYTTbar = 5;
    };
    
-   struct MZ2V1Log
-   {
-      TString var_X_label = "m_{Z2} (GeV)";
-      TString var_Y_label = "Events / 2 GeV";
-      TString var_cut_label = "";
-      Int_t var_N_bin = 54;
-      Float_t var_min = 12;
-      Float_t var_max = 120;
-      Bool_t var_log_x = 0;
-      Bool_t var_log_y = 1;
-      Int_t restrict_count_var = 0;
-      Float_t var_min_factor = 2000;
-      Int_t var_CMS_pos = 33;
-      Int_t varLegPos = 11;
-      Int_t rebinningDYTTbar = 5;
-   };
    
-   struct MZ2V1_M4L118130
+   struct MZ2_M4L118130
    {
       TString var_X_label = "m_{Z2} (GeV)";
       TString var_Y_label = "Events / 4 GeV";
@@ -177,22 +129,6 @@ public:
       Int_t rebinningDYTTbar = 5;
    };
    
-   struct MZ2V2
-   {
-      TString var_X_label = "m_{Z2} (GeV)";
-      TString var_Y_label = "Events / 5 GeV";
-      TString var_cut_label = "";
-      Int_t var_N_bin = 30;
-      Float_t var_min = 0;
-      Float_t var_max = 150;
-      Bool_t var_log_x = 0;
-      Bool_t var_log_y = 0;
-      Int_t restrict_count_var = 0;
-      Float_t var_min_factor = 0;
-      Int_t var_CMS_pos = 33;
-      Int_t varLegPos = 11;
-      Int_t rebinningDYTTbar = 2;
-   };
    
    struct KD
    {

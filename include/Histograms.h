@@ -39,7 +39,8 @@ public:
    ~Histograms();
    void FillM4l( float, float, int, int, int, int );
    void FillM4lZX( float, float, int, int );
-   void FillOther();
+   void FillMZ1( float, float, int, int, int, int );
+   void FillMZ1ZX( float, float, int, int );
    void SaveHistos( string );
    void FillInclusive();
    void SmoothHistograms();
