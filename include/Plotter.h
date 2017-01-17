@@ -71,8 +71,6 @@ private:
 
    TFile *input_file, *input_file_data;
    TTree *input_tree, *input_tree_data;
-   
-   TGraph *g_FR_mu_EB, *g_FR_mu_EE, *g_FR_e_EB, *g_FR_e_EE;
 
    Histograms *blinded_histos, *unblinded_histos;
    
@@ -91,7 +89,6 @@ private:
    float jetQGL[99];
    float jetPgOverPq[99];
 	
-   const static int _n_variables = 25, _n_blindings = 5, _n_var_pairs = 8;
    
    float _blinding_lower = 110, _blinding_upper = 150;
    
@@ -99,20 +96,11 @@ private:
    float _lumi, _k_factor, _SMP_signal_strength, _yield_SR, partial_sample_weight;
    double gen_sum_weights, _event_weight;
    
-	bool _debug, _do_1D_plots, _do_2D_plots, _apply_K_factors, _rescale_to_SMP_signal_strength, _use_DY_and_ttbar, _rebin_DY_and_ttbar;
-	bool _mask_H125_for_low_mass, _mask_H125_for_high_mass, _mask_data_for_high_mass;
-   bool _draw_lines, _draw_label_by_hand, _draw_data_MC_ratio, _use_gray_scale;
+
    
-   vector<TString> _s_blinding, _s_process_label, _s_fs_label, _s_fs_label_for_SS, _blinding_label, _var_pair_name;
-   vector<TString> _var_pair_Y_label, _var_pair_X_label, _var_cut_label, _var_X_label, _var_Y_label, _var_name;
+   vector<float> _expected_yield_SR, _number_of_events_CR, _fs_ROS_SS;
    
-   vector<float> _fs_ROS_SS, _x_histo_blind_low, _x_histo_blind_up, _var_min, _var_max, _expected_yield_SR, _number_of_events_CR;
-   
-   vector<int> _fs_marker_color, _fs_marker_style, _process_line_color, _process_fill_color, _var_pair_leg_pos, _var_pair_X_N_bin;
-   vector<int> _var_pair_X_min, _var_pair_X_max, _var_pair_Y_N_bin, _var_pair_Y_min, _var_pair_Y_max, _rebinning, _var_leg_pos, _var_CMS_pos;
-   vector<int> _var_min_factor, _restrict_count_var, _var_N_bin;
-   
-   vector<bool> _use_process, _var_pair_use_gray_style, _var_pair_leg_is_white, _var_pair_log_x, _var_pair_log_y, _var_log_x, _var_log_y;
+
 
 };
 

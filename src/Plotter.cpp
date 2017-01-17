@@ -11,172 +11,34 @@ Plotter::Plotter():Tree()
    histo_map["Unblinded"] = unblinded_histos;
    histo_map["Blinded"] = blinded_histos;
 
-   g_FR_mu_EB = 0;
-   g_FR_mu_EE = 0;
-   g_FR_e_EB = 0;
-   g_FR_e_EE = 0;
-
    _lumi = 12.9;
    _current_process = -999;
    _k_factor = 1;
    _current_final_state = -999;
    _current_category = -999;
    
-   _debug = false;
-	_do_1D_plots = true;
-	_do_2D_plots = true;
-		
-	_apply_K_factors = true;
-   _rescale_to_SMP_signal_strength = true;
-	_SMP_signal_strength = 0.99;
-	
-   _use_DY_and_ttbar = false;
-   _rebin_DY_and_ttbar = false;
-	
-   _mask_H125_for_low_mass = true;
-   _mask_H125_for_high_mass = true;
-   _mask_data_for_high_mass = false;
-		
-   _draw_lines = false;
-   _draw_label_by_hand = true;
-   _draw_data_MC_ratio = false;
-   _use_gray_scale = false;
-		
-   _var_name.push_back("M4lMain");
-   _var_name.push_back("M4lMainZoomed");
-   _var_name.push_back("MZ1");
-   _var_name.push_back("MZ1_M4L118130");
-   _var_name.push_back("MZ2");
-   _var_name.push_back("MZ2_M4L118130");
-   _var_name.push_back("KD");
-   _var_name.push_back("Fisher");
-   _var_name.push_back("VbfMela");
-   _var_name.push_back("Pt4l");
-   _var_name.push_back("Eta4l");
-   _var_name.push_back("NExtraLep");
-   _var_name.push_back("NJets");
-   _var_name.push_back("NJetsBTagged");
-   _var_name.push_back("M4l_100180_HighKD");
-
-   _var_pair_name.push_back("M4lVsKD");
-   _var_pair_name.push_back("M4lVsKD_M4L70110");
-   _var_pair_name.push_back("M4lVsKD_M4L114180");
-   _var_pair_name.push_back("M4lVsKD_M4L180780");
-   _var_pair_name.push_back("M4lVsKD_M4L150700");
-   _var_pair_name.push_back("MZ1VsMZ2V1");
-   _var_pair_name.push_back("MZ1VsMZ2V2");
-   _var_pair_name.push_back("MZ1VsMZ2V3");
-   
-   _var_pair_X_label.push_back("m_{4#font[12]{l}} (GeV)");
-   _var_pair_X_label.push_back("m_{4#font[12]{l}} (GeV)");
-   _var_pair_X_label.push_back("m_{4#font[12]{l}} (GeV)");
-   _var_pair_X_label.push_back("m_{4#font[12]{l}} (GeV)");
-   _var_pair_X_label.push_back("m_{4#font[12]{l}} (GeV)");
-   _var_pair_X_label.push_back("m_{Z_{1}} (GeV)");
-   _var_pair_X_label.push_back("m_{Z_{1}} (GeV)");
-   _var_pair_X_label.push_back("m_{Z_{1}} (GeV)");
-   
-   _var_pair_Y_label.push_back("D_{bkg}^{kin}");
-   _var_pair_Y_label.push_back("D_{bkg}^{kin}");
-   _var_pair_Y_label.push_back("D_{bkg}^{kin}");
-   _var_pair_Y_label.push_back("D_{bkg}^{kin}");
-   _var_pair_Y_label.push_back("D_{bkg}^{kin}");
-   _var_pair_Y_label.push_back("m_{Z_{2}} (GeV)");
-   _var_pair_Y_label.push_back("m_{Z_{2}} (GeV)");
-   _var_pair_Y_label.push_back("m_{Z_{2}} (GeV)");
-   
-   _var_pair_X_N_bin = { 262, 40, 33, 120, 110, 40, 80, 60 };
-   _var_pair_X_min = { 100, 70, 114, 180, 150, 40, 40, 75 };
-   _var_pair_X_max = { 886, 110, 180, 780, 700, 120, 120, 105 };
-   
-   _var_pair_Y_N_bin = { 30, 30, 30, 30, 30, 54, 108, 60 };
-   _var_pair_Y_min = { 0, 0, 0, 0, 0, 12, 12, 75 };
-   _var_pair_Y_max = { 1, 1, 1, 1, 1, 120, 120, 105 };
-   
-   _var_pair_log_x = { 1, 0, 0, 0, 0, 0, 0, 0 };
-   _var_pair_log_y = { 0, 0, 0, 0, 0, 0, 0, 0 };
-   
-   _var_pair_leg_pos = { 33, 33, 33, 33, 33, 11, 11, 11 };
-   _var_pair_leg_is_white = { 1, 1, 1, 1, 1, 0, 0, 0 };
-   _var_pair_use_gray_style = { 0, 0, 0, 0, 0, 1, 1, 1};
-   
-   bool _plot_this_var_pair[3][_n_var_pairs] = {
-      { 0, 0, 0, 0, 0, 0, 0, 0 },
-      { 0, 1, 0, 0, 1, 0, 1, 1 },
-      { 1, 1, 1, 1, 1, 1, 1, 1 }
-   };
-
-   
-// ========
-// Blinding
-// ========
-   
-   _s_blinding = { "fullyblind", "M4l70To110", "M4l150ToInf", "blind110150", "unblinded" };
-   
-   bool _plot_this_blinding[5][_n_blindings] = {
-      {1, 1, 1, 1, 0,},
-      {1, 0, 0, 0, 0,},
-      {0, 1, 0, 0, 0,},
-      {0, 0, 1, 0, 0,},
-      {0, 0, 0, 1, 0},
-   };
-   
-   _blinding_label.push_back("");
-   _blinding_label.push_back("70 < m_{4#font[12]{l}} < 110 GeV");
-   _blinding_label.push_back("m_{4#font[12]{l}} > 150 GeV");
-   _blinding_label.push_back("#splitline{m_{4#font[12]{l}} > 70 GeV}{m_{4#font[12]{l}} #notin [110, 150] GeV}");
-   _blinding_label.push_back("");
-   
-   _x_histo_blind_low = { 0., 110., 0., 110., 0. };
-   _x_histo_blind_up = { -1., 1000., 150., 150., -1. };
-   
-   _process_fill_color.push_back(_tclr->GetColor("#000000"));
-   _process_fill_color.push_back(_draw_lines?_tclr->GetColor("#ffafaf"):_tclr->GetColor("#ff9090"));
-   _process_fill_color.push_back(_draw_lines?_tclr->GetColor("#99ccff"):_tclr->GetColor("#8bc5ff"));
-   _process_fill_color.push_back(_draw_lines?_tclr->GetColor("#3366ff"):_tclr->GetColor("#2c5Df0"));
-   _process_fill_color.push_back(_draw_lines?_tclr->GetColor("#669966"):_tclr->GetColor("#6dae6d"));
-   _process_fill_color.push_back(_tclr->GetColor("#9a6666"));
-   
-   _process_line_color.push_back(_tclr->GetColor("#000000"));
-   _process_line_color.push_back(_tclr->GetColor("#cc0000"));
-   _process_line_color.push_back(_tclr->GetColor("#000099"));
-   _process_line_color.push_back(_tclr->GetColor("#000099"));
-   _process_line_color.push_back(_tclr->GetColor("#003300"));
-   _process_line_color.push_back(_tclr->GetColor("#5f3f3f"));
-   
-   _use_process = { 1, 1, 1, 1, _use_DY_and_ttbar, _use_DY_and_ttbar };
-   
-   _fs_marker_style = {20, 22, 21, 33, 29 };
-   _fs_marker_color = { kRed, kGreen + 1, kAzure + 1, kViolet, kBlack };
+   //Get colours needed for plots
+   _tclr->GetColor("#000000");
+   _tclr->GetColor("#ffafaf");
+   _tclr->GetColor("#ff9090");
+   _tclr->GetColor("#99ccff");
+   _tclr->GetColor("#8bc5ff");
+   _tclr->GetColor("#3366ff");
+   _tclr->GetColor("#2c5Df0");
+   _tclr->GetColor("#669966");
+   _tclr->GetColor("#6dae6d");
+   _tclr->GetColor("#9a6666");
+   _tclr->GetColor("#cc0000");
+   _tclr->GetColor("#000099");
+   _tclr->GetColor("#003300");
+   _tclr->GetColor("#5f3f3f");
    
    // Z+X SS factors
-   // FIXME: recompute this for Run II
+   // FIXME: recompute this for Run II, WHAT ARE THESE????
    _fs_ROS_SS.push_back(1.22);
    _fs_ROS_SS.push_back(0.97);
    _fs_ROS_SS.push_back(1.30);
    _fs_ROS_SS.push_back(0.98);
-   
-   _s_process_label.push_back("Data");
-   _s_process_label.push_back("H(125)");
-   _s_process_label.push_back("H(125), VBF");
-   _s_process_label.push_back("H(125), other");
-   _s_process_label.push_back("q#bar{q}#rightarrowZZ");
-   _s_process_label.push_back("Z#gamma*");
-   _s_process_label.push_back("gg#rightarrowZZ, Z#gamma*");
-   _s_process_label.push_back("Z + jets");
-   _s_process_label.push_back("t#bar{t}");
-   
-   _s_fs_label_for_SS.push_back("Z1->mu+mu- + mumu(SS)");
-   _s_fs_label_for_SS.push_back("Z1->e+e- + ee(SS)");
-   _s_fs_label_for_SS.push_back("Z1->e+e- + mumu(SS)");
-   _s_fs_label_for_SS.push_back("Z1->mu+mu- + ee(SS)");
-   
-   _s_fs_label.push_back("4#mu");
-   _s_fs_label.push_back("4e");
-   _s_fs_label.push_back("2e2#mu");
-   _s_fs_label.push_back("2#mu2e");
-   _s_fs_label.push_back("4#font[12]{l}");
-   
    
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
    {
@@ -399,7 +261,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
    // Print Z + X expected yields
    for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++ )
    {
-      cout << _s_fs_label_for_SS.at(i_fs) << " : " << _expected_yield_SR.at(i_fs) << " +/- " <<
+      cout << i_fs << " : " << _expected_yield_SR.at(i_fs) << " +/- " <<
       _expected_yield_SR.at(i_fs)/sqrt(_number_of_events_CR.at(i_fs)) << " (stat., evt: " <<
       _number_of_events_CR.at(i_fs) << ")" << " +/- " << _expected_yield_SR.at(i_fs)*0.50 << " (syst.)" << endl;
    }
