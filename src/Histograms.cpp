@@ -487,6 +487,7 @@ void Histograms::FillInclusive()
 void Histograms::SmoothHistograms()
 {
    float integral = 0;
+   TH1F* CheckSmoothing;
    
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
    {
@@ -496,14 +497,18 @@ void Histograms::SmoothHistograms()
          // M4l
          //=============
          integral = histos_1D_ZX[Settings::M4lMain][i_fs][i_cat]->Integral();
-         if(integral > 0.)
+         CheckSmoothing = histos_1D_ZX[Settings::M4lMain][i_fs][i_cat];
+         CheckSmoothing->Smooth(1);
+         if(integral > 0. && CheckSmoothing->Integral() > 0.)
          {
             histos_1D_ZX[Settings::M4lMain][i_fs][i_cat]->Smooth(1);
             histos_1D_ZX[Settings::M4lMain][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::M4lMain][i_fs][i_cat]->Integral() );
          }
          
          integral = histos_1D_ZX[Settings::M4lMainZoomed][i_fs][i_cat]->Integral();
-         if(integral > 0.)
+         CheckSmoothing = histos_1D_ZX[Settings::M4lMainZoomed][i_fs][i_cat];
+         CheckSmoothing->Smooth(1);
+         if(integral > 0. && CheckSmoothing->Integral() > 0.)
          {
             histos_1D_ZX[Settings::M4lMainZoomed][i_fs][i_cat]->Smooth(1);
             histos_1D_ZX[Settings::M4lMainZoomed][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::M4lMainZoomed][i_fs][i_cat]->Integral() );
@@ -514,14 +519,18 @@ void Histograms::SmoothHistograms()
          // MZ1
          //=============
          integral = histos_1D_ZX[Settings::MZ1][i_fs][i_cat]->Integral();
-         if(integral > 0.)
+         CheckSmoothing = histos_1D_ZX[Settings::MZ1][i_fs][i_cat];
+         CheckSmoothing->Smooth(1);
+         if(integral > 0. && CheckSmoothing->Integral() > 0.)
          {
             histos_1D_ZX[Settings::MZ1][i_fs][i_cat]->Smooth(1);
             histos_1D_ZX[Settings::MZ1][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::MZ1][i_fs][i_cat]->Integral() );
          }
          
          integral = histos_1D_ZX[Settings::MZ1_M4L118130][i_fs][i_cat]->Integral();
-         if(integral > 0.)
+         CheckSmoothing = histos_1D_ZX[Settings::MZ1_M4L118130][i_fs][i_cat];
+         CheckSmoothing->Smooth(1);
+         if(integral > 0. && CheckSmoothing->Integral() > 0.)
          {
             histos_1D_ZX[Settings::MZ1_M4L118130][i_fs][i_cat]->Smooth(1);
             histos_1D_ZX[Settings::MZ1_M4L118130][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::MZ1_M4L118130][i_fs][i_cat]->Integral() );
@@ -531,14 +540,19 @@ void Histograms::SmoothHistograms()
          // MZ2
          //=============
          integral = histos_1D_ZX[Settings::MZ2][i_fs][i_cat]->Integral();
-         if(integral > 0.)
+         CheckSmoothing = histos_1D_ZX[Settings::MZ2][i_fs][i_cat];
+         CheckSmoothing->Smooth(1);
+         if(integral > 0. && CheckSmoothing->Integral() > 0.)
          {
+            
             histos_1D_ZX[Settings::MZ2][i_fs][i_cat]->Smooth(1);
             histos_1D_ZX[Settings::MZ2][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::MZ2][i_fs][i_cat]->Integral() );
          }
          
          integral = histos_1D_ZX[Settings::MZ2_M4L118130][i_fs][i_cat]->Integral();
-         if(integral > 0.)
+         CheckSmoothing = histos_1D_ZX[Settings::MZ2_M4L118130][i_fs][i_cat];
+         CheckSmoothing->Smooth(1);
+         if(integral > 0. && CheckSmoothing->Integral() > 0.)
          {
             histos_1D_ZX[Settings::MZ2_M4L118130][i_fs][i_cat]->Smooth(1);
             histos_1D_ZX[Settings::MZ2_M4L118130][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::MZ2_M4L118130][i_fs][i_cat]->Integral() );

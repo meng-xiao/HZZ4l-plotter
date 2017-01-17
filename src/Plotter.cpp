@@ -410,8 +410,8 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
    if ( SMOOTH_ZX_FULL_RUN2_SS )
    {
       cout << "[INFO] Smoothing Z+X histograms..." << endl;
-      //blinded_histos->SmoothHistograms();
-      //unblinded_histos->SmoothHistograms();
+      blinded_histos->SmoothHistograms();
+      unblinded_histos->SmoothHistograms();
    }
     
    unblinded_histos->RenormalizeZX();

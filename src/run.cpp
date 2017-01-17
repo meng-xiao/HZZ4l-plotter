@@ -69,13 +69,19 @@ int main( int argc, char *argv[] )
 
    plotter->Save(); 
 
-   
+  //===========================
+  // Plotting of blinded plots
+  //===========================
    plotter->GetHistos( "Blinded" );
 //   plotter->Plot1D_all( "Blinded", "M4lMain", "Plots");
 //   plotter->Plot1D_all( "Blinded", "M4lMainZoomed", "Plots");
    plotter->Plot1D_all( "Blinded", "MZ2", "Plots");
 //   plotter->Plot1D_single( "Blinded", "MZ1", "Plots", 1, 0);
    
+   
+   //=============================
+   // Plotting of unblinded plots
+   //=============================
    plotter->GetHistos( "Unblinded" );
 //   plotter->Plot1D_all( "Unblinded", "M4lMain" , "Plots");
 //   plotter->Plot1D_all( "Unblinded", "M4lMainZoomed" , "Plots");
