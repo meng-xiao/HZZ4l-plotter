@@ -57,11 +57,11 @@ TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, int cat
    delete h_full_range_4mu;
    delete h_full_range_2e2mu;
 
-   cout << "[INFO] In function GetM4lZX, x_min = " << x_min << ", x_max = " << x_max << ", " << endl;
-   cout << "yield in 4mu      = " << _norm_4mu << endl;
-   cout << "yield in 4e       = " << _norm_4e << endl;
-   cout << "yield in 2e2mu    = " << _norm_2e2mu << endl;
-   cout << "total yield in 4l = " << _norm_4mu + _norm_4e + _norm_2e2mu << endl;
+//   cout << "[INFO] In function GetM4lZX, x_min = " << x_min << ", x_max = " << x_max << ", " << endl;
+//   cout << "yield in 4mu      = " << _norm_4mu << endl;
+//   cout << "yield in 4e       = " << _norm_4e << endl;
+//   cout << "yield in 2e2mu    = " << _norm_2e2mu << endl;
+//   cout << "total yield in 4l = " << _norm_4mu + _norm_4e + _norm_2e2mu << endl;
 
    h_4mu   = new TH1F("h_4mu" , ";;", n_bins, x_min, x_max);
    h_4e    = new TH1F("h_4e"   , ";;", n_bins, x_min, x_max);

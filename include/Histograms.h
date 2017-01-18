@@ -39,14 +39,42 @@ public:
    ~Histograms();
    void FillM4l( float, float, int, int, int, int );
    void FillM4lZX( float, float, int, int );
+   
    void FillMZ1( float, float, int, int, int, int );
    void FillMZ1ZX( float, float, int, int );
    void FillMZ1_cut( float, float, float, int, int, int, int );
    void FillMZ1ZX_cut( float, float, float, int, int );
+   
    void FillMZ2( float, float, int, int, int, int );
    void FillMZ2ZX( float, float, int, int );
    void FillMZ2_cut( float, float, float, int, int, int, int );
    void FillMZ2ZX_cut( float, float, float, int, int );
+   
+   void FillKD( float, float, int, int, int, int );
+   void FillKDZX( float, float, int, int );
+   void FillKD_cut( float, float, float, int, int, int, int );
+   void FillKDZX_cut( float, float, float, int, int );
+   
+   void FillD1jet( float, float, int, int, int, int );
+   void FillD1jetZX( float, float, int, int );
+   void FillD1jet_cut( float, float, float, int, int, int, int );
+   void FillD1jetZX_cut( float, float, float, int, int );
+   
+   void FillD2jet( float, float, int, int, int, int );
+   void FillD2jetZX( float, float, int, int );
+   void FillD2jet_cut( float, float, float, int, int, int, int );
+   void FillD2jetZX_cut( float, float, float, int, int );
+   
+   void FillDWH( float, float, int, int, int, int );
+   void FillDWHZX( float, float, int, int );
+   void FillDWH_cut( float, float, float, int, int, int, int );
+   void FillDWHZX_cut( float, float, float, int, int );
+   
+   void FillDZH( float, float, int, int, int, int );
+   void FillDZHZX( float, float, int, int );
+   void FillDZH_cut( float, float, float, int, int, int, int );
+   void FillDZHZX_cut( float, float, float, int, int );
+   
    void SaveHistos( string );
    void FillInclusive();
    void SmoothHistograms();
@@ -83,10 +111,14 @@ private:
    
    TH1F *KD;
    TH1F *KD_M4L118130;
-   TH1F *DjetFisher;
-   TH1F *DjetVbfMela;
-   TH1F *DjetVbfMela_M4L118130;
-   TH1F *DjetVbfMelaLog_M4L118130;
+   TH1F *D1jet;
+   TH1F *D1jet_M4L118130;
+   TH1F *D2jet;
+   TH1F *D2jet_M4L118130;
+   TH1F *DWH;
+   TH1F *DWH_M4L118130;
+   TH1F *DZH;
+   TH1F *DZH_M4L118130;
    
    TH1F *Pt4l;
    TH1F *Eta4l;

@@ -33,6 +33,7 @@
 #include "FinalStates.h"
 #include "bitops.h"
 #include "FakeRates.h"
+#include "cConstants.h"
 
 // BOOLS
 #define APPLY_K_FACTORS 1
@@ -41,6 +42,17 @@
 #define USE_ZX_FULL_RUN2_SS 1
 #define RENORMALIZE_ZX_FULL_RUN2_SS 1
 #define SMOOTH_ZX_FULL_RUN2_SS 1
+
+// These are the same 4 WP as in Category.cc
+#define WP2J 0.437 // This is the value at 125GeV of 1.043-460./(ZZMass+634.). The latter is also hardcoded in the definition of varPairExprWP.
+#define WP1J 0.699
+#define OLDWPWH 0.959
+#define OLDWPZH 0.9946
+// Let's change the c-constants of D_WP and D_ZH for visualization purposes (????)
+#define NEWWPWH 0.8
+#define NEWWPZH 0.8
+#define CUSTOMCCONSTWH ((1.-NEWWPWH)/(NEWWPWH/OLDWPWH-NEWWPWH))
+#define CUSTOMCCONSTZH ((1.-NEWWPZH)/(NEWWPZH/OLDWPZH-NEWWPZH))
 
 using namespace std;
 
@@ -89,6 +101,12 @@ private:
    float jetMass[99];
    float jetQGL[99];
    float jetPgOverPq[99];
+   
+   Float_t KD;
+   Float_t D2jet;
+   Float_t D1jet;
+   Float_t DWH;
+   Float_t DZH;
 	
    
    float _blinding_lower = 110, _blinding_upper = 150;

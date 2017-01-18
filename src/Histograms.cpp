@@ -68,7 +68,7 @@ Histograms::Histograms( string blinding)
                
                _histo_name = "MZ1_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
                _histo_labels = ";" + Variables::MZ1_M4L118130().var_X_label + ";" + Variables::MZ1_M4L118130().var_Y_label;
-               histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::MZ1_M4L118130().var_N_bin, Variables::MZ1().var_min, Variables::MZ1().var_max);
+               histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::MZ1_M4L118130().var_N_bin, Variables::MZ1_M4L118130().var_min, Variables::MZ1_M4L118130().var_max);
                
                //=============
                // MZ2
@@ -79,7 +79,50 @@ Histograms::Histograms( string blinding)
                
                _histo_name = "MZ2_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
                _histo_labels = ";" + Variables::MZ2_M4L118130().var_X_label + ";" + Variables::MZ2_M4L118130().var_Y_label;
-               histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::MZ2_M4L118130().var_N_bin, Variables::MZ2().var_min, Variables::MZ2().var_max);
+               histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::MZ2_M4L118130().var_N_bin, Variables::MZ2_M4L118130().var_min, Variables::MZ2_M4L118130().var_max);
+               
+               //=============
+               // KD
+               //=============
+               _histo_name = "KD" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               _histo_labels = ";" + Variables::KD().var_X_label + ";" + Variables::KD().var_Y_label;
+               histos_1D[Settings::KD][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::KD().var_N_bin, Variables::KD().var_min, Variables::KD().var_max);
+               
+               _histo_name = "KD_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               _histo_labels = ";" + Variables::KD_M4L118130().var_X_label + ";" + Variables::KD_M4L118130().var_Y_label;
+               histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::KD_M4L118130().var_N_bin, Variables::KD_M4L118130().var_min, Variables::KD_M4L118130().var_max);
+               
+               _histo_name = "D1jet" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               _histo_labels = ";" + Variables::D1jet().var_X_label + ";" + Variables::D1jet().var_Y_label;
+               histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D1jet().var_N_bin, Variables::D1jet().var_min, Variables::D1jet().var_max);
+               
+               _histo_name = "D1jet_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               _histo_labels = ";" + Variables::D1jet_M4L118130().var_X_label + ";" + Variables::D1jet_M4L118130().var_Y_label;
+               histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D1jet_M4L118130().var_N_bin, Variables::D1jet_M4L118130().var_min, Variables::D1jet_M4L118130().var_max);
+               
+               _histo_name = "D2jet" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               _histo_labels = ";" + Variables::D2jet().var_X_label + ";" + Variables::D2jet().var_Y_label;
+               histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D2jet().var_N_bin, Variables::D2jet().var_min, Variables::D2jet().var_max);
+               
+               _histo_name = "D2jet_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               _histo_labels = ";" + Variables::D2jet_M4L118130().var_X_label + ";" + Variables::D2jet_M4L118130().var_Y_label;
+               histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D2jet_M4L118130().var_N_bin, Variables::D2jet_M4L118130().var_min, Variables::D2jet_M4L118130().var_max);
+               
+               _histo_name = "DWH" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               _histo_labels = ";" + Variables::DWH().var_X_label + ";" + Variables::DWH().var_Y_label;
+               histos_1D[Settings::DWH][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DWH().var_N_bin, Variables::DWH().var_min, Variables::DWH().var_max);
+               
+               _histo_name = "DWH_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               _histo_labels = ";" + Variables::DWH_M4L118130().var_X_label + ";" + Variables::DWH_M4L118130().var_Y_label;
+               histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DWH_M4L118130().var_N_bin, Variables::DWH_M4L118130().var_min, Variables::DWH_M4L118130().var_max);
+               
+               _histo_name = "DZH" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               _histo_labels = ";" + Variables::DZH().var_X_label + ";" + Variables::DZH().var_Y_label;
+               histos_1D[Settings::DZH][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DZH().var_N_bin, Variables::DZH().var_min, Variables::DZH().var_max);
+               
+               _histo_name = "DZH_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               _histo_labels = ";" + Variables::DZH_M4L118130().var_X_label + ";" + Variables::DZH_M4L118130().var_Y_label;
+               histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DZH_M4L118130().var_N_bin, Variables::DZH_M4L118130().var_min, Variables::DZH_M4L118130().var_max);
             }
          }
       }
@@ -123,6 +166,39 @@ Histograms::Histograms( string blinding)
          
          _histo_name = "MZ2_M4L118130_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
          histos_1D_ZX[Settings::MZ2_M4L118130][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::MZ2_M4L118130().var_N_bin, Variables::MZ2_M4L118130().var_min, Variables::MZ2_M4L118130().var_max);
+         
+         //=============
+         // KD
+         //=============
+         _histo_name = "KD_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::KD][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::KD().var_N_bin, Variables::KD().var_min, Variables::KD().var_max);
+         
+         _histo_name = "KD_M4L118130_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::KD_M4L118130][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::KD_M4L118130().var_N_bin, Variables::KD_M4L118130().var_min, Variables::KD_M4L118130().var_max);
+         
+         _histo_name = "D1jet_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::D1jet][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::D1jet().var_N_bin, Variables::D1jet().var_min, Variables::D1jet().var_max);
+         
+         _histo_name = "D1jet_M4L118130_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::D1jet_M4L118130][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::D1jet_M4L118130().var_N_bin, Variables::D1jet_M4L118130().var_min, Variables::D1jet_M4L118130().var_max);
+         
+         _histo_name = "D2jet_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::D2jet][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::D2jet().var_N_bin, Variables::D2jet().var_min, Variables::D2jet().var_max);
+         
+         _histo_name = "D2jet_M4L118130_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::D2jet_M4L118130][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::D2jet_M4L118130().var_N_bin, Variables::D2jet_M4L118130().var_min, Variables::D2jet_M4L118130().var_max);
+         
+         _histo_name = "DWH_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::DWH][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::DWH().var_N_bin, Variables::DWH().var_min, Variables::DWH().var_max);
+         
+         _histo_name = "DWH_M4L118130_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::DWH_M4L118130][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::DWH_M4L118130().var_N_bin, Variables::DWH_M4L118130().var_min, Variables::DWH_M4L118130().var_max);
+         
+         _histo_name = "DZH_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::DZH][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::DZH().var_N_bin, Variables::DZH().var_min, Variables::DZH().var_max);
+         
+         _histo_name = "DZH_M4L118130_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::DZH_M4L118130().var_N_bin, Variables::DZH_M4L118130().var_min, Variables::DZH_M4L118130().var_max);
       }
    }
 }
@@ -164,7 +240,9 @@ Histograms::~Histograms()
 //=======================
 
 
-
+//=============
+// M4l
+//=============
 //====================================================================================
 void Histograms::FillM4l( float M4l, float weight, int fs, int cat, int rs, int proc )
 {
@@ -183,7 +261,9 @@ void Histograms::FillM4lZX( float M4l, float weight, int fs, int cat )
 }
 //====================================================================
 
-
+//=============
+// MZ1
+//=============
 //====================================================================================
 void Histograms::FillMZ1( float MZ1, float weight, int fs, int cat, int rs, int proc )
 {
@@ -223,6 +303,10 @@ void Histograms::FillMZ1ZX_cut( float M4l, float MZ1, float weight, int fs, int 
 }
 //====================================================================
 
+
+//=============
+// MZ2
+//=============
 //====================================================================================
 void Histograms::FillMZ2( float MZ2, float weight, int fs, int cat, int rs, int proc )
 {
@@ -262,8 +346,215 @@ void Histograms::FillMZ2ZX_cut( float M4l, float MZ2, float weight, int fs, int 
 }
 //====================================================================
 
+//=============
+// KD
+//=============
+//====================================================================================
+void Histograms::FillKD( float KD, float weight, int fs, int cat, int rs, int proc )
+{
+   histos_1D[Settings::KD][fs][cat][rs][proc]->Fill(KD, (proc == Settings::Data) ? 1. : weight);
+   
+}
+//====================================================================================
 
 
+
+//====================================================================
+void Histograms::FillKDZX( float KD, float weight, int fs, int cat )
+{
+   histos_1D_ZX[Settings::KD][fs][cat]->Fill(KD, weight);
+}
+//====================================================================
+
+//====================================================================================
+void Histograms::FillKD_cut( float M4l, float KD, float weight, int fs, int cat, int rs, int proc )
+{
+   if( M4l >= Variables::KD_M4L118130().cut_d && M4l <= Variables::KD_M4L118130().cut_u)
+   {
+      histos_1D[Settings::KD_M4L118130][fs][cat][rs][proc]->Fill(KD, (proc == Settings::Data) ? 1. : weight);
+   }
+}
+//====================================================================================
+
+
+
+//====================================================================
+void Histograms::FillKDZX_cut( float M4l, float KD, float weight, int fs, int cat )
+{
+   if( M4l >= Variables::KD_M4L118130().cut_d && M4l <= Variables::KD_M4L118130().cut_u)
+   {
+      histos_1D_ZX[Settings::KD_M4L118130][fs][cat]->Fill(KD, weight);
+   }
+}
+//====================================================================
+
+//=============
+// D1jet
+//=============
+//====================================================================================
+void Histograms::FillD1jet( float D1jet, float weight, int fs, int cat, int rs, int proc )
+{
+   histos_1D[Settings::D1jet][fs][cat][rs][proc]->Fill(D1jet, (proc == Settings::Data) ? 1. : weight);
+   
+}
+//====================================================================================
+
+
+
+//====================================================================
+void Histograms::FillD1jetZX( float D1jet, float weight, int fs, int cat )
+{
+   histos_1D_ZX[Settings::D1jet][fs][cat]->Fill(D1jet, weight);
+}
+//====================================================================
+
+//====================================================================================
+void Histograms::FillD1jet_cut( float M4l, float D1jet, float weight, int fs, int cat, int rs, int proc )
+{
+   if( M4l >= Variables::D1jet_M4L118130().cut_d && M4l <= Variables::D1jet_M4L118130().cut_u)
+   {
+      histos_1D[Settings::D1jet_M4L118130][fs][cat][rs][proc]->Fill(D1jet, (proc == Settings::Data) ? 1. : weight);
+   }
+}
+//====================================================================================
+
+
+
+//====================================================================
+void Histograms::FillD1jetZX_cut( float M4l, float D1jet, float weight, int fs, int cat )
+{
+   if( M4l >= Variables::D1jet_M4L118130().cut_d && M4l <= Variables::D1jet_M4L118130().cut_u)
+   {
+      histos_1D_ZX[Settings::D1jet_M4L118130][fs][cat]->Fill(D1jet, weight);
+   }
+}
+//====================================================================
+
+//=============
+// D2jet
+//=============
+//====================================================================================
+void Histograms::FillD2jet( float D2jet, float weight, int fs, int cat, int rs, int proc )
+{
+   histos_1D[Settings::D2jet][fs][cat][rs][proc]->Fill(D2jet, (proc == Settings::Data) ? 1. : weight);
+   
+}
+//====================================================================================
+
+
+
+//====================================================================
+void Histograms::FillD2jetZX( float D2jet, float weight, int fs, int cat )
+{
+   histos_1D_ZX[Settings::D2jet][fs][cat]->Fill(D2jet, weight);
+}
+//====================================================================
+
+//====================================================================================
+void Histograms::FillD2jet_cut( float M4l, float D2jet, float weight, int fs, int cat, int rs, int proc )
+{
+   if( M4l >= Variables::D2jet_M4L118130().cut_d && M4l <= Variables::D2jet_M4L118130().cut_u)
+   {
+      histos_1D[Settings::D2jet_M4L118130][fs][cat][rs][proc]->Fill(D2jet, (proc == Settings::Data) ? 1. : weight);
+   }
+}
+//====================================================================================
+
+
+
+//====================================================================
+void Histograms::FillD2jetZX_cut( float M4l, float D2jet, float weight, int fs, int cat )
+{
+   if( M4l >= Variables::D2jet_M4L118130().cut_d && M4l <= Variables::D2jet_M4L118130().cut_u)
+   {
+      histos_1D_ZX[Settings::D2jet_M4L118130][fs][cat]->Fill(D2jet, weight);
+   }
+}
+//====================================================================
+
+//=============
+// DWH
+//=============
+//====================================================================================
+void Histograms::FillDWH( float DWH, float weight, int fs, int cat, int rs, int proc )
+{
+   histos_1D[Settings::DWH][fs][cat][rs][proc]->Fill(DWH, (proc == Settings::Data) ? 1. : weight);
+   
+}
+//====================================================================================
+
+
+
+//====================================================================
+void Histograms::FillDWHZX( float DWH, float weight, int fs, int cat )
+{
+   histos_1D_ZX[Settings::DWH][fs][cat]->Fill(DWH, weight);
+}
+//====================================================================
+
+//====================================================================================
+void Histograms::FillDWH_cut( float M4l, float DWH, float weight, int fs, int cat, int rs, int proc )
+{
+   if( M4l >= Variables::DWH_M4L118130().cut_d && M4l <= Variables::DWH_M4L118130().cut_u)
+   {
+      histos_1D[Settings::DWH_M4L118130][fs][cat][rs][proc]->Fill(DWH, (proc == Settings::Data) ? 1. : weight);
+   }
+}
+//====================================================================================
+
+
+
+//====================================================================
+void Histograms::FillDWHZX_cut( float M4l, float DWH, float weight, int fs, int cat )
+{
+   if( M4l >= Variables::DWH_M4L118130().cut_d && M4l <= Variables::DWH_M4L118130().cut_u)
+   {
+      histos_1D_ZX[Settings::DWH_M4L118130][fs][cat]->Fill(DWH, weight);
+   }
+}
+//====================================================================
+
+//=============
+// DZH
+//=============
+//====================================================================================
+void Histograms::FillDZH( float DZH, float weight, int fs, int cat, int rs, int proc )
+{
+   histos_1D[Settings::DZH][fs][cat][rs][proc]->Fill(DZH, (proc == Settings::Data) ? 1. : weight);
+   
+}
+//====================================================================================
+
+
+
+//====================================================================
+void Histograms::FillDZHZX( float DZH, float weight, int fs, int cat )
+{
+   histos_1D_ZX[Settings::DZH][fs][cat]->Fill(DZH, weight);
+}
+//====================================================================
+
+//====================================================================================
+void Histograms::FillDZH_cut( float M4l, float DZH, float weight, int fs, int cat, int rs, int proc )
+{
+   if( M4l >= Variables::DZH_M4L118130().cut_d && M4l <= Variables::DZH_M4L118130().cut_u)
+   {
+      histos_1D[Settings::DZH_M4L118130][fs][cat][rs][proc]->Fill(DZH, (proc == Settings::Data) ? 1. : weight);
+   }
+}
+//====================================================================================
+
+
+
+//====================================================================
+void Histograms::FillDZHZX_cut( float M4l, float DZH, float weight, int fs, int cat )
+{
+   if( M4l >= Variables::DZH_M4L118130().cut_d && M4l <= Variables::DZH_M4L118130().cut_u)
+   {
+      histos_1D_ZX[Settings::DZH_M4L118130][fs][cat]->Fill(DZH, weight);
+   }
+}
+//====================================================================
 
 //=======================================================================================
 void Histograms::MakeZXShape( int current_final_state, int current_category, float lumi )
@@ -322,6 +613,39 @@ void Histograms::FillInclusive()
             
             histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125VBF]);
             histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125NOVBF]);
+            
+            //=============
+            // KD
+            //=============
+            histos_1D[Settings::KD][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::KD][i_fs][i_cat][i_rs][Settings::H125VBF]);
+            histos_1D[Settings::KD][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::KD][i_fs][i_cat][i_rs][Settings::H125NOVBF]);
+            
+            histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][Settings::H125VBF]);
+            histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][Settings::H125NOVBF]);
+            
+            histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][Settings::H125VBF]);
+            histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][Settings::H125NOVBF]);
+            
+            histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125VBF]);
+            histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125NOVBF]);
+            
+            histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][Settings::H125VBF]);
+            histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][Settings::H125NOVBF]);
+            
+            histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125VBF]);
+            histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125NOVBF]);
+            
+            histos_1D[Settings::DWH][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DWH][i_fs][i_cat][i_rs][Settings::H125VBF]);
+            histos_1D[Settings::DWH][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DWH][i_fs][i_cat][i_rs][Settings::H125NOVBF]);
+            
+            histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][Settings::H125VBF]);
+            histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][Settings::H125NOVBF]);
+            
+            histos_1D[Settings::DZH][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DZH][i_fs][i_cat][i_rs][Settings::H125VBF]);
+            histos_1D[Settings::DZH][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DZH][i_fs][i_cat][i_rs][Settings::H125NOVBF]);
+            
+            histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][Settings::H125VBF]);
+            histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][Settings::H125NOVBF]);
          }
       }
    }
@@ -344,15 +668,31 @@ void Histograms::FillInclusive()
                // MZ1
                //=============
                histos_1D[Settings::MZ1][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][i_proc]);
-               
                histos_1D[Settings::MZ1_M4L118130][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][i_proc]);
                
                //=============
                // MZ2
                //=============
                histos_1D[Settings::MZ2][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][i_proc]);
-               
                histos_1D[Settings::MZ2_M4L118130][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+               
+               //=============
+               // KD
+               //=============
+               histos_1D[Settings::KD][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::KD][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::KD_M4L118130][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+               
+               histos_1D[Settings::D1jet][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::D1jet_M4L118130][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+               
+               histos_1D[Settings::D2jet][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::D2jet_M4L118130][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+               
+               histos_1D[Settings::DWH][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::DWH][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::DWH_M4L118130][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+               
+               histos_1D[Settings::DZH][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::DZH][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::DZH_M4L118130][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][i_proc]);
 
             }
          }
@@ -377,15 +717,31 @@ void Histograms::FillInclusive()
                // MZ1
                //=============
                histos_1D[Settings::MZ1][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][i_proc]);
-               
                histos_1D[Settings::MZ1_M4L118130][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][i_proc]);
                
                //=============
                // MZ2
                //=============
                histos_1D[Settings::MZ2][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][i_proc]);
-               
                histos_1D[Settings::MZ2_M4L118130][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+               
+               //=============
+               // KD
+               //=============
+               histos_1D[Settings::KD][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::KD][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::KD_M4L118130][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+               
+               histos_1D[Settings::D1jet][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::D1jet_M4L118130][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+               
+               histos_1D[Settings::D2jet][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::D2jet_M4L118130][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+               
+               histos_1D[Settings::DWH][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::DWH][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::DWH_M4L118130][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+               
+               histos_1D[Settings::DZH][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::DZH][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::DZH_M4L118130][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][i_proc]);
 
             }
          }
@@ -410,15 +766,31 @@ void Histograms::FillInclusive()
                // MZ1
                //=============
                histos_1D[Settings::MZ1][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][i_proc]);
-               
                histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][i_proc]);
                
                //=============
                // MZ2
                //=============
                histos_1D[Settings::MZ2][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][i_proc]);
-               
                histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+               
+               //=============
+               // KD
+               //=============
+               histos_1D[Settings::KD][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::KD][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::KD_M4L118130][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+               
+               histos_1D[Settings::D1jet][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+               
+               histos_1D[Settings::D2jet][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+               
+               histos_1D[Settings::DWH][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::DWH][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+               
+               histos_1D[Settings::DZH][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::DZH][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][i_proc]);
 
             }
          }
@@ -440,15 +812,31 @@ void Histograms::FillInclusive()
          // MZ1
          //=============
          histos_1D_ZX[Settings::MZ1][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::MZ1][i_fs][i_cat]);
-         
          histos_1D_ZX[Settings::MZ1_M4L118130][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::MZ1_M4L118130][i_fs][i_cat]);
          
          //=============
          // MZ2
          //=============
          histos_1D_ZX[Settings::MZ2][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::MZ2][i_fs][i_cat]);
-         
          histos_1D_ZX[Settings::MZ2_M4L118130][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::MZ2_M4L118130][i_fs][i_cat]);
+         
+         //=============
+         // KD
+         //=============
+         histos_1D_ZX[Settings::KD][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::KD][i_fs][i_cat]);
+         histos_1D_ZX[Settings::KD_M4L118130][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::KD_M4L118130][i_fs][i_cat]);
+         
+         histos_1D_ZX[Settings::D1jet][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::D1jet][i_fs][i_cat]);
+         histos_1D_ZX[Settings::D1jet_M4L118130][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::D1jet_M4L118130][i_fs][i_cat]);
+         
+         histos_1D_ZX[Settings::D2jet][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::D2jet][i_fs][i_cat]);
+         histos_1D_ZX[Settings::D2jet_M4L118130][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::D2jet_M4L118130][i_fs][i_cat]);
+         
+         histos_1D_ZX[Settings::DWH][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::DWH][i_fs][i_cat]);
+         histos_1D_ZX[Settings::DWH_M4L118130][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::DWH_M4L118130][i_fs][i_cat]);
+         
+         histos_1D_ZX[Settings::DZH][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::DZH][i_fs][i_cat]);
+         histos_1D_ZX[Settings::DZH_M4L118130][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat]);
       }
    }
 
@@ -466,15 +854,31 @@ void Histograms::FillInclusive()
          // MZ1
          //=============
          histos_1D_ZX[Settings::MZ1][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::MZ1][i_fs][i_cat]);
-         
          histos_1D_ZX[Settings::MZ1_M4L118130][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::MZ1_M4L118130][i_fs][i_cat]);
          
          //=============
          // MZ2
          //=============
          histos_1D_ZX[Settings::MZ2][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::MZ2][i_fs][i_cat]);
-         
          histos_1D_ZX[Settings::MZ2_M4L118130][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::MZ2_M4L118130][i_fs][i_cat]);
+         
+         //=============
+         // KD
+         //=============
+         histos_1D_ZX[Settings::KD][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::KD][i_fs][i_cat]);
+         histos_1D_ZX[Settings::KD_M4L118130][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::KD_M4L118130][i_fs][i_cat]);
+         
+         histos_1D_ZX[Settings::D1jet][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::D1jet][i_fs][i_cat]);
+         histos_1D_ZX[Settings::D1jet_M4L118130][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::D1jet_M4L118130][i_fs][i_cat]);
+         
+         histos_1D_ZX[Settings::D2jet][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::D2jet][i_fs][i_cat]);
+         histos_1D_ZX[Settings::D2jet_M4L118130][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::D2jet_M4L118130][i_fs][i_cat]);
+         
+         histos_1D_ZX[Settings::DWH][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::DWH][i_fs][i_cat]);
+         histos_1D_ZX[Settings::DWH_M4L118130][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::DWH_M4L118130][i_fs][i_cat]);
+         
+         histos_1D_ZX[Settings::DZH][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::DZH][i_fs][i_cat]);
+         histos_1D_ZX[Settings::DZH_M4L118130][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat]);
       }
    }
 
@@ -558,6 +962,115 @@ void Histograms::SmoothHistograms()
             histos_1D_ZX[Settings::MZ2_M4L118130][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::MZ2_M4L118130][i_fs][i_cat]->Integral() );
          }
 
+         //=============
+         // KD
+         //=============
+         integral = histos_1D_ZX[Settings::KD][i_fs][i_cat]->Integral();
+         CheckSmoothing = histos_1D_ZX[Settings::KD][i_fs][i_cat];
+         CheckSmoothing->Smooth(1);
+         if(integral > 0. && CheckSmoothing->Integral() > 0.)
+         {
+            
+            histos_1D_ZX[Settings::KD][i_fs][i_cat]->Smooth(1);
+            histos_1D_ZX[Settings::KD][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::KD][i_fs][i_cat]->Integral() );
+         }
+         
+         integral = histos_1D_ZX[Settings::KD_M4L118130][i_fs][i_cat]->Integral();
+         CheckSmoothing = histos_1D_ZX[Settings::KD_M4L118130][i_fs][i_cat];
+         CheckSmoothing->Smooth(1);
+         if(integral > 0. && CheckSmoothing->Integral() > 0.)
+         {
+            histos_1D_ZX[Settings::KD_M4L118130][i_fs][i_cat]->Smooth(1);
+            histos_1D_ZX[Settings::KD_M4L118130][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::KD_M4L118130][i_fs][i_cat]->Integral() );
+         }
+         
+         //=============
+         // D1jet
+         //=============
+         integral = histos_1D_ZX[Settings::D1jet][i_fs][i_cat]->Integral();
+         CheckSmoothing = histos_1D_ZX[Settings::D1jet][i_fs][i_cat];
+         CheckSmoothing->Smooth(1);
+         if(integral > 0. && CheckSmoothing->Integral() > 0.)
+         {
+            
+            histos_1D_ZX[Settings::D1jet][i_fs][i_cat]->Smooth(1);
+            histos_1D_ZX[Settings::D1jet][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::D1jet][i_fs][i_cat]->Integral() );
+         }
+         
+         integral = histos_1D_ZX[Settings::D1jet_M4L118130][i_fs][i_cat]->Integral();
+         CheckSmoothing = histos_1D_ZX[Settings::D1jet_M4L118130][i_fs][i_cat];
+         CheckSmoothing->Smooth(1);
+         if(integral > 0. && CheckSmoothing->Integral() > 0.)
+         {
+            histos_1D_ZX[Settings::D1jet_M4L118130][i_fs][i_cat]->Smooth(1);
+            histos_1D_ZX[Settings::D1jet_M4L118130][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::D1jet_M4L118130][i_fs][i_cat]->Integral() );
+         }
+         
+         //=============
+         // D2jet
+         //=============
+         integral = histos_1D_ZX[Settings::D2jet][i_fs][i_cat]->Integral();
+         CheckSmoothing = histos_1D_ZX[Settings::D2jet][i_fs][i_cat];
+         CheckSmoothing->Smooth(1);
+         if(integral > 0. && CheckSmoothing->Integral() > 0.)
+         {
+            
+            histos_1D_ZX[Settings::D2jet][i_fs][i_cat]->Smooth(1);
+            histos_1D_ZX[Settings::D2jet][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::D2jet][i_fs][i_cat]->Integral() );
+         }
+         
+         integral = histos_1D_ZX[Settings::D2jet_M4L118130][i_fs][i_cat]->Integral();
+         CheckSmoothing = histos_1D_ZX[Settings::D2jet_M4L118130][i_fs][i_cat];
+         CheckSmoothing->Smooth(1);
+         if(integral > 0. && CheckSmoothing->Integral() > 0.)
+         {
+            histos_1D_ZX[Settings::D2jet_M4L118130][i_fs][i_cat]->Smooth(1);
+            histos_1D_ZX[Settings::D2jet_M4L118130][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::D2jet_M4L118130][i_fs][i_cat]->Integral() );
+         }
+         
+         //=============
+         // DWH
+         //=============
+         integral = histos_1D_ZX[Settings::DWH][i_fs][i_cat]->Integral();
+         CheckSmoothing = histos_1D_ZX[Settings::DWH][i_fs][i_cat];
+         CheckSmoothing->Smooth(1);
+         if(integral > 0. && CheckSmoothing->Integral() > 0.)
+         {
+            
+            histos_1D_ZX[Settings::DWH][i_fs][i_cat]->Smooth(1);
+            histos_1D_ZX[Settings::DWH][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::DWH][i_fs][i_cat]->Integral() );
+         }
+         
+         integral = histos_1D_ZX[Settings::DWH_M4L118130][i_fs][i_cat]->Integral();
+         CheckSmoothing = histos_1D_ZX[Settings::DWH_M4L118130][i_fs][i_cat];
+         CheckSmoothing->Smooth(1);
+         if(integral > 0. && CheckSmoothing->Integral() > 0.)
+         {
+            histos_1D_ZX[Settings::DWH_M4L118130][i_fs][i_cat]->Smooth(1);
+            histos_1D_ZX[Settings::DWH_M4L118130][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::DWH_M4L118130][i_fs][i_cat]->Integral() );
+         }
+         
+         //=============
+         // DZH
+         //=============
+         integral = histos_1D_ZX[Settings::DZH][i_fs][i_cat]->Integral();
+         CheckSmoothing = histos_1D_ZX[Settings::DZH][i_fs][i_cat];
+         CheckSmoothing->Smooth(1);
+         if(integral > 0. && CheckSmoothing->Integral() > 0.)
+         {
+            
+            histos_1D_ZX[Settings::DZH][i_fs][i_cat]->Smooth(1);
+            histos_1D_ZX[Settings::DZH][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::DZH][i_fs][i_cat]->Integral() );
+         }
+         
+         integral = histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat]->Integral();
+         CheckSmoothing = histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat];
+         CheckSmoothing->Smooth(1);
+         if(integral > 0. && CheckSmoothing->Integral() > 0.)
+         {
+            histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat]->Smooth(1);
+            histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat]->Integral() );
+         }
 
       }
    }
@@ -608,6 +1121,24 @@ void Histograms::RenormalizeZX()
          //=============
          histos_1D_ZX[Settings::MZ2][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
          histos_1D_ZX[Settings::MZ2_M4L118130][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+         
+         //=============
+         // KD
+         //=============
+         histos_1D_ZX[Settings::KD][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+         histos_1D_ZX[Settings::KD_M4L118130][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+         
+         histos_1D_ZX[Settings::D1jet][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+         histos_1D_ZX[Settings::D1jet_M4L118130][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+         
+         histos_1D_ZX[Settings::D2jet][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+         histos_1D_ZX[Settings::D2jet_M4L118130][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+         
+         histos_1D_ZX[Settings::DWH][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+         histos_1D_ZX[Settings::DWH_M4L118130][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+         
+         histos_1D_ZX[Settings::DZH][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+         histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
       }
    }
 }
@@ -658,6 +1189,32 @@ void Histograms::SaveHistos( string file_name )
          
          delete histos_1D_ZX[Settings::MZ2][i_fs][i_cat];
          delete histos_1D_ZX[Settings::MZ2_M4L118130][i_fs][i_cat];
+         
+         //=============
+         // KD
+         //=============
+         histos_1D_ZX[Settings::KD][i_fs][i_cat]->Write();
+         histos_1D_ZX[Settings::KD_M4L118130][i_fs][i_cat]->Write();
+         histos_1D_ZX[Settings::D1jet][i_fs][i_cat]->Write();
+         histos_1D_ZX[Settings::D1jet_M4L118130][i_fs][i_cat]->Write();
+         histos_1D_ZX[Settings::D2jet][i_fs][i_cat]->Write();
+         histos_1D_ZX[Settings::D2jet_M4L118130][i_fs][i_cat]->Write();
+         histos_1D_ZX[Settings::DWH][i_fs][i_cat]->Write();
+         histos_1D_ZX[Settings::DWH_M4L118130][i_fs][i_cat]->Write();
+         histos_1D_ZX[Settings::DZH][i_fs][i_cat]->Write();
+         histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat]->Write();
+         
+         delete histos_1D_ZX[Settings::KD][i_fs][i_cat];
+         delete histos_1D_ZX[Settings::KD_M4L118130][i_fs][i_cat];
+         delete histos_1D_ZX[Settings::D1jet][i_fs][i_cat];
+         delete histos_1D_ZX[Settings::D1jet_M4L118130][i_fs][i_cat];
+         delete histos_1D_ZX[Settings::D2jet][i_fs][i_cat];
+         delete histos_1D_ZX[Settings::D2jet_M4L118130][i_fs][i_cat];
+         delete histos_1D_ZX[Settings::DWH][i_fs][i_cat];
+         delete histos_1D_ZX[Settings::DWH_M4L118130][i_fs][i_cat];
+         delete histos_1D_ZX[Settings::DZH][i_fs][i_cat];
+         delete histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat];
+         
       
          for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
          {
@@ -689,6 +1246,31 @@ void Histograms::SaveHistos( string file_name )
                
                delete histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][i_proc];
                delete histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][i_proc];
+               
+               //=============
+               // KD
+               //=============
+               histos_1D[Settings::KD][i_fs][i_cat][i_rs][i_proc]->Write();
+               histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][i_proc]->Write();
+               histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][i_proc]->Write();
+               histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][i_proc]->Write();
+               histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][i_proc]->Write();
+               histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][i_proc]->Write();
+               histos_1D[Settings::DWH][i_fs][i_cat][i_rs][i_proc]->Write();
+               histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][i_proc]->Write();
+               histos_1D[Settings::DZH][i_fs][i_cat][i_rs][i_proc]->Write();
+               histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][i_proc]->Write();
+               
+               delete histos_1D[Settings::KD][i_fs][i_cat][i_rs][i_proc];
+               delete histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][i_proc];
+               delete histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][i_proc];
+               delete histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][i_proc];
+               delete histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][i_proc];
+               delete histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][i_proc];
+               delete histos_1D[Settings::DWH][i_fs][i_cat][i_rs][i_proc];
+               delete histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][i_proc];
+               delete histos_1D[Settings::DZH][i_fs][i_cat][i_rs][i_proc];
+               delete histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][i_proc];
 
             }
          }
@@ -746,6 +1328,39 @@ void Histograms::GetHistos( TString file_name )
                
                _histo_name = "MZ2_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
                histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+               
+               //=============
+               // KD
+               //=============
+               _histo_name = "KD" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               histos_1D[Settings::KD][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+               
+               _histo_name = "KD_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+               
+               _histo_name = "D1jet" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+               
+               _histo_name = "D1jet_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+               
+               _histo_name = "D2jet" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+               
+               _histo_name = "D2jet_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+               
+               _histo_name = "DWH" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               histos_1D[Settings::DWH][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+               
+               _histo_name = "DWH_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+               
+               _histo_name = "DZH" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               histos_1D[Settings::DZH][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+               
+               _histo_name = "DZH_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
             }
          }
       }
@@ -786,6 +1401,39 @@ void Histograms::GetHistos( TString file_name )
          
          _histo_name = "MZ2_M4L118130_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
          histos_1D_ZX[Settings::MZ2_M4L118130][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
+         
+         //=============
+         // KD
+         //=============
+         _histo_name = "KD_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::KD][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
+         
+         _histo_name = "KD_M4L118130_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::KD_M4L118130][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
+         
+         _histo_name = "D1jet_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::D1jet][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
+         
+         _histo_name = "D1jet_M4L118130_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::D1jet_M4L118130][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
+         
+         _histo_name = "D2jet_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::D2jet][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
+         
+         _histo_name = "D2jet_M4L118130_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::D2jet_M4L118130][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
+         
+         _histo_name = "DWH_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::DWH][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
+         
+         _histo_name = "DWH_M4L118130_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::DWH_M4L118130][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
+         
+         _histo_name = "DZH_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::DZH][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
+         
+         _histo_name = "DZH_M4L118130_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
 
       }
    }
@@ -804,11 +1452,17 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
    
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125]->SetFillColor(kRed-9);
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(kAzure-9);
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(kAzure+2);
-   if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed") histos_1D_ZX_shape[plot_index][fs][cat]->SetFillColor(kTeal-6);
-   else histos_1D_ZX[plot_index][fs][cat]->SetFillColor(kTeal-6);
+   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125]->SetFillColor(1180);
+   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(851);
+   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(858);
+   if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed") histos_1D_ZX_shape[plot_index][fs][cat]->SetFillColor(411);
+   else histos_1D_ZX[plot_index][fs][cat]->SetFillColor(411);
+   
+   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125]->SetLineColor(633);
+   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ]->SetLineColor(602);
+   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ]->SetLineColor(602);
+   if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed") histos_1D_ZX_shape[plot_index][fs][cat]->SetLineColor(420);
+   else histos_1D_ZX[plot_index][fs][cat]->SetLineColor(420);
    
    histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
    histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
@@ -834,7 +1488,30 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    stack->GetYaxis()->SetTitle(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
    
    histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
-      
+   
+   TLegend *legend;
+   if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed")
+   {
+      legend  = CreateLegend(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX_shape[plot_index][fs][cat]);
+   }
+   
+   else
+   {
+      legend = CreateLegend(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][fs][cat]);
+   }
+   legend->Draw();
+   
+   // Draw lumi
+   CMS_lumi *lumi = new CMS_lumi;
+   lumi->set_lumi(c, 0, 0);
+   
+   // Draw X-axis log scale
+   if ( plot_index == Settings::M4lMain )
+   {
+      stack->GetXaxis()->SetNdivisions(0);
+      DrawLogX(c, cat);
+   }
+
    stringstream ss;
    ss << folder << "/" << variable_name << "_" << filename;
 
@@ -1034,20 +1711,35 @@ int Histograms::SetPlotName( TString variable_name )
    //=============
    // M4l
    //=============
-   if ( variable_name == "M4lMain" )            return Settings::M4lMain;
-   else if ( variable_name == "M4lMainZoomed" ) return Settings::M4lMainZoomed;
+   if ( variable_name == "M4lMain" )              return Settings::M4lMain;
+   else if ( variable_name == "M4lMainZoomed" )   return Settings::M4lMainZoomed;
    
    //=============
    // MZ1
    //=============
-   else if ( variable_name == "MZ1" )           return Settings::MZ1;
-   else if ( variable_name == "MZ1_M4L118130" ) return Settings::MZ1_M4L118130;
+   else if ( variable_name == "MZ1" )             return Settings::MZ1;
+   else if ( variable_name == "MZ1_M4L118130" )   return Settings::MZ1_M4L118130;
    
    //=============
    // MZ2
    //=============
-   else if ( variable_name == "MZ2" )           return Settings::MZ2;
-   else if ( variable_name == "MZ2_M4L118130" ) return Settings::MZ2_M4L118130;
+   else if ( variable_name == "MZ2" )             return Settings::MZ2;
+   else if ( variable_name == "MZ2_M4L118130" )   return Settings::MZ2_M4L118130;
+   
+   //=============
+   // KD
+   //=============
+   else if ( variable_name == "KD" )              return Settings::KD;
+   else if ( variable_name == "KD_M4L118130" )    return Settings::KD_M4L118130;
+   else if ( variable_name == "D1jet" )           return Settings::D1jet;
+   else if ( variable_name == "D1jet_M4L118130" ) return Settings::D1jet_M4L118130;
+   else if ( variable_name == "D2jet" )           return Settings::D2jet;
+   else if ( variable_name == "D2jet_M4L118130" ) return Settings::D2jet_M4L118130;
+   else if ( variable_name == "DWH" )             return Settings::DWH;
+   else if ( variable_name == "DWH_M4L118130" )   return Settings::DWH_M4L118130;
+   else if ( variable_name == "DZH" )             return Settings::DZH;
+   else if ( variable_name == "DZH_M4L118130" )   return Settings::DZH_M4L118130;
+   
    else
    {
       cout << "[ERROR] Wrong variable name choosen! Setting it to M4lMain. Only possible implementations for now are: \n - M4lMain \n - M4lMainZoomed" << endl;
@@ -1075,10 +1767,24 @@ bool Histograms::GetVarLogX ( TString variable_name )
    else if (variable_name == "MZ1_M4L118130")    return bool(Variables::MZ1_M4L118130().var_log_x);
    
    //=============
-   // MZ1
+   // MZ2
    //=============
    else if (variable_name == "MZ2")              return bool(Variables::MZ2().var_log_x);
    else if (variable_name == "MZ2_M4L118130")    return bool(Variables::MZ2_M4L118130().var_log_x);
+   
+   //=============
+   // KD
+   //=============
+   else if (variable_name == "KD")               return bool(Variables::KD().var_log_x);
+   else if (variable_name == "KD_M4L118130")     return bool(Variables::KD_M4L118130().var_log_x);
+   else if (variable_name == "D1jet")            return bool(Variables::D1jet().var_log_x);
+   else if (variable_name == "D1jet_M4L118130")  return bool(Variables::D1jet_M4L118130().var_log_x);
+   else if (variable_name == "D2jet")            return bool(Variables::D2jet().var_log_x);
+   else if (variable_name == "D2jet_M4L118130")  return bool(Variables::D2jet_M4L118130().var_log_x);
+   else if (variable_name == "DWH")              return bool(Variables::DWH().var_log_x);
+   else if (variable_name == "DWH_M4L118130")    return bool(Variables::DWH_M4L118130().var_log_x);
+   else if (variable_name == "DZH")              return bool(Variables::DZH().var_log_x);
+   else if (variable_name == "DZH_M4L118130")    return bool(Variables::DZH_M4L118130().var_log_x);
    
    else
    {
@@ -1111,6 +1817,20 @@ bool Histograms::GetVarLogY ( TString variable_name )
    //=============
    else if (variable_name == "MZ2")              return bool(Variables::MZ2().var_log_y);
    else if (variable_name == "MZ2_M4L118130")    return bool(Variables::MZ2_M4L118130().var_log_y);
+   
+   //=============
+   // KD
+   //=============
+   else if (variable_name == "KD")               return bool(Variables::KD().var_log_y);
+   else if (variable_name == "KD_M4L118130")     return bool(Variables::KD_M4L118130().var_log_y);
+   else if (variable_name == "D1jet")            return bool(Variables::D1jet().var_log_y);
+   else if (variable_name == "D1jet_M4L118130")  return bool(Variables::D1jet_M4L118130().var_log_y);
+   else if (variable_name == "D2jet")            return bool(Variables::D2jet().var_log_y);
+   else if (variable_name == "D2jet_M4L118130")  return bool(Variables::D2jet_M4L118130().var_log_y);
+   else if (variable_name == "DWH")              return bool(Variables::DWH().var_log_y);
+   else if (variable_name == "DWH_M4L118130")    return bool(Variables::DWH_M4L118130().var_log_y);
+   else if (variable_name == "DZH")              return bool(Variables::DZH().var_log_y);
+   else if (variable_name == "DZH_M4L118130")    return bool(Variables::DZH_M4L118130().var_log_y);
 
    else
    {
