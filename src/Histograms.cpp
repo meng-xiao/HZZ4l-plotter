@@ -851,7 +851,7 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
 
 
 //=====================================================================================
-void Histograms::Plot1D_all( TString filename, TString variable_name , TString folder )
+void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TString folder )
 {
    int plot_index = SetPlotName( variable_name);
     
@@ -923,7 +923,7 @@ void Histograms::Plot1D_all( TString filename, TString variable_name , TString f
       }
       
       stringstream ss;
-      ss << folder << "/" << variable_name << "_" <<filename << "_" << i_cat;
+      ss << folder << "/" << variable_name << "_" <<filename << "_CAT_" << i_cat;
       cout << ss.str() << endl;
       c->SaveAs((ss.str() + ".pdf").c_str());
       c->SaveAs((ss.str() + ".png").c_str());
@@ -936,6 +936,95 @@ void Histograms::Plot1D_all( TString filename, TString variable_name , TString f
    delete c;
 }
 //=====================================================================================
+
+//=====================================================================================
+void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString folder )
+{
+   int plot_index = SetPlotName( variable_name);
+   
+   TCanvas *c = new TCanvas(variable_name, variable_name, 650, 500);
+   
+   if ( GetVarLogX( variable_name) ) c->SetLogx();
+   if ( GetVarLogY( variable_name) ) c->SetLogy();
+   
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      if( i_fs == Settings::fs2mu2e) continue;
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::H125]->SetFillColor(1180);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::qqZZ]->SetFillColor(851);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::ggZZ]->SetFillColor(858);
+      if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed") histos_1D_ZX_shape[plot_index][i_fs][Settings::inclusive]->SetFillColor(411);
+      else histos_1D_ZX[plot_index][i_fs][Settings::inclusive]->SetFillColor(411);
+      
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::H125]->SetLineColor(633);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::qqZZ]->SetLineColor(602);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::ggZZ]->SetLineColor(602);
+      if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed") histos_1D_ZX_shape[plot_index][i_fs][Settings::inclusive]->SetLineColor(420);
+      else histos_1D_ZX[plot_index][i_fs][Settings::inclusive]->SetLineColor(420);
+      
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->SetLineColor(kBlack);
+      
+      THStack *stack = new THStack( "stack", "stack" );
+      if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed") stack->Add(histos_1D_ZX_shape[plot_index][i_fs][Settings::inclusive]);
+      else stack->Add(histos_1D_ZX[plot_index][i_fs][Settings::inclusive]);
+      stack->Add(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::ggZZ]);
+      stack->Add(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::qqZZ]);
+      stack->Add(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::H125]);
+      
+      stack->Draw("HIST");
+      
+      float data_max = histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetBinContent(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetMaximumBin());
+      float data_max_error = histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetBinErrorUp(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetMaximumBin());
+      
+      stack->SetMinimum(1e-15);
+      stack->SetMaximum((data_max + data_max_error)*1.1);
+      
+      stack->GetXaxis()->SetTitle(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
+      stack->GetYaxis()->SetTitle(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
+      
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
+      
+      TLegend *legend;
+      if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed")
+      {
+         legend  = CreateLegend(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::H125],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX_shape[plot_index][i_fs][Settings::inclusive]);
+      }
+      
+      else
+      {
+         legend = CreateLegend(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::H125],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][i_fs][Settings::inclusive]);
+      }
+      legend->Draw();
+      
+      // Draw lumi
+      CMS_lumi *lumi = new CMS_lumi;
+      lumi->set_lumi(c, 0, 0);
+      
+      // Draw X-axis log scale
+      if ( plot_index == Settings::M4lMain )
+      {
+         stack->GetXaxis()->SetNdivisions(0);
+         DrawLogX(c, i_fs);
+      }
+      
+      stringstream ss;
+      ss << folder << "/" << variable_name << "_" <<filename << "_FS_" << i_fs;
+      cout << ss.str() << endl;
+      c->SaveAs((ss.str() + ".pdf").c_str());
+      c->SaveAs((ss.str() + ".png").c_str());
+      c->SaveAs((ss.str() + ".jpeg").c_str());
+      c->SaveAs((ss.str() + ".root").c_str());
+      c->SaveAs((ss.str() + ".C").c_str());
+      c->SaveAs((ss.str() + ".eps").c_str());
+      //      c->SaveAs("test.pdf");
+   }
+   delete c;
+}
+//=====================================================================================
+
 
 
 
