@@ -228,7 +228,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
    Long64_t nentries = fChain->GetEntriesFast();
 
    Long64_t nbytes = 0, nb = 0;
-   
+
    for (Long64_t jentry=0; jentry<nentries;jentry++)
    {
    
@@ -247,7 +247,9 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
    
       // Calculate yield
       _yield_SR = _fs_ROS_SS.at(_current_final_state)*FR->GetFakeRate(LepPt->at(2),LepEta->at(2),LepLepId->at(2))*FR->GetFakeRate(LepPt->at(3),LepEta->at(3),LepLepId->at(3));
-   
+      
+      if ( MERGE_2E2MU && _current_final_state == Settings::fs2mu2e ) _current_final_state = Settings::fs2e2mu; //We can only do this after _yield_SR is calculated
+      
       // Calculate kinematic discriminants
       KD = p0plus_VAJHU / ( p0plus_VAJHU + bkg_VAMCFM*getDbkgkinConstant(Z1Flav*Z2Flav,ZZMass) );
       D2jet = (nCleanedJetsPt30>=2) ? pvbf_VAJHU_highestPTJets / ( pvbf_VAJHU_highestPTJets + phjj_VAJHU_highestPTJets*getDVBF2jetsConstant(ZZMass) ) : -2 ;
@@ -305,7 +307,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
          if(nCleanedJetsPt30 >= 2) blinded_histos->FillDWHZX( DWH, _yield_SR, _current_final_state, _current_category);
          if(nCleanedJetsPt30 >= 2) blinded_histos->FillDZHZX( DZH, _yield_SR, _current_final_state, _current_category);
       }
-
+      
    
       _expected_yield_SR.at(_current_final_state) += _yield_SR;
       _number_of_events_CR.at(_current_final_state)++;
@@ -328,16 +330,16 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
   
    cout << "[INFO] Total = " << _expected_yield_SR.at(num_of_final_states - 1) << endl;
    
-   // Smooth histograms
-   if ( SMOOTH_ZX_FULL_RUN2_SS )
-   {
-      cout << "[INFO] Smoothing Z+X histograms..." << endl;
-      blinded_histos->SmoothHistograms();
-      unblinded_histos->SmoothHistograms();
-   }
-    
-   unblinded_histos->RenormalizeZX();
-   blinded_histos->RenormalizeZX();
+//   // Smooth histograms
+//   if ( SMOOTH_ZX_FULL_RUN2_SS )
+//   {
+//      cout << "[INFO] Smoothing Z+X histograms..." << endl;
+//      blinded_histos->SmoothHistograms();
+//      unblinded_histos->SmoothHistograms();
+//   }
+//    
+//   unblinded_histos->RenormalizeZX();
+//   blinded_histos->RenormalizeZX();
    
     
 }
@@ -515,8 +517,6 @@ int Plotter::FindFinalStateZX()
    {
       cerr << "[ERROR] in event " << RunNumber << ":" << LumiNumber << ":" << EventNumber << ", Z1Flav = " << Z1Flav << endl;
    }
-   
-   if ( MERGE_2E2MU && final_state == Settings::fs2mu2e ) final_state = Settings::fs2e2mu;
    
    return final_state;
 }
