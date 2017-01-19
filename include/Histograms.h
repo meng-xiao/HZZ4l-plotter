@@ -16,6 +16,8 @@
 #include "THStack.h"
 #include "TLegend.h"
 #include "TLatex.h"
+#include "TStyle.h"
+#include "TPaletteAxis.h"
 
 // Include classes
 #include "Settings.h"
@@ -89,7 +91,9 @@ public:
    void Plot1D_single( TString, TString, TString, int, int );
    void Plot1D_allCAT( TString, TString, TString );
    void Plot1D_allFS( TString, TString, TString );
-   void MakeZXShape(int, int, float);
+   void Plot2D_single( TString, TString, TString, int );
+   void setColZGradient_OneColor(int , bool);
+   void MakeZXShape(int, int);
    int SetPlotName( TString );
    bool GetVarLogX( TString );
    bool GetVarLogY( TString );
@@ -149,8 +153,6 @@ private:
    
    TH2F *MZ1vsMZ2;
    
-   // Z+X
-   TH2F *histos_2D_ZX[num_of_1Dplot_names][num_of_final_states][num_of_categories];
 
    
 };

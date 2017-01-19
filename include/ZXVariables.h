@@ -36,11 +36,11 @@ public:
         float norm_inclusive        = 10.950;
         float N = norm_combined/norm_inclusive;
         float norm_untagged         = 8.848 * N;
-        float norm_VBF_1j_tagged    = 0.771 * N;
-        float norm_VBF_2j_tagged    = 0.092 * N;
-        float norm_VH_lepton_tagged = 0.208 * N;
-        float norm_VH_hadron_tagged = 0.272 * N;
-        float norm_ttH_tagged       = 0.193 * N;
+        float norm_VBF_1j_tagged    = 0.758 * N;
+        float norm_VBF_2j_tagged    = 0.771 * N;
+        float norm_VH_lepton_tagged = 0.092 * N;
+        float norm_VH_hadron_tagged = 0.208 * N;
+        float norm_ttH_tagged       = 0.272 * N;
         
         
         float par0 = 130.4;

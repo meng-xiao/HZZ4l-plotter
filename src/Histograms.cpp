@@ -209,11 +209,6 @@ Histograms::Histograms( string blinding )
          _histo_name = "DZH_M4L118130_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
          histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::DZH_M4L118130().var_N_bin, Variables::DZH_M4L118130().var_min, Variables::DZH_M4L118130().var_max);
          
-         //=============
-         // MZ1vsMZ2
-         //=============
-         _histo_name = "MZ1vsMZ2_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
-         histos_2D_ZX[Settings::MZ1vsMZ2][i_fs][i_cat] = new TH2F(_histo_name.c_str(), "Z+X", Variables::MZ1vsMZ2().var_X_N_bin, Variables::MZ1vsMZ2().var_X_min, Variables::MZ1vsMZ2().var_X_max, Variables::MZ1vsMZ2().var_Y_N_bin, Variables::MZ1vsMZ2().var_Y_min, Variables::MZ1vsMZ2().var_Y_max);
       }
    }
 }
@@ -584,32 +579,24 @@ void Histograms::FillMZ1vsMZ2( float MZ1, float MZ2, float weight, int fs, int c
 
 
 
-//====================================================================
-void Histograms::FillMZ1vsMZ2ZX( float MZ1, float MZ2, float weight, int fs, int cat )
-{
-   histos_2D_ZX[Settings::MZ1vsMZ2][fs][cat]->Fill(MZ1, MZ2, weight);
-}
-//====================================================================
-
-
 
 
 
 
 
 //=======================================================================================
-void Histograms::MakeZXShape( int current_final_state, int current_category, float lumi )
+void Histograms::MakeZXShape( int current_final_state, int current_category)
 {
    M4lZX *ZXShape = new M4lZX();
    
    current_final_state = (current_final_state == 3) ? 2 : current_final_state;
-   histos_1D_ZX_shape[Settings::M4lMain][current_final_state][current_category]->Add(ZXShape->GetM4lZX(Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max, current_final_state, current_category, lumi));
+   histos_1D_ZX_shape[Settings::M4lMain][current_final_state][current_category]->Add(ZXShape->GetM4lZX(Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max, current_final_state, current_category));
    
    ZXShape->~M4lZX();
    
    M4lZX *ZXShape_zoomed = new M4lZX();
    
-   histos_1D_ZX_shape[Settings::M4lMainZoomed][current_final_state][current_category]->Add(ZXShape_zoomed->GetM4lZX(Variables::M4lMainZoomed().var_N_bin, Variables::M4lMainZoomed().var_min, Variables::M4lMainZoomed().var_max, current_final_state, current_category, lumi));
+   histos_1D_ZX_shape[Settings::M4lMainZoomed][current_final_state][current_category]->Add(ZXShape_zoomed->GetM4lZX(Variables::M4lMainZoomed().var_N_bin, Variables::M4lMainZoomed().var_min, Variables::M4lMainZoomed().var_max, current_final_state, current_category));
    
    ZXShape_zoomed->~M4lZX();
     
@@ -903,10 +890,6 @@ void Histograms::FillInclusive()
          histos_1D_ZX[Settings::DZH][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::DZH][i_fs][i_cat]);
          histos_1D_ZX[Settings::DZH_M4L118130][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat]);
          
-         //=============
-         // MZ1vsMZ2
-         //=============
-         histos_2D_ZX[Settings::MZ1vsMZ2][num_of_final_states - 1][i_cat]->Add(histos_2D_ZX[Settings::MZ1vsMZ2][i_fs][i_cat]);
       }
    }
 
@@ -950,10 +933,6 @@ void Histograms::FillInclusive()
          histos_1D_ZX[Settings::DZH][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::DZH][i_fs][i_cat]);
          histos_1D_ZX[Settings::DZH_M4L118130][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat]);
          
-         //=============
-         // MZ1vsMZ2
-         //=============
-         histos_2D_ZX[Settings::MZ1vsMZ2][i_fs][num_of_categories - 1]->Add(histos_2D_ZX[Settings::MZ1vsMZ2][i_fs][i_cat]);
       }
    }
 
@@ -1157,71 +1136,46 @@ void Histograms::SmoothHistograms()
 //==============================
 void Histograms::RenormalizeZX()
 {
-   
    M4lZX *ZX = new M4lZX();
    
-   float norm_ZX_full_SR[num_of_final_states];   
-   norm_ZX_full_SR[Settings::fs4e]    = ZX->GetNormZXFullSR4e();
-   norm_ZX_full_SR[Settings::fs4mu]   = ZX->GetNormZXFullSR4mu();
-   norm_ZX_full_SR[Settings::fs2e2mu] = ZX->GetNormZXFullSR2e2mu();
-   norm_ZX_full_SR[num_of_final_states - 1] = ZX->GetNormZXFullSR4e() + ZX->GetNormZXFullSR4mu() + ZX->GetNormZXFullSR2e2mu() ;
-   
-   ZX->SetNormalization(Settings::inclusive);
-    
-   float norm_ZX_comb_SR[num_of_final_states];
-   norm_ZX_comb_SR[Settings::fs4e]    = ZX->GetNormZXFullSR4e();
-   norm_ZX_comb_SR[Settings::fs4mu]   = ZX->GetNormZXFullSR4mu();
-   norm_ZX_comb_SR[Settings::fs2e2mu] = ZX->GetNormZXFullSR2e2mu();
-   norm_ZX_comb_SR[num_of_final_states - 1] = ZX->GetNormZXFullSR4e() + ZX->GetNormZXFullSR4mu() + ZX->GetNormZXFullSR2e2mu() ;
-    
    for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
    {
-      for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
-      {
-         if( i_fs == Settings::fs2mu2e) continue;
          //=============
          // M4l
          //=============
-         histos_1D_ZX[Settings::M4lMain][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
-         histos_1D_ZX[Settings::M4lMainZoomed][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+      ZX->RenormalizeZX( i_cat, histos_1D_ZX[Settings::M4lMain][Settings::fs4e][i_cat], histos_1D_ZX[Settings::M4lMain][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::M4lMain][Settings::fs2e2mu][i_cat]);
+      ZX->RenormalizeZX( i_cat, histos_1D_ZX[Settings::M4lMainZoomed][Settings::fs4e][i_cat], histos_1D_ZX[Settings::M4lMainZoomed][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::M4lMainZoomed][Settings::fs2e2mu][i_cat]);
          
          //=============
          // MZ1
          //=============
-         histos_1D_ZX[Settings::MZ1][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
-         histos_1D_ZX[Settings::MZ1_M4L118130][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
-         
+      ZX->RenormalizeZX( i_cat, histos_1D_ZX[Settings::MZ1][Settings::fs4e][i_cat], histos_1D_ZX[Settings::MZ1][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::MZ1][Settings::fs2e2mu][i_cat]);
+      ZX->RenormalizeZX( i_cat, histos_1D_ZX[Settings::MZ1_M4L118130][Settings::fs4e][i_cat], histos_1D_ZX[Settings::MZ1_M4L118130][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::MZ1_M4L118130][Settings::fs2e2mu][i_cat]);
          //=============
          // MZ2
          //=============
-         histos_1D_ZX[Settings::MZ2][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
-         histos_1D_ZX[Settings::MZ2_M4L118130][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+      ZX->RenormalizeZX( i_cat, histos_1D_ZX[Settings::MZ2][Settings::fs4e][i_cat], histos_1D_ZX[Settings::MZ2][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::MZ2][Settings::fs2e2mu][i_cat]);
+      ZX->RenormalizeZX( i_cat, histos_1D_ZX[Settings::MZ2_M4L118130][Settings::fs4e][i_cat], histos_1D_ZX[Settings::MZ2_M4L118130][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::MZ2_M4L118130][Settings::fs2e2mu][i_cat]);
          
          //=============
          // KD
          //=============
-         histos_1D_ZX[Settings::KD][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
-         histos_1D_ZX[Settings::KD_M4L118130][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+      ZX->RenormalizeZX( i_cat, histos_1D_ZX[Settings::KD][Settings::fs4e][i_cat], histos_1D_ZX[Settings::KD][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::KD][Settings::fs2e2mu][i_cat]);
+      ZX->RenormalizeZX( i_cat, histos_1D_ZX[Settings::KD_M4L118130][Settings::fs4e][i_cat], histos_1D_ZX[Settings::KD_M4L118130][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::KD_M4L118130][Settings::fs2e2mu][i_cat]);
          
-         histos_1D_ZX[Settings::D1jet][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
-         histos_1D_ZX[Settings::D1jet_M4L118130][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+      ZX->RenormalizeZX( i_cat, histos_1D_ZX[Settings::D1jet][Settings::fs4e][i_cat], histos_1D_ZX[Settings::D1jet][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::D1jet][Settings::fs2e2mu][i_cat]);
+      ZX->RenormalizeZX( i_cat, histos_1D_ZX[Settings::D1jet_M4L118130][Settings::fs4e][i_cat], histos_1D_ZX[Settings::D1jet_M4L118130][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::D1jet_M4L118130][Settings::fs2e2mu][i_cat]);
          
-         histos_1D_ZX[Settings::D2jet][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
-         histos_1D_ZX[Settings::D2jet_M4L118130][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+      ZX->RenormalizeZX( i_cat, histos_1D_ZX[Settings::D2jet][Settings::fs4e][i_cat], histos_1D_ZX[Settings::D2jet][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::D2jet][Settings::fs2e2mu][i_cat]);
+      ZX->RenormalizeZX( i_cat, histos_1D_ZX[Settings::D2jet_M4L118130][Settings::fs4e][i_cat], histos_1D_ZX[Settings::D2jet_M4L118130][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::D2jet_M4L118130][Settings::fs2e2mu][i_cat]);
          
-         histos_1D_ZX[Settings::DWH][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
-         histos_1D_ZX[Settings::DWH_M4L118130][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
+      ZX->RenormalizeZX( i_cat, histos_1D_ZX[Settings::DWH][Settings::fs4e][i_cat], histos_1D_ZX[Settings::DWH][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::DWH][Settings::fs2e2mu][i_cat]);
+      ZX->RenormalizeZX( i_cat, histos_1D_ZX[Settings::DWH_M4L118130][Settings::fs4e][i_cat], histos_1D_ZX[Settings::DWH_M4L118130][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::DWH_M4L118130][Settings::fs2e2mu][i_cat]);
          
-         histos_1D_ZX[Settings::DZH][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
-         histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
-         
-         //=============
-         // MZ1vsMZ2
-         //=============
-         histos_2D_ZX[Settings::MZ1vsMZ2][i_fs][i_cat]->Scale( norm_ZX_comb_SR[i_fs] / norm_ZX_full_SR[i_fs] );
-
-      }
+      ZX->RenormalizeZX( i_cat, histos_1D_ZX[Settings::DZH][Settings::fs4e][i_cat], histos_1D_ZX[Settings::DZH][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::DZH][Settings::fs2e2mu][i_cat]);
+      ZX->RenormalizeZX( i_cat, histos_1D_ZX[Settings::DZH_M4L118130][Settings::fs4e][i_cat], histos_1D_ZX[Settings::DZH_M4L118130][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::DZH_M4L118130][Settings::fs2e2mu][i_cat]);
    }
+   //ZX->~M4lZX();
 }
 //==============================
 
@@ -1274,10 +1228,6 @@ void Histograms::SaveHistos( string file_name )
          histos_1D_ZX[Settings::DZH][i_fs][i_cat]->Write();
          histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat]->Write();
          
-         //=============
-         // MZ1vsMZ2
-         //=============
-         histos_2D_ZX[Settings::MZ1vsMZ2][i_fs][i_cat]->Write();
       
          for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
          {
@@ -1408,11 +1358,6 @@ void Histograms::DeleteHistos()
          delete histos_1D_ZX[Settings::DWH_M4L118130][i_fs][i_cat];
          delete histos_1D_ZX[Settings::DZH][i_fs][i_cat];
          delete histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat];
-         
-         //=============
-         // MZ1vsMZ2
-         //=============
-         delete histos_2D_ZX[Settings::MZ1vsMZ2][i_fs][i_cat];
          
          
          
@@ -1624,13 +1569,6 @@ void Histograms::GetHistos( TString file_name )
          _histo_name = "DZH_M4L118130_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
          histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
          
-         //=============
-         // MZ1vsMZ2
-         //=============
-         _histo_name = "MZ1vsMZ2_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
-         histos_2D_ZX[Settings::MZ1vsMZ2][i_fs][i_cat] = (TH2F*)histo_file->Get(_histo_name.c_str());
-
-
       }
    }
 }
@@ -1664,15 +1602,6 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
    histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
    histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetLineColor(kBlack);
-   
-   float sum = 0;
-   cout << "Integral: " << histos_1D_ZX[plot_index][fs][cat]->Integral() << endl;
-   for(int i = 1; i < 21; i++)
-   {
-      cout << i << ". bin: " << histos_1D_ZX[plot_index][fs][cat]->GetBinContent(i) << endl;
-      sum+=histos_1D_ZX[plot_index][fs][cat]->GetBinContent(i);
-   }
-   cout << "Sum: " << sum << endl;
    
    THStack *stack = new THStack( "stack", "stack" );
    if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed") stack->Add(histos_1D_ZX_shape[plot_index][fs][cat]);
@@ -1919,6 +1848,99 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
 //=====================================================================================
 
 
+//========================================================================================================
+void Histograms::Plot2D_single( TString filename, TString variable_name, TString folder, int cat )
+{
+   int plot_index = SetPlotName( variable_name);
+   
+   TCanvas *c = new TCanvas(variable_name, variable_name, 650, 500);
+   
+   if ( GetVarLogX( variable_name) ) c->SetLogx();
+   if ( GetVarLogY( variable_name) ) c->SetLogy();
+   
+   //----- prepare MC histogram
+   TH2F* stack;
+   stack = (TH2F*)histos_2D[plot_index][Settings::fs4l][cat][Settings::all_resonant][Settings::H125]->Clone();
+   stack->Add(histos_2D[plot_index][Settings::fs4l][cat][Settings::all_resonant][Settings::qqZZ]);
+   stack->Add(histos_2D[plot_index][Settings::fs4l][cat][Settings::all_resonant][Settings::ggZZ]);
+   
+   stack->GetXaxis()->SetTitleOffset(1.2);
+   stack->GetYaxis()->SetTitleOffset(1.4);
+   stack->GetZaxis()->SetTitleOffset(1.15);//1.35);
+   stack->GetXaxis()->SetLabelFont(42);
+   stack->GetYaxis()->SetLabelFont(42);
+   stack->GetZaxis()->SetLabelFont(42);
+   stack->GetXaxis()->SetTitleFont(42);
+   stack->GetYaxis()->SetTitleFont(42);
+   stack->GetZaxis()->SetTitleFont(42);
+   stack->GetZaxis()->SetLabelSize(0.03);
+   stack->GetZaxis()->SetTitle("Events / bin");
+
+   stack->SetMinimum(+1e-10);
+   
+   bool shift = true;
+   int col = 1;
+   const Int_t NRGBs = 2;
+   const Int_t NCont = 255;
+   Double_t stops[NRGBs] = { 0.00, 1.00 };
+   Double_t red[NRGBs]   = { 1., 0.5 };
+   Double_t green[NRGBs] = { 1., 0.5 };
+   Double_t blue[NRGBs]  = { 1., 0.5 };
+   if(shift){
+      for(int i=0; i<NRGBs; i++){
+         red  [i] -= 0.10;
+         green[i] -= 0.10;
+         blue [i] -= 0.10;
+      }
+   }
+   TColor::CreateGradientColorTable(NRGBs, stops, red, green, blue, NCont);
+   gStyle->SetNumberContours(NCont);
+   stack->Draw("COLZ");
+   
+   //----- prepare data graphs
+   histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(21);
+   histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.9);
+   histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::all_resonant][Settings::Data]->SetMarkerColor(kBlue);
+   histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::all_resonant][Settings::Data]->SetLineColor(kBlue);
+   
+   histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::all_resonant][Settings::Data]->Draw("SAME XP");
+   
+   histos_2D[plot_index][Settings::fs4mu][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
+   histos_2D[plot_index][Settings::fs4mu][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.9);
+   histos_2D[plot_index][Settings::fs4mu][cat][Settings::all_resonant][Settings::Data]->SetMarkerColor(kRed);
+   histos_2D[plot_index][Settings::fs4mu][cat][Settings::all_resonant][Settings::Data]->SetLineColor(kRed);
+   
+   histos_2D[plot_index][Settings::fs4mu][cat][Settings::all_resonant][Settings::Data]->Draw("SAME XP");
+   
+   histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(22);
+   histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.9);
+   histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->SetMarkerColor(kGreen);
+   histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->SetLineColor(kGreen);
+   
+   histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->Draw("SAME XP");
+   
+   //----- adjust color axis
+   //c->Update();
+   //TPaletteAxis* pal = (TPaletteAxis*)stack->GetListOfFunctions()->FindObject("palette");
+   //pal->SetX1NDC(0.875);
+   //pal->SetX2NDC(0.90);
+
+   // Draw lumi
+   CMS_lumi *lumi = new CMS_lumi;
+   lumi->set_lumi(c, 0, 0);
+   
+   stringstream ss;
+   ss << folder << "/" << variable_name << "_" << filename;
+   
+   c->SaveAs((ss.str() + ".pdf").c_str());
+   c->SaveAs((ss.str() + ".png").c_str());
+   c->SaveAs((ss.str() + ".jpeg").c_str());
+   c->SaveAs((ss.str() + ".root").c_str());
+   c->SaveAs((ss.str() + ".C").c_str());
+   c->SaveAs((ss.str() + ".eps").c_str());
+   
+}
+//========================================================================================================
 
 
 //==================================================

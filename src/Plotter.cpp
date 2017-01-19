@@ -42,8 +42,12 @@ Plotter::Plotter():Tree()
    
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
    {
-      _expected_yield_SR.push_back(0);
-      _number_of_events_CR.push_back(0);
+      for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+      {
+         _expected_yield_SR[i_fs][i_cat] = 0;
+         _number_of_events_CR[i_fs][i_cat] = 0;
+      }
+
    }
 
 }
@@ -203,8 +207,8 @@ void Plotter::MakeM4lZX()
     {
         for(int i_cat = 0; i_cat < num_of_categories; i_cat++)
         {
-            blinded_histos->MakeZXShape( i_fs, i_cat, _lumi );
-            unblinded_histos->MakeZXShape( i_fs, i_cat, _lumi);
+            blinded_histos->MakeZXShape( i_fs, i_cat);
+            unblinded_histos->MakeZXShape( i_fs, i_cat);
         }
     }
 }
@@ -255,6 +259,9 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
    
       // Calculate yield
       _yield_SR = _fs_ROS_SS.at(_current_final_state)*FR->GetFakeRate(LepPt->at(2),LepEta->at(2),LepLepId->at(2))*FR->GetFakeRate(LepPt->at(3),LepEta->at(3),LepLepId->at(3));
+      
+      _expected_yield_SR[_current_final_state][_current_category] += _yield_SR; // this number needs to be used when renormalizing histograms that have some cut/blinding
+      _number_of_events_CR[_current_final_state][_current_category]++;
       
       if ( MERGE_2E2MU && _current_final_state == Settings::fs2mu2e ) _current_final_state = Settings::fs2e2mu; //We can only do this after _yield_SR is calculated
       
@@ -315,46 +322,47 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
          if(nCleanedJetsPt30 >= 2) blinded_histos->FillDWHZX( DWH, _yield_SR, _current_final_state, _current_category);
          if(nCleanedJetsPt30 >= 2) blinded_histos->FillDZHZX( DZH, _yield_SR, _current_final_state, _current_category);
       }
-      
-      
-      // Fill MZ1vsMZ2 Z+X histograms
-      unblinded_histos->FillMZ1vsMZ2ZX( Z1Mass, Z2Mass, _yield_SR, _current_final_state, _current_category );
-      
-      if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
-      {
-         blinded_histos->FillMZ1vsMZ2ZX( Z1Mass, Z2Mass, _yield_SR, _current_final_state, _current_category);
-      }
 
-   
-      _expected_yield_SR.at(_current_final_state) += _yield_SR;
-      _number_of_events_CR.at(_current_final_state)++;
    
    } // END events loop
    
-   for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++ )
+   for (  int i_cat = 0; i_cat < num_of_categories - 1; i_cat++  )
    {
-      _expected_yield_SR.at(num_of_final_states - 1) += _expected_yield_SR.at(i_fs);
-      _number_of_events_CR.at(num_of_final_states - 1) += _number_of_events_CR.at(i_fs);
+      for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++  )
+      {
+         _expected_yield_SR[Settings::fs4l][i_cat] += _expected_yield_SR[i_fs][i_cat];
+         _number_of_events_CR[Settings::fs4l][i_cat] += _number_of_events_CR[i_fs][i_cat];
+         _expected_yield_SR[i_fs][Settings::inclusive]+=_expected_yield_SR[i_fs][i_cat];
+         _number_of_events_CR[i_fs][Settings::inclusive] += _number_of_events_CR[i_fs][i_cat];
+      }
    }
-
-   // Print Z + X expected yields
-   for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++ )
+   for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++  )
    {
-      cout << i_fs << " : " << _expected_yield_SR.at(i_fs) << " +/- " <<
-      _expected_yield_SR.at(i_fs)/sqrt(_number_of_events_CR.at(i_fs)) << " (stat., evt: " <<
-      _number_of_events_CR.at(i_fs) << ")" << " +/- " << _expected_yield_SR.at(i_fs)*0.50 << " (syst.)" << endl;
+      _expected_yield_SR[Settings::fs4l][Settings::inclusive] += _expected_yield_SR[i_fs][Settings::inclusive];
    }
   
-   cout << "[INFO] Total = " << _expected_yield_SR.at(num_of_final_states - 1) << endl;
+   // Print Z + X expected yields
+//   for (  int i_cat = 0; i_cat < num_of_categories; i_cat++  )
+//   {
+//      for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++ )
+//      {
+//         cout << "Category: " << i_cat << "   Final state: " << i_fs << endl;
+//         cout << _expected_yield_SR[i_fs][i_cat] << " +/- " <<
+//         _expected_yield_SR[i_fs][i_cat]/sqrt(_number_of_events_CR[i_fs][i_cat]) << " (stat., evt: " <<
+//         _number_of_events_CR[i_fs][i_cat] << ")" << " +/- " << _expected_yield_SR[i_fs][i_cat]*0.50 << " (syst.)" << endl;
+//      }
+//   }
+  
+   cout << "[INFO] Total = " << _expected_yield_SR[Settings::fs4l][Settings::inclusive] << endl;
    
-   // Smooth histograms
-   if ( SMOOTH_ZX_FULL_RUN2_SS )
-   {
-      cout << "[INFO] Smoothing Z+X histograms..." << endl;
-      blinded_histos->SmoothHistograms();
-      unblinded_histos->SmoothHistograms();
-   }
-    
+//   // Smooth histograms
+//   if ( SMOOTH_ZX_FULL_RUN2_SS )
+//   {
+//      cout << "[INFO] Smoothing Z+X histograms..." << endl;
+//      blinded_histos->SmoothHistograms();
+//      unblinded_histos->SmoothHistograms();
+//   }
+//    
    unblinded_histos->RenormalizeZX();
    blinded_histos->RenormalizeZX();
    
@@ -432,6 +440,13 @@ void Plotter::Plot1D_allFS( TString file_name, TString variable_name, TString fo
 }
 //==================
 
+//==================
+void Plotter::Plot2D_single( TString file_name, TString variable_name, TString folder, int cat )
+{
+   histo_map[file_name]->Plot2D_single( file_name, variable_name, folder, cat );
+   
+}
+//==================
 
 
 //==========================================================

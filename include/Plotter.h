@@ -80,6 +80,7 @@ public:
    void Plot1D_single( TString, TString, TString, int, int );
    void Plot1D_allCAT( TString, TString, TString);
    void Plot1D_allFS( TString, TString, TString);
+   void Plot2D_single( TString, TString, TString, int );
    void SetBlinding( float, float);
    
 private:
@@ -119,7 +120,8 @@ private:
    
 
    
-   vector<float> _expected_yield_SR, _number_of_events_CR, _fs_ROS_SS;
+   float _expected_yield_SR[num_of_final_states][num_of_categories], _number_of_events_CR[num_of_final_states][num_of_categories];
+   vector<float> _fs_ROS_SS;
    
 
 
