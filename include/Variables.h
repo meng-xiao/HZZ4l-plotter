@@ -169,7 +169,7 @@ public:
       TString var_X_label = "D_{bkg}^{kin}";
       TString var_Y_label = "Events / 0.1";
       TString var_cut_label = "118 < m_{4#font[12]{l}} < 130 GeV";
-      Int_t var_N_bin = 10;
+      Int_t var_N_bin = 20;
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;
@@ -206,7 +206,7 @@ public:
       TString var_X_label = "D_{1jet}";
       TString var_Y_label = "Events / 0.1";
       TString var_cut_label = "118 < m_{4#font[12]{l}} < 130 GeV";
-      Int_t var_N_bin = 10;
+      Int_t var_N_bin = 20;
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;
@@ -230,7 +230,7 @@ public:
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;
-      Bool_t var_log_y = 0;
+      Bool_t var_log_y = 1;
       Int_t restrict_count_var = 0;
       Float_t var_min_factor = 0;
       Int_t var_CMS_pos = 0;
@@ -243,11 +243,11 @@ public:
       TString var_X_label = "D_{2jet}";
       TString var_Y_label = "Events / 0.1";
       TString var_cut_label = "118 < m_{4#font[12]{l}} < 130 GeV";
-      Int_t var_N_bin = 10;
+      Int_t var_N_bin = 20;
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;
-      Bool_t var_log_y = 0;
+      Bool_t var_log_y = 1;
       Int_t restrict_count_var = 0;
       Float_t var_min_factor = 0;
       Int_t var_CMS_pos = 0;
@@ -267,7 +267,7 @@ public:
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;
-      Bool_t var_log_y = 0;
+      Bool_t var_log_y = 1;
       Int_t restrict_count_var = 0;
       Float_t var_min_factor = 0;
       Int_t var_CMS_pos = 0;
@@ -280,11 +280,11 @@ public:
       TString var_X_label = "D_{WH}";
       TString var_Y_label = "Events / 0.1";
       TString var_cut_label = "118 < m_{4#font[12]{l}} < 130 GeV";
-      Int_t var_N_bin = 10;
+      Int_t var_N_bin = 20;
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;
-      Bool_t var_log_y = 0;
+      Bool_t var_log_y = 1;
       Int_t restrict_count_var = 0;
       Float_t var_min_factor = 0;
       Int_t var_CMS_pos = 0;
@@ -304,7 +304,7 @@ public:
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;
-      Bool_t var_log_y = 0;
+      Bool_t var_log_y = 1;
       Int_t restrict_count_var = 0;
       Float_t var_min_factor = 0;
       Int_t var_CMS_pos = 0;
@@ -317,11 +317,11 @@ public:
       TString var_X_label = "D_{ZH}";
       TString var_Y_label = "Events / 0.1";
       TString var_cut_label = "118 < m_{4#font[12]{l}} < 130 GeV";
-      Int_t var_N_bin = 10;
+      Int_t var_N_bin = 20;
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;
-      Bool_t var_log_y = 0;
+      Bool_t var_log_y = 1;
       Int_t restrict_count_var = 0;
       Float_t var_min_factor = 0;
       Int_t var_CMS_pos = 0;
@@ -332,7 +332,24 @@ public:
       Float_t cut_u = 130;
    };
    
-
+   struct MZ1vsMZ2
+   {
+      TString var_X_label = "m_{Z1} (GeV)";
+      TString var_Y_label = "m_{Z2} (GeV)";
+      TString var_cut_label = "";
+      Int_t var_X_N_bin = 40;
+      Float_t var_X_min = 40;
+      Float_t var_X_max = 120;
+      Int_t var_Y_N_bin = 54;
+      Float_t var_Y_min = 12;
+      Float_t var_Y_max = 120;
+      Bool_t var_log_x = 0;
+      Bool_t var_log_y = 0;
+      Int_t restrict_count_var = 0;
+      Float_t var_min_factor = 0;
+      Int_t var_CMS_pos = 0;
+      Int_t varLegPos = 33;
+   };
    
    struct Pt4l
    {

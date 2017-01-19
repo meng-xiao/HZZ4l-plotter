@@ -24,11 +24,12 @@
 
 using namespace std;
 
-const int num_of_processes = Settings::num_of_processes;
-const int num_of_final_states = Settings::num_of_final_states;
+const int num_of_processes         = Settings::num_of_processes;
+const int num_of_final_states      = Settings::num_of_final_states;
 const int num_of_resonant_statuses = Settings::num_of_res_statuses;
-const int num_of_categories = Settings::num_of_categories;
-const int num_of_plot_names = Settings::num_of_plot_names;
+const int num_of_categories        = Settings::num_of_categories;
+const int num_of_1Dplot_names      = Settings::num_of_1Dplot_names;
+const int num_of_2Dplot_names      = Settings::num_of_2Dplot_names;
 
 
 class Histograms
@@ -75,7 +76,12 @@ public:
    void FillDZH_cut( float, float, float, int, int, int, int );
    void FillDZHZX_cut( float, float, float, int, int );
    
+   void FillMZ1vsMZ2( float, float, float, int, int, int, int );
+   void FillMZ1vsMZ2ZX( float, float, float, int, int );
+   
    void SaveHistos( string );
+   void SaveYieldHistos( string );
+   void DeleteHistos();
    void FillInclusive();
    void SmoothHistograms();
    void RenormalizeZX();
@@ -97,8 +103,10 @@ private:
    vector<string> _s_category, _s_resonant_status, _s_final_state, _s_process;
    string _histo_name, _histo_labels, _blinding;
    
-   TH1F *histos_1D[num_of_plot_names][num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes];
-   TH1F *M4l_70182[num_of_plot_names][num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes];
+   //==========
+   // 1D plots
+   //==========
+   TH1F *histos_1D[num_of_1Dplot_names][num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes];
    
    TH1F *MZ1V1;
    TH1F *MZ1V1Log;
@@ -128,9 +136,22 @@ private:
    TH1F *M4l_100180_HighKD;
    TH1F *M4l_110150_HighKD;
    
+   
+   
    // Z+X
-   TH1F *histos_1D_ZX[num_of_plot_names][num_of_final_states][num_of_categories];
-   TH1F *histos_1D_ZX_shape[num_of_plot_names][num_of_final_states][num_of_categories];
+   TH1F *histos_1D_ZX[num_of_1Dplot_names][num_of_final_states][num_of_categories];
+   TH1F *histos_1D_ZX_shape[num_of_1Dplot_names][num_of_final_states][num_of_categories];
+   
+   //==========
+   // 2D plots
+   //==========
+   TH2F *histos_2D[num_of_2Dplot_names][num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes];
+   
+   TH2F *MZ1vsMZ2;
+   
+   // Z+X
+   TH2F *histos_2D_ZX[num_of_1Dplot_names][num_of_final_states][num_of_categories];
+
    
 };
 

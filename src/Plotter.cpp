@@ -181,6 +181,14 @@ void Plotter::MakeHistograms( TString input_file_name )
       if(nCleanedJetsPt30>=2) unblinded_histos->FillDWH_cut( ZZMass, DWH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       if(nCleanedJetsPt30>=2) unblinded_histos->FillDZH_cut( ZZMass, DZH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       
+      // Fill MZ1vsMZ2 histograms
+      if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
+      {
+         blinded_histos->FillMZ1vsMZ2( Z1Mass, Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      }
+      
+      unblinded_histos->FillMZ1vsMZ2( Z1Mass, Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      
    } // end for loop
    
 }
@@ -308,6 +316,15 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
          if(nCleanedJetsPt30 >= 2) blinded_histos->FillDZHZX( DZH, _yield_SR, _current_final_state, _current_category);
       }
       
+      
+      // Fill MZ1vsMZ2 Z+X histograms
+      unblinded_histos->FillMZ1vsMZ2ZX( Z1Mass, Z2Mass, _yield_SR, _current_final_state, _current_category );
+      
+      if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
+      {
+         blinded_histos->FillMZ1vsMZ2ZX( Z1Mass, Z2Mass, _yield_SR, _current_final_state, _current_category);
+      }
+
    
       _expected_yield_SR.at(_current_final_state) += _yield_SR;
       _number_of_events_CR.at(_current_final_state)++;
@@ -330,16 +347,16 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
   
    cout << "[INFO] Total = " << _expected_yield_SR.at(num_of_final_states - 1) << endl;
    
-//   // Smooth histograms
-//   if ( SMOOTH_ZX_FULL_RUN2_SS )
-//   {
-//      cout << "[INFO] Smoothing Z+X histograms..." << endl;
-//      blinded_histos->SmoothHistograms();
-//      unblinded_histos->SmoothHistograms();
-//   }
-//    
-//   unblinded_histos->RenormalizeZX();
-//   blinded_histos->RenormalizeZX();
+   // Smooth histograms
+   if ( SMOOTH_ZX_FULL_RUN2_SS )
+   {
+      cout << "[INFO] Smoothing Z+X histograms..." << endl;
+      blinded_histos->SmoothHistograms();
+      unblinded_histos->SmoothHistograms();
+   }
+    
+   unblinded_histos->RenormalizeZX();
+   blinded_histos->RenormalizeZX();
    
     
 }
@@ -371,6 +388,21 @@ void Plotter::Save()
 {
    unblinded_histos->SaveHistos("Unblinded.root");
    blinded_histos->SaveHistos("Blinded.root");
+}
+//==================
+
+//==================
+void Plotter::SaveYields()
+{
+   unblinded_histos->SaveYieldHistos("YieldsFile.root");
+}
+//==================
+
+//==================
+void Plotter::Delete()
+{
+   unblinded_histos->DeleteHistos();
+   blinded_histos->DeleteHistos();
 }
 //==================
 

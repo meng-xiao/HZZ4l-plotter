@@ -74,6 +74,8 @@ public:
    int find_resonant_status();
    void FillInclusive();
    void Save();
+   void SaveYields();
+   void Delete();
    void GetHistos( TString );
    void Plot1D_single( TString, TString, TString, int, int );
    void Plot1D_allCAT( TString, TString, TString);

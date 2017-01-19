@@ -21,14 +21,16 @@ public:
    enum _resonant_status { resonant = 0, nonresonant = 1, all_resonant = 2, MAX_NUM_OF_RESONANT_STATUSES };
    enum _category { untagged = 0, VBF_1j_tagged = 1, VBF_2j_tagged = 2, VH_lepton_tagged = 3, VH_hadron_tagged = 4, ttH_tagged = 5,
                     inclusive = 6, MAX_NUM_OF_CATEGORIES };
-   enum _plot_name { M4lMain = 0, M4lMainZoomed = 1, MZ1 = 2, MZ1_M4L118130 = 3, MZ2 = 4, MZ2_M4L118130 = 5, KD = 6, KD_M4L118130 = 7, D1jet = 8, D1jet_M4L118130 = 9, D2jet = 10, D2jet_M4L118130 = 11, DWH = 12, DWH_M4L118130 = 13, DZH = 14, DZH_M4L118130 = 15, MAX_NUM_OF_PLOT_NAMES};
+   enum _1Dplot_name { M4lMain = 0, M4lMainZoomed = 1, MZ1 = 2, MZ1_M4L118130 = 3, MZ2 = 4, MZ2_M4L118130 = 5, KD = 6, KD_M4L118130 = 7, D1jet = 8, D1jet_M4L118130 = 9, D2jet = 10, D2jet_M4L118130 = 11, DWH = 12, DWH_M4L118130 = 13, DZH = 14, DZH_M4L118130 = 15, MAX_NUM_OF_1DPLOT_NAMES};
+   enum _2Dplot_name { MZ1vsMZ2 = 0,  MAX_NUM_OF_2DPLOT_NAMES};
 
 
-   static const int num_of_processes    = MAX_NUM_OF_PROCESSES;
-   static const int num_of_final_states = MAX_NUM_OF_FINAL_STATES;
-   static const int num_of_res_statuses = MAX_NUM_OF_RESONANT_STATUSES;
-   static const int num_of_categories   = MAX_NUM_OF_CATEGORIES;
-   static const int num_of_plot_names   = MAX_NUM_OF_PLOT_NAMES;
+   static const int num_of_processes      = MAX_NUM_OF_PROCESSES;
+   static const int num_of_final_states   = MAX_NUM_OF_FINAL_STATES;
+   static const int num_of_res_statuses   = MAX_NUM_OF_RESONANT_STATUSES;
+   static const int num_of_categories     = MAX_NUM_OF_CATEGORIES;
+   static const int num_of_1Dplot_names   = MAX_NUM_OF_1DPLOT_NAMES;
+   static const int num_of_2Dplot_names   = MAX_NUM_OF_2DPLOT_NAMES;
    
    private:
    
