@@ -13,7 +13,7 @@
 *.C
 *.eps
 
-ICHEP_2016/*.sh
+*/*.sh
 
 run
 __init__.py

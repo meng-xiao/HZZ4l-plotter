@@ -60,6 +60,23 @@ public:
       Int_t rebinningDYTTbar = 1;
    };
    
+   struct M4lMainHighMass
+   {
+      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
+      TString var_Y_label = "Events / 20 GeV";
+      TString var_cut_label = "";
+      Int_t var_N_bin = 35;
+      Float_t var_min = 172;
+      Float_t var_max = 872;
+      Bool_t var_log_x = 0;
+      Bool_t var_log_y = 0;
+      Int_t restrict_count_var = 0;
+      Float_t var_min_factor = 0;
+      Int_t var_CMS_pos = 0;
+      Int_t varLegPos = 33;
+      Int_t rebinningDYTTbar = 1;
+   };
+   
    //=============
    // MZ1
    //=============
@@ -337,10 +354,10 @@ public:
       TString var_X_label = "m_{Z1} (GeV)";
       TString var_Y_label = "m_{Z2} (GeV)";
       TString var_cut_label = "";
-      Int_t var_X_N_bin = 40;
+      Int_t var_X_N_bin = 200;
       Float_t var_X_min = 40;
       Float_t var_X_max = 120;
-      Int_t var_Y_N_bin = 54;
+      Int_t var_Y_N_bin = 220;
       Float_t var_Y_min = 12;
       Float_t var_Y_max = 120;
       Bool_t var_log_x = 0;

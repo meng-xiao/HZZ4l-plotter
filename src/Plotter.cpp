@@ -153,7 +153,6 @@ void Plotter::MakeHistograms( TString input_file_name )
       }
       
       unblinded_histos->FillMZ1( Z1Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-      unblinded_histos->FillMZ1_cut( ZZMass, Z1Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       
       // Fill MZ2 histograms
       if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
@@ -162,7 +161,6 @@ void Plotter::MakeHistograms( TString input_file_name )
       }
       
       unblinded_histos->FillMZ2( Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-      unblinded_histos->FillMZ2_cut( ZZMass, Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       
       // Fill KD histograms
       if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
@@ -179,12 +177,6 @@ void Plotter::MakeHistograms( TString input_file_name )
       if(nCleanedJetsPt30>=2) unblinded_histos->FillD2jet( D2jet, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       if(nCleanedJetsPt30>=2) unblinded_histos->FillDWH( DWH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       if(nCleanedJetsPt30>=2) unblinded_histos->FillDZH( DZH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-      
-      unblinded_histos->FillKD_cut( ZZMass, KD, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-      if(nCleanedJetsPt30==1) unblinded_histos->FillD1jet_cut( ZZMass, D1jet, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-      if(nCleanedJetsPt30>=2) unblinded_histos->FillD2jet_cut( ZZMass, D2jet, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-      if(nCleanedJetsPt30>=2) unblinded_histos->FillDWH_cut( ZZMass, DWH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-      if(nCleanedJetsPt30>=2) unblinded_histos->FillDZH_cut( ZZMass, DZH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       
       // Fill MZ1vsMZ2 histograms
       if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
@@ -282,7 +274,6 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       
       // Fill mZ1 Z+X histograms
       unblinded_histos->FillMZ1ZX( Z1Mass, _yield_SR, _current_final_state, _current_category );
-      unblinded_histos->FillMZ1ZX_cut( ZZMass, Z1Mass, _yield_SR, _current_final_state, _current_category );
       
       if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
       {
@@ -291,7 +282,6 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       
       // Fill mZ2 Z+X histograms
       unblinded_histos->FillMZ2ZX( Z2Mass, _yield_SR, _current_final_state, _current_category );
-      unblinded_histos->FillMZ2ZX_cut( ZZMass, Z2Mass, _yield_SR, _current_final_state, _current_category );
       
       if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
       {
@@ -300,20 +290,11 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       
       // Fill KD Z+X histograms
       unblinded_histos->FillKDZX( KD, _yield_SR, _current_final_state, _current_category );
-      unblinded_histos->FillKDZX_cut( ZZMass, KD, _yield_SR, _current_final_state, _current_category );
       
       if(nCleanedJetsPt30 == 1) unblinded_histos->FillD1jetZX( D1jet, _yield_SR, _current_final_state, _current_category );
-      if(nCleanedJetsPt30 == 1) unblinded_histos->FillD1jetZX_cut( ZZMass, D1jet, _yield_SR, _current_final_state, _current_category );
-      
       if(nCleanedJetsPt30 >= 2) unblinded_histos->FillD2jetZX( D2jet, _yield_SR, _current_final_state, _current_category );
-      if(nCleanedJetsPt30 >= 2) unblinded_histos->FillD2jetZX_cut( ZZMass, D2jet, _yield_SR, _current_final_state, _current_category );
-      
       if(nCleanedJetsPt30 >= 2) unblinded_histos->FillDWHZX( DWH, _yield_SR, _current_final_state, _current_category );
-      if(nCleanedJetsPt30 >= 2) unblinded_histos->FillDWHZX_cut( ZZMass, DWH, _yield_SR, _current_final_state, _current_category );
-
       if(nCleanedJetsPt30 >= 2) unblinded_histos->FillDZHZX( DZH, _yield_SR, _current_final_state, _current_category );
-      if(nCleanedJetsPt30 >= 2) unblinded_histos->FillDZHZX_cut( ZZMass, DZH, _yield_SR, _current_final_state, _current_category );
-
       
       if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
       {
