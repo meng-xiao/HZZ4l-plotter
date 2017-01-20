@@ -120,7 +120,7 @@ private:
    
 
    
-   float _expected_yield_SR[num_of_final_states][num_of_categories], _number_of_events_CR[num_of_final_states][num_of_categories];
+   vector< vector <float> > _expected_yield_SR, _number_of_events_CR;
    vector<float> _fs_ROS_SS;
    
 

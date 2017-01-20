@@ -34,20 +34,21 @@ Plotter::Plotter():Tree()
    _tclr->GetColor("#5f3f3f");
    
    // Z+X SS factors
-   // FIXME: recompute this for Run II, WHAT ARE THESE????
+   // FIXME: recompute this for Run II, OS/SS ratio taken when computing fake rates in SS method
    _fs_ROS_SS.push_back(1.22);
    _fs_ROS_SS.push_back(0.97);
    _fs_ROS_SS.push_back(1.30);
    _fs_ROS_SS.push_back(0.98);
    
+   vector<float> temp;
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         _expected_yield_SR[i_fs][i_cat] = 0;
-         _number_of_events_CR[i_fs][i_cat] = 0;
+         temp.push_back(0);
       }
-
+      _expected_yield_SR.push_back(temp);
+      _number_of_events_CR.push_back(temp);
    }
 
 }
@@ -330,10 +331,19 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
    {
       for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++  )
       {
-         _expected_yield_SR[Settings::fs4l][i_cat] += _expected_yield_SR[i_fs][i_cat];
-         _number_of_events_CR[Settings::fs4l][i_cat] += _number_of_events_CR[i_fs][i_cat];
-         _expected_yield_SR[i_fs][Settings::inclusive]+=_expected_yield_SR[i_fs][i_cat];
+         _expected_yield_SR[Settings::fs4l][i_cat]       += _expected_yield_SR[i_fs][i_cat];   //calculate expected yield for inclusive 4l final state
+         _number_of_events_CR[Settings::fs4l][i_cat]     += _number_of_events_CR[i_fs][i_cat];
+         _expected_yield_SR[i_fs][Settings::inclusive]   += _expected_yield_SR[i_fs][i_cat];   //calculate expected yield for inclusive category
          _number_of_events_CR[i_fs][Settings::inclusive] += _number_of_events_CR[i_fs][i_cat];
+         
+         if ( MERGE_2E2MU )
+         {
+            _expected_yield_SR[Settings::fs2e2mu][i_cat]       += _expected_yield_SR[Settings::fs2mu2e][i_cat];   //merge 2e2mu and 2mu2e final state
+            _number_of_events_CR[Settings::fs2e2mu][i_cat]     += _number_of_events_CR[Settings::fs2mu2e][i_cat];
+            _expected_yield_SR[Settings::fs2mu2e][i_cat]        = 0.;
+            _number_of_events_CR[Settings::fs2mu2e][i_cat]      = 0.;
+         }
+         
       }
    }
    for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++  )
@@ -341,30 +351,27 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       _expected_yield_SR[Settings::fs4l][Settings::inclusive] += _expected_yield_SR[i_fs][Settings::inclusive];
    }
   
-   // Print Z + X expected yields
-//   for (  int i_cat = 0; i_cat < num_of_categories; i_cat++  )
-//   {
-//      for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++ )
-//      {
-//         cout << "Category: " << i_cat << "   Final state: " << i_fs << endl;
-//         cout << _expected_yield_SR[i_fs][i_cat] << " +/- " <<
-//         _expected_yield_SR[i_fs][i_cat]/sqrt(_number_of_events_CR[i_fs][i_cat]) << " (stat., evt: " <<
-//         _number_of_events_CR[i_fs][i_cat] << ")" << " +/- " << _expected_yield_SR[i_fs][i_cat]*0.50 << " (syst.)" << endl;
-//      }
-//   }
+   // Print Z + X expected yields for inclusive category
+   for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++ )
+   {
+      cout << "Category: " << Settings::inclusive << "   Final state: " << i_fs << endl;
+      cout << _expected_yield_SR[i_fs][Settings::inclusive] << " +/- " <<
+      _expected_yield_SR[i_fs][Settings::inclusive]/sqrt(_number_of_events_CR[i_fs][Settings::inclusive]) << " (stat., evt: " <<
+      _number_of_events_CR[i_fs][Settings::inclusive] << ")" << " +/- " << _expected_yield_SR[i_fs][Settings::inclusive]*0.50 << " (syst.)" << endl;
+   }
   
    cout << "[INFO] Total = " << _expected_yield_SR[Settings::fs4l][Settings::inclusive] << endl;
-   
-//   // Smooth histograms
-//   if ( SMOOTH_ZX_FULL_RUN2_SS )
-//   {
-//      cout << "[INFO] Smoothing Z+X histograms..." << endl;
-//      blinded_histos->SmoothHistograms();
-//      unblinded_histos->SmoothHistograms();
-//   }
-//    
-   unblinded_histos->RenormalizeZX();
-   blinded_histos->RenormalizeZX();
+  
+   // Smooth histograms
+   if ( SMOOTH_ZX_FULL_RUN2_SS )
+   {
+      cout << "[INFO] Smoothing Z+X histograms..." << endl;
+      blinded_histos->SmoothHistograms();
+      unblinded_histos->SmoothHistograms();
+   }
+    
+   unblinded_histos->RenormalizeZX( _expected_yield_SR );
+   blinded_histos->RenormalizeZX( _expected_yield_SR );
    
     
 }

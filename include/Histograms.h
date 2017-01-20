@@ -86,7 +86,7 @@ public:
    void DeleteHistos();
    void FillInclusive();
    void SmoothHistograms();
-   void RenormalizeZX();
+   void RenormalizeZX(vector< vector <float> >);
    void GetHistos( TString );
    void Plot1D_single( TString, TString, TString, int, int );
    void Plot1D_allCAT( TString, TString, TString );

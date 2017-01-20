@@ -96,13 +96,14 @@ TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, int cat
 
 
 //==========================================================================
-void M4lZX::RenormalizeZX( int cat, TH1F* histo4e_ZX, TH1F* histo4mu_ZX, TH1F* histo2e2mu_ZX)
+void M4lZX::RenormalizeZX( int cat, vector< vector <float> > _expected_yield_SR, TH1F* histo4e_ZX, TH1F* histo4mu_ZX, TH1F* histo2e2mu_ZX)
 {
    SetNormalization(cat);
    
-   histo4e_ZX->Scale(_norm_ZX_full_SR_4e / histo4e_ZX->Integral());
-   histo4mu_ZX->Scale(_norm_ZX_full_SR_4mu / histo4mu_ZX->Integral());
-   histo2e2mu_ZX->Scale(_norm_ZX_full_SR_2e2mu / histo2e2mu_ZX->Integral());
+   histo4e_ZX->Scale(_norm_ZX_full_SR_4e / _expected_yield_SR[Settings::fs4e][cat]);
+   histo4mu_ZX->Scale(_norm_ZX_full_SR_4mu / _expected_yield_SR[Settings::fs4mu][cat]);
+   histo2e2mu_ZX->Scale(_norm_ZX_full_SR_2e2mu / _expected_yield_SR[Settings::fs2e2mu][cat]);
+
 }
 //==========================================================================
 

@@ -17,7 +17,7 @@ public:
 	M4lZX();
 	~M4lZX();
    TH1F *GetM4lZX( int, int, int, int, int);
-   void RenormalizeZX( int, TH1F* , TH1F*, TH1F* );
+   void RenormalizeZX( int, vector< vector <float> >, TH1F* , TH1F*, TH1F* );
    void SetNormalization ( int );
    
    float GetNormZXFullSR4e()    { return _norm_ZX_full_SR_4e; };
