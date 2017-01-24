@@ -149,45 +149,56 @@ void Plotter::MakeHistograms( TString input_file_name )
       // Fill MZ1 histograms
       if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
       {
-         blinded_histos->FillMZ1( Z1Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+         blinded_histos->FillMZ1( ZZMass, Z1Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       }
       
-      unblinded_histos->FillMZ1( Z1Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      unblinded_histos->FillMZ1( ZZMass, Z1Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       
       // Fill MZ2 histograms
       if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
       {
-         blinded_histos->FillMZ2( Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+         blinded_histos->FillMZ2( ZZMass, Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       }
       
-      unblinded_histos->FillMZ2( Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      unblinded_histos->FillMZ2( ZZMass, Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       
       // Fill KD histograms
       if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
       {
-         blinded_histos->FillKD( KD, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-         if(nCleanedJetsPt30==1) blinded_histos->FillD1jet( D1jet, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-         if(nCleanedJetsPt30>=2) blinded_histos->FillD2jet( D2jet, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-         if(nCleanedJetsPt30>=2) blinded_histos->FillDWH( DWH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-         if(nCleanedJetsPt30>=2) blinded_histos->FillDZH( DZH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+         blinded_histos->FillKD( ZZMass, KD, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+         if(nCleanedJetsPt30==1) blinded_histos->FillD1jet( ZZMass, D1jet, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+         if(nCleanedJetsPt30>=2) blinded_histos->FillD2jet( ZZMass, D2jet, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+         if(nCleanedJetsPt30>=2) blinded_histos->FillDWH( ZZMass, DWH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+         if(nCleanedJetsPt30>=2) blinded_histos->FillDZH( ZZMass, DZH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       }
       
-      unblinded_histos->FillKD( KD, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-      if(nCleanedJetsPt30==1) unblinded_histos->FillD1jet( D1jet, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-      if(nCleanedJetsPt30>=2) unblinded_histos->FillD2jet( D2jet, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-      if(nCleanedJetsPt30>=2) unblinded_histos->FillDWH( DWH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-      if(nCleanedJetsPt30>=2) unblinded_histos->FillDZH( DZH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      unblinded_histos->FillKD( ZZMass, KD, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      if(nCleanedJetsPt30==1) unblinded_histos->FillD1jet( ZZMass, D1jet, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      if(nCleanedJetsPt30>=2) unblinded_histos->FillD2jet( ZZMass, D2jet, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      if(nCleanedJetsPt30>=2) unblinded_histos->FillDWH( ZZMass, DWH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      if(nCleanedJetsPt30>=2) unblinded_histos->FillDZH( ZZMass, DZH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       
       // Fill MZ1vsMZ2 histograms
       if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
       {
-         blinded_histos->FillMZ1vsMZ2( Z1Mass, Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+         blinded_histos->FillMZ1vsMZ2( ZZMass, Z1Mass, Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       }
       
-      unblinded_histos->FillMZ1vsMZ2( Z1Mass, Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      unblinded_histos->FillMZ1vsMZ2( ZZMass, Z1Mass, Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      
+      // Fill 2D histograms vs M4l with error
+      if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
+      {
+         if(_current_process == Settings::Data) blinded_histos->FillVectors( ZZMass, ZZMassErrCorr, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _current_final_state, _current_category);
+         blinded_histos->FillDvsM4l( ZZMass, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      }
+      
+      if(_current_process == Settings::Data) unblinded_histos->FillVectors( ZZMass, ZZMassErrCorr, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _current_final_state, _current_category );
+      unblinded_histos->FillDvsM4l( ZZMass, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       
    } // end for loop
    
+   cout << "[INFO] Histograms for " << input_file_name << " filled." << endl;
 }
 //=====================================================
 
@@ -204,6 +215,7 @@ void Plotter::MakeM4lZX()
             unblinded_histos->MakeZXShape( i_fs, i_cat);
         }
     }
+   cout << "[INFO] Z+X shape for M4l done." << endl;
 }
 //=======================
 
@@ -264,45 +276,42 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       D1jet = (nCleanedJetsPt30==1) ? pvbf_VAJHU_highestPTJets*pAux_vbf_VAJHU / ( pvbf_VAJHU_highestPTJets*pAux_vbf_VAJHU + phj_VAJHU*getDVBF1jetConstant(ZZMass) ) : -2 ;
       DWH = (nCleanedJetsPt30>=2) ? pwh_hadronic_VAJHU / ( pwh_hadronic_VAJHU + CUSTOMCCONSTWH*1e5*phjj_VAJHU_highestPTJets ) : -2 ;
       DZH = (nCleanedJetsPt30>=2) ? pzh_hadronic_VAJHU / ( pzh_hadronic_VAJHU + CUSTOMCCONSTZH*1e4*phjj_VAJHU_highestPTJets ) : -2 ;
-      
-      // START fill histograms
-      //cout << "[INFO] Filling Z+X histograms..." << endl;
    
       // Fill m4l Z+X histograms
       unblinded_histos->FillM4lZX( ZZMass, _yield_SR, _current_final_state, _current_category );
       blinded_histos->FillM4lZX( ZZMass, _yield_SR, _current_final_state, _current_category);
       
       // Fill mZ1 Z+X histograms
-      unblinded_histos->FillMZ1ZX( Z1Mass, _yield_SR, _current_final_state, _current_category );
+      unblinded_histos->FillMZ1ZX( ZZMass, Z1Mass, _yield_SR, _current_final_state, _current_category );
       
       if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
       {
-         blinded_histos->FillMZ1ZX( Z1Mass, _yield_SR, _current_final_state, _current_category);
+         blinded_histos->FillMZ1ZX( ZZMass, Z1Mass, _yield_SR, _current_final_state, _current_category);
       }
       
       // Fill mZ2 Z+X histograms
-      unblinded_histos->FillMZ2ZX( Z2Mass, _yield_SR, _current_final_state, _current_category );
+      unblinded_histos->FillMZ2ZX( ZZMass, Z2Mass, _yield_SR, _current_final_state, _current_category );
       
       if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
       {
-         blinded_histos->FillMZ2ZX( Z2Mass, _yield_SR, _current_final_state, _current_category);
+         blinded_histos->FillMZ2ZX( ZZMass, Z2Mass, _yield_SR, _current_final_state, _current_category);
       }
       
       // Fill KD Z+X histograms
-      unblinded_histos->FillKDZX( KD, _yield_SR, _current_final_state, _current_category );
+      unblinded_histos->FillKDZX( ZZMass, KD, _yield_SR, _current_final_state, _current_category );
       
-      if(nCleanedJetsPt30 == 1) unblinded_histos->FillD1jetZX( D1jet, _yield_SR, _current_final_state, _current_category );
-      if(nCleanedJetsPt30 >= 2) unblinded_histos->FillD2jetZX( D2jet, _yield_SR, _current_final_state, _current_category );
-      if(nCleanedJetsPt30 >= 2) unblinded_histos->FillDWHZX( DWH, _yield_SR, _current_final_state, _current_category );
-      if(nCleanedJetsPt30 >= 2) unblinded_histos->FillDZHZX( DZH, _yield_SR, _current_final_state, _current_category );
+      if(nCleanedJetsPt30 == 1) unblinded_histos->FillD1jetZX( ZZMass, D1jet, _yield_SR, _current_final_state, _current_category );
+      if(nCleanedJetsPt30 >= 2) unblinded_histos->FillD2jetZX( ZZMass, D2jet, _yield_SR, _current_final_state, _current_category );
+      if(nCleanedJetsPt30 >= 2) unblinded_histos->FillDWHZX( ZZMass, DWH, _yield_SR, _current_final_state, _current_category );
+      if(nCleanedJetsPt30 >= 2) unblinded_histos->FillDZHZX( ZZMass, DZH, _yield_SR, _current_final_state, _current_category );
       
       if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
       {
-         blinded_histos->FillKDZX( KD, _yield_SR, _current_final_state, _current_category);
-         if(nCleanedJetsPt30 == 1) blinded_histos->FillD1jetZX( D1jet, _yield_SR, _current_final_state, _current_category);
-         if(nCleanedJetsPt30 >= 2) blinded_histos->FillD2jetZX( D2jet, _yield_SR, _current_final_state, _current_category);
-         if(nCleanedJetsPt30 >= 2) blinded_histos->FillDWHZX( DWH, _yield_SR, _current_final_state, _current_category);
-         if(nCleanedJetsPt30 >= 2) blinded_histos->FillDZHZX( DZH, _yield_SR, _current_final_state, _current_category);
+         blinded_histos->FillKDZX( ZZMass, KD, _yield_SR, _current_final_state, _current_category);
+         if(nCleanedJetsPt30 == 1) blinded_histos->FillD1jetZX( ZZMass, D1jet, _yield_SR, _current_final_state, _current_category);
+         if(nCleanedJetsPt30 >= 2) blinded_histos->FillD2jetZX( ZZMass, D2jet, _yield_SR, _current_final_state, _current_category);
+         if(nCleanedJetsPt30 >= 2) blinded_histos->FillDWHZX( ZZMass, DWH, _yield_SR, _current_final_state, _current_category);
+         if(nCleanedJetsPt30 >= 2) blinded_histos->FillDZHZX( ZZMass, DZH, _yield_SR, _current_final_state, _current_category);
       }
 
    
@@ -333,8 +342,10 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
    }
   
    // Print Z + X expected yields for inclusive category
+   cout << "[INFO] Control printout (numbers shoud be similar to yields from SS method)." << endl;
    for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++ )
    {
+      if ( MERGE_2E2MU && i_fs == Settings::fs2mu2e) continue;
       cout << "Category: " << Settings::inclusive << "   Final state: " << i_fs << endl;
       cout << _expected_yield_SR[i_fs][Settings::inclusive] << " +/- " <<
       _expected_yield_SR[i_fs][Settings::inclusive]/sqrt(_number_of_events_CR[i_fs][Settings::inclusive]) << " (stat., evt: " <<
@@ -354,7 +365,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
    unblinded_histos->RenormalizeZX( _expected_yield_SR );
    blinded_histos->RenormalizeZX( _expected_yield_SR );
    
-    
+   cout << "[INFO] Z+X histograms filled." << endl;
 }
 //===============================================================================
 
@@ -364,6 +375,8 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
 void Plotter::GetHistos( TString file_name )
 {
    histo_map[file_name]->GetHistos( file_name + ".root" );
+   
+   cout << "[INFO] Got all histograms." << endl;
 }
 //=========================================
 
@@ -374,6 +387,8 @@ void Plotter::FillInclusive()
 {
    unblinded_histos->FillInclusive();
    blinded_histos->FillInclusive();
+   
+   cout << "[INFO] Summing of histograms finished." << endl;
 }
 //===========================
 
@@ -384,6 +399,8 @@ void Plotter::Save()
 {
    unblinded_histos->SaveHistos("Unblinded.root");
    blinded_histos->SaveHistos("Blinded.root");
+   
+   cout << "[INFO] All histograms are saved in a root file." << endl;
 }
 //==================
 
@@ -391,6 +408,8 @@ void Plotter::Save()
 void Plotter::SaveYields()
 {
    unblinded_histos->SaveYieldHistos("YieldsFile.root");
+   
+   cout << "[INFO] All yield histograms are saved in a root file." << endl;
 }
 //==================
 
@@ -399,6 +418,8 @@ void Plotter::Delete()
 {
    unblinded_histos->DeleteHistos();
    blinded_histos->DeleteHistos();
+   
+   cout << "[INFO] Memory clean-up done." << endl;
 }
 //==================
 
@@ -436,6 +457,14 @@ void Plotter::Plot2D_single( TString file_name, TString variable_name, TString f
 }
 //==================
 
+//==================
+void Plotter::Plot2DError_single( TString file_name, TString variable_name, TString folder, int cat )
+{
+   histo_map[file_name]->Plot2DError_single( file_name, variable_name, folder, cat );
+   
+}
+//==================
+
 
 //==========================================================
 int Plotter::find_current_process( TString input_file_name )
@@ -445,12 +474,12 @@ int Plotter::find_current_process( TString input_file_name )
    
    // Assign dataset to correct process
    if ( input_file_name.Contains("Data") )           current_process = Settings::Data;
-   if ( input_file_name.Contains("ggH125") )         current_process = Settings::H125NOVBF;
+   if ( input_file_name.Contains("ggH125") )         current_process = Settings::H125other;
    if ( input_file_name.Contains("VBFH125") )        current_process = Settings::H125VBF;
-   if ( input_file_name.Contains("WpH125") )         current_process = Settings::H125NOVBF;
-   if ( input_file_name.Contains("WmH125") )         current_process = Settings::H125NOVBF;
-   if ( input_file_name.Contains("ZH125") )          current_process = Settings::H125NOVBF;
-   if ( input_file_name.Contains("ttH125") )         current_process = Settings::H125NOVBF;
+   if ( input_file_name.Contains("WplusH125") )      current_process = Settings::H125VH;
+   if ( input_file_name.Contains("WminusH125") )     current_process = Settings::H125VH;
+   if ( input_file_name.Contains("ZH125") )          current_process = Settings::H125VH;
+   if ( input_file_name.Contains("ttH125") )         current_process = Settings::H125other;
    if ( input_file_name.Contains("ZZTo4l") )         current_process = Settings::qqZZ;
    if ( input_file_name.Contains("ggTo4e") )         current_process = Settings::ggZZ;
    if ( input_file_name.Contains("ggTo4mu") )        current_process = Settings::ggZZ;

@@ -8,7 +8,7 @@ using namespace std;
 //============
 M4lZX::M4lZX()
 {
-   _n_entries = 1000000;
+   _n_entries = 1000000;//tried more entries, but it takes way too long to run
     
     _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_combined;
     _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_combined;
@@ -71,7 +71,7 @@ TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, int cat
    h_4mu  ->FillRandom("f_4mu_comb"  , _n_entries);
    h_4e   ->FillRandom("f_4e_comb"   , _n_entries);
    h_2e2mu->FillRandom("f_2e2mu_comb", _n_entries);
-  
+   
    h_4mu  ->Scale(_norm_4mu   / h_4mu->Integral());
    h_4e   ->Scale(_norm_4e    / h_4e->Integral());
    h_2e2mu->Scale(_norm_2e2mu / h_2e2mu->Integral());

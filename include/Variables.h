@@ -114,8 +114,8 @@ public:
       Int_t varLegPos = 11;
       Int_t rebinningDYTTbar = 2;
       
-      Float_t cut_d = 118;
-      Float_t cut_u = 130;
+      Float_t cut_d = 118.;
+      Float_t cut_u = 130.;
    };
    
    
@@ -156,8 +156,8 @@ public:
       Int_t varLegPos = 33;
       Int_t rebinningDYTTbar = 5;
       
-      Float_t cut_d = 118;
-      Float_t cut_u = 130;
+      Float_t cut_d = 118.;
+      Float_t cut_u = 130.;
    };
    
    
@@ -197,8 +197,8 @@ public:
       Int_t varLegPos = 33;
       Int_t rebinningDYTTbar = 4;
       
-      Float_t cut_d = 118;
-      Float_t cut_u = 130;
+      Float_t cut_d = 118.;
+      Float_t cut_u = 130.;
    };
    
    struct D1jet
@@ -234,8 +234,8 @@ public:
       Int_t varLegPos = 33;
       Int_t rebinningDYTTbar = 4;
       
-      Float_t cut_d = 118;
-      Float_t cut_u = 130;
+      Float_t cut_d = 118.;
+      Float_t cut_u = 130.;
    };
    
    struct D2jet
@@ -271,8 +271,8 @@ public:
       Int_t varLegPos = 33;
       Int_t rebinningDYTTbar = 4;
       
-      Float_t cut_d = 118;
-      Float_t cut_u = 130;
+      Float_t cut_d = 118.;
+      Float_t cut_u = 130.;
    };
    
    struct DWH
@@ -308,8 +308,8 @@ public:
       Int_t varLegPos = 33;
       Int_t rebinningDYTTbar = 4;
       
-      Float_t cut_d = 118;
-      Float_t cut_u = 130;
+      Float_t cut_d = 118.;
+      Float_t cut_u = 130.;
    };
    
    struct DZH
@@ -345,10 +345,13 @@ public:
       Int_t varLegPos = 33;
       Int_t rebinningDYTTbar = 4;
       
-      Float_t cut_d = 118;
-      Float_t cut_u = 130;
+      Float_t cut_d = 118.;
+      Float_t cut_u = 130.;
    };
    
+   //=============
+   // MZ1vsMZ2
+   //=============   
    struct MZ1vsMZ2
    {
       TString var_X_label = "m_{Z1} (GeV)";
@@ -360,6 +363,164 @@ public:
       Int_t var_Y_N_bin = 220;
       Float_t var_Y_min = 12;
       Float_t var_Y_max = 120;
+      Bool_t var_log_x = 0;
+      Bool_t var_log_y = 0;
+      Int_t restrict_count_var = 0;
+      Float_t var_min_factor = 0;
+      Int_t var_CMS_pos = 0;
+      Int_t varLegPos = 33;
+   };
+   
+   struct MZ1vsMZ2_M4L118130
+   {
+      TString var_X_label = "m_{Z1} (GeV)";
+      TString var_Y_label = "m_{Z2} (GeV)";
+      TString var_cut_label = "";
+      Int_t var_X_N_bin = 200;
+      Float_t var_X_min = 40;
+      Float_t var_X_max = 120;
+      Int_t var_Y_N_bin = 220;
+      Float_t var_Y_min = 12;
+      Float_t var_Y_max = 120;
+      Bool_t var_log_x = 0;
+      Bool_t var_log_y = 0;
+      Int_t restrict_count_var = 0;
+      Float_t var_min_factor = 0;
+      Int_t var_CMS_pos = 0;
+      Int_t varLegPos = 33;
+      
+      Float_t cut_d = 118.;
+      Float_t cut_u = 130.;
+   };
+   
+   //=============
+   // KDvsM4l
+   //=============
+   struct KDvsM4l
+   {
+      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
+      TString var_Y_label = "D_{bkg}^{kin}";
+      TString var_cut_label = "";
+      Int_t var_X_N_bin = 385;
+      Float_t var_X_min = 100;
+      Float_t var_X_max = 870;
+      Int_t var_Y_N_bin = 20;
+      Float_t var_Y_min = 0;
+      Float_t var_Y_max = 1;
+      Bool_t var_log_x = 0;
+      Bool_t var_log_y = 0;
+      Int_t restrict_count_var = 0;
+      Float_t var_min_factor = 0;
+      Int_t var_CMS_pos = 0;
+      Int_t varLegPos = 33;
+   };
+   
+   struct KDvsM4lZoomed
+   {
+      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
+      TString var_Y_label = "D_{bkg}^{kin}";
+      TString var_cut_label = "";
+      Int_t var_X_N_bin = 35;
+      Float_t var_X_min = 100;
+      Float_t var_X_max = 170;
+      Int_t var_Y_N_bin = 20;
+      Float_t var_Y_min = 0;
+      Float_t var_Y_max = 1;
+      Bool_t var_log_x = 0;
+      Bool_t var_log_y = 0;
+      Int_t restrict_count_var = 0;
+      Float_t var_min_factor = 0;
+      Int_t var_CMS_pos = 0;
+      Int_t varLegPos = 33;
+   };
+   
+   struct KDvsM4lHighMass
+   {
+      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
+      TString var_Y_label = "D_{bkg}^{kin}";
+      TString var_cut_label = "";
+      Int_t var_X_N_bin = 350;
+      Float_t var_X_min = 170;
+      Float_t var_X_max = 870;
+      Int_t var_Y_N_bin = 20;
+      Float_t var_Y_min = 0;
+      Float_t var_Y_max = 1;
+      Bool_t var_log_x = 0;
+      Bool_t var_log_y = 0;
+      Int_t restrict_count_var = 0;
+      Float_t var_min_factor = 0;
+      Int_t var_CMS_pos = 0;
+      Int_t varLegPos = 33;
+   };
+   
+   struct D1jetvsM4lZoomed
+   {
+      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
+      TString var_Y_label = "D_{1jet}";
+      TString var_cut_label = "";
+      Int_t var_X_N_bin = 35;
+      Float_t var_X_min = 100;
+      Float_t var_X_max = 170;
+      Int_t var_Y_N_bin = 20;
+      Float_t var_Y_min = 0;
+      Float_t var_Y_max = 1;
+      Bool_t var_log_x = 0;
+      Bool_t var_log_y = 0;
+      Int_t restrict_count_var = 0;
+      Float_t var_min_factor = 0;
+      Int_t var_CMS_pos = 0;
+      Int_t varLegPos = 33;
+   };
+   
+   struct D2jetvsM4lZoomed
+   {
+      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
+      TString var_Y_label = "D_{2jet}";
+      TString var_cut_label = "";
+      Int_t var_X_N_bin = 35;
+      Float_t var_X_min = 100;
+      Float_t var_X_max = 170;
+      Int_t var_Y_N_bin = 20;
+      Float_t var_Y_min = 0;
+      Float_t var_Y_max = 1;
+      Bool_t var_log_x = 0;
+      Bool_t var_log_y = 0;
+      Int_t restrict_count_var = 0;
+      Float_t var_min_factor = 0;
+      Int_t var_CMS_pos = 0;
+      Int_t varLegPos = 33;
+   };
+   
+   struct DWHvsM4lZoomed
+   {
+      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
+      TString var_Y_label = "D_{WH}";
+      TString var_cut_label = "";
+      Int_t var_X_N_bin = 35;
+      Float_t var_X_min = 100;
+      Float_t var_X_max = 170;
+      Int_t var_Y_N_bin = 20;
+      Float_t var_Y_min = 0;
+      Float_t var_Y_max = 1;
+      Bool_t var_log_x = 0;
+      Bool_t var_log_y = 0;
+      Int_t restrict_count_var = 0;
+      Float_t var_min_factor = 0;
+      Int_t var_CMS_pos = 0;
+      Int_t varLegPos = 33;
+   };
+   
+   struct DZHvsM4lZoomed
+   {
+      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
+      TString var_Y_label = "D_{ZH}";
+      TString var_cut_label = "";
+      Int_t var_X_N_bin = 35;
+      Float_t var_X_min = 100;
+      Float_t var_X_max = 170;
+      Int_t var_Y_N_bin = 20;
+      Float_t var_Y_min = 0;
+      Float_t var_Y_max = 1;
       Bool_t var_log_x = 0;
       Bool_t var_log_y = 0;
       Int_t restrict_count_var = 0;
