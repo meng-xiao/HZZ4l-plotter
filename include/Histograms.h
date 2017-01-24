@@ -40,7 +40,8 @@ class Histograms
 {
    
 public:
-   Histograms ( string );
+   Histograms();
+   Histograms( string );
    ~Histograms();
    void FillM4l( float, float, int, int, int, int );
    void FillM4lZX( float, float, int, int );
@@ -75,6 +76,7 @@ public:
    void SaveYieldHistos( string );
    void DeleteHistos();
    void FillInclusive();
+   void FillInclusiveYields();
    void SmoothHistograms();
    void RenormalizeZX(vector< vector <float> >);
    void GetHistos( TString );

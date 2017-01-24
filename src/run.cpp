@@ -23,6 +23,8 @@ int main( int argc, char *argv[] )
 {
    gROOT->ProcessLine(".L ./ext/setTDRStyle_cpp.so");
    gROOT->ProcessLine("setTDRStyle();");
+   
+   bool yields = 0;
 
    TString path = "ICHEP_2016/";
    TString file_name = "/ZZ4lAnalysis.root";
@@ -44,11 +46,12 @@ int main( int argc, char *argv[] )
    TString ggZZ2mu2tau = path + "ggTo2mu2tau" + file_name;
    TString FakeRates   = path + "FakeRates" + file_name_FR;
 
-   Plotter *plotter = new Plotter();
+   Plotter *plotter = new Plotter( yields );
 
  
    plotter->SetBlinding(110, 150);
  
+/*
    plotter->MakeHistograms(Data);
    plotter->MakeHistograms(ggH125);
    plotter->MakeHistograms(VBFH125);
@@ -72,6 +75,8 @@ int main( int argc, char *argv[] )
    plotter->Save();
    plotter->Delete();
 
+*/
+   
   //===========================
   // Plotting of blinded plots
   //===========================

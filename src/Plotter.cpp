@@ -3,14 +3,21 @@
 
 // Constructor
 //============================================================
-Plotter::Plotter():Tree()
+Plotter::Plotter(bool yields):Tree()
 {
-   unblinded_histos = new Histograms("Unblinded");
-   blinded_histos = new Histograms("Blinded");
    
-   histo_map["Unblinded"] = unblinded_histos;
-   histo_map["Blinded"] = blinded_histos;
-
+   if (yields)
+   {
+      yields_histos = new Histograms();
+   }
+   else
+   {
+      unblinded_histos = new Histograms("Unblinded");
+      blinded_histos = new Histograms("Blinded");
+      histo_map["Unblinded"] = unblinded_histos;
+      histo_map["Blinded"] = blinded_histos;
+   }
+      
    _lumi = 12.9;
    _current_process = -999;
    _k_factor = 1;
@@ -204,6 +211,83 @@ void Plotter::MakeHistograms( TString input_file_name )
 
 
 
+//=====================================================
+void Plotter::MakeYieldsHistograms( TString input_file_name )
+{
+
+   input_file = new TFile("./" + input_file_name);
+   
+   cout << input_file_name << endl;
+   
+   hCounters = (TH1F*)input_file->Get("ZZTree/Counters");
+   n_gen_events = (Long64_t)hCounters->GetBinContent(1);
+   gen_sum_weights = (Long64_t)hCounters->GetBinContent(40);
+   
+   input_tree = (TTree*)input_file->Get("ZZTree/candTree");
+   Init(input_tree);
+   
+   if (fChain == 0) return;
+
+   Long64_t nentries = fChain->GetEntriesFast();
+
+   Long64_t nbytes = 0, nb = 0;
+   
+   for (Long64_t jentry=0; jentry<nentries;jentry++)
+   {
+      Long64_t ientry = LoadTree(jentry);
+      if (ientry < 0) break;
+      nb = fChain->GetEntry(jentry);
+      nbytes += nb;
+   
+      if ( LepEta->size() != 4 )
+      {
+         cout << "[ERROR] in event " << RunNumber << ":" << LumiNumber << ":" << EventNumber << ", stored " << LepEta->size() << " leptons instead of 4" << endl;
+         continue;
+      }
+
+      if ( !(ZZsel >= 90) ) continue;
+
+      // Find current process
+      _current_process = find_current_process( input_file_name );
+   
+      // Final states
+      _current_final_state = FindFinalState();
+   
+      // Categories
+      for ( int j = 0; j < nCleanedJetsPt30; j++)
+      {
+         jetPt[j] = JetPt->at(j);
+         jetEta[j] = JetEta->at(j);
+         jetPhi[j] = JetPhi->at(j);
+         jetMass[j] = JetMass->at(j);
+         jetQGL[j] = JetQGLikelihood->at(j);
+         jetPgOverPq[j] = 1./JetQGLikelihood->at(j) - 1.;
+      }
+
+      _current_category = categoryIchep16( nExtraLep, nExtraZ, nCleanedJetsPt30, nCleanedJetsPt30BTagged, jetQGL, phjj_VAJHU_highestPTJets,
+      phj_VAJHU, pvbf_VAJHU_highestPTJets, pAux_vbf_VAJHU, pwh_hadronic_VAJHU, pzh_hadronic_VAJHU, jetPhi, ZZMass, false );
+   
+      // Resonant status
+      _current_resonant_status = find_resonant_status();
+   
+      // K factors
+      if ( APPLY_K_FACTORS ) _k_factor = calculate_K_factor();
+   
+      // Final event weight
+      _event_weight = (_lumi * 1000 * xsec * _k_factor * overallEventWeight) / gen_sum_weights;
+   
+   
+      // Fill M4l histograms
+         
+       yields_histos->FillM4l( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      
+   } // end for loop
+   
+}
+//=====================================================
+
+
+
 //=======================
 void Plotter::MakeM4lZX()
 {
@@ -219,12 +303,29 @@ void Plotter::MakeM4lZX()
 }
 //=======================
 
+
+
+//=======================
+void Plotter::MakeYieldsM4lZX()
+{
+    for (int i_fs = 0; i_fs < num_of_final_states; i_fs++)
+    {
+        for(int i_cat = 0; i_cat < num_of_categories; i_cat++)
+        {
+            yields_histos->MakeZXShape( i_fs, i_cat );
+        }
+    }
+}
+//=======================
+
+
+//===================================================================
 void Plotter::SetBlinding(float blinding_lower, float blinding_upper)
 {
    _blinding_lower = blinding_lower;
    _blinding_upper = blinding_upper;
 }
-//=======================
+//===================================================================
 
 
 
@@ -394,6 +495,15 @@ void Plotter::FillInclusive()
 
 
 
+//===========================
+void Plotter::FillInclusiveYields()
+{
+   yields_histos->FillInclusiveYields();
+}
+//===========================
+
+
+
 //==================
 void Plotter::Save()
 {
@@ -404,14 +514,18 @@ void Plotter::Save()
 }
 //==================
 
+
+
 //==================
 void Plotter::SaveYields()
 {
-   unblinded_histos->SaveYieldHistos("YieldsFile.root");
+   yields_histos->SaveYieldHistos("Yields.root");
    
    cout << "[INFO] All yield histograms are saved in a root file." << endl;
 }
 //==================
+
+
 
 //==================
 void Plotter::Delete()
@@ -433,6 +547,8 @@ void Plotter::Plot1D_single( TString file_name, TString variable_name, TString f
 }
 //==================
 
+
+
 //==================
 void Plotter::Plot1D_allCAT( TString file_name, TString variable_name, TString folder)
 {
@@ -440,6 +556,8 @@ void Plotter::Plot1D_allCAT( TString file_name, TString variable_name, TString f
    
 }
 //==================
+
+
 
 //==================
 void Plotter::Plot1D_allFS( TString file_name, TString variable_name, TString folder)
@@ -449,6 +567,8 @@ void Plotter::Plot1D_allFS( TString file_name, TString variable_name, TString fo
 }
 //==================
 
+
+
 //==================
 void Plotter::Plot2D_single( TString file_name, TString variable_name, TString folder, int cat )
 {
@@ -457,6 +577,8 @@ void Plotter::Plot2D_single( TString file_name, TString variable_name, TString f
 }
 //==================
 
+
+
 //==================
 void Plotter::Plot2DError_single( TString file_name, TString variable_name, TString folder, int cat )
 {
@@ -464,6 +586,7 @@ void Plotter::Plot2DError_single( TString file_name, TString variable_name, TStr
    
 }
 //==================
+
 
 
 //==========================================================

@@ -61,18 +61,21 @@ class Plotter: public Tree
 
 public:
 	
-	Plotter();
+	Plotter( bool );
 	~Plotter();
    
    void MakeHistograms( TString );
+   void MakeYieldsHistograms( TString );
    void MakeHistogramsZX( TString, TString );
    void MakeM4lZX();
+   void MakeYieldsM4lZX();
    float calculate_K_factor();
    int FindFinalState();
    int FindFinalStateZX();
    int find_current_process( TString );
    int find_resonant_status();
    void FillInclusive();
+   void FillInclusiveYields();
    void Save();
    void SaveYields();
    void Delete();
@@ -89,7 +92,7 @@ private:
    TFile *input_file, *input_file_data;
    TTree *input_tree, *input_tree_data;
 
-   Histograms *blinded_histos, *unblinded_histos;
+   Histograms *blinded_histos, *unblinded_histos, *yields_histos;
    
    map<TString, Histograms*> histo_map;
    
