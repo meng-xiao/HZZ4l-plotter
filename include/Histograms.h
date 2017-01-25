@@ -90,11 +90,11 @@ public:
    int SetPlotName( TString );
    bool GetVarLogX( TString );
    bool GetVarLogY( TString );
-   TLegend* CreateLegend( TH1F*, TH1F*, TH1F*, TH1F*, TH1F* );
-   TLegend* CreateLegendVBF( TH1F*, TH1F*, TH1F*, TH1F*, TH1F* ,TH1F* );
-   TLegend* CreateLegendVH( TH1F*, TH1F*, TH1F*, TH1F*, TH1F* ,TH1F* );
-   TLegend* Create2DLegend( TH2F*, TH2F*, TH2F*);
-   TLegend* Create2DErrorLegend( TGraphErrors*, TGraphErrors*, TGraphErrors*);
+   TLegend* CreateLegend( string, TH1F*, TH1F*, TH1F*, TH1F*, TH1F* );
+   TLegend* CreateLegendVBF( string, TH1F*, TH1F*, TH1F*, TH1F*, TH1F* ,TH1F* );
+   TLegend* CreateLegendVH( string, TH1F*, TH1F*, TH1F*, TH1F*, TH1F* ,TH1F* );
+   TLegend* Create2DLegend( string, TH2F*, TH2F*, TH2F*);
+   TLegend* Create2DErrorLegend( string, TGraphErrors*, TGraphErrors*, TGraphErrors*);
    void DrawLogX( TCanvas *, int );
    void MakeCOLZGrey( bool );
    

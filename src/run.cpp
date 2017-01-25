@@ -26,7 +26,7 @@ int main( int argc, char *argv[] )
    
    bool yields = 0;
 
-   TString path = "ICHEP_2016/";
+   TString path = "MORIOND_2017/";
    TString file_name = "/ZZ4lAnalysis.root";
    TString file_name_FR = "/FakeRate_SS_2016B.root";
    
@@ -49,33 +49,33 @@ int main( int argc, char *argv[] )
    Plotter *plotter = new Plotter( yields );
 
  
-   plotter->SetBlinding(110, 150);
- 
-/*
-   plotter->MakeHistograms(Data);
-   plotter->MakeHistograms(ggH125);
-   plotter->MakeHistograms(VBFH125);
-   plotter->MakeHistograms(ZH125);
-   plotter->MakeHistograms(ttH125);
-   plotter->MakeHistograms(WpH125);
-   plotter->MakeHistograms(WmH125);
-   plotter->MakeHistograms(ZZTo4l);
-   plotter->MakeHistograms(ggZZ4e);
-   plotter->MakeHistograms(ggZZ4mu);
-   plotter->MakeHistograms(ggZZ4tau);
-   plotter->MakeHistograms(ggZZ2e2mu);
-   plotter->MakeHistograms(ggZZ2e2tau);
-   plotter->MakeHistograms(ggZZ2mu2tau);
+//   plotter->SetBlinding(110, 150);
+// 
+//
+//   plotter->MakeHistograms(Data);
+//   plotter->MakeHistograms(ggH125);
+//   plotter->MakeHistograms(VBFH125);
+//   plotter->MakeHistograms(ZH125);
+//   plotter->MakeHistograms(ttH125);
+//   plotter->MakeHistograms(WpH125);
+//   plotter->MakeHistograms(WmH125);
+//   plotter->MakeHistograms(ZZTo4l);
+//   plotter->MakeHistograms(ggZZ4e);
+//   plotter->MakeHistograms(ggZZ4mu);
+//   plotter->MakeHistograms(ggZZ4tau);
+//   plotter->MakeHistograms(ggZZ2e2mu);
+//   plotter->MakeHistograms(ggZZ2e2tau);
+//   plotter->MakeHistograms(ggZZ2mu2tau);
+//
+//   plotter->MakeHistogramsZX(Data, FakeRates);
+//   plotter->MakeM4lZX();
+//   
+//   plotter->FillInclusive();
+//
+//   plotter->Save();
+//   plotter->Delete();
 
-   plotter->MakeHistogramsZX(Data, FakeRates);
-   plotter->MakeM4lZX();
-   
-   plotter->FillInclusive();
 
-   plotter->Save();
-   plotter->Delete();
-
-*/
    
   //===========================
   // Plotting of blinded plots

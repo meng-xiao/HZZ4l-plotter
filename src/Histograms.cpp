@@ -272,7 +272,8 @@ Histograms::Histograms()
    _s_process.push_back("Data");
    _s_process.push_back("H125");
    _s_process.push_back("H125VBF");
-   _s_process.push_back("H125NOVBF");
+   _s_process.push_back("H125VH");
+   _s_process.push_back("H125other");
    _s_process.push_back("qqZZ");
    _s_process.push_back("ggZZ");
    _s_process.push_back("DY");
@@ -363,7 +364,6 @@ void Histograms::FillM4l( float M4l, float weight, int fs, int cat, int rs, int 
    histos_1D[Settings::M4lMain][fs][cat][rs][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
    histos_1D[Settings::M4lMainZoomed][fs][cat][rs][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
    histos_1D[Settings::M4lMainHighMass][fs][cat][rs][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
- //  if(proc!= Settings::Data) {cout<< histos_1D[Settings::M4lMain][fs][cat][rs][proc]->Integral() << fs << cat << rs << proc <<" "<< M4l << " " << weight<<endl;}
 }
 //====================================================================================
 
@@ -2071,6 +2071,9 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
 {
    int plot_index = SetPlotName( variable_name);
    
+   gStyle->SetPadLeftMargin(0.10);
+   gStyle->SetPadRightMargin(0.01);
+   
    TCanvas *c = new TCanvas(variable_name, variable_name, 650, 500);
    
    if ( GetVarLogX( variable_name) ) c->SetLogx();
@@ -2152,20 +2155,20 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    TLegend *legend;
    if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass")
    {
-      legend  = CreateLegend(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX_shape[plot_index][fs][cat]);
+      legend  = CreateLegend("right",histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX_shape[plot_index][fs][cat]);
    }
    
    else if ( plot_index == Settings::D1jet_M4L118130 || plot_index == Settings::D2jet_M4L118130 || plot_index == Settings::D1jet || plot_index == Settings::D2jet )
    {
-      legend  = CreateLegendVBF(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VBF],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125other],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][fs][cat]);
+      legend  = CreateLegendVBF("right",histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VBF],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125other],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][fs][cat]);
    }
    else if ( plot_index == Settings::DWH_M4L118130 || plot_index == Settings::DZH_M4L118130 || plot_index == Settings::DWH || plot_index == Settings::DZH  )
    {
-      legend  = CreateLegendVH(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VH],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125other],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][fs][cat]);
+      legend  = CreateLegendVH("right",histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VH],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125other],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][fs][cat]);
    }
    else
    {
-      legend = CreateLegend(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][fs][cat]);
+      legend = CreateLegend((plot_index == Settings::MZ1 || plot_index == Settings::MZ1_M4L118130 || plot_index == Settings::MZ2 || plot_index == Settings::MZ2_M4L118130)?"left":"right",histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][fs][cat]);
    }
 
    legend->Draw();
@@ -2199,7 +2202,10 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
 void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TString folder )
 {
    int plot_index = SetPlotName( variable_name);
-    
+   
+   gStyle->SetPadLeftMargin(0.10);
+   gStyle->SetPadRightMargin(0.01);
+   
    TCanvas *c = new TCanvas(variable_name, variable_name, 650, 500);
 
    if ( GetVarLogX( variable_name) ) c->SetLogx();
@@ -2256,12 +2262,12 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       TLegend *legend;
       if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass")
       {
-        legend  = CreateLegend(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]);
+        legend  = CreateLegend("right",histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]);
       }
       
       else
       {
-         legend = CreateLegend(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][Settings::fs4l][i_cat]);
+         legend = CreateLegend("right",histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][Settings::fs4l][i_cat]);
       }
       legend->Draw();
       
@@ -2293,6 +2299,9 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
 void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString folder )
 {
    int plot_index = SetPlotName( variable_name);
+   
+   gStyle->SetPadLeftMargin(0.10);
+   gStyle->SetPadRightMargin(0.01);
    
    TCanvas *c = new TCanvas(variable_name, variable_name, 650, 500);
    
@@ -2351,12 +2360,12 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
       TLegend *legend;
       if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass")
       {
-         legend  = CreateLegend(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::H125],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX_shape[plot_index][i_fs][Settings::inclusive]);
+         legend  = CreateLegend("right",histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::H125],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX_shape[plot_index][i_fs][Settings::inclusive]);
       }
       
       else
       {
-         legend = CreateLegend(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::H125],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][i_fs][Settings::inclusive]);
+         legend = CreateLegend("right",histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::H125],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][i_fs][Settings::inclusive]);
       }
       legend->Draw();
       
@@ -2436,7 +2445,7 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
 
    //Draw legend
    TLegend *legend;
-   legend = Create2DLegend(histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data],histos_2D[plot_index][Settings::fs4mu][cat][Settings::all_resonant][Settings::Data],histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::all_resonant][Settings::Data]);
+   legend = Create2DLegend("left",histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data],histos_2D[plot_index][Settings::fs4mu][cat][Settings::all_resonant][Settings::Data],histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::all_resonant][Settings::Data]);
    legend->Draw();
 
    //----- adjust color axis
@@ -2512,7 +2521,7 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
    
    //Draw legend
    TLegend *legend;
-   legend = Create2DErrorLegend(histos_2DError_data[plot_index][Settings::fs4e][cat],histos_2DError_data[plot_index][Settings::fs4mu][cat],histos_2DError_data[plot_index][Settings::fs2e2mu][cat]);
+   legend = Create2DErrorLegend("right",histos_2DError_data[plot_index][Settings::fs4e][cat],histos_2DError_data[plot_index][Settings::fs4mu][cat],histos_2DError_data[plot_index][Settings::fs2e2mu][cat]);
    legend->Draw();
    
    //----- adjust color axis
@@ -2733,9 +2742,11 @@ bool Histograms::GetVarLogY ( TString variable_name )
 
 
 //========================================================================================
-TLegend* Histograms::CreateLegend( TH1F *data, TH1F *h125,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX )
+TLegend* Histograms::CreateLegend( string position, TH1F *data, TH1F *h125,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX )
 {
-   TLegend *leg = new TLegend( .73, .72, .97, .9 );
+   TLegend *leg;
+   if(position == "right") leg = new TLegend( .73, .72, .97, .9 );
+   else if(position == "left") leg = new TLegend(.14,.72,.38,.9);
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
    
@@ -2750,9 +2761,11 @@ TLegend* Histograms::CreateLegend( TH1F *data, TH1F *h125,TH1F *qqZZ,TH1F *ggZZ,
 //========================================================================================
 
 //========================================================================================
-TLegend* Histograms::CreateLegendVBF( TH1F *data, TH1F *h125VBF, TH1F *h125other,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX )
+TLegend* Histograms::CreateLegendVBF( string position, TH1F *data, TH1F *h125VBF, TH1F *h125other,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX )
 {
-   TLegend *leg = new TLegend( .70, .72, .95, .9 );
+   TLegend *leg;
+   if(position == "right") leg = new TLegend( .70, .72, .95, .9 );
+   else if(position == "left") leg = new TLegend(.14,.72,.38,.9);
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
    
@@ -2768,9 +2781,11 @@ TLegend* Histograms::CreateLegendVBF( TH1F *data, TH1F *h125VBF, TH1F *h125other
 //========================================================================================
 
 //========================================================================================
-TLegend* Histograms::CreateLegendVH( TH1F *data, TH1F *h125VH, TH1F *h125other,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX )
+TLegend* Histograms::CreateLegendVH( string position, TH1F *data, TH1F *h125VH, TH1F *h125other,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX )
 {
-   TLegend *leg = new TLegend( .70, .72, .95, .9 );
+   TLegend *leg;
+   if(position == "right") leg = new TLegend( .70, .72, .95, .9 );
+   else if(position == "left") leg = new TLegend(.14,.72,.38,.9);
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
    
@@ -2786,9 +2801,10 @@ TLegend* Histograms::CreateLegendVH( TH1F *data, TH1F *h125VH, TH1F *h125other,T
 //========================================================================================
 
 //========================================================================================
-TLegend* Histograms::Create2DLegend( TH2F *fs4e, TH2F *fs4mu,TH2F *fs2e2mu)
+TLegend* Histograms::Create2DLegend( string position, TH2F *fs4e, TH2F *fs4mu,TH2F *fs2e2mu)
 {
-   TLegend* leg = new TLegend(0.14,0.82,0.27,0.94);
+   TLegend *leg;
+   if(position == "left") leg = new TLegend(0.14,0.82,0.27,0.94);
    
    leg->SetFillStyle(0);
    leg->SetBorderSize(0);
@@ -2805,9 +2821,10 @@ TLegend* Histograms::Create2DLegend( TH2F *fs4e, TH2F *fs4mu,TH2F *fs2e2mu)
 //========================================================================================
 
 //========================================================================================
-TLegend* Histograms::Create2DErrorLegend( TGraphErrors *fs4e, TGraphErrors *fs4mu,TGraphErrors *fs2e2mu)
+TLegend* Histograms::Create2DErrorLegend( string position, TGraphErrors *fs4e, TGraphErrors *fs4mu,TGraphErrors *fs2e2mu)
 {
-   TLegend* leg = new TLegend(0.87,0.82,0.97,0.94);
+   TLegend *leg;
+   if(position == "right") leg = new TLegend(0.87,0.82,0.97,0.94);
    
    leg->SetFillStyle(0);
    leg->SetBorderSize(0);

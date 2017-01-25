@@ -18,7 +18,7 @@ Plotter::Plotter(bool yields):Tree()
       histo_map["Blinded"] = blinded_histos;
    }
       
-   _lumi = 12.9;
+   _lumi = 36.8;
    _current_process = -999;
    _k_factor = 1;
    _current_final_state = -999;
