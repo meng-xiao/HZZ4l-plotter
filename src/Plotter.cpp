@@ -248,8 +248,8 @@ void Plotter::MakeYieldsHistograms( TString input_file_name )
       if ( !(ZZsel >= 90) ) continue;
 
       // Find current process
-      _current_process = find_current_process( input_file_name );
    
+      _current_process = find_current_process( input_file_name );
       // Final states
       _current_final_state = FindFinalState();
    
@@ -278,9 +278,7 @@ void Plotter::MakeYieldsHistograms( TString input_file_name )
    
    
       // Fill M4l histograms
-         
-       yields_histos->FillM4l( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-      
+       yields_histos->FillYields( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
    } // end for loop
    
 }
@@ -312,7 +310,7 @@ void Plotter::MakeYieldsM4lZX()
     {
         for(int i_cat = 0; i_cat < num_of_categories; i_cat++)
         {
-            yields_histos->MakeZXShape( i_fs, i_cat );
+            yields_histos->MakeZXShapeYields( i_fs, i_cat );
         }
     }
 }

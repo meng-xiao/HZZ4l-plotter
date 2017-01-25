@@ -72,6 +72,8 @@ public:
    void FillVectors( float, float, float, int, float, float, float, float, int, int) ;
    void FillDvsM4l( float, float, int, float, float, float, float, float, int, int, int, int );
    
+   void FillYields( float, float, int, int, int, int );
+   
    void SaveHistos( string );
    void SaveYieldHistos( string );
    void DeleteHistos();
@@ -87,6 +89,7 @@ public:
    void Plot2DError_single( TString, TString, TString, int );
    void setColZGradient_OneColor(int , bool);
    void MakeZXShape(int, int);
+   void MakeZXShapeYields(int, int);
    int SetPlotName( TString );
    bool GetVarLogX( TString );
    bool GetVarLogY( TString );

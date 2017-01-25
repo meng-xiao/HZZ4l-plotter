@@ -16,4 +16,5 @@
 */*.sh
 
 run
+run_yields
 __init__.py
