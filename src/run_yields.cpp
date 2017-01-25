@@ -77,9 +77,7 @@ int main( int argc, char *argv[] )
    
    Plotter *plotter = new Plotter(yields);
 
-   plotter->MakeYieldsHistograms(ggH125);
-   
-   /*
+   plotter->MakeYieldsHistograms(ggH120);
    plotter->MakeYieldsHistograms(ggH124);
    plotter->MakeYieldsHistograms(ggH125);
    plotter->MakeYieldsHistograms(ggH126);
@@ -111,13 +109,12 @@ int main( int argc, char *argv[] )
    plotter->MakeYieldsHistograms(ggZZ2e2tau);
    plotter->MakeYieldsHistograms(ggZZ2mu2tau);
 
-   */
    plotter->MakeYieldsM4lZX();
    
    plotter->FillInclusiveYields();
 
    plotter->SaveYields();
-   //plotter->Delete();
+   plotter->DeleteYields();
    
-   //plotter->GetHistos( "Unblinded" );
+   plotter->GetHistos("Yields");
 }

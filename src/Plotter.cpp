@@ -9,6 +9,7 @@ Plotter::Plotter(bool yields):Tree()
    if (yields)
    {
       yields_histos = new Histograms();
+      histo_map["Yields"] = yields_histos;
    }
    else
    {
@@ -481,6 +482,17 @@ void Plotter::GetHistos( TString file_name )
 
 
 
+//=========================================
+void Plotter::GetYieldsHistos( TString file_name )
+{
+   histo_map[file_name]->GetYieldsHistos( file_name + ".root" );
+   
+   cout << "[INFO] Got all histograms." << endl;
+}
+//=========================================
+
+
+
 //===========================
 void Plotter::FillInclusive()
 {
@@ -530,6 +542,17 @@ void Plotter::Delete()
 {
    unblinded_histos->DeleteHistos();
    blinded_histos->DeleteHistos();
+   
+   cout << "[INFO] Memory clean-up done." << endl;
+}
+//==================
+
+
+
+//==================
+void Plotter::DeleteYields()
+{
+   yields_histos->DeleteYieldsHistos();
    
    cout << "[INFO] Memory clean-up done." << endl;
 }
@@ -595,12 +618,43 @@ int Plotter::find_current_process( TString input_file_name )
    
    // Assign dataset to correct process
    if ( input_file_name.Contains("Data") )           current_process = Settings::Data;
+   
+   if ( input_file_name.Contains("ggH120") )         current_process = Settings::H120other;
+   if ( input_file_name.Contains("ggH124") )         current_process = Settings::H124other;
    if ( input_file_name.Contains("ggH125") )         current_process = Settings::H125other;
+   if ( input_file_name.Contains("ggH126") )         current_process = Settings::H126other;
+   if ( input_file_name.Contains("ggH130") )         current_process = Settings::H130other;
+   
+   if ( input_file_name.Contains("VBFH120") )        current_process = Settings::H120VBF;
+   if ( input_file_name.Contains("VBFH124") )        current_process = Settings::H124VBF;
    if ( input_file_name.Contains("VBFH125") )        current_process = Settings::H125VBF;
+   if ( input_file_name.Contains("VBFH126") )        current_process = Settings::H126VBF;
+   if ( input_file_name.Contains("VBFH130") )        current_process = Settings::H130VBF;
+   
+   if ( input_file_name.Contains("WplusH120") )      current_process = Settings::H120VH;
+   if ( input_file_name.Contains("WplusH124") )      current_process = Settings::H124VH;
    if ( input_file_name.Contains("WplusH125") )      current_process = Settings::H125VH;
+   if ( input_file_name.Contains("WplusH126") )      current_process = Settings::H126VH;
+   if ( input_file_name.Contains("WplusH130") )      current_process = Settings::H130VH;
+   
+   if ( input_file_name.Contains("WminusH120") )     current_process = Settings::H120VH;
+   if ( input_file_name.Contains("WminusH124") )     current_process = Settings::H124VH;
    if ( input_file_name.Contains("WminusH125") )     current_process = Settings::H125VH;
+   if ( input_file_name.Contains("WminusH126") )     current_process = Settings::H126VH;
+   if ( input_file_name.Contains("WminusH130") )     current_process = Settings::H130VH;
+      
+   if ( input_file_name.Contains("ZH120") )          current_process = Settings::H120VH;
+   if ( input_file_name.Contains("ZH124") )          current_process = Settings::H124VH;
    if ( input_file_name.Contains("ZH125") )          current_process = Settings::H125VH;
+   if ( input_file_name.Contains("ZH126") )          current_process = Settings::H126VH;
+   if ( input_file_name.Contains("ZH130") )          current_process = Settings::H130VH;
+   
+   if ( input_file_name.Contains("ttH120") )         current_process = Settings::H120other;
+   if ( input_file_name.Contains("ttH124") )         current_process = Settings::H124other;
    if ( input_file_name.Contains("ttH125") )         current_process = Settings::H125other;
+   if ( input_file_name.Contains("ttH126") )         current_process = Settings::H126other;
+   if ( input_file_name.Contains("ttH130") )         current_process = Settings::H130other;
+      
    if ( input_file_name.Contains("ZZTo4l") )         current_process = Settings::qqZZ;
    if ( input_file_name.Contains("ggTo4e") )         current_process = Settings::ggZZ;
    if ( input_file_name.Contains("ggTo4mu") )        current_process = Settings::ggZZ;

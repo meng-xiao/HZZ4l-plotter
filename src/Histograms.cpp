@@ -13,10 +13,30 @@ Histograms::Histograms( string blinding )
    _blinding = blinding;
    
    _s_process.push_back("Data");
+   _s_process.push_back("H120");
+   _s_process.push_back("H124");
    _s_process.push_back("H125");
+   _s_process.push_back("H126");
+   _s_process.push_back("H130");
+   
+   _s_process.push_back("H120VBF");
+   _s_process.push_back("H124VBF");
    _s_process.push_back("H125VBF");
+   _s_process.push_back("H126VBF");
+   _s_process.push_back("H130VBF");
+   
+   _s_process.push_back("H120VH");
+   _s_process.push_back("H124VH");
    _s_process.push_back("H125VH");
+   _s_process.push_back("H126VH");
+   _s_process.push_back("H130VH");
+   
+   _s_process.push_back("H120other");
+   _s_process.push_back("H124other");
    _s_process.push_back("H125other");
+   _s_process.push_back("H126other");
+   _s_process.push_back("H130other");
+      
    _s_process.push_back("qqZZ");
    _s_process.push_back("ggZZ");
    _s_process.push_back("DY");
@@ -270,10 +290,30 @@ Histograms::Histograms()
    _blinding = "Unblinded";
    
    _s_process.push_back("Data");
+   _s_process.push_back("H120");
+   _s_process.push_back("H124");
    _s_process.push_back("H125");
+   _s_process.push_back("H126");
+   _s_process.push_back("H130");
+   
+   _s_process.push_back("H120VBF");
+   _s_process.push_back("H124VBF");
    _s_process.push_back("H125VBF");
+   _s_process.push_back("H126VBF");
+   _s_process.push_back("H130VBF");
+   
+   _s_process.push_back("H120VH");
+   _s_process.push_back("H124VH");
    _s_process.push_back("H125VH");
+   _s_process.push_back("H126VH");
+   _s_process.push_back("H130VH");
+   
+   _s_process.push_back("H120other");
+   _s_process.push_back("H124other");
    _s_process.push_back("H125other");
+   _s_process.push_back("H126other");
+   _s_process.push_back("H130other");
+      
    _s_process.push_back("qqZZ");
    _s_process.push_back("ggZZ");
    _s_process.push_back("DY");
@@ -1174,9 +1214,25 @@ void Histograms::FillInclusiveYields()
             //=============
             // M4l
             //=============
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H120]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H120VBF]);
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H120]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H120VH]);
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H120]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H120other]);
+            
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H124]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H124VBF]);
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H124]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H124VH]);
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H124]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H124other]);
+            
             histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125VBF]);
             histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125VH]);
             histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125other]);
+            
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H126]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H126VBF]);
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H126]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H126VH]);
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H126]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H126other]);
+            
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H130]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H130VBF]);
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H130]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H130VH]);
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H130]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H130other]);
       
          }
       }
@@ -1844,6 +1900,37 @@ void Histograms::DeleteHistos()
 //=============================================
 
 
+
+//=============================================
+void Histograms::DeleteYieldsHistos()
+{
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+      {
+         //=============
+         // M4l
+         //=============
+         delete histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat];
+         
+         for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
+         {
+            for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
+            {
+               //=============
+               // M4l
+               //=============
+               delete histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc];               
+            }
+         }
+      }
+   }
+
+}
+//=============================================
+
+
+
 //=============================================
 void Histograms::GetHistos( TString file_name )
 {
@@ -2060,6 +2147,46 @@ void Histograms::GetHistos( TString file_name )
          _histo_name = "DZHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
          histos_2DError_data[Settings::DZHvsM4lZoomed][i_fs][i_cat] = (TGraphErrors*)histo_file->Get(_histo_name.c_str());
          
+      }
+   }
+}
+//=============================================
+
+
+
+//=============================================
+void Histograms::GetYieldsHistos( TString file_name )
+{
+   TFile* histo_file = TFile::Open(file_name);
+
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+      {
+         for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
+         {
+            for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
+            {
+               //=============
+               // M4l
+               //=============
+               _histo_name = "M4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
+               histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());           
+            }
+         }
+      }
+   }
+      
+   // Z+X
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+      {
+         //=============
+         // M4l
+         //=============
+         _histo_name = "M4l_ZX_shape_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
       }
    }
 }

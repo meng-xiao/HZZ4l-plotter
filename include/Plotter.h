@@ -79,7 +79,9 @@ public:
    void Save();
    void SaveYields();
    void Delete();
+   void DeleteYields();
    void GetHistos( TString );
+   void GetYieldsHistos( TString );
    void Plot1D_single( TString, TString, TString, int, int );
    void Plot1D_allCAT( TString, TString, TString);
    void Plot1D_allFS( TString, TString, TString);
