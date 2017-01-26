@@ -2171,7 +2171,7 @@ void Histograms::GetYieldsHistos( TString file_name )
                // M4l
                //=============
                _histo_name = "M4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());           
+               histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
             }
          }
       }
@@ -2678,6 +2678,42 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
 }
 //========================================================================================================
 
+//========================================================================================================
+void Histograms::PrintYields()
+{
+   cout << "TEST1" << endl;
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+      {
+         for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
+         {
+            cout << "Yield in full mass range of " << _s_process.at(i_proc) << ", final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << endl;
+            
+            histos_1D[Settings::M4lMain][i_fs][i_cat][Settings::all_resonant][i_proc]->GetBinContent(2);
+         }
+      
+      }
+   }
+   
+   // Z+X
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+      {
+        // histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat]
+      }
+   }
+
+}
+//========================================================================================================
+
+//========================================================================================================
+void Histograms::PrintYields(float M4l_down, float M4l_up)
+{
+   cout << "TEST2" << endl;
+}
+//========================================================================================================
 
 
 //==================================================

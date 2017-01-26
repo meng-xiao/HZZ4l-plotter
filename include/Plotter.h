@@ -87,6 +87,8 @@ public:
    void Plot1D_allFS( TString, TString, TString);
    void Plot2D_single( TString, TString, TString, int );
    void Plot2DError_single( TString, TString, TString, int );
+   void PrintYields( TString);
+   void PrintYields( TString, float, float);
    void SetBlinding( float, float);
    
 private:

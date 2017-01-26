@@ -606,6 +606,22 @@ void Plotter::Plot2DError_single( TString file_name, TString variable_name, TStr
 }
 //==================
 
+//==================
+void Plotter::PrintYields( TString file_name )
+{
+   histo_map[file_name]->PrintYields( );
+   
+}
+//==================
+
+//==================
+void Plotter::PrintYields( TString file_name, float M4l_down, float M4l_up  )
+{
+   histo_map[file_name]->PrintYields( M4l_down, M4l_up);
+   
+}
+//==================
+
 
 
 //==========================================================
