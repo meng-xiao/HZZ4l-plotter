@@ -95,12 +95,24 @@ int main( int argc, char *argv[] )
    plotter->MakeYieldsHistograms(ZH126);
    plotter->MakeYieldsHistograms(ZH130);
    
+   plotter->MakeYieldsHistograms(WpH120);
+   plotter->MakeYieldsHistograms(WpH124);
+   plotter->MakeYieldsHistograms(WpH125);
+   plotter->MakeYieldsHistograms(WpH126);
+   plotter->MakeYieldsHistograms(WpH130);
+   
+   plotter->MakeYieldsHistograms(WmH120);
+   plotter->MakeYieldsHistograms(WmH124);
+   plotter->MakeYieldsHistograms(WmH125);
+   plotter->MakeYieldsHistograms(WmH126);
+   plotter->MakeYieldsHistograms(WmH130);
+   
    plotter->MakeYieldsHistograms(ttH120);
    plotter->MakeYieldsHistograms(ttH124);
    plotter->MakeYieldsHistograms(ttH125);
    plotter->MakeYieldsHistograms(ttH126);
    plotter->MakeYieldsHistograms(ttH130);
-      
+   
    plotter->MakeYieldsHistograms(ZZTo4l);
    plotter->MakeYieldsHistograms(ggZZ4e);
    plotter->MakeYieldsHistograms(ggZZ4mu);

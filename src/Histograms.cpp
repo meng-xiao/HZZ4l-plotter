@@ -2308,12 +2308,13 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    // Draw X-axis log scale
    if ( plot_index == Settings::M4lMain )
    {
-      stack->GetXaxis()->SetNdivisions(0);
+      stack->GetXaxis()->SetNdivisions(10);
+      stack->GetXaxis()->SetLabelSize(0);
       DrawLogX(c, cat);
    }
 
    stringstream ss;
-   ss << folder << "/" << variable_name << "_" << filename << "_FS_" << fs << "_CAT_" << cat;
+   ss << folder << "/" << variable_name << "_" << filename << "_" << _s_final_state.at(fs) << "_" << _s_category.at(cat);
 
    c->SaveAs((ss.str() + ".pdf").c_str());
    c->SaveAs((ss.str() + ".png").c_str());
@@ -2406,12 +2407,13 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       // Draw X-axis log scale
       if ( plot_index == Settings::M4lMain )
       {
-         stack->GetXaxis()->SetNdivisions(0);
-         DrawLogX(c, i_cat);  
+         stack->GetXaxis()->SetNdivisions(10);
+         stack->GetXaxis()->SetLabelSize(0);
+         DrawLogX(c, i_cat);
       }
       
       stringstream ss;
-      ss << folder << "/" << variable_name << "_" <<filename << "_CAT_" << i_cat;
+      ss << folder << "/" << variable_name << "_" <<filename << "_" << _s_category.at(i_cat);
       cout << ss.str() << endl;
       c->SaveAs((ss.str() + ".pdf").c_str());
       c->SaveAs((ss.str() + ".png").c_str());
@@ -2504,12 +2506,13 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
       // Draw X-axis log scale
       if ( plot_index == Settings::M4lMain )
       {
-         stack->GetXaxis()->SetNdivisions(0);
+         stack->GetXaxis()->SetNdivisions(10);
+         stack->GetXaxis()->SetLabelSize(0);
          DrawLogX(c, i_fs);
       }
       
       stringstream ss;
-      ss << folder << "/" << variable_name << "_" <<filename << "_FS_" << i_fs;
+      ss << folder << "/" << variable_name << "_" <<filename << "_" << _s_final_state.at(i_fs);
       cout << ss.str() << endl;
       c->SaveAs((ss.str() + ".pdf").c_str());
       c->SaveAs((ss.str() + ".png").c_str());
@@ -2587,7 +2590,7 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
    lumi->set_lumi(c, 0, 0);
    
    stringstream ss;
-   ss << folder << "/" << variable_name << "_" << filename << "_CAT_" << cat;
+   ss << folder << "/" << variable_name << "_" << filename << "_" << _s_category.at(cat);
    
    c->SaveAs((ss.str() + ".pdf").c_str());
    c->SaveAs((ss.str() + ".png").c_str());
@@ -2664,7 +2667,7 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
    lumi->set_lumi(c, 0, 0);
    
    stringstream ss;
-   ss << folder << "/" << variable_name << "_" << filename << "_CAT_" << cat;
+   ss << folder << "/" << variable_name << "_" << filename << "_" << _s_category.at(cat);
    
    c->SaveAs((ss.str() + ".pdf").c_str());
    c->SaveAs((ss.str() + ".png").c_str());
@@ -2877,6 +2880,7 @@ TLegend* Histograms::CreateLegend( string position, TH1F *data, TH1F *h125,TH1F 
    else if(position == "left") leg = new TLegend(.14,.72,.38,.9);
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
+   leg->SetFillStyle(0);
    
    leg->AddEntry( data, "Data", "p" );
    leg->AddEntry( h125,"H(125)","f");
@@ -2896,6 +2900,7 @@ TLegend* Histograms::CreateLegendVBF( string position, TH1F *data, TH1F *h125VBF
    else if(position == "left") leg = new TLegend(.14,.72,.38,.9);
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
+   leg->SetFillStyle(0);
    
    leg->AddEntry( data, "Data", "p" );
    leg->AddEntry( h125VBF,"H(125), VBF","f");
@@ -2916,6 +2921,7 @@ TLegend* Histograms::CreateLegendVH( string position, TH1F *data, TH1F *h125VH, 
    else if(position == "left") leg = new TLegend(.14,.72,.38,.9);
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
+   leg->SetFillStyle(0);
    
    leg->AddEntry( data, "Data", "p" );
    leg->AddEntry( h125VH,"H(125), VH","f");
@@ -2981,7 +2987,7 @@ void Histograms::DrawLogX( TCanvas *c, int i_cat )
    if ( i_cat == 6 ) _y_max = u_y_max;
    
    float factor = u_y_max/_y_max;
-   float y_latex = -0.4;
+   float y_latex = -0.6;
        
    TLatex *latex_80 = new TLatex(80, y_latex*factor, "80");  
    latex_80->SetTextAlign(23);

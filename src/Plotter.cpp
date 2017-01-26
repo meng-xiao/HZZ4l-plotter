@@ -5,7 +5,6 @@
 //============================================================
 Plotter::Plotter(bool yields):Tree()
 {
-   
    if (yields)
    {
       yields_histos = new Histograms();
@@ -58,7 +57,6 @@ Plotter::Plotter(bool yields):Tree()
       _expected_yield_SR.push_back(temp);
       _number_of_events_CR.push_back(temp);
    }
-
 }
 //============================================================
 
@@ -195,7 +193,7 @@ void Plotter::MakeHistograms( TString input_file_name )
       unblinded_histos->FillMZ1vsMZ2( ZZMass, Z1Mass, Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       
       // Fill 2D histograms vs M4l with error
-      if ( (ZZMass < _blinding_lower) || (ZZMass > _blinding_upper) )
+      if ( (_current_process == Settings::Data && (ZZMass < _blinding_lower || ZZMass > _blinding_upper)) || _current_process != Settings::Data )
       {
          if(_current_process == Settings::Data) blinded_histos->FillVectors( ZZMass, ZZMassErrCorr, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _current_final_state, _current_category);
          blinded_histos->FillDvsM4l( ZZMass, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );

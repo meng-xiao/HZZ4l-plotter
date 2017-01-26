@@ -43,7 +43,8 @@ private:
    TString lumi_13TeV = "20.1 fb^{-1}";
    TString lumi_8TeV  = "19.7 fb^{-1}";
    TString lumi_7TeV  = "5.1 fb^{-1}";
-   TString lumi_sqrtS = "12.9 fb^{-1} (13 TeV)";
+   //TString lumi_sqrtS = "12.9 fb^{-1} (13 TeV)";
+   TString lumi_sqrtS = "36.8 fb^{-1} (13 TeV)";
       
    bool drawLogo = false;    
 };
