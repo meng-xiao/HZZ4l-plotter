@@ -2715,7 +2715,7 @@ void Histograms::PrintYields(float M4l_down, float M4l_up)
       {
          for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
          {
-            cout << "Yield in mass range [" << M4l_down << "," << M4l_up << "] for " << _s_process.at(i_proc) << ", final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << histos_1D[Settings::M4lMain][i_fs][i_cat][Settings::all_resonant][i_proc]->Integral(histos_1D[Settings::M4lMain][i_fs][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_down), histos_1D[Settings::M4lMain][i_fs][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_up)) << endl;
+            cout << "Yield in mass range [" << M4l_down << "," << M4l_up << "] for " << _s_process.at(i_proc) << ", final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << histos_1D[Settings::M4lMain][i_fs][i_cat][Settings::all_resonant][i_proc]->Integral(histos_1D[Settings::M4lMain][i_fs][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_down), histos_1D[Settings::M4lMain][i_fs][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_up) - 1) << endl;
             
          }
          
@@ -2727,7 +2727,7 @@ void Histograms::PrintYields(float M4l_down, float M4l_up)
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         cout << "Yield in mass range [" << M4l_down << "," << M4l_up << "] for Z+X, final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat]->Integral(histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat]->FindBin(M4l_down), histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat]->FindBin(M4l_up)) << endl;
+         cout << "Yield in mass range [" << M4l_down << "," << M4l_up << "] for Z+X, final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat]->Integral(histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat]->FindBin(M4l_down), histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat]->FindBin(M4l_up) - 1) << endl;
       }
    }
 }
