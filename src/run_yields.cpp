@@ -128,7 +128,7 @@ int main( int argc, char *argv[] )
 //   plotter->SaveYields();
 //   plotter->DeleteYields();
    
-   plotter->GetHistos("Yields");
+   plotter->GetYieldsHistos("Yields");
    plotter->PrintYields("Yields");
    plotter->PrintYields("Yields", 118., 130.);
 }
