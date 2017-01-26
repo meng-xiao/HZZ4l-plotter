@@ -15,15 +15,15 @@ public:
    
    struct ZX4e
    {
-       float norm_combined         = 18.4 * 1.1;
-       float norm_inclusive        = 18.4 * 1.1;
-       float N = norm_combined/norm_inclusive * 1.1;
-       float norm_untagged         = 15.4 * N;
-       float norm_VBF_1j_tagged    = 0.9 * N;
-       float norm_VBF_2j_tagged    = 1.3 * N;
-       float norm_VH_lepton_tagged = 0.17 * N;
-       float norm_VH_hadron_tagged = 0.28 * N;
-       float norm_ttH_tagged       = 0.36 * N;
+       float norm_combined         = 20.3;
+       float norm_inclusive        = 20.3;
+       float N = norm_combined/norm_inclusive ;
+       float norm_untagged         = 17.1 * N;
+       float norm_VBF_1j_tagged    = 1.4  * N;
+       float norm_VBF_2j_tagged    = 0.97 * N;
+       float norm_VH_lepton_tagged = 0.18 * N;
+       float norm_VH_hadron_tagged = 0.31 * N;
+       float norm_ttH_tagged       = 0.38 * N;
        
        
        float par0 = 141.9;
@@ -32,15 +32,15 @@ public:
     
     struct ZX4mu
     {
-        float norm_combined         = 30.8 * 1.1;
-        float norm_inclusive        = 30.8 * 1.1;
-        float N = norm_combined/norm_inclusive * 1.1;
-        float norm_untagged         = 24.9 * N;
-        float norm_VBF_1j_tagged    = 1.7 * N;
-        float norm_VBF_2j_tagged    = 2.1 * N;
-        float norm_VH_lepton_tagged = 0.36 * N;
-        float norm_VH_hadron_tagged = 0.9 * N;
-        float norm_ttH_tagged       = 0.8 * N;
+        float norm_combined         = 33.5;
+        float norm_inclusive        = 33.5;
+        float N = norm_combined/norm_inclusive;
+        float norm_untagged         = 27  * N;
+        float norm_VBF_1j_tagged    = 2.3 * N;
+        float norm_VBF_2j_tagged    = 1.98 * N;
+        float norm_VH_lepton_tagged = 0.37 * N;
+        float norm_VH_hadron_tagged = 0.96 * N;
+        float norm_ttH_tagged       = 0.9 * N;
         
         
         float par0 = 130.4;
@@ -49,15 +49,15 @@ public:
    
     struct ZX2e2mu
     {
-        float norm_combined         = (26.7 + 22.9) * 1.1;
-        float norm_inclusive        = (26.7 + 22.9) * 1.1;
-        float N = norm_combined/norm_inclusive * 1.1;
-        float norm_untagged         = (21.6 + 19.1) * N;
-        float norm_VBF_1j_tagged    = (1.6 + 1) * N;
-        float norm_VBF_2j_tagged    = (1.4 + 1.7) * N;
-        float norm_VH_lepton_tagged = (0.4 + 0.2) * N;
-        float norm_VH_hadron_tagged = (0.8 + 0.4) * N;
-        float norm_ttH_tagged       = (0.8 + 0.4) * N;
+        float norm_combined         = (29.1 + 25.5);
+        float norm_inclusive        = (29.1 + 25.5);
+        float N = norm_combined/norm_inclusive;
+        float norm_untagged         = (23.5 + 21.4) * N;
+        float norm_VBF_1j_tagged    = (1.6 + 1.8) * N;
+        float norm_VBF_2j_tagged    = (1.8 + 1.14) * N;
+        float norm_VH_lepton_tagged = (0.5 + 0.25) * N;
+        float norm_VH_hadron_tagged = (0.87 + 0.43) * N;
+        float norm_ttH_tagged       = (0.83 + 0.47) * N;
         
         
         float par0 = 0.45;
