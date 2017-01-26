@@ -248,7 +248,7 @@ void Plotter::MakeYieldsHistograms( TString input_file_name )
 
       // Find current process
    
-      _current_process = find_current_process( input_file_name );
+      _current_process = find_current_process_yields( input_file_name );
       // Final states
       _current_final_state = FindFinalState();
    
@@ -312,6 +312,7 @@ void Plotter::MakeYieldsM4lZX()
             yields_histos->MakeZXShapeYields( i_fs, i_cat );
         }
     }
+   cout << "[INFO] Z+X shape for M4l done." << endl;
 }
 //=======================
 
@@ -622,53 +623,20 @@ void Plotter::PrintYields( TString file_name, float M4l_down, float M4l_up  )
 }
 //==================
 
-
-
 //==========================================================
 int Plotter::find_current_process( TString input_file_name )
 {
-
+   
    int current_process = -999;
    
    // Assign dataset to correct process
    if ( input_file_name.Contains("Data") )           current_process = Settings::Data;
-   
-   if ( input_file_name.Contains("ggH120") )         current_process = Settings::H120other;
-   if ( input_file_name.Contains("ggH124") )         current_process = Settings::H124other;
    if ( input_file_name.Contains("ggH125") )         current_process = Settings::H125other;
-   if ( input_file_name.Contains("ggH126") )         current_process = Settings::H126other;
-   if ( input_file_name.Contains("ggH130") )         current_process = Settings::H130other;
-   
-   if ( input_file_name.Contains("VBFH120") )        current_process = Settings::H120VBF;
-   if ( input_file_name.Contains("VBFH124") )        current_process = Settings::H124VBF;
    if ( input_file_name.Contains("VBFH125") )        current_process = Settings::H125VBF;
-   if ( input_file_name.Contains("VBFH126") )        current_process = Settings::H126VBF;
-   if ( input_file_name.Contains("VBFH130") )        current_process = Settings::H130VBF;
-   
-   if ( input_file_name.Contains("WplusH120") )      current_process = Settings::H120VH;
-   if ( input_file_name.Contains("WplusH124") )      current_process = Settings::H124VH;
    if ( input_file_name.Contains("WplusH125") )      current_process = Settings::H125VH;
-   if ( input_file_name.Contains("WplusH126") )      current_process = Settings::H126VH;
-   if ( input_file_name.Contains("WplusH130") )      current_process = Settings::H130VH;
-   
-   if ( input_file_name.Contains("WminusH120") )     current_process = Settings::H120VH;
-   if ( input_file_name.Contains("WminusH124") )     current_process = Settings::H124VH;
    if ( input_file_name.Contains("WminusH125") )     current_process = Settings::H125VH;
-   if ( input_file_name.Contains("WminusH126") )     current_process = Settings::H126VH;
-   if ( input_file_name.Contains("WminusH130") )     current_process = Settings::H130VH;
-      
-   if ( input_file_name.Contains("ZH120") )          current_process = Settings::H120VH;
-   if ( input_file_name.Contains("ZH124") )          current_process = Settings::H124VH;
    if ( input_file_name.Contains("ZH125") )          current_process = Settings::H125VH;
-   if ( input_file_name.Contains("ZH126") )          current_process = Settings::H126VH;
-   if ( input_file_name.Contains("ZH130") )          current_process = Settings::H130VH;
-   
-   if ( input_file_name.Contains("ttH120") )         current_process = Settings::H120other;
-   if ( input_file_name.Contains("ttH124") )         current_process = Settings::H124other;
    if ( input_file_name.Contains("ttH125") )         current_process = Settings::H125other;
-   if ( input_file_name.Contains("ttH126") )         current_process = Settings::H126other;
-   if ( input_file_name.Contains("ttH130") )         current_process = Settings::H130other;
-      
    if ( input_file_name.Contains("ZZTo4l") )         current_process = Settings::qqZZ;
    if ( input_file_name.Contains("ggTo4e") )         current_process = Settings::ggZZ;
    if ( input_file_name.Contains("ggTo4mu") )        current_process = Settings::ggZZ;
@@ -679,6 +647,68 @@ int Plotter::find_current_process( TString input_file_name )
    if ( input_file_name.Contains("DYJetsToLL_M50") ) current_process = Settings::DY;
    if ( input_file_name.Contains("TTJets") )         current_process = Settings::ttbar;
    if ( input_file_name.Contains("TTTo2L2Nu") )      current_process = Settings::ttbar;
+   // End assign dataset to correct process
+   
+   return current_process;
+}
+//==========================================================
+
+
+//==========================================================
+int Plotter::find_current_process_yields( TString input_file_name )
+{
+
+   int current_process = -999;
+   
+   // Assign dataset to correct process
+   if ( input_file_name.Contains("Data") )           current_process = Settings::yData;
+   
+   if ( input_file_name.Contains("ggH120") )         current_process = Settings::yH120other;
+   if ( input_file_name.Contains("ggH124") )         current_process = Settings::yH124other;
+   if ( input_file_name.Contains("ggH125") )         current_process = Settings::yH125other;
+   if ( input_file_name.Contains("ggH126") )         current_process = Settings::yH126other;
+   if ( input_file_name.Contains("ggH130") )         current_process = Settings::yH130other;
+   
+   if ( input_file_name.Contains("VBFH120") )        current_process = Settings::yH120VBF;
+   if ( input_file_name.Contains("VBFH124") )        current_process = Settings::yH124VBF;
+   if ( input_file_name.Contains("VBFH125") )        current_process = Settings::yH125VBF;
+   if ( input_file_name.Contains("VBFH126") )        current_process = Settings::yH126VBF;
+   if ( input_file_name.Contains("VBFH130") )        current_process = Settings::yH130VBF;
+   
+   if ( input_file_name.Contains("WplusH120") )      current_process = Settings::yH120VH;
+   if ( input_file_name.Contains("WplusH124") )      current_process = Settings::yH124VH;
+   if ( input_file_name.Contains("WplusH125") )      current_process = Settings::yH125VH;
+   if ( input_file_name.Contains("WplusH126") )      current_process = Settings::yH126VH;
+   if ( input_file_name.Contains("WplusH130") )      current_process = Settings::yH130VH;
+   
+   if ( input_file_name.Contains("WminusH120") )     current_process = Settings::yH120VH;
+   if ( input_file_name.Contains("WminusH124") )     current_process = Settings::yH124VH;
+   if ( input_file_name.Contains("WminusH125") )     current_process = Settings::yH125VH;
+   if ( input_file_name.Contains("WminusH126") )     current_process = Settings::yH126VH;
+   if ( input_file_name.Contains("WminusH130") )     current_process = Settings::yH130VH;
+      
+   if ( input_file_name.Contains("ZH120") )          current_process = Settings::yH120VH;
+   if ( input_file_name.Contains("ZH124") )          current_process = Settings::yH124VH;
+   if ( input_file_name.Contains("ZH125") )          current_process = Settings::yH125VH;
+   if ( input_file_name.Contains("ZH126") )          current_process = Settings::yH126VH;
+   if ( input_file_name.Contains("ZH130") )          current_process = Settings::yH130VH;
+   
+   if ( input_file_name.Contains("ttH120") )         current_process = Settings::yH120other;
+   if ( input_file_name.Contains("ttH124") )         current_process = Settings::yH124other;
+   if ( input_file_name.Contains("ttH125") )         current_process = Settings::yH125other;
+   if ( input_file_name.Contains("ttH126") )         current_process = Settings::yH126other;
+   if ( input_file_name.Contains("ttH130") )         current_process = Settings::yH130other;
+      
+   if ( input_file_name.Contains("ZZTo4l") )         current_process = Settings::yqqZZ;
+   if ( input_file_name.Contains("ggTo4e") )         current_process = Settings::yggZZ;
+   if ( input_file_name.Contains("ggTo4mu") )        current_process = Settings::yggZZ;
+   if ( input_file_name.Contains("ggTo4tau") )       current_process = Settings::yggZZ;
+   if ( input_file_name.Contains("ggTo2e2mu") )      current_process = Settings::yggZZ;
+   if ( input_file_name.Contains("ggTo2e2tau") )     current_process = Settings::yggZZ;
+   if ( input_file_name.Contains("ggTo2mu2tau") )    current_process = Settings::yggZZ;
+   if ( input_file_name.Contains("DYJetsToLL_M50") ) current_process = Settings::yDY;
+   if ( input_file_name.Contains("TTJets") )         current_process = Settings::yttbar;
+   if ( input_file_name.Contains("TTTo2L2Nu") )      current_process = Settings::yttbar;
    // End assign dataset to correct process
 
    return current_process;

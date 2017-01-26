@@ -73,6 +73,7 @@ public:
    int FindFinalState();
    int FindFinalStateZX();
    int find_current_process( TString );
+   int find_current_process_yields( TString );
    int find_resonant_status();
    void FillInclusive();
    void FillInclusiveYields();

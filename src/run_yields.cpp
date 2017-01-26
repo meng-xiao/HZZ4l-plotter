@@ -77,56 +77,55 @@ int main( int argc, char *argv[] )
    
    Plotter *plotter = new Plotter(yields);
 
-//   plotter->MakeYieldsHistograms(ggH120);
-//   plotter->MakeYieldsHistograms(ggH124);
-//   plotter->MakeYieldsHistograms(ggH125);
-//   plotter->MakeYieldsHistograms(ggH126);
-//   plotter->MakeYieldsHistograms(ggH130);
-//   
-//   plotter->MakeYieldsHistograms(VBFH120);
-//   plotter->MakeYieldsHistograms(VBFH124);
-//   plotter->MakeYieldsHistograms(VBFH125);
-//   plotter->MakeYieldsHistograms(VBFH126);
-//   plotter->MakeYieldsHistograms(VBFH130);
-//   
-//   plotter->MakeYieldsHistograms(ZH120);
-//   plotter->MakeYieldsHistograms(ZH124);
-//   plotter->MakeYieldsHistograms(ZH125);
-//   plotter->MakeYieldsHistograms(ZH126);
-//   plotter->MakeYieldsHistograms(ZH130);
-//   
-//   plotter->MakeYieldsHistograms(WpH120);
-//   plotter->MakeYieldsHistograms(WpH124);
-//   plotter->MakeYieldsHistograms(WpH125);
-//   plotter->MakeYieldsHistograms(WpH126);
-//   plotter->MakeYieldsHistograms(WpH130);
-//   
-//   plotter->MakeYieldsHistograms(WmH120);
-//   plotter->MakeYieldsHistograms(WmH124);
-//   plotter->MakeYieldsHistograms(WmH125);
-//   plotter->MakeYieldsHistograms(WmH126);
-//   plotter->MakeYieldsHistograms(WmH130);
-//   
-//   plotter->MakeYieldsHistograms(ttH120);
-//   plotter->MakeYieldsHistograms(ttH124);
-//   plotter->MakeYieldsHistograms(ttH125);
-//   plotter->MakeYieldsHistograms(ttH126);
-//   plotter->MakeYieldsHistograms(ttH130);
-//   
-//   plotter->MakeYieldsHistograms(ZZTo4l);
-//   plotter->MakeYieldsHistograms(ggZZ4e);
-//   plotter->MakeYieldsHistograms(ggZZ4mu);
-//   plotter->MakeYieldsHistograms(ggZZ4tau);
-//   plotter->MakeYieldsHistograms(ggZZ2e2mu);
-//   plotter->MakeYieldsHistograms(ggZZ2e2tau);
-//   plotter->MakeYieldsHistograms(ggZZ2mu2tau);
-//
-//   plotter->MakeYieldsM4lZX();
-//   
-//   plotter->FillInclusiveYields();
-//
-//   plotter->SaveYields();
-//   plotter->DeleteYields();
+   plotter->MakeYieldsHistograms(ggH120);
+   plotter->MakeYieldsHistograms(ggH124);
+   plotter->MakeYieldsHistograms(ggH125);
+   plotter->MakeYieldsHistograms(ggH126);
+   plotter->MakeYieldsHistograms(ggH130);
+   
+   plotter->MakeYieldsHistograms(VBFH120);
+   plotter->MakeYieldsHistograms(VBFH124);
+   plotter->MakeYieldsHistograms(VBFH125);
+   plotter->MakeYieldsHistograms(VBFH126);
+   plotter->MakeYieldsHistograms(VBFH130);
+   
+   plotter->MakeYieldsHistograms(ZH120);
+   plotter->MakeYieldsHistograms(ZH124);
+   plotter->MakeYieldsHistograms(ZH125);
+   plotter->MakeYieldsHistograms(ZH126);
+   plotter->MakeYieldsHistograms(ZH130);
+   
+   plotter->MakeYieldsHistograms(WpH120);
+   plotter->MakeYieldsHistograms(WpH124);
+   plotter->MakeYieldsHistograms(WpH125);
+   plotter->MakeYieldsHistograms(WpH126);
+   plotter->MakeYieldsHistograms(WpH130);
+   
+   plotter->MakeYieldsHistograms(WmH120);
+   plotter->MakeYieldsHistograms(WmH124);
+   plotter->MakeYieldsHistograms(WmH125);
+   plotter->MakeYieldsHistograms(WmH126);
+   plotter->MakeYieldsHistograms(WmH130);
+   
+   plotter->MakeYieldsHistograms(ttH120);
+   plotter->MakeYieldsHistograms(ttH124);
+   plotter->MakeYieldsHistograms(ttH125);
+   plotter->MakeYieldsHistograms(ttH126);
+   plotter->MakeYieldsHistograms(ttH130);
+   
+   plotter->MakeYieldsHistograms(ZZTo4l);
+   plotter->MakeYieldsHistograms(ggZZ4e);
+   plotter->MakeYieldsHistograms(ggZZ4mu);
+   plotter->MakeYieldsHistograms(ggZZ4tau);
+   plotter->MakeYieldsHistograms(ggZZ2e2mu);
+   plotter->MakeYieldsHistograms(ggZZ2e2tau);
+   plotter->MakeYieldsHistograms(ggZZ2mu2tau);
+
+   plotter->MakeYieldsM4lZX();
+   
+   plotter->FillInclusiveYields();
+
+   plotter->SaveYields();
    
    plotter->GetYieldsHistos("Yields");
    plotter->PrintYields("Yields");

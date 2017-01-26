@@ -28,6 +28,7 @@
 using namespace std;
 
 const int num_of_processes         = Settings::num_of_processes;
+const int num_of_processes_yields  = Settings::num_of_processes_yields;
 const int num_of_final_states      = Settings::num_of_final_states;
 const int num_of_resonant_statuses = Settings::num_of_res_statuses;
 const int num_of_categories        = Settings::num_of_categories;
@@ -116,6 +117,7 @@ private:
    // 1D plots
    //==========
    TH1F *histos_1D[num_of_1Dplot_names][num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes];
+   TH1F *histos_1D_y[num_of_1Dplot_names][num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes_yields];
    
    // Z+X
    TH1F *histos_1D_ZX[num_of_1Dplot_names][num_of_final_states][num_of_categories];
