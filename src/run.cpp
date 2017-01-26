@@ -48,7 +48,7 @@ int main( int argc, char *argv[] )
 
    Plotter *plotter = new Plotter( yields );
 
-   plotter->SetBlinding(110, 150);
+   plotter->SetBlinding(110, 150, 300, 1000);
 
    plotter->MakeHistograms(Data);
    plotter->MakeHistograms(ggH125);

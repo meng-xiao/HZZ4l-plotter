@@ -75,6 +75,7 @@ public:
    int find_current_process( TString );
    int find_current_process_yields( TString );
    int find_resonant_status();
+   bool blind( float );
    void FillInclusive();
    void FillInclusiveYields();
    void Save();
@@ -91,6 +92,7 @@ public:
    void PrintYields( TString);
    void PrintYields( TString, float, float);
    void SetBlinding( float, float);
+   void SetBlinding( float, float, float, float);
    
 private:
 
@@ -121,7 +123,7 @@ private:
    Float_t DZH;
 	
    
-   float _blinding_lower = 110, _blinding_upper = 150;
+   float _blinding_lower[2], _blinding_upper[2];
    
    int _current_process, _current_final_state, _current_category, _current_resonant_status;
    float _lumi, _k_factor, _SMP_signal_strength, _yield_SR, partial_sample_weight;

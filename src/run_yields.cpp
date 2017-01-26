@@ -24,7 +24,7 @@ int main( int argc, char *argv[] )
    gROOT->ProcessLine(".L ./ext/setTDRStyle_cpp.so");
    gROOT->ProcessLine("setTDRStyle();");
 
-   TString path = "ICHEP_2016/";
+   TString path = "MORIOND_2017/";
    TString file_name = "/ZZ4lAnalysis.root";
    bool yields = 1;
    
@@ -102,13 +102,13 @@ int main( int argc, char *argv[] )
    plotter->MakeYieldsHistograms(WpH130);
    
    plotter->MakeYieldsHistograms(WmH120);
-   plotter->MakeYieldsHistograms(WmH124);
+//   plotter->MakeYieldsHistograms(WmH124);
    plotter->MakeYieldsHistograms(WmH125);
    plotter->MakeYieldsHistograms(WmH126);
    plotter->MakeYieldsHistograms(WmH130);
    
    plotter->MakeYieldsHistograms(ttH120);
-   plotter->MakeYieldsHistograms(ttH124);
+//   plotter->MakeYieldsHistograms(ttH124);
    plotter->MakeYieldsHistograms(ttH125);
    plotter->MakeYieldsHistograms(ttH126);
    plotter->MakeYieldsHistograms(ttH130);
