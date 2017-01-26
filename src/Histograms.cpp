@@ -2665,6 +2665,8 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
 void Histograms::PrintYields()
 {
    
+   cout << std::setprecision(2) << fixed;
+   
    cout << endl;
    cout << "=========================" << endl;
    cout << "Yields in full mass range" << endl;
@@ -2713,6 +2715,8 @@ void Histograms::PrintYields()
 //========================================================================================================
 void Histograms::PrintYields(float M4l_down, float M4l_up)
 {
+   cout << std::setprecision(2) << fixed;
+   
    map<int, vector<float>> yields_map;
    vector<float> yields_ZX;
    float temp_yield;
@@ -2775,8 +2779,6 @@ void Histograms::PrintYields(float M4l_down, float M4l_up)
       cout << endl;
    }
 
-
-   std::cout << std::setprecision(2) << std::fixed;
    cout << endl;
    cout << "\\textbf{Category} & Untagged & VBF-1j & VBF-2j & VH-lept. & VH-hadr. & \ttH & Total \\\\" << endl; 
    cout << "\\hline" << endl; 
