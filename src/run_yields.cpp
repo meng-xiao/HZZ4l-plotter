@@ -24,7 +24,7 @@ int main( int argc, char *argv[] )
    gROOT->ProcessLine(".L ./ext/setTDRStyle_cpp.so");
    gROOT->ProcessLine("setTDRStyle();");
 
-   TString path = "MORIOND_2017/";
+   TString path = "Moriond_2017/";
    TString file_name = "/ZZ4lAnalysis.root";
    bool yields = 1;
    
@@ -77,6 +77,7 @@ int main( int argc, char *argv[] )
    
    Plotter *plotter = new Plotter(yields);
 
+/*
    plotter->MakeYieldsHistograms(ggH120);
    plotter->MakeYieldsHistograms(ggH124);
    plotter->MakeYieldsHistograms(ggH125);
@@ -126,7 +127,8 @@ int main( int argc, char *argv[] )
    plotter->FillInclusiveYields();
 
    plotter->SaveYields();
-   
+*/   
+
    plotter->GetYieldsHistos("Yields");
    plotter->PrintYields("Yields");
    plotter->PrintYields("Yields", 118., 130.);

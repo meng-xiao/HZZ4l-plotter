@@ -13,6 +13,8 @@
 *.C
 *.eps
 
+Yields.txt
+
 */*.sh
 
 run

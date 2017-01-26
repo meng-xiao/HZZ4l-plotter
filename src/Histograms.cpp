@@ -2659,64 +2659,180 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
 }
 //========================================================================================================
 
+
+
 //========================================================================================================
 void Histograms::PrintYields()
 {
-   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   
+   cout << endl;
+   cout << "=========================" << endl;
+   cout << "Yields in full mass range" << endl;
+   cout << "=========================" << endl;
+   cout << _s_final_state.at(0) << "   " << _s_final_state.at(1) << "   " << _s_final_state.at(2) << "   " << _s_final_state.at(4) << endl;
+   
+   for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
    {
-      if( i_fs == Settings::fs2mu2e ) continue;
+      cout << endl;
+      
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
+         cout << _s_process.at(i_proc) << "   " << _s_category.at(i_cat) << "   ";
+         
+         for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
          {
-            cout << "Yield in full mass range for " << _s_process.at(i_proc) << ", final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->Integral() << endl;
-            
-         }
+            if( i_fs == Settings::fs2mu2e ) continue;
       
+            cout << histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->Integral() << "   ";
+         }
+         cout << endl;
       }
    }
    
    // Z+X
-   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
-   {
-      if( i_fs == Settings::fs2mu2e ) continue;
-      for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+   cout << endl;
+   
+   for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+   {         
+      cout << "Z+X" << "   " << _s_category.at(i_cat) << "   ";
+               
+      for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
       {
-          cout << "Yield in full mass range for Z+X, final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->Integral() << endl;
+         if( i_fs == Settings::fs2mu2e ) continue;
+         
+          cout << histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->Integral() << "   ";
       }
+      cout << endl;
    }
 
 }
 //========================================================================================================
+
+
 
 //========================================================================================================
 void Histograms::PrintYields(float M4l_down, float M4l_up)
 {
-   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   map<int, vector<float>> yields_map;
+   vector<float> yields_ZX;
+   float temp_yield;
+   
+   cout << endl;
+   cout << "===============================" << endl;
+   cout << "Yields in [" << M4l_down << ", " << M4l_up << "] mass range" << endl;
+   cout << "===============================" << endl;
+   cout << _s_final_state.at(0) << "   " << _s_final_state.at(1) << "   " << _s_final_state.at(2) << "   " << _s_final_state.at(4) << endl;
+   
+   for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
    {
-      if( i_fs == Settings::fs2mu2e ) continue;
+      cout << endl;
+      
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
-         {
-            cout << "Yield in mass range [" << M4l_down << "," << M4l_up << "] for " << _s_process.at(i_proc) << ", final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->Integral(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_down), histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_up) - 1) << endl;
-            
-         }
+         cout << _s_process.at(i_proc) << "   " << _s_category.at(i_cat) << "   ";
          
+         temp_yield = histos_1D[Settings::M4lYields][num_of_final_states-1][i_cat][Settings::all_resonant][i_proc]->Integral(
+                      histos_1D[Settings::M4lYields][num_of_final_states-1][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_down),
+                      histos_1D[Settings::M4lYields][num_of_final_states-1][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_up) - 1);
+         
+         yields_map[i_proc].push_back(temp_yield);
+         
+         for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+         {
+            if( i_fs == Settings::fs2mu2e ) continue;
+      
+            cout << histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->Integral(
+                    histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_down),
+                    histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_up) - 1)
+            << "   ";
+         }
+         cout << endl;
       }
    }
    
    // Z+X
-   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
-   {
-      if( i_fs == Settings::fs2mu2e ) continue;
-      for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+   cout << endl;
+   
+   for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+   {         
+      cout << "Z+X" << "   " << _s_category.at(i_cat) << "   ";
+      
+      temp_yield = histos_1D_ZX_shape[Settings::M4lYields][num_of_final_states-1][i_cat]->Integral(
+                   histos_1D_ZX_shape[Settings::M4lYields][num_of_final_states-1][i_cat]->FindBin(M4l_down),
+                   histos_1D_ZX_shape[Settings::M4lYields][num_of_final_states-1][i_cat]->FindBin(M4l_up) - 1);
+               
+      yields_ZX.push_back(temp_yield);
+      
+      for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
       {
-         cout << "Yield in mass range [" << M4l_down << "," << M4l_up << "] for Z+X, final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->Integral(histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->FindBin(M4l_down), histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->FindBin(M4l_up) - 1) << endl;
+         if( i_fs == Settings::fs2mu2e ) continue;
+         
+         cout << histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->Integral(
+                 histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->FindBin(M4l_down),
+                 histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->FindBin(M4l_up) - 1)
+         << "   ";
       }
+      cout << endl;
    }
+
+
+   std::cout << std::setprecision(2) << std::fixed;
+   cout << endl;
+   cout << "\\textbf{Category} & Untagged & VBF-1j & VBF-2j & VH-lept. & VH-hadr. & \ttH & Total \\\\" << endl; 
+   cout << "\\hline" << endl; 
+   
+   cout << "\\qqZZ ";
+   for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+   {
+      cout << "& $" << yields_map[Settings::yqqZZ].at(i_cat) << "$ ";
+   }   
+   cout << "\\\\" << endl;
+   
+   cout << "\\ggZZ ";
+   for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+   {
+      cout << "& $" << yields_map[Settings::yggZZ].at(i_cat) << "$ ";
+   }   
+   cout << "\\\\" << endl;
+   
+   cout << "\\cPZ\\ + X ";
+   for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+   {
+      cout << "& $" << yields_ZX.at(i_cat) << "$ ";
+   }   
+   cout << "\\\\" << endl;
+       
+   cout << "\\hline" << endl; 
+   
+   cout << "Sum of backgrounds ";      
+   for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+   {
+      cout << "& $" << yields_map[Settings::yqqZZ].at(i_cat) + yields_map[Settings::yggZZ].at(i_cat)+ yields_ZX.at(i_cat) << "$ ";
+   }
+   cout << "\\\\" << endl;
+      
+   cout << "\\hline" << endl;
+   
+   cout << "Signal ($\\mH=125~\\GeV$) ";
+   for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+   {
+      cout << "& $" << yields_map[Settings::yH125].at(i_cat) << "$ ";
+   }   
+   cout << "\\\\" << endl;   
+   
+   cout << "\\hline" << endl; 
+   
+   cout << "Total expected ";
+   for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+   {
+      cout << "& $" << yields_map[Settings::yH125].at(i_cat) + yields_map[Settings::yqqZZ].at(i_cat) + yields_map[Settings::yggZZ].at(i_cat)+ yields_ZX.at(i_cat) << "$ ";
+   }
+   cout << "\\\\" << endl;
+   
+   cout << "\\hline" << endl; 
 }
 //========================================================================================================
+
 
 
 //==================================================
