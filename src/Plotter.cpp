@@ -247,8 +247,8 @@ void Plotter::MakeYieldsHistograms( TString input_file_name )
       if ( !(ZZsel >= 90) ) continue;
 
       // Find current process
-   
       _current_process = find_current_process_yields( input_file_name );
+      
       // Final states
       _current_final_state = FindFinalState();
    
@@ -271,7 +271,7 @@ void Plotter::MakeYieldsHistograms( TString input_file_name )
    
       // K factors
       if ( APPLY_K_FACTORS ) _k_factor = calculate_K_factor();
-   
+
       // Final event weight
       _event_weight = (_lumi * 1000 * xsec * _k_factor * overallEventWeight) / gen_sum_weights;
    
@@ -735,11 +735,11 @@ float Plotter::calculate_K_factor()
 
    float k_factor = 1;
    
-   if ( _current_process == Settings::qqZZ )
+   if ( _current_process == Settings::qqZZ || _current_process == Settings::yqqZZ)
    {
       k_factor = KFactor_EW_qqZZ * KFactor_QCD_qqZZ_M; // As of Moriond2016
    }
-   else if ( _current_process == Settings::ggZZ )
+   else if ( _current_process == Settings::ggZZ || _current_process == Settings::yggZZ)
    {
       k_factor = KFactor_QCD_ggZZ_Nominal; // as of Moriond2016
    }
