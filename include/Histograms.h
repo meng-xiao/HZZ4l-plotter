@@ -116,8 +116,7 @@ private:
    //==========
    // 1D plots
    //==========
-   TH1F *histos_1D[num_of_1Dplot_names][num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes];
-   TH1F *histos_1D_y[num_of_1Dplot_names][num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes_yields];
+   TH1F *histos_1D[num_of_1Dplot_names][num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes_yields];
    
    // Z+X
    TH1F *histos_1D_ZX[num_of_1Dplot_names][num_of_final_states][num_of_categories];

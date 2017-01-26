@@ -330,8 +330,8 @@ Histograms::Histograms()
                // M4l
                //=============
                _histo_name = "M4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + "_" + _blinding;
-               _histo_labels = ";" + Variables::M4lMain().var_X_label + ";" + Variables::M4lMain().var_Y_label;     
-               histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max);
+               _histo_labels = ";" + Variables::M4lYields().var_X_label + ";" + Variables::M4lYields().var_Y_label;     
+               histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lYields().var_N_bin, Variables::M4lYields().var_min, Variables::M4lYields().var_max);
             }
          }
       }
@@ -346,10 +346,10 @@ Histograms::Histograms()
          // M4l
          //=============
          _histo_name = "M4l_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
-         histos_1D_ZX[Settings::M4lMain][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max);
+         histos_1D_ZX[Settings::M4lYields][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::M4lYields().var_N_bin, Variables::M4lYields().var_min, Variables::M4lYields().var_max);
          
          _histo_name = "M4l_ZX_shape_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
-         histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max);
+         histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::M4lYields().var_N_bin, Variables::M4lYields().var_min, Variables::M4lYields().var_max);
       }
    }
 }
@@ -615,7 +615,7 @@ void Histograms::FillDvsM4l( float M4l, float KD, int nCleanedJetsPt30, float D1
 //====================================================================================
 void Histograms::FillYields( float M4l, float weight, int fs, int cat, int rs, int proc )
 {
-   histos_1D_y[Settings::M4lMain][fs][cat][rs][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
+   histos_1D[Settings::M4lYields][fs][cat][rs][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
 }
 //====================================================================================
 
@@ -656,7 +656,7 @@ void Histograms::MakeZXShapeYields( int current_final_state, int current_categor
    if (current_final_state == Settings::fs2mu2e) return;
    
    M4lZX *ZXShape = new M4lZX();
-   histos_1D_ZX_shape[Settings::M4lMain][current_final_state][current_category]->Add(ZXShape->GetM4lZX(Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max, current_final_state, current_category));
+   histos_1D_ZX_shape[Settings::M4lYields][current_final_state][current_category]->Add(ZXShape->GetM4lZX(Variables::M4lYields().var_N_bin, Variables::M4lYields().var_min, Variables::M4lYields().var_max, current_final_state, current_category));
    
    ZXShape->~M4lZX();
    
@@ -1195,25 +1195,25 @@ void Histograms::FillInclusiveYields()
             //=============
             // M4l
             //=============
-            histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH120VBF]);
-            histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH120VH]);
-            histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH120other]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120VBF]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120VH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120other]);
             
-            histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH124VBF]);
-            histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH124VH]);
-            histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH124other]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124VBF]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124VH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124other]);
             
-            histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH125VBF]);
-            histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH125VH]);
-            histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH125other]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125VBF]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125VH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125other]);
             
-            histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH126VBF]);
-            histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH126VH]);
-            histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH126other]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126VBF]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126VH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126other]);
             
-            histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH130VBF]);
-            histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH130VH]);
-            histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::yH130other]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130VBF]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130VH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130other]);
       
          }
       }
@@ -1230,7 +1230,7 @@ void Histograms::FillInclusiveYields()
                //=============
                // M4l
                //=============
-               histos_1D_y[Settings::M4lMain][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::M4lYields][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][i_proc]);
             }
          }
       }
@@ -1247,7 +1247,7 @@ void Histograms::FillInclusiveYields()
                //=============
                // M4l
                //=============
-               histos_1D_y[Settings::M4lMain][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::M4lYields][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][i_proc]);
             }
          }
       }
@@ -1264,7 +1264,7 @@ void Histograms::FillInclusiveYields()
                //=============
                // M4l
                //=============
-               histos_1D_y[Settings::M4lMain][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]);
+               histos_1D[Settings::M4lYields][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][i_proc]);
             }
          }
       }
@@ -1278,7 +1278,7 @@ void Histograms::FillInclusiveYields()
          //=============
          // M4l
          //=============
-         histos_1D_ZX[Settings::M4lMain][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::M4lMain][i_fs][i_cat]);
+         histos_1D_ZX[Settings::M4lYields][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::M4lYields][i_fs][i_cat]);
       }
    }
 
@@ -1289,7 +1289,7 @@ void Histograms::FillInclusiveYields()
          //=============
          // M4l
          //=============
-         histos_1D_ZX[Settings::M4lMain][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::M4lMain][i_fs][i_cat]);
+         histos_1D_ZX[Settings::M4lYields][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::M4lYields][i_fs][i_cat]);
       }
    }
 
@@ -1741,13 +1741,13 @@ void Histograms::SaveYieldHistos( string file_name )
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat]->Write();
+         histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->Write();
 
          for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
          {
             for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
             {
-               histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]->Write();
+               histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][i_proc]->Write();
             }
          }
       }
@@ -1892,7 +1892,7 @@ void Histograms::DeleteYieldsHistos()
          //=============
          // M4l
          //=============
-         delete histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat];
+         delete histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat];
          
          for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
          {
@@ -1901,7 +1901,7 @@ void Histograms::DeleteYieldsHistos()
                //=============
                // M4l
                //=============
-               delete histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc];               
+               delete histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][i_proc];               
             }
          }
       }
@@ -2152,7 +2152,7 @@ void Histograms::GetYieldsHistos( TString file_name )
                // M4l
                //=============
                _histo_name = "M4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + "_" + _blinding;
-               histos_1D_y[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+               histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
             }
          }
       }
@@ -2167,7 +2167,7 @@ void Histograms::GetYieldsHistos( TString file_name )
          // M4l
          //=============
          _histo_name = "M4l_ZX_shape_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
-         histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
+         histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
       }
    }
 }
@@ -2669,7 +2669,7 @@ void Histograms::PrintYields()
       {
          for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
          {
-            cout << "Yield in full mass range for " << _s_process.at(i_proc) << ", final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << histos_1D_y[Settings::M4lMain][i_fs][i_cat][Settings::all_resonant][i_proc]->Integral() << endl;
+            cout << "Yield in full mass range for " << _s_process.at(i_proc) << ", final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->Integral() << endl;
             
          }
       
@@ -2682,7 +2682,7 @@ void Histograms::PrintYields()
       if( i_fs == Settings::fs2mu2e ) continue;
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-          cout << "Yield in full mass range for Z+X, final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat]->Integral() << endl;
+          cout << "Yield in full mass range for Z+X, final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->Integral() << endl;
       }
    }
 
@@ -2699,7 +2699,7 @@ void Histograms::PrintYields(float M4l_down, float M4l_up)
       {
          for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
          {
-            cout << "Yield in mass range [" << M4l_down << "," << M4l_up << "] for " << _s_process.at(i_proc) << ", final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << histos_1D_y[Settings::M4lMain][i_fs][i_cat][Settings::all_resonant][i_proc]->Integral(histos_1D_y[Settings::M4lMain][i_fs][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_down), histos_1D_y[Settings::M4lMain][i_fs][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_up) - 1) << endl;
+            cout << "Yield in mass range [" << M4l_down << "," << M4l_up << "] for " << _s_process.at(i_proc) << ", final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->Integral(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_down), histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_up) - 1) << endl;
             
          }
          
@@ -2712,7 +2712,7 @@ void Histograms::PrintYields(float M4l_down, float M4l_up)
       if( i_fs == Settings::fs2mu2e ) continue;
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         cout << "Yield in mass range [" << M4l_down << "," << M4l_up << "] for Z+X, final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat]->Integral(histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat]->FindBin(M4l_down), histos_1D_ZX_shape[Settings::M4lMain][i_fs][i_cat]->FindBin(M4l_up) - 1) << endl;
+         cout << "Yield in mass range [" << M4l_down << "," << M4l_up << "] for Z+X, final state " << _s_final_state.at(i_fs) << ", category " << _s_category.at(i_cat) << ": " << histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->Integral(histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->FindBin(M4l_down), histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->FindBin(M4l_up) - 1) << endl;
       }
    }
 }

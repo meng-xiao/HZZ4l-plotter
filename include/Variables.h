@@ -41,6 +41,23 @@ public:
       Int_t varLegPos = 33;
       Int_t rebinningDYTTbar = 1;
    };
+   
+   struct M4lYields
+   {
+      TString var_X_label = "";
+      TString var_Y_label = "";
+      TString var_cut_label = "";
+      Int_t var_N_bin = 930;
+      Float_t var_min = 70;
+      Float_t var_max = 1000;
+      Bool_t var_log_x = 0;
+      Bool_t var_log_y = 0;
+      Int_t restrict_count_var = 0;
+      Float_t var_min_factor = 0;
+      Int_t var_CMS_pos = 0;
+      Int_t varLegPos = 33;
+      Int_t rebinningDYTTbar = 1;
+   };
 
 
    struct M4lMainZoomed
