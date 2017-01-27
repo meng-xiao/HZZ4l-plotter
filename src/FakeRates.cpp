@@ -47,7 +47,7 @@ float FakeRates::GetFakeRate(float lep_Pt, float lep_eta, int lep_ID)
 
    if ( my_lep_ID == 11 )
    {
-      if ( fabs(lep_eta) < 1.449 )
+      if ( fabs(lep_eta) < 1.479 )
          return (g_FR_e_EB->GetY())[bin];
       else
          return (g_FR_e_EE->GetY())[bin];

@@ -26,9 +26,9 @@ int main( int argc, char *argv[] )
    
    bool yields = 0;
 
-   TString path = "MORIOND_2017/";
+   TString path = "Moriond_2017/";
    TString file_name = "/ZZ4lAnalysis.root";
-   TString file_name_FR = "/FakeRate_SS_Moriond336.root";
+   TString file_name_FR = "/FakeRate_SS_Moriond368.root";
    
    TString Data        = path + "Data" + file_name;
    TString ggH125      = path + "ggH125" + file_name;

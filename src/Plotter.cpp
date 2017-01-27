@@ -77,14 +77,12 @@ void Plotter::MakeHistograms( TString input_file_name )
 
    input_file = new TFile("./" + input_file_name);
    
-   cout << input_file_name << endl;
-   
    hCounters = (TH1F*)input_file->Get("ZZTree/Counters");
    n_gen_events = (Long64_t)hCounters->GetBinContent(1);
    gen_sum_weights = (Long64_t)hCounters->GetBinContent(40);
    
    input_tree = (TTree*)input_file->Get("ZZTree/candTree");
-   Init(input_tree);
+   Init( input_tree, input_file_name );
    
    if (fChain == 0) return;
 
@@ -131,10 +129,12 @@ void Plotter::MakeHistograms( TString input_file_name )
       _current_resonant_status = find_resonant_status();
    
       // K factors
-      if ( APPLY_K_FACTORS ) _k_factor = calculate_K_factor();
+      if ( APPLY_K_FACTORS ) _k_factor = calculate_K_factor(input_file_name);
    
       // Final event weight
       _event_weight = (_lumi * 1000 * xsec * _k_factor * overallEventWeight) / gen_sum_weights;
+      
+      
    
       // Calculate kinematic discriminants
       KD = p0plus_VAJHU / ( p0plus_VAJHU + bkg_VAMCFM*getDbkgkinConstant(Z1Flav*Z2Flav,ZZMass) );
@@ -216,14 +216,12 @@ void Plotter::MakeYieldsHistograms( TString input_file_name )
 
    input_file = new TFile("./" + input_file_name);
    
-   cout << input_file_name << endl;
-   
    hCounters = (TH1F*)input_file->Get("ZZTree/Counters");
    n_gen_events = (Long64_t)hCounters->GetBinContent(1);
    gen_sum_weights = (Long64_t)hCounters->GetBinContent(40);
    
    input_tree = (TTree*)input_file->Get("ZZTree/candTree");
-   Init(input_tree);
+   Init( input_tree, input_file_name );
    
    if (fChain == 0) return;
 
@@ -270,16 +268,17 @@ void Plotter::MakeYieldsHistograms( TString input_file_name )
       _current_resonant_status = find_resonant_status();
    
       // K factors
-      if ( APPLY_K_FACTORS ) _k_factor = calculate_K_factor();
+      if ( APPLY_K_FACTORS ) _k_factor = calculate_K_factor(input_file_name);
 
       // Final event weight
+      
       _event_weight = (_lumi * 1000 * xsec * _k_factor * overallEventWeight) / gen_sum_weights;
-   
    
       // Fill M4l histograms
        yields_histos->FillYields( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
    } // end for loop
    
+   cout << "[INFO] Histograms for " << input_file_name << " filled." << endl;
 }
 //=====================================================
 
@@ -342,13 +341,12 @@ void Plotter::SetBlinding(float blinding_lower_0, float blinding_upper_0, float 
 //===============================================================================
 void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_file_FR_name )
 {
-
+   
    FakeRates *FR = new FakeRates( input_file_FR_name );
 
    input_file_data = new TFile("./" + input_file_data_name);
-
    input_tree_data = (TTree*)input_file_data->Get("CRZLLTree/candTree");
-   Init(input_tree_data);
+   Init( input_tree_data, input_file_data_name );
 
    
    if (fChain == 0) return;
@@ -453,7 +451,9 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
    }
   
    // Print Z + X expected yields for inclusive category
-   cout << "[INFO] Control printout (numbers shoud be similar to yields from SS method)." << endl;
+   cout << endl;
+   cout << "========================================================================================" << endl;
+   cout << "[INFO] Control printout." << endl << "!!! Numbers shoud be identical to yields from SS method !!!" << endl;
    for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++ )
    {
       if ( MERGE_2E2MU && i_fs == Settings::fs2mu2e) continue;
@@ -464,6 +464,8 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
    }
   
    cout << "[INFO] Total = " << _expected_yield_SR[Settings::fs4l][Settings::inclusive] << endl;
+   cout << "========================================================================================" << endl;
+   cout << endl;
   
    // Smooth histograms
    if ( SMOOTH_ZX_FULL_RUN2_SS )
@@ -687,17 +689,17 @@ int Plotter::find_current_process_yields( TString input_file_name )
    if ( input_file_name.Contains("VBFH126") )        current_process = Settings::yH126VBF;
    if ( input_file_name.Contains("VBFH130") )        current_process = Settings::yH130VBF;
    
-   if ( input_file_name.Contains("WplusH120") )      current_process = Settings::yH120VH;
-   if ( input_file_name.Contains("WplusH124") )      current_process = Settings::yH124VH;
-   if ( input_file_name.Contains("WplusH125") )      current_process = Settings::yH125VH;
-   if ( input_file_name.Contains("WplusH126") )      current_process = Settings::yH126VH;
-   if ( input_file_name.Contains("WplusH130") )      current_process = Settings::yH130VH;
+   if ( input_file_name.Contains("WplusH120") )      current_process = Settings::yH120WH;
+   if ( input_file_name.Contains("WplusH124") )      current_process = Settings::yH124WH;
+   if ( input_file_name.Contains("WplusH125") )      current_process = Settings::yH125WH;
+   if ( input_file_name.Contains("WplusH126") )      current_process = Settings::yH126WH;
+   if ( input_file_name.Contains("WplusH130") )      current_process = Settings::yH130WH;
    
-   if ( input_file_name.Contains("WminusH120") )     current_process = Settings::yH120VH;
-   if ( input_file_name.Contains("WminusH124") )     current_process = Settings::yH124VH;
-   if ( input_file_name.Contains("WminusH125") )     current_process = Settings::yH125VH;
-   if ( input_file_name.Contains("WminusH126") )     current_process = Settings::yH126VH;
-   if ( input_file_name.Contains("WminusH130") )     current_process = Settings::yH130VH;
+   if ( input_file_name.Contains("WminusH120") )     current_process = Settings::yH120WH;
+   if ( input_file_name.Contains("WminusH124") )     current_process = Settings::yH124WH;
+   if ( input_file_name.Contains("WminusH125") )     current_process = Settings::yH125WH;
+   if ( input_file_name.Contains("WminusH126") )     current_process = Settings::yH126WH;
+   if ( input_file_name.Contains("WminusH130") )     current_process = Settings::yH130WH;
       
    if ( input_file_name.Contains("ZH120") )          current_process = Settings::yH120ZH;
    if ( input_file_name.Contains("ZH124") )          current_process = Settings::yH124ZH;
@@ -730,16 +732,16 @@ int Plotter::find_current_process_yields( TString input_file_name )
 
 
 //=================================
-float Plotter::calculate_K_factor()
+float Plotter::calculate_K_factor(TString input_file_name)
 {
 
    float k_factor = 1;
    
-   if ( _current_process == Settings::qqZZ || _current_process == Settings::yqqZZ)
+   if ( input_file_name.Contains("ZZTo4l"))
    {
       k_factor = KFactor_EW_qqZZ * KFactor_QCD_qqZZ_M; // As of Moriond2016
    }
-   else if ( _current_process == Settings::ggZZ || _current_process == Settings::yggZZ)
+   else if ( input_file_name.Contains("ggTo"))
    {
       k_factor = KFactor_QCD_ggZZ_Nominal; // as of Moriond2016
    }

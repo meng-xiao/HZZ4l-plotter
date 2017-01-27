@@ -69,7 +69,7 @@ public:
    void MakeHistogramsZX( TString, TString );
    void MakeM4lZX();
    void MakeYieldsM4lZX();
-   float calculate_K_factor();
+   float calculate_K_factor( TString );
    int FindFinalState();
    int FindFinalStateZX();
    int find_current_process( TString );

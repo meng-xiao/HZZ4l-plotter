@@ -9,10 +9,6 @@ using namespace std;
 M4lZX::M4lZX()
 {
    _n_entries = 1000000;//tried more entries, but it takes way too long to run
-    
-    _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_combined;
-    _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_combined;
-    _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_combined;
    
    f_4e_comb    = new TF1("f_4e_comb", "TMath::Landau(x, [0], [1])", 70, 3000);
    f_4mu_comb   = new TF1("f_4mu_comb","TMath::Landau(x, [0], [1])", 70, 3000);
