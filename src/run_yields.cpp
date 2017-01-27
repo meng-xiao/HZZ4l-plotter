@@ -77,7 +77,12 @@ int main( int argc, char *argv[] )
    
    Plotter *plotter = new Plotter(yields);
 
-/*
+   
+   
+//===============//
+// Produce plots //
+//===============//
+  
    plotter->MakeYieldsHistograms(ggH120);
    plotter->MakeYieldsHistograms(ggH124);
    plotter->MakeYieldsHistograms(ggH125);
@@ -127,7 +132,12 @@ int main( int argc, char *argv[] )
    plotter->FillInclusiveYields();
 
    plotter->SaveYields();
-*/   
+   
+   
+
+//==============//
+// Print Yields //
+//==============//
 
    plotter->GetYieldsHistos("Yields");
    plotter->PrintYields("Yields");

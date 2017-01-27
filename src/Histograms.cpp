@@ -276,6 +276,12 @@ Histograms::Histograms()
    _s_process.push_back("H126");
    _s_process.push_back("H130");
    
+   _s_process.push_back("H120ggH");
+   _s_process.push_back("H124ggH");
+   _s_process.push_back("H125ggH");
+   _s_process.push_back("H126ggH");
+   _s_process.push_back("H130ggH");
+   
    _s_process.push_back("H120VBF");
    _s_process.push_back("H124VBF");
    _s_process.push_back("H125VBF");
@@ -288,11 +294,17 @@ Histograms::Histograms()
    _s_process.push_back("H126VH");
    _s_process.push_back("H130VH");
    
-   _s_process.push_back("H120other");
-   _s_process.push_back("H124other");
-   _s_process.push_back("H125other");
-   _s_process.push_back("H126other");
-   _s_process.push_back("H130other");
+   _s_process.push_back("H120ZH");
+   _s_process.push_back("H124ZH");
+   _s_process.push_back("H125ZH");
+   _s_process.push_back("H126ZH");
+   _s_process.push_back("H130ZH");
+   
+   _s_process.push_back("H120ttH");
+   _s_process.push_back("H124ttH");
+   _s_process.push_back("H125ttH");
+   _s_process.push_back("H126ttH");
+   _s_process.push_back("H130ttH");
       
    _s_process.push_back("qqZZ");
    _s_process.push_back("ggZZ");
@@ -1195,26 +1207,35 @@ void Histograms::FillInclusiveYields()
             //=============
             // M4l
             //=============
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ggH]);
             histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120VBF]);
             histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120VH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120other]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ZH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ttH]);
             
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124VBF]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124VH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124other]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ggH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120VBF]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120VH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ZH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ttH]);
             
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125VBF]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125VH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125other]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ggH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120VBF]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120VH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ZH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ttH]);
             
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126VBF]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126VH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126other]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ggH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120VBF]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120VH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ZH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ttH]);
             
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130VBF]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130VH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130other]);
-      
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ggH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120VBF]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120VH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ZH]);
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ttH]);
          }
       }
    }
