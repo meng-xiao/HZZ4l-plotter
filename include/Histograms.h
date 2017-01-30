@@ -141,8 +141,5 @@ private:
    
    // MC
    TH2F *histos_2DError[num_of_2DErrorplot_names][num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes];
-
-   
 };
-
 #endif

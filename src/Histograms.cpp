@@ -262,7 +262,6 @@ Histograms::Histograms( string blinding )
 
 
 
-
 //Constructor
 //======================
 Histograms::Histograms()
@@ -369,7 +368,6 @@ Histograms::Histograms()
 
 
 
-
 //=======================
 Histograms::~Histograms()
 {
@@ -377,9 +375,9 @@ Histograms::~Histograms()
 //=======================
 
 
-//=============
+
+//====
 // M4l
-//=============
 //====================================================================================
 void Histograms::FillM4l( float M4l, float weight, int fs, int cat, int rs, int proc )
 {
@@ -388,8 +386,6 @@ void Histograms::FillM4l( float M4l, float weight, int fs, int cat, int rs, int 
    histos_1D[Settings::M4lMainHighMass][fs][cat][rs][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
 }
 //====================================================================================
-
-
 
 //====================================================================
 void Histograms::FillM4lZX( float M4l, float weight, int fs, int cat )
@@ -400,55 +396,76 @@ void Histograms::FillM4lZX( float M4l, float weight, int fs, int cat )
 }
 //====================================================================
 
-//=============
+
+
+//====
 // MZ1
-//=============
 //====================================================================================
 void Histograms::FillMZ1( float M4l, float MZ1, float weight, int fs, int cat, int rs, int proc )
 {
    histos_1D[Settings::MZ1][fs][cat][rs][proc]->Fill(MZ1, (proc == Settings::Data) ? 1. : weight);
-   if( M4l >= Variables::MZ1_M4L118130().cut_d && M4l <= Variables::MZ1_M4L118130().cut_u) histos_1D[Settings::MZ1_M4L118130][fs][cat][rs][proc]->Fill(MZ1, (proc == Settings::Data) ? 1. : weight);
+   
+   if( M4l >= Variables::MZ1_M4L118130().cut_d && M4l <= Variables::MZ1_M4L118130().cut_u)
+   {
+      histos_1D[Settings::MZ1_M4L118130][fs][cat][rs][proc]->Fill(MZ1, (proc == Settings::Data) ? 1. : weight);
+   }
 }
 //====================================================================================
-
 
 //====================================================================
 void Histograms::FillMZ1ZX( float M4l, float MZ1, float weight, int fs, int cat )
 {
    histos_1D_ZX[Settings::MZ1][fs][cat]->Fill(MZ1, weight);
-   if( M4l >= Variables::MZ1_M4L118130().cut_d && M4l <= Variables::MZ1_M4L118130().cut_u) histos_1D_ZX[Settings::MZ1_M4L118130][fs][cat]->Fill(MZ1, weight);
+   
+   if( M4l >= Variables::MZ1_M4L118130().cut_d && M4l <= Variables::MZ1_M4L118130().cut_u)
+   {
+      histos_1D_ZX[Settings::MZ1_M4L118130][fs][cat]->Fill(MZ1, weight);
+   }
 }
 //====================================================================
 
 
-//=============
+
+//====
 // MZ2
-//=============
-//====================================================================================
+//===============================================================================================
 void Histograms::FillMZ2( float M4l, float MZ2, float weight, int fs, int cat, int rs, int proc )
 {
    histos_1D[Settings::MZ2][fs][cat][rs][proc]->Fill(MZ2, (proc == Settings::Data) ? 1. : weight);
-   if( M4l >= Variables::MZ2_M4L118130().cut_d && M4l <= Variables::MZ2_M4L118130().cut_u) histos_1D[Settings::MZ2_M4L118130][fs][cat][rs][proc]->Fill(MZ2, (proc == Settings::Data) ? 1. : weight);
+   
+   if( M4l >= Variables::MZ2_M4L118130().cut_d && M4l <= Variables::MZ2_M4L118130().cut_u)
+   {
+      histos_1D[Settings::MZ2_M4L118130][fs][cat][rs][proc]->Fill(MZ2, (proc == Settings::Data) ? 1. : weight);
+   }
 }
-//====================================================================================
+//===============================================================================================
 
-//====================================================================
+//===============================================================================
 void Histograms::FillMZ2ZX( float M4l, float MZ2, float weight, int fs, int cat )
 {
    histos_1D_ZX[Settings::MZ2][fs][cat]->Fill(MZ2, weight);
-   if( M4l >= Variables::MZ2_M4L118130().cut_d && M4l <= Variables::MZ2_M4L118130().cut_u) histos_1D_ZX[Settings::MZ2_M4L118130][fs][cat]->Fill(MZ2, weight);
+   
+   if( M4l >= Variables::MZ2_M4L118130().cut_d && M4l <= Variables::MZ2_M4L118130().cut_u)
+   {
+      histos_1D_ZX[Settings::MZ2_M4L118130][fs][cat]->Fill(MZ2, weight);
+   }
 }
-//====================================================================
+//===============================================================================
 
 
-//=============
+
+//===
 // KD
-//=============
+//===
 //====================================================================================
 void Histograms::FillKD( float M4l, float KD, float weight, int fs, int cat, int rs, int proc )
 {
    histos_1D[Settings::KD][fs][cat][rs][proc]->Fill(KD, (proc == Settings::Data) ? 1. : weight);
-   if( M4l >= Variables::KD_M4L118130().cut_d && M4l <= Variables::KD_M4L118130().cut_u) histos_1D[Settings::KD_M4L118130][fs][cat][rs][proc]->Fill(KD, (proc == Settings::Data) ? 1. : weight);
+   
+   if( M4l >= Variables::KD_M4L118130().cut_d && M4l <= Variables::KD_M4L118130().cut_u)
+   {
+      histos_1D[Settings::KD_M4L118130][fs][cat][rs][proc]->Fill(KD, (proc == Settings::Data) ? 1. : weight);
+   }
 }
 //====================================================================================
 
@@ -456,20 +473,27 @@ void Histograms::FillKD( float M4l, float KD, float weight, int fs, int cat, int
 void Histograms::FillKDZX( float M4l, float KD, float weight, int fs, int cat )
 {
    histos_1D_ZX[Settings::KD][fs][cat]->Fill(KD, weight);
-   if( M4l >= Variables::KD_M4L118130().cut_d && M4l <= Variables::KD_M4L118130().cut_u) histos_1D_ZX[Settings::KD_M4L118130][fs][cat]->Fill(KD, weight);
+   
+   if( M4l >= Variables::KD_M4L118130().cut_d && M4l <= Variables::KD_M4L118130().cut_u)
+   {
+      histos_1D_ZX[Settings::KD_M4L118130][fs][cat]->Fill(KD, weight);
+   }
 }
 //====================================================================
 
 
 
-//=============
+//======
 // D1jet
-//=============
 //====================================================================================
 void Histograms::FillD1jet( float M4l, float D1jet, float weight, int fs, int cat, int rs, int proc )
 {
    histos_1D[Settings::D1jet][fs][cat][rs][proc]->Fill(D1jet, (proc == Settings::Data) ? 1. : weight);
-   if( M4l >= Variables::D1jet_M4L118130().cut_d && M4l <= Variables::D1jet_M4L118130().cut_u) histos_1D[Settings::D1jet_M4L118130][fs][cat][rs][proc]->Fill(D1jet, (proc == Settings::Data) ? 1. : weight);
+   
+   if( M4l >= Variables::D1jet_M4L118130().cut_d && M4l <= Variables::D1jet_M4L118130().cut_u)
+   {
+      histos_1D[Settings::D1jet_M4L118130][fs][cat][rs][proc]->Fill(D1jet, (proc == Settings::Data) ? 1. : weight);
+   }
 }
 //====================================================================================
 
@@ -477,20 +501,27 @@ void Histograms::FillD1jet( float M4l, float D1jet, float weight, int fs, int ca
 void Histograms::FillD1jetZX( float M4l, float D1jet, float weight, int fs, int cat )
 {
    histos_1D_ZX[Settings::D1jet][fs][cat]->Fill(D1jet, weight);
-   if( M4l >= Variables::D1jet_M4L118130().cut_d && M4l <= Variables::D1jet_M4L118130().cut_u) histos_1D_ZX[Settings::D1jet_M4L118130][fs][cat]->Fill(D1jet, weight);
+   
+   if( M4l >= Variables::D1jet_M4L118130().cut_d && M4l <= Variables::D1jet_M4L118130().cut_u)
+   {
+      histos_1D_ZX[Settings::D1jet_M4L118130][fs][cat]->Fill(D1jet, weight);
+   }
 }
 //====================================================================
 
 
 
-//=============
+//======
 // D2jet
-//=============
 //====================================================================================
 void Histograms::FillD2jet( float M4l, float D2jet, float weight, int fs, int cat, int rs, int proc )
 {
    histos_1D[Settings::D2jet][fs][cat][rs][proc]->Fill(D2jet, (proc == Settings::Data) ? 1. : weight);
-   if( M4l >= Variables::D2jet_M4L118130().cut_d && M4l <= Variables::D2jet_M4L118130().cut_u) histos_1D[Settings::D2jet_M4L118130][fs][cat][rs][proc]->Fill(D2jet, (proc == Settings::Data) ? 1. : weight);
+   
+   if( M4l >= Variables::D2jet_M4L118130().cut_d && M4l <= Variables::D2jet_M4L118130().cut_u)
+   {
+      histos_1D[Settings::D2jet_M4L118130][fs][cat][rs][proc]->Fill(D2jet, (proc == Settings::Data) ? 1. : weight);
+   }
 }
 //====================================================================================
 
@@ -498,19 +529,27 @@ void Histograms::FillD2jet( float M4l, float D2jet, float weight, int fs, int ca
 void Histograms::FillD2jetZX( float M4l, float D2jet, float weight, int fs, int cat )
 {
    histos_1D_ZX[Settings::D2jet][fs][cat]->Fill(D2jet, weight);
-   if( M4l >= Variables::D2jet_M4L118130().cut_d && M4l <= Variables::D2jet_M4L118130().cut_u) histos_1D_ZX[Settings::D2jet_M4L118130][fs][cat]->Fill(D2jet, weight);
+   
+   if( M4l >= Variables::D2jet_M4L118130().cut_d && M4l <= Variables::D2jet_M4L118130().cut_u)
+   {
+      histos_1D_ZX[Settings::D2jet_M4L118130][fs][cat]->Fill(D2jet, weight);
+   }
 }
 //====================================================================
 
 
-//=============
+
+//=====
 // DWH
-//=============
 //====================================================================================
 void Histograms::FillDWH( float M4l, float DWH, float weight, int fs, int cat, int rs, int proc )
 {
    histos_1D[Settings::DWH][fs][cat][rs][proc]->Fill(DWH, (proc == Settings::Data) ? 1. : weight);
-   if( M4l >= Variables::DWH_M4L118130().cut_d && M4l <= Variables::DWH_M4L118130().cut_u) histos_1D[Settings::DWH_M4L118130][fs][cat][rs][proc]->Fill(DWH, (proc == Settings::Data) ? 1. : weight);
+   
+   if( M4l >= Variables::DWH_M4L118130().cut_d && M4l <= Variables::DWH_M4L118130().cut_u)
+   {
+      histos_1D[Settings::DWH_M4L118130][fs][cat][rs][proc]->Fill(DWH, (proc == Settings::Data) ? 1. : weight);
+   }
 }
 //====================================================================================
 
@@ -518,47 +557,60 @@ void Histograms::FillDWH( float M4l, float DWH, float weight, int fs, int cat, i
 void Histograms::FillDWHZX( float M4l, float DWH, float weight, int fs, int cat )
 {
    histos_1D_ZX[Settings::DWH][fs][cat]->Fill(DWH, weight);
-   if( M4l >= Variables::DWH_M4L118130().cut_d && M4l <= Variables::DWH_M4L118130().cut_u) histos_1D_ZX[Settings::DWH_M4L118130][fs][cat]->Fill(DWH, weight);
+   
+   if( M4l >= Variables::DWH_M4L118130().cut_d && M4l <= Variables::DWH_M4L118130().cut_u)
+   {
+      histos_1D_ZX[Settings::DWH_M4L118130][fs][cat]->Fill(DWH, weight);
+   }
 }
 //====================================================================
 
-//=============
+
+
+//====
 // DZH
-//=============
 //====================================================================================
 void Histograms::FillDZH( float M4l, float DZH, float weight, int fs, int cat, int rs, int proc )
 {
    histos_1D[Settings::DZH][fs][cat][rs][proc]->Fill(DZH, (proc == Settings::Data) ? 1. : weight);
-   if( M4l >= Variables::DZH_M4L118130().cut_d && M4l <= Variables::DZH_M4L118130().cut_u) histos_1D[Settings::DZH_M4L118130][fs][cat][rs][proc]->Fill(DZH, (proc == Settings::Data) ? 1. : weight);
+   
+   if( M4l >= Variables::DZH_M4L118130().cut_d && M4l <= Variables::DZH_M4L118130().cut_u)
+   {
+      histos_1D[Settings::DZH_M4L118130][fs][cat][rs][proc]->Fill(DZH, (proc == Settings::Data) ? 1. : weight);
+   }
 }
 //====================================================================================
-
 
 //====================================================================
 void Histograms::FillDZHZX( float M4l, float DZH, float weight, int fs, int cat )
 {
    histos_1D_ZX[Settings::DZH][fs][cat]->Fill(DZH, weight);
-   if( M4l >= Variables::DZH_M4L118130().cut_d && M4l <= Variables::DZH_M4L118130().cut_u) histos_1D_ZX[Settings::DZH_M4L118130][fs][cat]->Fill(DZH, weight);
+   
+   if( M4l >= Variables::DZH_M4L118130().cut_d && M4l <= Variables::DZH_M4L118130().cut_u)
+   {
+      histos_1D_ZX[Settings::DZH_M4L118130][fs][cat]->Fill(DZH, weight);
+   }
 }
 //====================================================================
 
 
 
-//=============
+//=========
 // MZ1vsMZ2
-//=============
 //====================================================================================
 void Histograms::FillMZ1vsMZ2( float M4l, float MZ1, float MZ2, float weight, int fs, int cat, int rs, int proc )
 {
    histos_2D[Settings::MZ1vsMZ2][fs][cat][rs][proc]->Fill(MZ1, MZ2, (proc == Settings::Data) ? 1. : weight);
-   if( M4l >= Variables::MZ1vsMZ2_M4L118130().cut_d && M4l <= Variables::MZ1vsMZ2_M4L118130().cut_u) histos_2D[Settings::MZ1vsMZ2_M4L118130][fs][cat][rs][proc]->Fill(MZ1, MZ2, (proc == Settings::Data) ? 1. : weight);
    
+   if( M4l >= Variables::MZ1vsMZ2_M4L118130().cut_d && M4l <= Variables::MZ1vsMZ2_M4L118130().cut_u)
+   {
+      histos_2D[Settings::MZ1vsMZ2_M4L118130][fs][cat][rs][proc]->Fill(MZ1, MZ2, (proc == Settings::Data) ? 1. : weight);
+   }
 }
 //====================================================================================
 
-//=============
-// Fill vectors
-//=============
+
+
 //====================================================================================
 void Histograms::FillVectors( float M4l, float ZZMassErrCorr, float KD, int nCleanedJetsPt30, float D1jet, float D2jet, float DWH, float DZH, int fs, int cat)
 {
@@ -606,9 +658,8 @@ void Histograms::FillVectors( float M4l, float ZZMassErrCorr, float KD, int nCle
 }
 //====================================================================================
 
-//=============
-// KDvsM4l
-//=============
+
+
 //====================================================================================
 void Histograms::FillDvsM4l( float M4l, float KD, int nCleanedJetsPt30, float D1jet, float D2jet, float DWH, float DZH, float weight, int fs, int cat, int rs, int proc )
 {
@@ -620,9 +671,10 @@ void Histograms::FillDvsM4l( float M4l, float KD, int nCleanedJetsPt30, float D1
    if(nCleanedJetsPt30>=2) histos_2DError[Settings::D2jetvsM4lZoomed][fs][cat][rs][proc]->Fill(M4l, D2jet, (proc == Settings::Data) ? 1. : weight);
    if(nCleanedJetsPt30>=2) histos_2DError[Settings::DWHvsM4lZoomed][fs][cat][rs][proc]  ->Fill(M4l, DWH, (proc == Settings::Data) ? 1. : weight);
    if(nCleanedJetsPt30>=2) histos_2DError[Settings::DZHvsM4lZoomed][fs][cat][rs][proc]  ->Fill(M4l, DZH, (proc == Settings::Data) ? 1. : weight);
-   
 }
 //====================================================================================
+
+
 
 //====================================================================================
 void Histograms::FillYields( float M4l, float weight, int fs, int cat, int rs, int proc )
@@ -630,9 +682,6 @@ void Histograms::FillYields( float M4l, float weight, int fs, int cat, int rs, i
    histos_1D[Settings::M4lYields][fs][cat][rs][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
 }
 //====================================================================================
-
-
-
 
 
 
@@ -662,7 +711,9 @@ void Histograms::MakeZXShape( int current_final_state, int current_category)
 }
 //=======================================================================================
 
-//=======================================================================================
+
+
+//================================================================================
 void Histograms::MakeZXShapeYields( int current_final_state, int current_category)
 {
    if (current_final_state == Settings::fs2mu2e) return;
@@ -670,11 +721,9 @@ void Histograms::MakeZXShapeYields( int current_final_state, int current_categor
    M4lZX *ZXShape = new M4lZX();
    histos_1D_ZX_shape[Settings::M4lYields][current_final_state][current_category]->Add(ZXShape->GetM4lZX(Variables::M4lYields().var_N_bin, Variables::M4lYields().var_min, Variables::M4lYields().var_max, current_final_state, current_category));
    
-   ZXShape->~M4lZX();
-   
-   
+   ZXShape->~M4lZX();   
 }
-//=======================================================================================
+//================================================================================
 
 
 
@@ -808,8 +857,6 @@ void Histograms::FillInclusive()
             histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125VBF]);
             histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125VH]);
             histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125other]);
-            
-
          }
       }
    }
@@ -879,7 +926,6 @@ void Histograms::FillInclusive()
                histos_2DError[Settings::DZHvsM4lZoomed][num_of_final_states - 1][i_cat][i_rs][i_proc]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
 
             }
-
          }
       }
    }
@@ -947,9 +993,7 @@ void Histograms::FillInclusive()
                histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
                histos_2DError[Settings::DWHvsM4lZoomed][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
                histos_2DError[Settings::DZHvsM4lZoomed][i_fs][num_of_categories - 1][i_rs][i_proc]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
-
             }
-
          }
       }
    }
@@ -1017,8 +1061,6 @@ void Histograms::FillInclusive()
                histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
                histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
                histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][num_of_resonant_statuses - 1][i_proc]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
-
-
             }
          }
       }
@@ -1103,7 +1145,6 @@ void Histograms::FillInclusive()
          vector_Y[Settings::DZHvsM4lZoomed][num_of_final_states - 1][i_cat].insert(vector_Y[Settings::DZHvsM4lZoomed][num_of_final_states - 1][i_cat].end(),vector_Y[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),vector_Y[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
          vector_EX[Settings::DZHvsM4lZoomed][num_of_final_states - 1][i_cat].insert(vector_EX[Settings::DZHvsM4lZoomed][num_of_final_states - 1][i_cat].end(),vector_EX[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),vector_EX[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
          vector_EY[Settings::DZHvsM4lZoomed][num_of_final_states - 1][i_cat].insert(vector_EY[Settings::DZHvsM4lZoomed][num_of_final_states - 1][i_cat].end(),vector_EY[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),vector_EY[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
-         
       }
    }
 
@@ -1185,10 +1226,8 @@ void Histograms::FillInclusive()
          vector_Y[Settings::DZHvsM4lZoomed][i_fs][num_of_categories - 1].insert(vector_Y[Settings::DZHvsM4lZoomed][i_fs][num_of_categories - 1].end(),vector_Y[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),vector_Y[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
          vector_EX[Settings::DZHvsM4lZoomed][i_fs][num_of_categories - 1].insert(vector_EX[Settings::DZHvsM4lZoomed][i_fs][num_of_categories - 1].end(),vector_EX[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),vector_EX[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
          vector_EY[Settings::DZHvsM4lZoomed][i_fs][num_of_categories - 1].insert(vector_EY[Settings::DZHvsM4lZoomed][i_fs][num_of_categories - 1].end(),vector_EY[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),vector_EY[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
-         
       }
    }
-
 }
 //==============================
 
@@ -1316,7 +1355,6 @@ void Histograms::FillInclusiveYields()
 
 }
 //==============================
-
 
 
 
@@ -1513,7 +1551,6 @@ void Histograms::SmoothHistograms()
             histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat]->Smooth(1);
             histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat]->Scale( integral / histos_1D_ZX[Settings::DZH_M4L118130][i_fs][i_cat]->Integral() );
          }
-
       }
    }
 }
@@ -1735,12 +1772,11 @@ void Histograms::SaveHistos( string file_name )
                histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]->Write();
                histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]->Write();
                histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]->Write();
-
-
             }
          }
       }
    }
+   
    fOutHistos->Close();
    delete fOutHistos;
 }
@@ -1783,8 +1819,7 @@ void Histograms::SaveYieldHistos( string file_name )
 
 
 
-
-//=============================================
+//=============================
 void Histograms::DeleteHistos()
 {
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
@@ -1899,11 +1934,11 @@ void Histograms::DeleteHistos()
    }
 
 }
-//=============================================
+//=============================
 
 
 
-//=============================================
+//===================================
 void Histograms::DeleteYieldsHistos()
 {
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
@@ -1927,9 +1962,8 @@ void Histograms::DeleteYieldsHistos()
          }
       }
    }
-
 }
-//=============================================
+//===================================
 
 
 
@@ -2427,6 +2461,8 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
 }
 //=====================================================================================
 
+
+
 //=====================================================================================
 void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString folder )
 {
@@ -2527,6 +2563,7 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
 //=====================================================================================
 
 
+
 //========================================================================================================
 void Histograms::Plot2D_single( TString filename, TString variable_name, TString folder, int cat )
 {
@@ -2602,6 +2639,8 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
    
 }
 //========================================================================================================
+
+
 
 //========================================================================================================
 void Histograms::Plot2DError_single( TString filename, TString variable_name, TString folder, int cat )
@@ -2733,7 +2772,7 @@ void Histograms::PrintYields()
 
 
 
-//========================================================================================================
+//========================================================
 void Histograms::PrintYields(float M4l_down, float M4l_up)
 {
    cout << std::setprecision(2) << fixed;
@@ -2854,7 +2893,7 @@ void Histograms::PrintYields(float M4l_down, float M4l_up)
    
    cout << "\\hline" << endl; 
 }
-//========================================================================================================
+//========================================================
 
 
 
@@ -3050,7 +3089,7 @@ bool Histograms::GetVarLogY ( TString variable_name )
 
 
 
-//========================================================================================
+//=========================================================================================================
 TLegend* Histograms::CreateLegend( string position, TH1F *data, TH1F *h125,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX )
 {
    TLegend *leg;
@@ -3068,9 +3107,11 @@ TLegend* Histograms::CreateLegend( string position, TH1F *data, TH1F *h125,TH1F 
    
    return leg;
 }
-//========================================================================================
+//=========================================================================================================
 
-//========================================================================================
+
+
+//==============================================================================================================================
 TLegend* Histograms::CreateLegendVBF( string position, TH1F *data, TH1F *h125VBF, TH1F *h125other,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX )
 {
    TLegend *leg;
@@ -3089,9 +3130,11 @@ TLegend* Histograms::CreateLegendVBF( string position, TH1F *data, TH1F *h125VBF
    
    return leg;
 }
-//========================================================================================
+//==============================================================================================================================
 
-//========================================================================================
+
+
+//==============================================================================================================================
 TLegend* Histograms::CreateLegendVH( string position, TH1F *data, TH1F *h125VH, TH1F *h125other,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX )
 {
    TLegend *leg;
@@ -3110,9 +3153,11 @@ TLegend* Histograms::CreateLegendVH( string position, TH1F *data, TH1F *h125VH, 
    
    return leg;
 }
-//========================================================================================
+//==============================================================================================================================
 
-//========================================================================================
+
+
+//==========================================================================================
 TLegend* Histograms::Create2DLegend( string position, TH2F *fs4e, TH2F *fs4mu,TH2F *fs2e2mu)
 {
    TLegend *leg;
@@ -3127,12 +3172,13 @@ TLegend* Histograms::Create2DLegend( string position, TH2F *fs4e, TH2F *fs4mu,TH
    leg->AddEntry(fs2e2mu,"2e2mu","p");
    leg->Draw();
 
-   
    return leg;
 }
-//========================================================================================
+//==========================================================================================
 
-//========================================================================================
+
+
+//=======================================================================================================================
 TLegend* Histograms::Create2DErrorLegend( string position, TGraphErrors *fs4e, TGraphErrors *fs4mu,TGraphErrors *fs2e2mu)
 {
    TLegend *leg;
@@ -3150,7 +3196,8 @@ TLegend* Histograms::Create2DErrorLegend( string position, TGraphErrors *fs4e, T
    
    return leg;
 }
-//========================================================================================
+//=======================================================================================================================
+
 
 
 //================================================
@@ -3193,7 +3240,9 @@ void Histograms::DrawLogX( TCanvas *c, int i_cat )
 }
 //================================================
 
-//==============================================
+
+
+//=======================================
 void Histograms::MakeCOLZGrey(bool shift)
 {
    int col = 1;
@@ -3203,7 +3252,9 @@ void Histograms::MakeCOLZGrey(bool shift)
    Double_t red[NRGBs]   = { 1., 0.5 };
    Double_t green[NRGBs] = { 1., 0.5 };
    Double_t blue[NRGBs]  = { 1., 0.5 };
-   if(shift){
+   
+   if(shift)
+   {
       for(int i=0; i<NRGBs; i++){
          red  [i] -= 0.10;
          green[i] -= 0.10;
@@ -3213,4 +3264,4 @@ void Histograms::MakeCOLZGrey(bool shift)
    TColor::CreateGradientColorTable(NRGBs, stops, red, green, blue, NCont);
    gStyle->SetNumberContours(NCont);
 }
-//==============================================
+//=======================================

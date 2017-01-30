@@ -13,9 +13,9 @@ class M4lZX
 {
 
 public:
-	
-	M4lZX();
-	~M4lZX();
+   
+   M4lZX();
+   ~M4lZX();
    TH1F *GetM4lZX( int, int, int, int, int);
    void RenormalizeZX( int, vector< vector <float> >, TH1F* , TH1F*, TH1F* );
    void SetNormalization ( int );
@@ -32,7 +32,5 @@ private:
    
    int _n_entries;
    float _norm_4mu, _norm_4e, _norm_2e2mu, _norm_ZX_full_SR_4e, _norm_ZX_full_SR_4mu, _norm_ZX_full_SR_2e2mu;
-   
 };
-
 #endif

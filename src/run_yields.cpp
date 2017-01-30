@@ -14,7 +14,7 @@
 #include "TStyle.h"
 
 // My own files
-#include "Plotter.h"
+#include "Yields.h"
 #include "Variables.h"
 
 using namespace std;
@@ -26,7 +26,6 @@ int main( int argc, char *argv[] )
 
    TString path = "Moriond_2017/";
    TString file_name = "/ZZ4lAnalysis.root";
-   bool yields = 1;
    
    // Signal
    TString ggH120      = path + "ggH120" + file_name;
@@ -75,69 +74,67 @@ int main( int argc, char *argv[] )
    TString ggZZ2e2tau  = path + "ggTo2e2tau" + file_name;
    TString ggZZ2mu2tau = path + "ggTo2mu2tau" + file_name;
    
-   Plotter *plotter = new Plotter(yields);
+   Yields *yields = new Yields();
    
-//===============//
-// Produce plots //
-//===============//
-  
+//===============
+// Produce plots 
+//===============
+/* 
+   yields->MakeHistograms(ggH120);
+   yields->MakeHistograms(ggH124);
+   yields->MakeHistograms(ggH125);
+   yields->MakeHistograms(ggH126);
+   yields->MakeHistograms(ggH130);
+   
+   yields->MakeHistograms(VBFH120);
+   yields->MakeHistograms(VBFH124);
+   yields->MakeHistograms(VBFH125);
+   yields->MakeHistograms(VBFH126);
+   yields->MakeHistograms(VBFH130);
+   
+   yields->MakeHistograms(ZH120);
+   yields->MakeHistograms(ZH124);
+   yields->MakeHistograms(ZH125);
+   yields->MakeHistograms(ZH126);
+   yields->MakeHistograms(ZH130);
+   
+   yields->MakeHistograms(WpH120);
+   yields->MakeHistograms(WpH124);
+   yields->MakeHistograms(WpH125);
+   yields->MakeHistograms(WpH126);
+   yields->MakeHistograms(WpH130);
+   
+   yields->MakeHistograms(WmH120);
+//   yields->MakeHistograms(WmH124);
+   yields->MakeHistograms(WmH125);
+   yields->MakeHistograms(WmH126);
+   yields->MakeHistograms(WmH130);
+   
+   yields->MakeHistograms(ttH120);
+//   yields->MakeHistograms(ttH124);
+   yields->MakeHistograms(ttH125);
+   yields->MakeHistograms(ttH126);
+   yields->MakeHistograms(ttH130);
+   
+   yields->MakeHistograms(ZZTo4l);
+   yields->MakeHistograms(ggZZ4e);
+   yields->MakeHistograms(ggZZ4mu);
+   yields->MakeHistograms(ggZZ4tau);
+   yields->MakeHistograms(ggZZ2e2mu);
+   yields->MakeHistograms(ggZZ2e2tau);
+   yields->MakeHistograms(ggZZ2mu2tau);
 
-   plotter->MakeYieldsHistograms(ggH120);
-   plotter->MakeYieldsHistograms(ggH124);
-   plotter->MakeYieldsHistograms(ggH125);
-   plotter->MakeYieldsHistograms(ggH126);
-   plotter->MakeYieldsHistograms(ggH130);
+   yields->MakeM4lZX();
    
-   plotter->MakeYieldsHistograms(VBFH120);
-   plotter->MakeYieldsHistograms(VBFH124);
-   plotter->MakeYieldsHistograms(VBFH125);
-   plotter->MakeYieldsHistograms(VBFH126);
-   plotter->MakeYieldsHistograms(VBFH130);
-   
-   plotter->MakeYieldsHistograms(ZH120);
-   plotter->MakeYieldsHistograms(ZH124);
-   plotter->MakeYieldsHistograms(ZH125);
-   plotter->MakeYieldsHistograms(ZH126);
-   plotter->MakeYieldsHistograms(ZH130);
-   
-   plotter->MakeYieldsHistograms(WpH120);
-   plotter->MakeYieldsHistograms(WpH124);
-   plotter->MakeYieldsHistograms(WpH125);
-   plotter->MakeYieldsHistograms(WpH126);
-   plotter->MakeYieldsHistograms(WpH130);
-   
-   plotter->MakeYieldsHistograms(WmH120);
-//   plotter->MakeYieldsHistograms(WmH124);
-   plotter->MakeYieldsHistograms(WmH125);
-   plotter->MakeYieldsHistograms(WmH126);
-   plotter->MakeYieldsHistograms(WmH130);
-   
-   plotter->MakeYieldsHistograms(ttH120);
-//   plotter->MakeYieldsHistograms(ttH124);
-   plotter->MakeYieldsHistograms(ttH125);
-   plotter->MakeYieldsHistograms(ttH126);
-   plotter->MakeYieldsHistograms(ttH130);
-   
-   plotter->MakeYieldsHistograms(ZZTo4l);
-   plotter->MakeYieldsHistograms(ggZZ4e);
-   plotter->MakeYieldsHistograms(ggZZ4mu);
-   plotter->MakeYieldsHistograms(ggZZ4tau);
-   plotter->MakeYieldsHistograms(ggZZ2e2mu);
-   plotter->MakeYieldsHistograms(ggZZ2e2tau);
-   plotter->MakeYieldsHistograms(ggZZ2mu2tau);
+   yields->FillInclusive();
 
-   plotter->MakeYieldsM4lZX();
-   
-   plotter->FillInclusiveYields();
-
-   plotter->SaveYields();
-
-//==============//
-// Print Yields //
-//==============//
+   yields->Save();
+*/
+//==============
+// Print Yields 
+//==============
  
-
-   plotter->GetYieldsHistos("Yields");
-   plotter->PrintYields("Yields");
-   plotter->PrintYields("Yields", 118., 130.);
+   yields->GetHistos("Yields");
+   yields->Print("Yields");
+   yields->Print("Yields", 118., 130.);
 }

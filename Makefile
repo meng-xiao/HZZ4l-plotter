@@ -11,20 +11,20 @@ EXTLIBS = ./ext/cConstants_cc.so ./ext/FinalStates_cc.so ./ext/bitops_cc.so
 
 VPATH = ./src/ ./include/
 
-SRCPP = run.cpp\
-		  Plotter.cpp\
-		  Histograms.cpp\
-		  Variables.cpp\
-		  Tree.cpp\
-		  Settings.cpp\
-		  M4lZX.cpp\
-		  FakeRates.cpp\
-		  Category.cpp\
-		  ZXVariables.cpp\
-		  CMS_lumi.cpp
+SRCPP_PLOTTER = run_plotter.cpp\
+					Plotter.cpp\
+					Histograms.cpp\
+					Variables.cpp\
+					Tree.cpp\
+					Settings.cpp\
+					M4lZX.cpp\
+					FakeRates.cpp\
+					Category.cpp\
+					ZXVariables.cpp\
+					CMS_lumi.cpp
         
 SRCPP_YIELDS = run_yields.cpp\
-					Plotter.cpp\
+					Yields.cpp\
 					Histograms.cpp\
 					Variables.cpp\
 					Tree.cpp\
@@ -36,6 +36,7 @@ SRCPP_YIELDS = run_yields.cpp\
 					CMS_lumi.cpp
 
 INCLUDES = Plotter.h\
+			  Yields.h\
 			  Histograms.h\
 			  Variables.h\
 			  Tree.h\
@@ -45,33 +46,39 @@ INCLUDES = Plotter.h\
 			  Category.h\
 			  ZXVariables.h\
 			  CMS_lumi.h
-        
-OBJCPP = $(patsubst %.cpp,obj/%.o,$(SRCPP))
+    
+    
+OBJCPP_PLOTTER = $(patsubst %.cpp,obj/%.o,$(SRCPP_PLOTTER))
 OBJCPP_YIELDS = $(patsubst %.cpp,obj/%.o,$(SRCPP_YIELDS))
 
 
 all: run
-
+plotter: run_plotter
 yields: run_yields
+
 
 obj/%.o: %.cpp $(INCLUDES)
 	@echo ">> compiling $*"
 	@mkdir -p obj/
 	@$(CXX) -c $< ${CXXFLAGS} -o $@
+   
 
-run: $(OBJCPP)
+run_plotter: $(OBJCPP_PLOTTER)
 	@echo ">> linking..."
 	@$(CXX) $^ $(EXTLIBS) ${LDFLAGS} ${CXXFLAGS}  -o $@
+
 
 run_yields: $(OBJCPP_YIELDS)
 	@echo ">> linking..."
 	@$(CXX) $^ $(EXTLIBS) ${LDFLAGS} ${CXXFLAGS}  -o $@
    
+
 clean:
 	@echo ">> cleaning objects and executable"
 	@rm -f obj/*.o
 	@rm -f run
 	@rm -f run_yields
+
 
 uninstall:
 	@echo ">> Uninstalling plotter"

@@ -61,36 +61,27 @@ class Plotter: public Tree
 
 public:
 	
-	Plotter( bool );
+	Plotter();
 	~Plotter();
    
    void MakeHistograms( TString );
-   void MakeYieldsHistograms( TString );
    void MakeHistogramsZX( TString, TString );
    void MakeM4lZX();
-   void MakeYieldsM4lZX();
    float calculate_K_factor( TString );
    int FindFinalState();
    int FindFinalStateZX();
    int find_current_process( TString );
-   int find_current_process_yields( TString );
    int find_resonant_status();
    bool blind( float );
    void FillInclusive();
-   void FillInclusiveYields();
    void Save();
-   void SaveYields();
    void Delete();
-   void DeleteYields();
    void GetHistos( TString );
-   void GetYieldsHistos( TString );
    void Plot1D_single( TString, TString, TString, int, int );
    void Plot1D_allCAT( TString, TString, TString);
    void Plot1D_allFS( TString, TString, TString);
    void Plot2D_single( TString, TString, TString, int );
    void Plot2DError_single( TString, TString, TString, int );
-   void PrintYields( TString);
-   void PrintYields( TString, float, float);
    void SetBlinding( float, float);
    void SetBlinding( float, float, float, float);
    
@@ -99,7 +90,7 @@ private:
    TFile *input_file, *input_file_data;
    TTree *input_tree, *input_tree_data;
 
-   Histograms *blinded_histos, *unblinded_histos, *yields_histos;
+   Histograms *blinded_histos, *unblinded_histos;
    
    map<TString, Histograms*> histo_map;
    
@@ -129,13 +120,7 @@ private:
    float _lumi, _k_factor, _SMP_signal_strength, _yield_SR, partial_sample_weight;
    double gen_sum_weights, _event_weight;
    
-
-   
    vector< vector <float> > _expected_yield_SR, _number_of_events_CR;
    vector<float> _fs_ROS_SS;
-   
-
-
 };
-
 #endif

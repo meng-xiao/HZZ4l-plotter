@@ -30,12 +30,15 @@ M4lZX::M4lZX()
 
 
 //================
-M4lZX::~M4lZX() {
-    delete h_4e;
-    delete h_4mu;
-    delete h_2e2mu;
-    delete h_4l;
-    
+M4lZX::~M4lZX()
+{
+   delete h_4e;
+   delete h_4mu;
+   delete h_2e2mu;
+   delete h_4l;
+   delete h_full_range_4e;
+   delete h_full_range_4mu;
+   delete h_full_range_2e2mu;
 }
 //================
 
@@ -49,9 +52,9 @@ TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, int cat
    _norm_4e = _norm_ZX_full_SR_4e * h_full_range_4e->Integral(h_full_range_4e->FindBin(x_min), h_full_range_4e->FindBin(x_max)-1) / h_full_range_4e->Integral();
    _norm_2e2mu = _norm_ZX_full_SR_2e2mu * h_full_range_2e2mu->Integral(h_full_range_2e2mu->FindBin(x_min), h_full_range_2e2mu->FindBin(x_max)-1) / h_full_range_2e2mu->Integral();
    
-   delete h_full_range_4e;
-   delete h_full_range_4mu;
-   delete h_full_range_2e2mu;
+   //delete h_full_range_4e;
+   //delete h_full_range_4mu;
+   //delete h_full_range_2e2mu;
 
 //   cout << "[INFO] In function GetM4lZX, x_min = " << x_min << ", x_max = " << x_max << ", " << endl;
 //   cout << "yield in 4mu      = " << _norm_4mu << endl;
