@@ -328,6 +328,12 @@ Histograms::Histograms()
    _s_resonant_status.push_back("nonresonant");
    _s_resonant_status.push_back("allres");
    
+   _s_production_mode.push_back("ggH");
+   _s_production_mode.push_back("VBH");
+   _s_production_mode.push_back("WH");
+   _s_production_mode.push_back("ZH");
+   _s_production_mode.push_back("ttH");
+   
 
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
    {
@@ -2301,7 +2307,7 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    
    if( GetVarLogY( variable_name) )
    {
-      stack->SetMinimum(0.1);
+      stack->SetMinimum(0.2);
       stack->SetMaximum((data_max + data_max_error)*100);
    }
    
@@ -2312,7 +2318,14 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    }
    
    stack->GetXaxis()->SetTitle(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
+   stack->GetXaxis()->SetTitleSize(0.05);
+   stack->GetXaxis()->SetLabelSize(0.05);
    stack->GetYaxis()->SetTitle(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
+   stack->GetYaxis()->SetTitleSize(0.05);
+   stack->GetYaxis()->SetLabelSize(0.05);
+   
+   stack->GetXaxis()->SetTitleOffset(1.2);
+   stack->GetYaxis()->SetTitleOffset(1.);
    
    histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
    
@@ -2321,8 +2334,11 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    {
       legend  = CreateLegend("right",histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX_shape[plot_index][fs][cat]);
    }
-   
-   else if ( plot_index == Settings::D1jet_M4L118130 || plot_index == Settings::D2jet_M4L118130 || plot_index == Settings::D1jet || plot_index == Settings::D2jet )
+   else if ( plot_index == Settings::D1jet_M4L118130 || plot_index == Settings::D1jet)
+   {
+      legend  = CreateLegendVBF("left",histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VBF],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125other],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][fs][cat]);
+   }
+   else if ( plot_index == Settings::D2jet_M4L118130 || plot_index == Settings::D2jet )
    {
       legend  = CreateLegendVBF("right",histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VBF],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125other],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][fs][cat]);
    }
@@ -2370,6 +2386,7 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
    
    gStyle->SetPadLeftMargin(0.10);
    gStyle->SetPadRightMargin(0.01);
+   
    
    TCanvas *c = new TCanvas(variable_name, variable_name, 650, 500);
 
@@ -2420,7 +2437,14 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       }
 
       stack->GetXaxis()->SetTitle(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
+      stack->GetXaxis()->SetTitleSize(0.05);
+      stack->GetXaxis()->SetLabelSize(0.05);
       stack->GetYaxis()->SetTitle(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
+      stack->GetYaxis()->SetTitleSize(0.05);
+      stack->GetYaxis()->SetLabelSize(0.05);
+      
+      stack->GetXaxis()->SetTitleOffset(1.2);
+      stack->GetYaxis()->SetTitleOffset(1.);
       
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
 
@@ -2521,7 +2545,14 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
       }
       
       stack->GetXaxis()->SetTitle(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
+      stack->GetXaxis()->SetTitleSize(0.05);
+      stack->GetXaxis()->SetLabelSize(0.05);
       stack->GetYaxis()->SetTitle(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
+      stack->GetYaxis()->SetTitleSize(0.05);
+      stack->GetYaxis()->SetLabelSize(0.05);
+      
+      stack->GetXaxis()->SetTitleOffset(1.2);
+      stack->GetYaxis()->SetTitleOffset(1.);
       
       histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
       
@@ -2719,7 +2750,46 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
 }
 //========================================================================================================
 
-
+//========================================================================================================
+void Histograms::FillYieldGraphs( float M4l_down, float M4l_up)
+{
+   Double_t error;
+   int process = 0;
+   TFile* test = new TFile("test.root", "recreate");
+   test->cd();
+   
+   for ( int i_prod_mod = 0; i_prod_mod < num_of_production_modes; i_prod_mod++ )
+   {
+      for ( int i_cat = 0; i_cat < num_of_categories - 1; i_cat++ )
+      {
+         for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++ )
+         {
+            if( i_fs == Settings::fs2mu2e ) continue;
+            
+            yields_graph[i_fs][i_cat][i_prod_mod] = new TGraphErrors(5);
+            
+            for( int i_mass_points = 0; i_mass_points < 5; i_mass_points++)
+            {
+               process = SetProcess(i_mass_points, i_prod_mod);
+               yields_graph[i_fs][i_cat][i_prod_mod]->SetPoint(i_mass_points, SetMassPoint(i_mass_points), histos_1D[Settings::M4lYields][num_of_final_states-1][i_cat][Settings::all_resonant][process]->IntegralAndError(
+                                                                                                           histos_1D[Settings::M4lYields][num_of_final_states-1][i_cat][Settings::all_resonant][process]->FindBin(M4l_down),
+                                                                                                           histos_1D[Settings::M4lYields][num_of_final_states-1][i_cat][Settings::all_resonant][process]->FindBin(M4l_up) - 1, error));
+               yields_graph[i_fs][i_cat][i_prod_mod]->SetPointError(i_mass_points, 0., error);
+               cout << "Point: " << SetMassPoint(i_mass_points) << " Yield: " << histos_1D[Settings::M4lYields][num_of_final_states-1][i_cat][Settings::all_resonant][process]->IntegralAndError(
+                                                                                 histos_1D[Settings::M4lYields][num_of_final_states-1][i_cat][Settings::all_resonant][process]->FindBin(M4l_down),
+                                                                                 histos_1D[Settings::M4lYields][num_of_final_states-1][i_cat][Settings::all_resonant][process]->FindBin(M4l_up) - 1, error)<< endl;
+            }
+            _graph_name = _s_production_mode.at(i_prod_mod) + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
+            yields_graph[i_fs][i_cat][i_prod_mod]->SetName(_graph_name.c_str());
+            yields_graph[i_fs][i_cat][i_prod_mod]->Write();
+         }
+         
+      }
+   }
+   test->Close();
+   
+}
+//========================================================================================================
 
 //========================================================================================================
 void Histograms::PrintYields()
@@ -2775,7 +2845,7 @@ void Histograms::PrintYields()
 //========================================================
 void Histograms::PrintYields(float M4l_down, float M4l_up)
 {
-   cout << std::setprecision(2) << fixed;
+   //cout << std::setprecision(2) << fixed;
    
    map<int, vector<float>> yields_map;
    vector<float> yields_ZX;
@@ -3093,8 +3163,8 @@ bool Histograms::GetVarLogY ( TString variable_name )
 TLegend* Histograms::CreateLegend( string position, TH1F *data, TH1F *h125,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX )
 {
    TLegend *leg;
-   if(position == "right") leg = new TLegend( .73, .72, .97, .9 );
-   else if(position == "left") leg = new TLegend(.14,.72,.38,.9);
+   if(position == "right") leg = new TLegend( .63, .62, .97, .9 );
+   else if(position == "left") leg = new TLegend(.14,.62,.48,.9);
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
    leg->SetFillStyle(0);
@@ -3115,8 +3185,8 @@ TLegend* Histograms::CreateLegend( string position, TH1F *data, TH1F *h125,TH1F 
 TLegend* Histograms::CreateLegendVBF( string position, TH1F *data, TH1F *h125VBF, TH1F *h125other,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX )
 {
    TLegend *leg;
-   if(position == "right") leg = new TLegend( .70, .72, .95, .9 );
-   else if(position == "left") leg = new TLegend(.14,.72,.38,.9);
+   if(position == "right") leg = new TLegend( .60, .62, .95, .9 );
+   else if(position == "left") leg = new TLegend(.14,.62,.48,.9);
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
    leg->SetFillStyle(0);
@@ -3138,8 +3208,8 @@ TLegend* Histograms::CreateLegendVBF( string position, TH1F *data, TH1F *h125VBF
 TLegend* Histograms::CreateLegendVH( string position, TH1F *data, TH1F *h125VH, TH1F *h125other,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX )
 {
    TLegend *leg;
-   if(position == "right") leg = new TLegend( .70, .72, .95, .9 );
-   else if(position == "left") leg = new TLegend(.14,.72,.38,.9);
+   if(position == "right") leg = new TLegend( .60, .62, .95, .9 );
+   else if(position == "left") leg = new TLegend(.14,.62,.48,.9);
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
    leg->SetFillStyle(0);
@@ -3217,13 +3287,13 @@ void Histograms::DrawLogX( TCanvas *c, int i_cat )
    TLatex *latex_80 = new TLatex(80, y_latex*factor, "80");  
    latex_80->SetTextAlign(23);
    latex_80->SetTextFont (42);
-   latex_80->SetTextSize (0.035);
+   latex_80->SetTextSize (0.05);
    latex_80->Draw();
     
    TLatex *latex_800 = new TLatex(800, y_latex*factor, "800");  
    latex_800->SetTextAlign(23);
    latex_800->SetTextFont (42);
-   latex_800->SetTextSize (0.035);
+   latex_800->SetTextSize (0.05);
    latex_800->Draw();
     
    for ( int i = x_low; i < x_up; i += step )
@@ -3234,7 +3304,7 @@ void Histograms::DrawLogX( TCanvas *c, int i_cat )
       
       latex->SetTextAlign(23);
       latex->SetTextFont (42);
-      latex->SetTextSize (0.035);
+      latex->SetTextSize (0.05);
       latex->Draw();
    }
 }
@@ -3265,3 +3335,209 @@ void Histograms::MakeCOLZGrey(bool shift)
    gStyle->SetNumberContours(NCont);
 }
 //=======================================
+                                                        
+                                                        
+//=======================================
+float Histograms::SetMassPoint( int point)
+{
+   switch (point) {
+      case 0:
+         return 120.;
+         break;
+         
+      case 1:
+         return 124.;
+         break;
+         
+      case 2:
+         return 125;
+         break;
+         
+      case 3:
+         return 126;
+         break;
+         
+      case 4:
+         return 130;
+         break;
+         
+      default:
+         cout << "[ERROR] Mass point index out of range: " << point << endl;
+         abort();
+         break;
+   }
+}
+//=======================================
+
+//=======================================
+int Histograms::SetProcess( int point, int production_mode)
+{
+   if (point == 0)
+   {
+      switch (production_mode) {
+         case 0:
+            return Settings::yH120ggH;
+            break;
+            
+         case 1:
+            return Settings::yH120VBF;
+            break;
+            
+         case 2:
+            return Settings::yH120WH;
+            break;
+            
+         case 3:
+            return Settings::yH120ZH;
+            break;
+            
+         case 4:
+            return Settings::yH120ttH;
+            break;
+            
+         default:
+            cout << "[ERROR] Mass point index out of range: " << production_mode << endl;
+            abort();
+            break;
+      }
+   }
+      
+   else if (point == 1)
+   {
+      switch (production_mode) {
+         case 0:
+            return Settings::yH124ggH;
+            break;
+            
+         case 1:
+            return Settings::yH124VBF;
+            break;
+            
+         case 2:
+            return Settings::yH124WH;
+            break;
+            
+         case 3:
+            return Settings::yH124ZH;
+            break;
+            
+         case 4:
+            return Settings::yH124ttH;
+            break;
+            
+         default:
+            cout << "[ERROR] Mass point index out of range: " << production_mode << endl;
+            abort();
+            break;
+            
+      }
+   }
+   
+   else if (point == 2)
+   {
+      switch (production_mode) {
+         case 0:
+            return Settings::yH125ggH;
+            break;
+            
+         case 1:
+            return Settings::yH125VBF;
+            break;
+            
+         case 2:
+            return Settings::yH125WH;
+            break;
+            
+         case 3:
+            return Settings::yH125ZH;
+            break;
+            
+         case 4:
+            return Settings::yH125ttH;
+            break;
+            
+         default:
+            cout << "[ERROR] Mass point index out of range: " << production_mode << endl;
+            abort();
+            break;
+            
+      }
+   }
+   
+   else if (point == 3)
+   {
+      switch (production_mode) {
+         case 0:
+            return Settings::yH126ggH;
+            break;
+            
+         case 1:
+            return Settings::yH126VBF;
+            break;
+            
+         case 2:
+            return Settings::yH126WH;
+            break;
+            
+         case 3:
+            return Settings::yH126ZH;
+            break;
+            
+         case 4:
+            return Settings::yH126ttH;
+            break;
+            
+         default:
+            cout << "[ERROR] Mass point index out of range: " << production_mode << endl;
+            abort();
+            break;
+            
+      }
+   }
+   
+   else if (point == 4)
+   {
+      switch (production_mode) {
+         case 0:
+            return Settings::yH130ggH;
+            break;
+            
+         case 1:
+            return Settings::yH130VBF;
+            break;
+            
+         case 2:
+            return Settings::yH130WH;
+            break;
+            
+         case 3:
+            return Settings::yH130ZH;
+            break;
+            
+         case 4:
+            return Settings::yH130ttH;
+            break;
+            
+         default:
+            cout << "[ERROR] Mass point index out of range: " << production_mode << endl;
+            abort();
+            break;
+            
+      }
+   }
+
+   else
+   {
+      cout << "[ERROR] Mass point index out of range: " << point << endl;
+      abort();
+
+   }
+   
+}
+//=======================================
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        

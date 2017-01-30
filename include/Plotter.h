@@ -41,7 +41,7 @@
 #define USE_ZX_RUN2_COMBINED_SHAPE 0
 #define USE_ZX_FULL_RUN2_SS 1
 #define RENORMALIZE_ZX_FULL_RUN2_SS 1
-#define SMOOTH_ZX_FULL_RUN2_SS 0
+#define SMOOTH_ZX_FULL_RUN2_SS 1
 
 // These are the same 4 WP as in Category.cc
 #define WP2J 0.437 // This is the value at 125GeV of 1.043-460./(ZZMass+634.). The latter is also hardcoded in the definition of varPairExprWP.

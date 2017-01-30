@@ -27,6 +27,7 @@
 
 using namespace std;
 
+const int num_of_production_modes  = Settings::num_of_production_modes;
 const int num_of_processes         = Settings::num_of_processes;
 const int num_of_processes_yields  = Settings::num_of_processes_yields;
 const int num_of_final_states      = Settings::num_of_final_states;
@@ -90,6 +91,7 @@ public:
    void Plot1D_allFS( TString, TString, TString );
    void Plot2D_single( TString, TString, TString, int );
    void Plot2DError_single( TString, TString, TString, int );
+   void FillYieldGraphs( float, float);
    void PrintYields( );
    void PrintYields( float, float);
    void setColZGradient_OneColor(int , bool);
@@ -105,13 +107,15 @@ public:
    TLegend* Create2DErrorLegend( string, TGraphErrors*, TGraphErrors*, TGraphErrors*);
    void DrawLogX( TCanvas *, int );
    void MakeCOLZGrey( bool );
+   float SetMassPoint( int );
+   int SetProcess( int, int );
    
 private:
    
    float _y_max;
 
-   vector<string> _s_category, _s_resonant_status, _s_final_state, _s_process;
-   string _histo_name, _histo_labels, _blinding;
+   vector<string> _s_category, _s_resonant_status, _s_final_state, _s_process, _s_production_mode;
+   string _histo_name, _graph_name, _histo_labels, _blinding;
    
    //==========
    // 1D plots
@@ -141,5 +145,10 @@ private:
    
    // MC
    TH2F *histos_2DError[num_of_2DErrorplot_names][num_of_final_states][num_of_categories][num_of_resonant_statuses][num_of_processes];
+   
+   //==========================
+   // Graphs for yields vs mH
+   //==========================
+   TGraphErrors *yields_graph[num_of_final_states][num_of_categories][num_of_production_modes];
 };
 #endif

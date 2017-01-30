@@ -114,7 +114,7 @@ void Plotter::MakeHistograms( TString input_file_name )
          jetPgOverPq[j] = 1./JetQGLikelihood->at(j) - 1.;
       }
 
-      _current_category = categoryIchep16( nExtraLep, nExtraZ, nCleanedJetsPt30, nCleanedJetsPt30BTagged, jetQGL, phjj_VAJHU_highestPTJets,
+      _current_category = categoryIchep16( nExtraLep, nExtraZ, nCleanedJetsPt30, nCleanedJetsPt30BTagged_bTagSF, jetQGL, phjj_VAJHU_highestPTJets,
       phj_VAJHU, pvbf_VAJHU_highestPTJets, pAux_vbf_VAJHU, pwh_hadronic_VAJHU, pzh_hadronic_VAJHU, jetPhi, ZZMass, false );
    
       // Resonant status
@@ -273,7 +273,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
    
       _current_final_state = FindFinalStateZX();
    
-      _current_category = categoryIchep16( nExtraLep, nExtraZ, nCleanedJetsPt30, nCleanedJetsPt30BTagged, jetQGL, phjj_VAJHU_highestPTJets,
+      _current_category = categoryIchep16( nExtraLep, nExtraZ, nCleanedJetsPt30, nCleanedJetsPt30BTagged_bTagSF, jetQGL, phjj_VAJHU_highestPTJets,
       phj_VAJHU, pvbf_VAJHU_highestPTJets, pAux_vbf_VAJHU, pwh_hadronic_VAJHU, pzh_hadronic_VAJHU, jetPhi, ZZMass, false );
    
       // Calculate yield

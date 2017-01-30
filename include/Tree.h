@@ -42,6 +42,7 @@ public :
    Short_t         nCleanedJetsPt30_jecUp;
    Short_t         nCleanedJetsPt30_jecDn;
    Short_t         nCleanedJetsPt30BTagged;
+   Short_t         nCleanedJetsPt30BTagged_bTagSF;
    Short_t         trigWord;
    Float_t         ZZMass;
    Float_t         ZZMassErr;
@@ -298,6 +299,7 @@ public :
    TBranch        *b_nCleanedJetsPt30_jecUp;   //!
    TBranch        *b_nCleanedJetsPt30_jecDn;   //!
    TBranch        *b_nCleanedJetsPt30BTagged;   //!
+   TBranch        *b_nCleanedJetsPt30BTagged_bTagSF;   //!
    TBranch        *b_trigWord;   //!
    TBranch        *b_ZZMass;   //!
    TBranch        *b_ZZMassErr;   //!
@@ -644,6 +646,7 @@ void Tree::Init(TTree *tree, TString input_file_name)
    fChain->SetBranchAddress("nCleanedJetsPt30_jecUp", &nCleanedJetsPt30_jecUp, &b_nCleanedJetsPt30_jecUp);
    fChain->SetBranchAddress("nCleanedJetsPt30_jecDn", &nCleanedJetsPt30_jecDn, &b_nCleanedJetsPt30_jecDn);
    fChain->SetBranchAddress("nCleanedJetsPt30BTagged", &nCleanedJetsPt30BTagged, &b_nCleanedJetsPt30BTagged);
+   fChain->SetBranchAddress("nCleanedJetsPt30BTagged_bTagSF", &nCleanedJetsPt30BTagged_bTagSF, &b_nCleanedJetsPt30BTagged_bTagSF);
    fChain->SetBranchAddress("trigWord", &trigWord, &b_trigWord);
    fChain->SetBranchAddress("ZZMass", &ZZMass, &b_ZZMass);
    fChain->SetBranchAddress("ZZMassErr", &ZZMassErr, &b_ZZMassErr);

@@ -17,6 +17,6 @@ Yields.txt
 
 */*.sh
 
-run
+run_plotter
 run_yields
 __init__.py
