@@ -2956,6 +2956,17 @@ void Histograms::PrepareYamlFiles( TString sqrt, TString lumi, float M4l_down, f
             }
             out_file[i_fs] << endl;
          }
+         out_file[i_fs] << _s_process.at(Settings::yqqZZ) << ": '" << histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][Settings::yqqZZ]->Integral(
+                                                                      histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][Settings::yqqZZ]->FindBin(M4l_down),
+                                                                      histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][Settings::yqqZZ]->FindBin(M4l_up) - 1) << "'" << endl;
+         
+         out_file[i_fs] << _s_process.at(Settings::yggZZ) << ": '" << histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][Settings::yggZZ]->Integral(
+                                                                     histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][Settings::yggZZ]->FindBin(M4l_down),
+                                                                     histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][Settings::yggZZ]->FindBin(M4l_up) - 1) << "'" << endl;
+         
+         out_file[i_fs] << "zjets: '" << histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->Integral(
+                                         histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->FindBin(M4l_down),
+                                         histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->FindBin(M4l_up) - 1) << endl;
          out_file[i_fs] << endl;
       }   
       out_file[i_fs].close();
