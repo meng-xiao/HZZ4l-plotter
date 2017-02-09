@@ -75,6 +75,7 @@ public:
    void Delete();
    void GetHistos( TString );
    void FillGraphs( TString , float, float );
+   void PrepareYamlFiles( TString, TString , TString , float , float );
    void Print( TString );
    void Print( TString, float, float );
    

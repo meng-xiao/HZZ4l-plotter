@@ -28,13 +28,13 @@ Histograms::Histograms( string blinding )
    _s_final_state.push_back("2mu2e");
    _s_final_state.push_back("4l");
    
-   _s_category.push_back("untagged");
-   _s_category.push_back("VBF_1j_tagged");
-   _s_category.push_back("VBF_2j_tagged");
-   _s_category.push_back("VH_lepton_tagged");
-   _s_category.push_back("VH_hadron_tagged");
-   _s_category.push_back("ttH_tagged");
-   _s_category.push_back("inclusive");
+   _s_category.push_back("UnTagged");
+   _s_category.push_back("VBF1jTagged");
+   _s_category.push_back("VBF2jTagged");
+   _s_category.push_back("VHLeptTagged");
+   _s_category.push_back("VHHadrTagged");
+   _s_category.push_back("ttHTagged");
+   _s_category.push_back("Inclusive");
    
    _s_resonant_status.push_back("resonant");
    _s_resonant_status.push_back("nonresonant");
@@ -316,20 +316,20 @@ Histograms::Histograms()
    _s_final_state.push_back("2mu2e");
    _s_final_state.push_back("4l");
    
-   _s_category.push_back("untagged");
-   _s_category.push_back("VBF_1j_tagged");
-   _s_category.push_back("VBF_2j_tagged");
-   _s_category.push_back("VH_lepton_tagged");
-   _s_category.push_back("VH_hadron_tagged");
-   _s_category.push_back("ttH_tagged");
-   _s_category.push_back("inclusive");
+   _s_category.push_back("UnTagged");
+   _s_category.push_back("VBF1jTagged");
+   _s_category.push_back("VBF2jTagged");
+   _s_category.push_back("VHLeptTagged");
+   _s_category.push_back("VHHadrTagged");
+   _s_category.push_back("ttHTagged");
+   _s_category.push_back("Inclusive");
    
    _s_resonant_status.push_back("resonant");
    _s_resonant_status.push_back("nonresonant");
    _s_resonant_status.push_back("allres");
    
    _s_production_mode.push_back("ggH");
-   _s_production_mode.push_back("VBH");
+   _s_production_mode.push_back("qqH");
    _s_production_mode.push_back("WH");
    _s_production_mode.push_back("ZH");
    _s_production_mode.push_back("ttH");
@@ -701,19 +701,21 @@ void Histograms::MakeZXShape( int current_final_state, int current_category)
    histos_1D_ZX_shape[Settings::M4lMain][current_final_state][current_category]->Add(ZXShape->GetM4lZX(Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max, current_final_state, current_category));
    
    ZXShape->~M4lZX();
+   ZXShape->Delete();
    
    M4lZX *ZXShape_zoomed = new M4lZX();
    
    histos_1D_ZX_shape[Settings::M4lMainZoomed][current_final_state][current_category]->Add(ZXShape_zoomed->GetM4lZX(Variables::M4lMainZoomed().var_N_bin, Variables::M4lMainZoomed().var_min, Variables::M4lMainZoomed().var_max, current_final_state, current_category));
    
    ZXShape_zoomed->~M4lZX();
-   
+   ZXShape_zoomed->Delete();
+      
    M4lZX *ZXShape_HighMass = new M4lZX();
    
    histos_1D_ZX_shape[Settings::M4lMainHighMass][current_final_state][current_category]->Add(ZXShape_HighMass->GetM4lZX(Variables::M4lMainHighMass().var_N_bin, Variables::M4lMainHighMass().var_min, Variables::M4lMainHighMass().var_max, current_final_state, current_category));
    
    ZXShape_HighMass->~M4lZX();
-   
+   ZXShape_HighMass->Delete();
 }
 //=======================================================================================
 
@@ -1569,6 +1571,7 @@ void Histograms::RenormalizeZX( vector< vector <float> > _expected_yield_SR )
 {
    M4lZX *ZX = new M4lZX();
    
+   
    for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
    {
          //=============
@@ -1607,7 +1610,8 @@ void Histograms::RenormalizeZX( vector< vector <float> > _expected_yield_SR )
       ZX->RenormalizeZX( i_cat, _expected_yield_SR, histos_1D_ZX[Settings::DZH][Settings::fs4e][i_cat], histos_1D_ZX[Settings::DZH][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::DZH][Settings::fs2e2mu][i_cat]);
       ZX->RenormalizeZX( i_cat, _expected_yield_SR, histos_1D_ZX[Settings::DZH_M4L118130][Settings::fs4e][i_cat], histos_1D_ZX[Settings::DZH_M4L118130][Settings::fs4mu][i_cat], histos_1D_ZX[Settings::DZH_M4L118130][Settings::fs2e2mu][i_cat]);
    }
-   //ZX->~M4lZX();
+   
+   ZX->~M4lZX();   
 }
 //==============================
 
@@ -2750,46 +2754,217 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
 }
 //========================================================================================================
 
+
+
 //========================================================================================================
 void Histograms::FillYieldGraphs( float M4l_down, float M4l_up)
-{
-   Double_t error;
-   int process = 0;
-   TFile* test = new TFile("test.root", "recreate");
-   test->cd();
+{ 
+   TFile *f_signal_fits = new TFile("Signal_fits.root", "recreate");
    
-   for ( int i_prod_mod = 0; i_prod_mod < num_of_production_modes; i_prod_mod++ )
-   {
+   gStyle->SetOptFit(0);
+   
+   TPaveText* pav = new TPaveText(0.13,0.93,0.8,1.,"brNDC");
+   pav->SetFillStyle(0);
+   pav->SetBorderSize(0);
+   pav->SetTextAlign(11);
+   pav->SetTextSize(0.04);
+   
+   TLegend* lgd;
+   lgd = new TLegend(0.2,0.73,0.4,0.88);
+   lgd->SetFillStyle(0);
+   
+   
+   
+   int process = 0;
+   double temp_yield;
+   double temp_error;
+   vector<double> yield;
+   vector<double> error;
+   
+   int fs_marker[num_of_final_states] = {20, 22, 21, 33, 29};
+   Color_t catColor[num_of_categories] = {kBlue-9, kCyan-6, kGreen-6, kRed-7, kOrange+6, kMagenta-6, kBlack};
+   
+   for ( int i_prod_mode = 0; i_prod_mode < num_of_production_modes; i_prod_mode++ )
+   {      
       for ( int i_cat = 0; i_cat < num_of_categories - 1; i_cat++ )
       {
+         cout << endl;
+         
          for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++ )
          {
             if( i_fs == Settings::fs2mu2e ) continue;
             
-            yields_graph[i_fs][i_cat][i_prod_mod] = new TGraphErrors(5);
-            
-            for( int i_mass_points = 0; i_mass_points < 5; i_mass_points++)
+            cout << _s_production_mode.at(i_prod_mode) << " " << _s_category.at(i_cat) << " " << _s_final_state.at(i_fs);
+               
+            for( int i_mass_point = 0; i_mass_point < 5; i_mass_point++)
             {
-               process = SetProcess(i_mass_points, i_prod_mod);
-               yields_graph[i_fs][i_cat][i_prod_mod]->SetPoint(i_mass_points, SetMassPoint(i_mass_points), histos_1D[Settings::M4lYields][num_of_final_states-1][i_cat][Settings::all_resonant][process]->IntegralAndError(
-                                                                                                           histos_1D[Settings::M4lYields][num_of_final_states-1][i_cat][Settings::all_resonant][process]->FindBin(M4l_down),
-                                                                                                           histos_1D[Settings::M4lYields][num_of_final_states-1][i_cat][Settings::all_resonant][process]->FindBin(M4l_up) - 1, error));
-               yields_graph[i_fs][i_cat][i_prod_mod]->SetPointError(i_mass_points, 0., error);
-               cout << "Point: " << SetMassPoint(i_mass_points) << " Yield: " << histos_1D[Settings::M4lYields][num_of_final_states-1][i_cat][Settings::all_resonant][process]->IntegralAndError(
-                                                                                 histos_1D[Settings::M4lYields][num_of_final_states-1][i_cat][Settings::all_resonant][process]->FindBin(M4l_down),
-                                                                                 histos_1D[Settings::M4lYields][num_of_final_states-1][i_cat][Settings::all_resonant][process]->FindBin(M4l_up) - 1, error)<< endl;
-            }
-            _graph_name = _s_production_mode.at(i_prod_mod) + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
-            yields_graph[i_fs][i_cat][i_prod_mod]->SetName(_graph_name.c_str());
-            yields_graph[i_fs][i_cat][i_prod_mod]->Write();
-         }
+               process = SetProcess(i_mass_point, i_prod_mode);
+               
+               if ( process == Settings::yH124WH || process == Settings::yH124ttH ) continue;
+                  
+               temp_yield = histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][process]->IntegralAndError(
+                            histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][process]->FindBin(M4l_down),
+                            histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][process]->FindBin(M4l_up) - 1, temp_error);
+               
+               cout << " " << temp_yield;
+               
+               yield.push_back(temp_yield);
+               error.push_back(temp_error);
+               mass_points.push_back(SetMassPoint(i_mass_point));                  
+            
+            } // i_mass_point
+            
+            cout << endl;
+            
+            yields_graph[i_fs][i_cat][i_prod_mode] = new TGraphErrors(yield.size(), &(mass_points[0]), &(yield[0]), 0, &(error[0]));
+            
+            yield.clear();
+            error.clear();
+            mass_points.clear();
+            
+            // Cosmetics
+            yields_graph[i_fs][i_cat][i_prod_mode]->GetXaxis()->SetLimits( 115, 135);
+            yields_graph[i_fs][i_cat][i_prod_mode]->SetMinimum(0.);
+            yields_graph[i_fs][i_cat][i_prod_mode]->SetMarkerStyle(22);
+            yields_graph[i_fs][i_cat][i_prod_mode]->SetMarkerSize(3);
+            yields_graph[i_fs][i_cat][i_prod_mode]->GetXaxis()->SetTitle("generated m_{H}");
+            yields_graph[i_fs][i_cat][i_prod_mode]->GetYaxis()->SetTitle(Form("expected yield in %.1f fb^{-1}", 36.8));
+            yields_graph[i_fs][i_cat][i_prod_mode]->SetMarkerStyle(fs_marker[i_fs]);
+            yields_graph[i_fs][i_cat][i_prod_mode]->SetMarkerColor(catColor[i_cat]);
+            yields_graph[i_fs][i_cat][i_prod_mode]->SetLineColor(kBlack);
+            yields_graph[i_fs][i_cat][i_prod_mode]->SetLineWidth(2);
+
+            
+            // Set fit model
+            TString fit_model;
+            fit_model = "pol2";
+            if (i_cat == Settings::VH_lepton_tagged && i_prod_mode != Settings::WH) fit_model = "pol1";
+            if (i_cat == Settings::VH_hadron_tagged) fit_model = "pol1";
+            if (i_cat == Settings::ttH_tagged) fit_model = "pol1";
+            if (i_prod_mode == Settings::ttH) fit_model = "pol1";
+            if (i_prod_mode == Settings::WH && i_cat == Settings::VBF_2j_tagged && i_fs == Settings::fs4e) fit_model = "pol1";
+            if (i_prod_mode == Settings::ZH && i_cat == Settings::VBF_1j_tagged && i_fs == Settings::fs4e) fit_model = "pol1";
+            if (i_prod_mode == Settings::ZH && i_cat == Settings::VBF_1j_tagged && i_fs == Settings::fs4mu) fit_model = "pol1";    
+            if (i_prod_mode == Settings::ttH && i_cat == Settings::untagged && i_fs == Settings::fs2e2mu) fit_model = "pol2";
+            if (i_prod_mode == Settings::ttH && i_cat == Settings::ttH_tagged) fit_model = "pol2";
+            if (i_prod_mode == Settings::ZH && i_cat == Settings::VBF_2j_tagged) fit_model = "pol1";    
+                        
+            TF1 *fit_function = new TF1("fit_function", fit_model, 119, 131);
+            fit_function->SetLineColor(catColor[i_cat]);
+            fit_function->SetLineWidth(2);
+            
+            yields_graph[i_fs][i_cat][i_prod_mode]->Fit(fit_function, "R");
          
-      }
-   }
-   test->Close();
+            _fit_funct_name = "f_" + _s_production_mode.at(i_prod_mode) + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
+            fit_function->SetName(_fit_funct_name);
+            fit_function->Write();
+            
+             _graph_name = "g_" + _s_production_mode.at(i_prod_mode) + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
+            yields_graph[i_fs][i_cat][i_prod_mode]->SetName(_graph_name);
+            yields_graph[i_fs][i_cat][i_prod_mode]->Write();
+            
+            lgd->AddEntry(yields_graph[i_fs][i_cat][i_prod_mode],_s_final_state[i_fs].c_str(),"P");
+            
+         } // i_fs 
+         
+            TCanvas *c = new TCanvas("", "", 1500, 1500);
+            
+            pav->AddText((_s_production_mode[i_prod_mode] + ", " + _s_category[i_cat]).c_str());
+            
+            yields_graph[Settings::fs2e2mu][i_cat][i_prod_mode]->Draw("AP");
+            yields_graph[Settings::fs4e][i_cat][i_prod_mode]->Draw("P");
+            yields_graph[Settings::fs4mu][i_cat][i_prod_mode]->Draw("P");
+            pav->Draw();
+            lgd->Draw();
+            
+            TString fit_name = _s_production_mode.at(i_prod_mode) + "_" + _s_category.at(i_cat);
+            c->SaveAs("Fits/" + fit_name + ".pdf");
+            c->SaveAs("Fits/" + fit_name + ".eps");
+            c->SaveAs("Fits/" + fit_name + ".png");
+            c->SaveAs("Fits/" + fit_name + ".root");
+            c->SaveAs("Fits/" + fit_name + ".cpp");
+            
+            pav->Clear();    
+            lgd->Clear();
+            
+      } // i_cat
+   } // i_prod_mode
    
+   f_signal_fits->Close();
+   delete f_signal_fits;
 }
 //========================================================================================================
+
+
+
+//========================================================================================================
+void Histograms::PrepareYamlFiles( TString sqrt, TString lumi, float M4l_down, float M4l_up)
+{
+   
+   TString out_file_name[num_of_final_states - 1];
+   ofstream out_file[num_of_final_states - 1];
+   
+   TFile *f_signal_fits;
+   f_signal_fits = TFile::Open("Signal_fits.root");
+   
+   TF1* fit_function;
+   
+   int num_of_parameters;
+  
+   for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++ )
+   {
+      if( i_fs == Settings::fs2mu2e ) continue;
+      
+      out_file_name[i_fs] = "yields_per_tag_category_" + sqrt + "_TeV_" + _s_final_state.at(i_fs) + ".yaml";
+      out_file[i_fs].open(out_file_name[i_fs]);
+    
+      out_file[i_fs] << "---" << endl;
+      out_file[i_fs] << "# sqrt(s) = " << sqrt << " TeV" << endl;
+      out_file[i_fs] << "# integrated luminosity = " << lumi << " fb-1" << endl;
+      out_file[i_fs] << endl;
+      out_file[i_fs] << "mass_range: '" << M4l_down << ", " << M4l_up << "'" << endl;
+      out_file[i_fs] << "kd_range: '0, 1'"<<endl;
+      out_file[i_fs] << endl;
+
+      for ( int i_cat = 0; i_cat < num_of_categories - 1; i_cat++ )
+      {
+         out_file[i_fs] << _s_category.at(i_cat) << ":" << endl;
+
+         for ( int i_prod_mode = 0; i_prod_mode < num_of_production_modes; i_prod_mode++ )
+         {
+            out_file[i_fs] << _s_production_mode.at(i_prod_mode) << ": ";
+            
+            _fit_funct_name = "f_" + _s_production_mode.at(i_prod_mode) + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
+            fit_function = (TF1*)f_signal_fits->Get(_fit_funct_name);
+            num_of_parameters = fit_function->GetNpar();
+            
+            for ( int i_par = 0; i_par <= 2; i_par++ )
+            {
+               double parameter = fit_function->GetParameter(i_par);
+               
+               out_file[i_fs] << "(" << (parameter != parameter ? 0. : parameter);
+               
+               for ( int i_par_2 = 0; i_par_2 <= i_par-1; i_par_2++)
+                  out_file[i_fs] << "*@0";
+               
+               out_file[i_fs]<<")";
+               
+               if ( i_par < 2)
+               {
+                  out_file[i_fs] << "+";
+               }
+            }
+            out_file[i_fs] << endl;
+         }
+         out_file[i_fs] << endl;
+      }   
+      out_file[i_fs].close();
+   }
+}
+//========================================================================================================
+   
+
+
 
 //========================================================================================================
 void Histograms::PrintYields()
@@ -2961,7 +3136,7 @@ void Histograms::PrintYields(float M4l_down, float M4l_up)
    }
    cout << "\\\\" << endl;
    
-   cout << "\\hline" << endl; 
+   cout << "\\hline" << endl << endl; 
 }
 //========================================================
 
@@ -3039,7 +3214,7 @@ bool Histograms::GetVarLogX ( TString variable_name )
    //=============
    if(variable_name == "M4lMain")                return bool(Variables::M4lMain().var_log_x);
    else if (variable_name == "M4lMainZoomed")    return bool(Variables::M4lMainZoomed().var_log_x);
-   else if (variable_name == "M4lMainHighMass")    return bool(Variables::M4lMainHighMass().var_log_x);
+   else if (variable_name == "M4lMainHighMass")  return bool(Variables::M4lMainHighMass().var_log_x);
    
    //=============
    // MZ1
@@ -3103,7 +3278,7 @@ bool Histograms::GetVarLogY ( TString variable_name )
    //=============
    if(variable_name == "M4lMain")                return bool(Variables::M4lMain().var_log_y);
    else if (variable_name == "M4lMainZoomed")    return bool(Variables::M4lMainZoomed().var_log_y);
-   else if (variable_name == "M4lMainHighMass")    return bool(Variables::M4lMainHighMass().var_log_y);
+   else if (variable_name == "M4lMainHighMass")  return bool(Variables::M4lMainHighMass().var_log_y);
    
    //=============
    // MZ1
@@ -3335,8 +3510,9 @@ void Histograms::MakeCOLZGrey(bool shift)
    gStyle->SetNumberContours(NCont);
 }
 //=======================================
-                                                        
-                                                        
+                        
+
+                          
 //=======================================
 float Histograms::SetMassPoint( int point)
 {
@@ -3368,6 +3544,8 @@ float Histograms::SetMassPoint( int point)
    }
 }
 //=======================================
+
+
 
 //=======================================
 int Histograms::SetProcess( int point, int production_mode)
@@ -3532,12 +3710,5 @@ int Histograms::SetProcess( int point, int production_mode)
       abort();
 
    }
-   
 }
 //=======================================
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        

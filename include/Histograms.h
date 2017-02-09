@@ -3,6 +3,7 @@
 
 // C++
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <map>
 
@@ -19,6 +20,7 @@
 #include "TLatex.h"
 #include "TStyle.h"
 #include "TPaletteAxis.h"
+#include "TPaveText.h"
 
 // Include classes
 #include "Settings.h"
@@ -92,6 +94,7 @@ public:
    void Plot2D_single( TString, TString, TString, int );
    void Plot2DError_single( TString, TString, TString, int );
    void FillYieldGraphs( float, float);
+   void PrepareYamlFiles(TString , TString , float , float );
    void PrintYields( );
    void PrintYields( float, float);
    void setColZGradient_OneColor(int , bool);
@@ -113,9 +116,13 @@ public:
 private:
    
    float _y_max;
+   
+   vector<double> mass_points;
 
    vector<string> _s_category, _s_resonant_status, _s_final_state, _s_process, _s_production_mode;
-   string _histo_name, _graph_name, _histo_labels, _blinding;
+   string _histo_name, _histo_labels, _blinding;
+   
+   TString _graph_name, _fit_funct_name;
    
    //==========
    // 1D plots

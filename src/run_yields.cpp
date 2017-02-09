@@ -79,7 +79,7 @@ int main( int argc, char *argv[] )
 //===============
 // Produce plots 
 //===============
-
+/*
    yields->MakeHistograms(ggH120);
    yields->MakeHistograms(ggH124);
    yields->MakeHistograms(ggH125);
@@ -129,15 +129,17 @@ int main( int argc, char *argv[] )
    yields->FillInclusive();
 
    yields->Save();
-
+*/
+   
 //==============
 // Print Yields 
 //==============
  
    yields->GetHistos("Yields");
    yields->Print("Yields");
-   yields->Print("Yields", 118., 140.);
+   yields->Print("Yields", 118., 130.);
    yields->FillGraphs("Yields", 105., 140.);
+   yields->PrepareYamlFiles("Yields", "13", "38.6", 105., 140.);
    
    delete yields;
 }

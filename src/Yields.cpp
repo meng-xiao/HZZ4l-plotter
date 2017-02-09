@@ -200,6 +200,18 @@ void Yields::FillGraphs( TString file_name, float M4l_down, float M4l_up )
 }
 //==================
 
+
+//==================
+void Yields::PrepareYamlFiles( TString file_name, TString sqrt, TString lumi, float M4l_down, float M4l_up )
+{
+   histo_map[file_name]->PrepareYamlFiles( sqrt, lumi, M4l_down, M4l_up );
+   
+   cout << "[INFO] Prepared Yaml files." << endl;   
+}
+//==================
+
+
+
 //==================
 void Yields::Print( TString file_name )
 {

@@ -89,6 +89,7 @@ void Plotter::MakeHistograms( TString input_file_name )
       nb = fChain->GetEntry(jentry);
       nbytes += nb;
    
+      // Check number of leptons in event
       if ( LepEta->size() != 4 )
       {
          cout << "[ERROR] in event " << RunNumber << ":" << LumiNumber << ":" << EventNumber << ", stored " << LepEta->size() << " leptons instead of 4" << endl;
@@ -103,7 +104,7 @@ void Plotter::MakeHistograms( TString input_file_name )
       // Final states
       _current_final_state = FindFinalState();
    
-      // Categories
+      // Find current category
       for ( int j = 0; j < nCleanedJetsPt30; j++)
       {
          jetPt[j] = JetPt->at(j);
@@ -117,7 +118,7 @@ void Plotter::MakeHistograms( TString input_file_name )
       _current_category = categoryIchep16( nExtraLep, nExtraZ, nCleanedJetsPt30, nCleanedJetsPt30BTagged_bTagSF, jetQGL, phjj_VAJHU_highestPTJets,
       phj_VAJHU, pvbf_VAJHU_highestPTJets, pAux_vbf_VAJHU, pwh_hadronic_VAJHU, pzh_hadronic_VAJHU, jetPhi, ZZMass, false );
    
-      // Resonant status
+      // Find resonant status
       _current_resonant_status = find_resonant_status();
    
       // K factors
@@ -126,26 +127,23 @@ void Plotter::MakeHistograms( TString input_file_name )
       // Final event weight
       _event_weight = (_lumi * 1000 * xsec * _k_factor * overallEventWeight) / gen_sum_weights;
       
-      
-   
       // Calculate kinematic discriminants
-      KD = p0plus_VAJHU / ( p0plus_VAJHU + bkg_VAMCFM*getDbkgkinConstant(Z1Flav*Z2Flav,ZZMass) );
+      KD = p0plus_VAJHU / ( p0plus_VAJHU + bkg_VAMCFM*getDbkgkinConstant(Z1Flav*Z2Flav, ZZMass) );
       D2jet = (nCleanedJetsPt30>=2) ? pvbf_VAJHU_highestPTJets / ( pvbf_VAJHU_highestPTJets + phjj_VAJHU_highestPTJets*getDVBF2jetsConstant(ZZMass) ) : -2 ;
       D1jet = (nCleanedJetsPt30==1) ? pvbf_VAJHU_highestPTJets*pAux_vbf_VAJHU / ( pvbf_VAJHU_highestPTJets*pAux_vbf_VAJHU + phj_VAJHU*getDVBF1jetConstant(ZZMass) ) : -2 ;
       DWH = (nCleanedJetsPt30>=2) ? pwh_hadronic_VAJHU / ( pwh_hadronic_VAJHU + CUSTOMCCONSTWH*1e5*phjj_VAJHU_highestPTJets ) : -2 ;
       DZH = (nCleanedJetsPt30>=2) ? pzh_hadronic_VAJHU / ( pzh_hadronic_VAJHU + CUSTOMCCONSTZH*1e4*phjj_VAJHU_highestPTJets ) : -2 ;
    
       // Fill M4l histograms
-      if ( (_current_process == Settings::Data && !blind(ZZMass)) || _current_process != Settings::Data )
-       {
-           blinded_histos->FillM4l( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
-           
-       }
+      if ( (_current_process == Settings::Data && blind(ZZMass)) || _current_process != Settings::Data )
+      {
+         blinded_histos->FillM4l( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      }
        
        unblinded_histos->FillM4l( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       
       // Fill MZ1 histograms
-      if ( !blind(ZZMass) )
+      if ( blind(ZZMass) )
       {
          blinded_histos->FillMZ1( ZZMass, Z1Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       }
@@ -153,7 +151,7 @@ void Plotter::MakeHistograms( TString input_file_name )
       unblinded_histos->FillMZ1( ZZMass, Z1Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       
       // Fill MZ2 histograms
-      if ( !blind(ZZMass) )
+      if ( blind(ZZMass) )
       {
          blinded_histos->FillMZ2( ZZMass, Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       }
@@ -176,8 +174,8 @@ void Plotter::MakeHistograms( TString input_file_name )
       if(nCleanedJetsPt30>=2) unblinded_histos->FillDWH( ZZMass, DWH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       if(nCleanedJetsPt30>=2) unblinded_histos->FillDZH( ZZMass, DZH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       
-      // Fill MZ1vsMZ2 histograms
-      if ( !blind(ZZMass) )
+      // Fill MZ1 vs MZ2 histograms
+      if ( blind(ZZMass) )
       {
          blinded_histos->FillMZ1vsMZ2( ZZMass, Z1Mass, Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       }
@@ -185,13 +183,21 @@ void Plotter::MakeHistograms( TString input_file_name )
       unblinded_histos->FillMZ1vsMZ2( ZZMass, Z1Mass, Z2Mass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       
       // Fill 2D histograms vs M4l with error
-      if ( !blind(ZZMass) || _current_process != Settings::Data )
+      if ( blind(ZZMass) || _current_process != Settings::Data )
       {
-         if(_current_process == Settings::Data) blinded_histos->FillVectors( ZZMass, ZZMassErrCorr, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _current_final_state, _current_category);
+         if(_current_process == Settings::Data)
+         {
+            blinded_histos->FillVectors( ZZMass, ZZMassErrCorr, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _current_final_state, _current_category);
+         }
+      
          blinded_histos->FillDvsM4l( ZZMass, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       }
       
-      if(_current_process == Settings::Data) unblinded_histos->FillVectors( ZZMass, ZZMassErrCorr, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _current_final_state, _current_category );
+      if(_current_process == Settings::Data)
+      {
+         unblinded_histos->FillVectors( ZZMass, ZZMassErrCorr, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _current_final_state, _current_category );
+      }
+      
       unblinded_histos->FillDvsM4l( ZZMass, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       
    } // end for loop
@@ -379,8 +385,8 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       blinded_histos->SmoothHistograms();
       unblinded_histos->SmoothHistograms();
    }
-    
-   unblinded_histos->RenormalizeZX( _expected_yield_SR );
+      
+   unblinded_histos->RenormalizeZX( _expected_yield_SR );   
    blinded_histos->RenormalizeZX( _expected_yield_SR );
    
    cout << "[INFO] Z+X histograms filled." << endl;
@@ -636,11 +642,18 @@ int Plotter::find_resonant_status()
 }
 //=================================
 
+
+
 //=================================
 bool Plotter::blind( float ZZMass)
 {
-   if( ((ZZMass < _blinding_lower[0]) || (ZZMass > _blinding_upper[0])) && ((ZZMass < _blinding_lower[1]) || (ZZMass > _blinding_upper[1]))) return false;
-   else return true;
-   
+   if( ((ZZMass < _blinding_lower[0]) || (ZZMass > _blinding_upper[0])) && ((ZZMass < _blinding_lower[1]) || (ZZMass > _blinding_upper[1])))
+   {
+      return true;
+   }
+   else
+   {
+      return false;
+   }
 }
 //=================================
