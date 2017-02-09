@@ -32,6 +32,7 @@ private:
    
    
    int _n_entries;
+   float _bin_down, _bin_up;
    float _norm_4mu, _norm_4e, _norm_2e2mu, _norm_ZX_full_SR_4e, _norm_ZX_full_SR_4mu, _norm_ZX_full_SR_2e2mu;
 };
 #endif

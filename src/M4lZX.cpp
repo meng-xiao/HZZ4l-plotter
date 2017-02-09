@@ -9,18 +9,21 @@ using namespace std;
 M4lZX::M4lZX()
 {
    _n_entries = 1000000;//tried more entries, but it takes way too long to run
+   _bin_down  = 70.;
+   _bin_up    = 3000.; //define full mass range
    
-   f_4e_comb    = new TF1("f_4e_comb", "TMath::Landau(x, [0], [1])", 70, 3000);
-   f_4mu_comb   = new TF1("f_4mu_comb","TMath::Landau(x, [0], [1])", 70, 3000);
-   f_2e2mu_comb = new TF1("f_2e2mu_comb","[0]*TMath::Landau(x, [1], [2]) + [3]*TMath::Landau(x, [4], [5])", 70, 3000);
+   
+   f_4e_comb    = new TF1("f_4e_comb", "TMath::Landau(x, [0], [1])", _bin_down, _bin_up);
+   f_4mu_comb   = new TF1("f_4mu_comb","TMath::Landau(x, [0], [1])", _bin_down, _bin_up);
+   f_2e2mu_comb = new TF1("f_2e2mu_comb","[0]*TMath::Landau(x, [1], [2]) + [3]*TMath::Landau(x, [4], [5])", _bin_down, _bin_up);
 
    f_4e_comb->SetParameters(ZXVariables::ZX4e().par0, ZXVariables::ZX4e().par1);
    f_4mu_comb->SetParameters(ZXVariables::ZX4mu().par0, ZXVariables::ZX4mu().par1);
    f_2e2mu_comb->SetParameters(ZXVariables::ZX2e2mu().par0, ZXVariables::ZX2e2mu().par1, ZXVariables::ZX2e2mu().par2, ZXVariables::ZX2e2mu().par3, ZXVariables::ZX2e2mu().par4, ZXVariables::ZX2e2mu().par5);
 
-   h_full_range_4mu   = new TH1F("h_full_range_4mu"  , ";;", 2930, 70, 3000);
-   h_full_range_4e    = new TH1F("h_full_range_4e"   , ";;", 2930, 70, 3000);
-   h_full_range_2e2mu = new TH1F("h_full_range_2e2mu", ";;", 2930, 70, 3000);
+   h_full_range_4mu   = new TH1F("h_full_range_4mu"  , ";;", _bin_up - _bin_down, _bin_down, _bin_up);
+   h_full_range_4e    = new TH1F("h_full_range_4e"   , ";;", _bin_up - _bin_down, _bin_down, _bin_up);
+   h_full_range_2e2mu = new TH1F("h_full_range_2e2mu", ";;", _bin_up - _bin_down, _bin_down, _bin_up);
    
    h_full_range_4mu  ->FillRandom("f_4mu_comb"  , _n_entries);
    h_full_range_4e   ->FillRandom("f_4e_comb"   , _n_entries);
@@ -57,9 +60,9 @@ TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, int cat
 { 
    SetNormalization(category);
     
-   _norm_4mu = _norm_ZX_full_SR_4mu * h_full_range_4mu->Integral(h_full_range_4mu->FindBin(x_min), h_full_range_4mu->FindBin(x_max)-1) / h_full_range_4mu->Integral();
-   _norm_4e = _norm_ZX_full_SR_4e * h_full_range_4e->Integral(h_full_range_4e->FindBin(x_min), h_full_range_4e->FindBin(x_max)-1) / h_full_range_4e->Integral();
-   _norm_2e2mu = _norm_ZX_full_SR_2e2mu * h_full_range_2e2mu->Integral(h_full_range_2e2mu->FindBin(x_min), h_full_range_2e2mu->FindBin(x_max)-1) / h_full_range_2e2mu->Integral();
+   _norm_4mu = _norm_ZX_full_SR_4mu * f_4mu_comb->Integral(x_min, x_max) / f_4mu_comb->Integral(_bin_down, _bin_up);
+   _norm_4e = _norm_ZX_full_SR_4e * f_4e_comb->Integral(x_min, x_max) / f_4e_comb->Integral(_bin_down, _bin_up);
+   _norm_2e2mu = _norm_ZX_full_SR_2e2mu * f_2e2mu_comb->Integral(x_min, x_max) / f_2e2mu_comb->Integral(_bin_down, _bin_up);
    
 //   cout << "[INFO] In function GetM4lZX, x_min = " << x_min << ", x_max = " << x_max << ", " << endl;
 //   cout << "yield in 4mu      = " << _norm_4mu << endl;

@@ -120,7 +120,7 @@ private:
    vector<double> mass_points;
 
    vector<string> _s_category, _s_resonant_status, _s_final_state, _s_process, _s_production_mode;
-   string _histo_name, _histo_labels, _blinding;
+   string _histo_name, _histo_labels, _blinding, _funct_name;
    
    TString _graph_name, _fit_funct_name;
    
@@ -132,6 +132,8 @@ private:
    // Z+X
    TH1F *histos_1D_ZX[num_of_1Dplot_names][num_of_final_states][num_of_categories];
    TH1F *histos_1D_ZX_shape[num_of_1Dplot_names][num_of_final_states][num_of_categories];
+   TF1  *f_1D_ZX_shape[num_of_1Dplot_names][num_of_final_states][num_of_categories];
+   double norm_1D_ZX_shape[num_of_1Dplot_names][num_of_final_states][num_of_categories];
    
    //==========
    // 2D plots
