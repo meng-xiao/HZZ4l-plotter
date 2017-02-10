@@ -17,6 +17,7 @@ public:
    M4lZX();
    ~M4lZX();
    TH1F *GetM4lZX( int, int, int, int, int);
+   double GetM4lZX_Yields(int , int , int , int );
    void RenormalizeZX( int, vector< vector <float> >, TH1F* , TH1F*, TH1F* );
    void SetNormalization ( int );
    void Delete();

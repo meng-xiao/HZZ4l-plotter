@@ -2908,6 +2908,7 @@ void Histograms::PrepareYamlFiles( TString sqrt, TString lumi, float M4l_down, f
    f_signal_fits = TFile::Open("Signal_fits.root");
    
    TF1* fit_function;
+   M4lZX *ZXYields = new M4lZX();
    
    int num_of_parameters;
   
@@ -2964,13 +2965,14 @@ void Histograms::PrepareYamlFiles( TString sqrt, TString lumi, float M4l_down, f
                                                                      histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][Settings::yggZZ]->FindBin(M4l_down),
                                                                      histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][Settings::yggZZ]->FindBin(M4l_up) - 1) << "'" << endl;
          
-         out_file[i_fs] << "zjets: '" << histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->Integral(
-                                         histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->FindBin(M4l_down),
-                                         histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->FindBin(M4l_up) - 1) << endl;
+         out_file[i_fs] << "zjets: '" << ZXYields->GetM4lZX_Yields(M4l_down, M4l_up, i_fs, i_cat) << endl;
          out_file[i_fs] << endl;
-      }   
+      
+      } // end i_cat
+   
       out_file[i_fs].close();
-   }
+   
+   } // end i_fs
 }
 //========================================================================================================
    
@@ -3008,8 +3010,11 @@ void Histograms::PrintYields()
    }
    
    // Z+X
-   cout << endl;
    
+   M4lZX *ZXYields = new M4lZX();
+   
+   cout << endl;
+      
    for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
    {         
       cout << "Z+X" << "   " << _s_category.at(i_cat) << "   ";
@@ -3018,11 +3023,12 @@ void Histograms::PrintYields()
       {
          if( i_fs == Settings::fs2mu2e ) continue;
          
-          cout << histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->Integral() << "   ";
+          cout << ZXYields->GetM4lZX_Yields(0, 3000, i_fs, i_cat) << "   ";
       }
       cout << endl;
    }
-
+   
+   delete ZXYields;
 }
 //========================================================================================================
 
@@ -3071,26 +3077,23 @@ void Histograms::PrintYields(float M4l_down, float M4l_up)
    }
    
    // Z+X
+   M4lZX *ZXYields = new M4lZX();
+   
    cout << endl;
    
    for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
    {         
       cout << "Z+X" << "   " << _s_category.at(i_cat) << "   ";
       
-      temp_yield = histos_1D_ZX_shape[Settings::M4lYields][num_of_final_states-1][i_cat]->Integral(
-                   histos_1D_ZX_shape[Settings::M4lYields][num_of_final_states-1][i_cat]->FindBin(M4l_down),
-                   histos_1D_ZX_shape[Settings::M4lYields][num_of_final_states-1][i_cat]->FindBin(M4l_up) - 1);
-               
+      temp_yield = ZXYields->GetM4lZX_Yields(M4l_down, M4l_up, num_of_final_states-1, i_cat);
+      
       yields_ZX.push_back(temp_yield);
       
       for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
       {
          if( i_fs == Settings::fs2mu2e ) continue;
          
-         cout << histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->Integral(
-                 histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->FindBin(M4l_down),
-                 histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->FindBin(M4l_up) - 1)
-         << "   ";
+         cout << ZXYields->GetM4lZX_Yields(M4l_down, M4l_up, i_fs, i_cat) << "   ";
       }
       cout << endl;
    }
@@ -3148,6 +3151,8 @@ void Histograms::PrintYields(float M4l_down, float M4l_up)
    cout << "\\\\" << endl;
    
    cout << "\\hline" << endl << endl; 
+   
+   delete ZXYields;
 }
 //========================================================
 

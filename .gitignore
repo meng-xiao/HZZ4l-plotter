@@ -6,6 +6,7 @@
 *.d
 *.pcm
 
+# Plots
 *.root
 *.pdf
 *.png
@@ -13,10 +14,15 @@
 *.C
 *.eps
 
-Yields.txt
+# Text files
+*.txt
 *.yaml
-Fits
 
+# Directories
+Fits/
+Plots/
+
+# Scripts
 */*.sh
 
 run_plotter

@@ -8,9 +8,9 @@ using namespace std;
 //============
 M4lZX::M4lZX()
 {
-   _n_entries = 1000000;//tried more entries, but it takes way too long to run
+   _n_entries = 1000000; // Tried more entries, but it takes way too long to run
    _bin_down  = 70.;
-   _bin_up    = 3000.; //define full mass range
+   _bin_up    = 3000.; // Define full mass range
    
    
    f_4e_comb    = new TF1("f_4e_comb", "TMath::Landau(x, [0], [1])", _bin_down, _bin_up);
@@ -99,6 +99,29 @@ TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, int cat
               
 }
 //===================================================================================
+
+
+
+//================================================================================
+double M4lZX::GetM4lZX_Yields(int x_min, int x_max, int final_state, int category)
+{ 
+   SetNormalization(category);
+
+   _norm_4mu = _norm_ZX_full_SR_4mu * f_4mu_comb->Integral(x_min, x_max) / f_4mu_comb->Integral(_bin_down, _bin_up);
+   _norm_4e = _norm_ZX_full_SR_4e * f_4e_comb->Integral(x_min, x_max) / f_4e_comb->Integral(_bin_down, _bin_up);
+   _norm_2e2mu = _norm_ZX_full_SR_2e2mu * f_2e2mu_comb->Integral(x_min, x_max) / f_2e2mu_comb->Integral(_bin_down, _bin_up);
+   
+   if ( final_state == Settings::fs4mu ) return _norm_4mu;
+   else if (final_state == Settings::fs4e)  return _norm_4e;
+   else if (final_state == Settings::fs2e2mu) return _norm_2e2mu;
+   else if (final_state == Settings::num_of_final_states - 1) return _norm_4e + _norm_4mu + _norm_2e2mu;
+   else
+   {
+      cout << "[ERROR] Computing Z+X histogram: wrong final state: " << final_state << endl;
+      abort();
+   }       
+}
+//================================================================================
 
 
 

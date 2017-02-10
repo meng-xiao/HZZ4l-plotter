@@ -120,9 +120,9 @@ private:
    vector<double> mass_points;
 
    vector<string> _s_category, _s_resonant_status, _s_final_state, _s_process, _s_production_mode;
-   string _histo_name, _histo_labels, _blinding, _funct_name;
+   string _histo_name, _histo_labels, _blinding;
    
-   TString _graph_name;
+   TString _graph_name, _fit_funct_name;
    
    //==========
    // 1D plots
