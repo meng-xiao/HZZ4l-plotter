@@ -29,24 +29,6 @@ Yields::Yields():Tree()
    _tclr->GetColor("#000099");
    _tclr->GetColor("#003300");
    _tclr->GetColor("#5f3f3f");
-   
-   // Z+X SS factors
-   // FIXME: recompute this for Run II, OS/SS ratio taken when computing fake rates in SS method
-   _fs_ROS_SS.push_back(1.22);//4mu
-   _fs_ROS_SS.push_back(0.97);//4e
-   _fs_ROS_SS.push_back(1.30);//2e2mu
-   _fs_ROS_SS.push_back(0.98);//2mu2e
-   
-   vector<float> temp;
-   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
-   {
-      for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
-      {
-         temp.push_back(0);
-      }
-      _expected_yield_SR.push_back(temp);
-      _number_of_events_CR.push_back(temp);
-   }
 }
 //============================================================
 
