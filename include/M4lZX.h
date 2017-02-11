@@ -4,7 +4,6 @@
 // ROOT
 #include "TF1.h"
 #include "TH1F.h"
-#include "TString.h"
 
 #include "Settings.h"
 
@@ -17,7 +16,7 @@ public:
    
    M4lZX();
    ~M4lZX();
-   void GetM4lZX( int, int, int, int, TH1F*&, TH1F*&, TH1F*&, TH1F*&);
+   void GetM4lZX( int, int, int, int, TH1F*, TH1F*, TH1F*, TH1F*);
    double GetM4lZX_Yields(int , int , int , int );
    void RenormalizeZX( int, vector< vector <float> >, TH1F* , TH1F*, TH1F* );
    void SetNormalization ( int );

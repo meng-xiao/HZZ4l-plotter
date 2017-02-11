@@ -32,7 +32,7 @@ M4lZX::~M4lZX()
 //================
 
 //===================================================================================
-void M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int category, TH1F*& h_4e, TH1F*& h_4mu, TH1F*& h_2e2mu, TH1F*& h_4l )
+void M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int category, TH1F* h_4e, TH1F* h_4mu, TH1F* h_2e2mu, TH1F* h_4l )
 { 
    SetNormalization(category);
     
