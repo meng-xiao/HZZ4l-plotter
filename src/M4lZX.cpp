@@ -21,13 +21,6 @@ M4lZX::M4lZX()
    f_4mu_comb->SetParameters(ZXVariables::ZX4mu().par0, ZXVariables::ZX4mu().par1);
    f_2e2mu_comb->SetParameters(ZXVariables::ZX2e2mu().par0, ZXVariables::ZX2e2mu().par1, ZXVariables::ZX2e2mu().par2, ZXVariables::ZX2e2mu().par3, ZXVariables::ZX2e2mu().par4, ZXVariables::ZX2e2mu().par5);
 
-   h_full_range_4mu   = new TH1F("h_full_range_4mu"  , ";;", _bin_up - _bin_down, _bin_down, _bin_up);
-   h_full_range_4e    = new TH1F("h_full_range_4e"   , ";;", _bin_up - _bin_down, _bin_down, _bin_up);
-   h_full_range_2e2mu = new TH1F("h_full_range_2e2mu", ";;", _bin_up - _bin_down, _bin_down, _bin_up);
-   
-   h_full_range_4mu  ->FillRandom("f_4mu_comb"  , _n_entries);
-   h_full_range_4e   ->FillRandom("f_4e_comb"   , _n_entries);
-   h_full_range_2e2mu->FillRandom("f_2e2mu_comb", _n_entries);
 }
 //=====================
 
@@ -35,28 +28,11 @@ M4lZX::M4lZX()
 //================
 M4lZX::~M4lZX()
 {
-   delete h_full_range_4e;
-   delete h_full_range_4mu;
-   delete h_full_range_2e2mu;
 }
 //================
-
-
-
-//=============
-void M4lZX::Delete()
-{  
-   delete h_4e;
-   delete h_4mu;
-   delete h_2e2mu;
-   delete h_4l;
-}
-//================
-
-
 
 //===================================================================================
-TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, int category)
+void M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int category, TH1F*& h_4e, TH1F*& h_4mu, TH1F*& h_2e2mu, TH1F*& h_4l )
 { 
    SetNormalization(category);
     
@@ -64,17 +40,6 @@ TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, int cat
    _norm_4e = _norm_ZX_full_SR_4e * f_4e_comb->Integral(x_min, x_max) / f_4e_comb->Integral(_bin_down, _bin_up);
    _norm_2e2mu = _norm_ZX_full_SR_2e2mu * f_2e2mu_comb->Integral(x_min, x_max) / f_2e2mu_comb->Integral(_bin_down, _bin_up);
    
-//   cout << "[INFO] In function GetM4lZX, x_min = " << x_min << ", x_max = " << x_max << ", " << endl;
-//   cout << "yield in 4mu      = " << _norm_4mu << endl;
-//   cout << "yield in 4e       = " << _norm_4e << endl;
-//   cout << "yield in 2e2mu    = " << _norm_2e2mu << endl;
-//   cout << "total yield in 4l = " << _norm_4mu + _norm_4e + _norm_2e2mu << endl;
-
-   h_4mu   = new TH1F("h_4mu" , ";;", n_bins, x_min, x_max);
-   h_4e    = new TH1F("h_4e"   , ";;", n_bins, x_min, x_max);
-   h_2e2mu = new TH1F("h_2e2mu", ";;", n_bins, x_min, x_max);
-   h_4l    = new TH1F("h_4l"   , ";;", n_bins, x_min, x_max);
- 
    h_4mu  ->FillRandom("f_4mu_comb"  , _n_entries);
    h_4e   ->FillRandom("f_4e_comb"   , _n_entries);
    h_2e2mu->FillRandom("f_2e2mu_comb", _n_entries);
@@ -86,17 +51,6 @@ TH1F *M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int final_state, int cat
    h_4l->Add(h_4mu);
    h_4l->Add(h_4e);
    h_4l->Add(h_2e2mu);
-
-   if ( final_state == Settings::fs4mu ) return h_4mu;
-   else if (final_state == Settings::fs4e) return h_4e;
-   else if (final_state == Settings::fs2e2mu) return h_2e2mu;
-   else if (final_state == Settings::num_of_final_states - 1) return h_4l;
-   else
-   {
-      cout << "[ERROR] Computing Z+X histogram: wrong final state: " << final_state << endl;
-      abort();
-   }
-              
 }
 //===================================================================================
 

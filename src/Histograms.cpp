@@ -676,30 +676,35 @@ void Histograms::FillYields( float M4l, float weight, int fs, int cat, int rs, i
 
 
 //=======================================================================================
-void Histograms::MakeZXShape( int current_final_state, int current_category)
+void Histograms::MakeZXShape( int current_category)
 {
-   if (current_final_state == Settings::fs2mu2e) return;
    
    M4lZX *ZXShape = new M4lZX();
    
-   histos_1D_ZX_shape[Settings::M4lMain][current_final_state][current_category]->Add(ZXShape->GetM4lZX(Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max, current_final_state, current_category));
+   ZXShape->GetM4lZX(Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max, current_category,
+                     histos_1D_ZX_shape[Settings::M4lMain][Settings::fs4e][current_category],
+                     histos_1D_ZX_shape[Settings::M4lMain][Settings::fs4mu][current_category],
+                     histos_1D_ZX_shape[Settings::M4lMain][Settings::fs2e2mu][current_category],
+                     histos_1D_ZX_shape[Settings::M4lMain][Settings::fs4l][current_category]);
    
-   ZXShape->~M4lZX();
-   ZXShape->Delete();
    
    M4lZX *ZXShape_zoomed = new M4lZX();
    
-   histos_1D_ZX_shape[Settings::M4lMainZoomed][current_final_state][current_category]->Add(ZXShape_zoomed->GetM4lZX(Variables::M4lMainZoomed().var_N_bin, Variables::M4lMainZoomed().var_min, Variables::M4lMainZoomed().var_max, current_final_state, current_category));
+   ZXShape_zoomed->GetM4lZX(Variables::M4lMainZoomed().var_N_bin, Variables::M4lMainZoomed().var_min, Variables::M4lMainZoomed().var_max, current_category,
+                            histos_1D_ZX_shape[Settings::M4lMainZoomed][Settings::fs4e][current_category],
+                            histos_1D_ZX_shape[Settings::M4lMainZoomed][Settings::fs4mu][current_category],
+                            histos_1D_ZX_shape[Settings::M4lMainZoomed][Settings::fs2e2mu][current_category],
+                            histos_1D_ZX_shape[Settings::M4lMainZoomed][Settings::fs4l][current_category]);
    
-   ZXShape_zoomed->~M4lZX();
-   ZXShape_zoomed->Delete();
       
    M4lZX *ZXShape_HighMass = new M4lZX();
    
-   histos_1D_ZX_shape[Settings::M4lMainHighMass][current_final_state][current_category]->Add(ZXShape_HighMass->GetM4lZX(Variables::M4lMainHighMass().var_N_bin, Variables::M4lMainHighMass().var_min, Variables::M4lMainHighMass().var_max, current_final_state, current_category));
+   ZXShape_HighMass->GetM4lZX(Variables::M4lMainHighMass().var_N_bin, Variables::M4lMainHighMass().var_min, Variables::M4lMainHighMass().var_max, current_category,
+                              histos_1D_ZX_shape[Settings::M4lMainHighMass][Settings::fs4e][current_category],
+                              histos_1D_ZX_shape[Settings::M4lMainHighMass][Settings::fs4mu][current_category],
+                              histos_1D_ZX_shape[Settings::M4lMainHighMass][Settings::fs2e2mu][current_category],
+                              histos_1D_ZX_shape[Settings::M4lMainHighMass][Settings::fs4l][current_category]);
    
-   ZXShape_HighMass->~M4lZX();
-   ZXShape_HighMass->Delete();
 }
 //=======================================================================================
 

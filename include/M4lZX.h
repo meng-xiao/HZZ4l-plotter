@@ -4,6 +4,7 @@
 // ROOT
 #include "TF1.h"
 #include "TH1F.h"
+#include "TString.h"
 
 #include "Settings.h"
 
@@ -16,11 +17,10 @@ public:
    
    M4lZX();
    ~M4lZX();
-   TH1F *GetM4lZX( int, int, int, int, int);
+   void GetM4lZX( int, int, int, int, TH1F*&, TH1F*&, TH1F*&, TH1F*&);
    double GetM4lZX_Yields(int , int , int , int );
    void RenormalizeZX( int, vector< vector <float> >, TH1F* , TH1F*, TH1F* );
    void SetNormalization ( int );
-   void Delete();
    
    float GetNormZXFullSR4e()    { return _norm_ZX_full_SR_4e; };
    float GetNormZXFullSR4mu()   { return _norm_ZX_full_SR_4mu; };
@@ -29,8 +29,6 @@ public:
 private:
    
    TF1 *f_4e_comb, *f_4mu_comb, *f_2e2mu_comb;
-   TH1F *h_full_range_4mu, *h_full_range_4e, *h_full_range_2e2mu, *h_4mu, *h_4e, *h_2e2mu, *h_4l;
-   
    
    int _n_entries;
    float _bin_down, _bin_up;
