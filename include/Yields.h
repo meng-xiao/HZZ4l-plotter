@@ -65,7 +65,6 @@ public:
    ~Yields();
    
    void MakeHistograms( TString );
-   void MakeM4lZX();
    float calculate_K_factor( TString );
    int FindFinalState();
    int find_current_process( TString );

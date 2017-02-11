@@ -134,23 +134,6 @@ void Yields::MakeHistograms( TString input_file_name )
 //=====================================================
 
 
-
-//=======================
-void Yields::MakeM4lZX()
-{
-    for (int i_fs = 0; i_fs < num_of_final_states; i_fs++)
-    {
-        for(int i_cat = 0; i_cat < num_of_categories; i_cat++)
-        {
-            yields_histos->MakeZXShapeYields( i_fs, i_cat );
-        }
-    }
-   cout << "[INFO] Z+X shape for M4l done." << endl;
-}
-//=======================
-
-
-
 //=========================================
 void Yields::GetHistos( TString file_name )
 {
@@ -166,6 +149,8 @@ void Yields::GetHistos( TString file_name )
 void Yields::FillInclusive()
 {
    yields_histos->FillInclusiveYields();
+   
+   cout << "[INFO] Summing of histograms finished." << endl;
 }
 //===========================
 

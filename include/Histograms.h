@@ -99,7 +99,6 @@ public:
    void PrintYields( float, float);
    void setColZGradient_OneColor(int , bool);
    void MakeZXShape(int, int);
-   void MakeZXShapeYields(int, int);
    int SetPlotName( TString );
    bool GetVarLogX( TString );
    bool GetVarLogY( TString );

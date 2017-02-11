@@ -353,22 +353,6 @@ Histograms::Histograms()
          }
       }
    }    
-
-// Z+X
-   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
-   {
-      for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
-      {
-         //=============
-         // M4l
-         //=============
-         _histo_name = "M4l_ZX_SS_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
-         histos_1D_ZX[Settings::M4lYields][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::M4lYields().var_N_bin, Variables::M4lYields().var_min, Variables::M4lYields().var_max);
-         
-         _histo_name = "M4l_ZX_shape_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
-         histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat] = new TH1F(_histo_name.c_str(), "Z+X", Variables::M4lYields().var_N_bin, Variables::M4lYields().var_min, Variables::M4lYields().var_max);
-      }
-   }
 }
 //======================
 
@@ -718,22 +702,6 @@ void Histograms::MakeZXShape( int current_final_state, int current_category)
    ZXShape_HighMass->Delete();
 }
 //=======================================================================================
-
-
-
-//================================================================================
-void Histograms::MakeZXShapeYields( int current_final_state, int current_category)
-{
-   if (current_final_state == Settings::fs2mu2e) return;
-   
-   M4lZX *ZXShape = new M4lZX();
-   histos_1D_ZX_shape[Settings::M4lYields][current_final_state][current_category]->Add(ZXShape->GetM4lZX(Variables::M4lYields().var_N_bin, Variables::M4lYields().var_min, Variables::M4lYields().var_max, current_final_state, current_category));
-   
-   ZXShape->~M4lZX();   
-}
-//================================================================================
-
-
 
 //==============================
 void Histograms::FillInclusive()
@@ -1338,29 +1306,6 @@ void Histograms::FillInclusiveYields()
       }
    }
 
-
-   for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++ )
-   {
-      for ( int i_cat = 0; i_cat < num_of_categories - 1; i_cat++ )
-      {
-         //=============
-         // M4l
-         //=============
-         histos_1D_ZX[Settings::M4lYields][num_of_final_states - 1][i_cat]->Add(histos_1D_ZX[Settings::M4lYields][i_fs][i_cat]);
-      }
-   }
-
-   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
-   {
-      for ( int i_cat = 0; i_cat < num_of_categories - 1; i_cat++ )
-      {
-         //=============
-         // M4l
-         //=============
-         histos_1D_ZX[Settings::M4lYields][i_fs][num_of_categories - 1]->Add(histos_1D_ZX[Settings::M4lYields][i_fs][i_cat]);
-      }
-   }
-
 }
 //==============================
 
@@ -1808,7 +1753,6 @@ void Histograms::SaveYieldHistos( string file_name )
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat]->Write();
 
          for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
          {
@@ -1958,7 +1902,6 @@ void Histograms::DeleteYieldsHistos()
          //=============
          // M4l
          //=============
-         delete histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat];
          
          for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
          {
@@ -2223,18 +2166,6 @@ void Histograms::GetYieldsHistos( TString file_name )
       }
    }
       
-   // Z+X
-   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
-   {
-      for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
-      {
-         //=============
-         // M4l
-         //=============
-         _histo_name = "M4l_ZX_shape_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
-         histos_1D_ZX_shape[Settings::M4lYields][i_fs][i_cat] = (TH1F*)histo_file->Get(_histo_name.c_str());
-      }
-   }
 }
 //=============================================
 
