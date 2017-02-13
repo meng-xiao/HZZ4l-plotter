@@ -25,11 +25,14 @@ cd ext/
 sh compile_ext.sh
 cd ..
 source set_library.sh
-make
+make plotter
+make yields
 ```
 
 Running:
 ------------------------------
 ```
-./run
+./run_plotter
+./run_yields
 ```
+Note that every time you add something in the code you need to recompile the code with make again.
