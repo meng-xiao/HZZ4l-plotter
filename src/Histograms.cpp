@@ -34,6 +34,7 @@ Histograms::Histograms( string blinding )
    _s_category.push_back("VHLeptTagged");
    _s_category.push_back("VHHadrTagged");
    _s_category.push_back("ttHTagged");
+   _s_category.push_back("VHMETTagged");
    _s_category.push_back("Inclusive");
    
    _s_resonant_status.push_back("resonant");
@@ -322,6 +323,7 @@ Histograms::Histograms()
    _s_category.push_back("VHLeptTagged");
    _s_category.push_back("VHHadrTagged");
    _s_category.push_back("ttHTagged");
+   _s_category.push_back("VHMETTagged");
    _s_category.push_back("Inclusive");
    
    _s_resonant_status.push_back("resonant");
@@ -2413,7 +2415,7 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       }
       
       stringstream ss;
-      ss << folder << "/" << variable_name << "_" <<filename << "_" << _s_category.at(i_cat);
+      ss << folder << "/" << variable_name << "_" <<filename << "_" << _s_final_state.at(Settings::fs4l) << "_" << _s_category.at(i_cat);
       cout << ss.str() << endl;
       c->SaveAs((ss.str() + ".pdf").c_str());
       c->SaveAs((ss.str() + ".png").c_str());
@@ -2521,7 +2523,7 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
       }
       
       stringstream ss;
-      ss << folder << "/" << variable_name << "_" <<filename << "_" << _s_final_state.at(i_fs);
+      ss << folder << "/" << variable_name << "_" <<filename << "_" << _s_final_state.at(i_fs) << "_" << _s_category.at(Settings::inclusive);
       cout << ss.str() << endl;
       c->SaveAs((ss.str() + ".pdf").c_str());
       c->SaveAs((ss.str() + ".png").c_str());
@@ -2718,7 +2720,7 @@ void Histograms::FillYieldGraphs( float M4l_down, float M4l_up)
    vector<double> error;
    
    int fs_marker[num_of_final_states] = {20, 22, 21, 33, 29};
-   Color_t catColor[num_of_categories] = {kBlue-9, kCyan-6, kGreen-6, kRed-7, kOrange+6, kMagenta-6, kBlack};
+   Color_t catColor[num_of_categories] = {kBlue-9, kCyan-6, kGreen-6, kRed-7, kOrange+6, kMagenta-6, kYellow - 3 ,kBlack};
    
    for ( int i_prod_mode = 0; i_prod_mode < num_of_production_modes; i_prod_mode++ )
    {      
@@ -2777,6 +2779,7 @@ void Histograms::FillYieldGraphs( float M4l_down, float M4l_up)
             if (i_cat == Settings::VH_lepton_tagged && i_prod_mode != Settings::WH) fit_model = "pol1";
             if (i_cat == Settings::VH_hadron_tagged) fit_model = "pol1";
             if (i_cat == Settings::ttH_tagged) fit_model = "pol1";
+            if (i_cat == Settings::VH_MET_tagged) fit_model = "pol1";
             if (i_prod_mode == Settings::ttH) fit_model = "pol1";
             if (i_prod_mode == Settings::WH && i_cat == Settings::VBF_2j_tagged && i_fs == Settings::fs4e) fit_model = "pol1";
             if (i_prod_mode == Settings::ZH && i_cat == Settings::VBF_1j_tagged && i_fs == Settings::fs4e) fit_model = "pol1";
@@ -2818,7 +2821,7 @@ void Histograms::FillYieldGraphs( float M4l_down, float M4l_up)
             c->SaveAs("Fits/" + fit_name + ".eps");
             c->SaveAs("Fits/" + fit_name + ".png");
             c->SaveAs("Fits/" + fit_name + ".root");
-            c->SaveAs("Fits/" + fit_name + ".cpp");
+            c->SaveAs("Fits/" + fit_name + ".C");
             
             pav->Clear();    
             lgd->Clear();
@@ -2877,9 +2880,10 @@ void Histograms::PrepareYamlFiles( TString sqrt, TString lumi, float M4l_down, f
             
             for ( int i_par = 0; i_par <= 2; i_par++ )
             {
-               double parameter = fit_function->GetParameter(i_par);
+               double parameter = 0;
+               if(i_par < num_of_parameters) parameter = fit_function->GetParameter(i_par);
                
-               out_file[i_fs] << "(" << (parameter != parameter ? 0. : parameter);
+               out_file[i_fs] << "(" << (parameter);
                
                for ( int i_par_2 = 0; i_par_2 <= i_par-1; i_par_2++)
                   out_file[i_fs] << "*@0";

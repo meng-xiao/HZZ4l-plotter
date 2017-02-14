@@ -4,10 +4,7 @@ CXXFLAGS = -g -I. -m64 $(shell root-config --cflags) -I include
 LDFLAGS = $(shell root-config --libs) -lm -lGenVector
 CXX = g++
 
-#LIBS = /afs/cern.ch/work/m/mkovac/CMS/RUN2/HZZ4l_Plotter/CMSSW_8_0_21/src/ext/
-#EXTLIBS = -L$(LIBS) cConstants_cc.so FinalStates_cc.so bitops_cc.so
-
-EXTLIBS = ./ext/cConstants_cc.so ./ext/FinalStates_cc.so ./ext/bitops_cc.so
+EXTLIBS = ./ext/cConstants_cc.so ./ext/FinalStates_cc.so ./ext/bitops_cc.so ./ext/Discriminants_cc.so
 
 VPATH = ./src/ ./include/
 

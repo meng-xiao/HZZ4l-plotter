@@ -130,8 +130,14 @@ void M4lZX::SetNormalization( int category)
         _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_ttH_tagged;
         _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_ttH_tagged;
         break;
-        
+          
         case 6:
+        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_VH_MET_tagged;
+        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_VH_MET_tagged;
+        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_VH_MET_tagged;
+        break;
+        
+        case 7:
         _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_combined;
         _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_combined;
         _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_combined;

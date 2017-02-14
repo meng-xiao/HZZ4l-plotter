@@ -14,7 +14,16 @@ public:
    enum _blindings { fullyblind = 0, blindabove_110 = 1, blindbelow_150 = 2, blind_110_150 = 3, unblinded = 4 };
    enum _final_state { fs4mu = 0, fs4e = 1, fs2e2mu = 2, fs2mu2e = 3, fs4l = 4, MAX_NUM_OF_FINAL_STATES };
    enum _resonant_status { resonant = 0, nonresonant = 1, all_resonant = 2, MAX_NUM_OF_RESONANT_STATUSES };
-   enum _category { untagged = 0, VBF_1j_tagged = 1, VBF_2j_tagged = 2, VH_lepton_tagged = 3, VH_hadron_tagged = 4, ttH_tagged = 5, inclusive = 6, MAX_NUM_OF_CATEGORIES };
+   enum _category {
+   untagged = 0,
+   VBF_1j_tagged = 1,
+   VBF_2j_tagged = 2,
+   VH_lepton_tagged = 3,
+   VH_hadron_tagged = 4,
+   ttH_tagged = 5,
+   VH_MET_tagged = 6,
+   inclusive = 7,
+   MAX_NUM_OF_CATEGORIES };
    
    enum _1Dplot_name {
    M4lMain = 0,

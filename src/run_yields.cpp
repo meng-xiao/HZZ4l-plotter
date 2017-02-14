@@ -27,6 +27,9 @@ int main( int argc, char *argv[] )
    TString path = "Moriond_2017/";
    TString file_name = "/ZZ4lAnalysis.root";
    
+   //Data
+   TString Data        = path + "Data" + file_name;
+   
    // Signal
    TString ggH120      = path + "ggH120" + file_name;
    TString ggH124      = path + "ggH124" + file_name;
@@ -79,7 +82,8 @@ int main( int argc, char *argv[] )
 //===============
 // Produce plots 
 //===============
-
+   yields->MakeHistograms(Data);
+   
    yields->MakeHistograms(ggH120);
    yields->MakeHistograms(ggH124);
    yields->MakeHistograms(ggH125);
@@ -105,13 +109,13 @@ int main( int argc, char *argv[] )
    yields->MakeHistograms(WpH130);
    
    yields->MakeHistograms(WmH120);
-//   yields->MakeHistograms(WmH124);
+   yields->MakeHistograms(WmH124);
    yields->MakeHistograms(WmH125);
    yields->MakeHistograms(WmH126);
    yields->MakeHistograms(WmH130);
    
    yields->MakeHistograms(ttH120);
-//   yields->MakeHistograms(ttH124);
+   yields->MakeHistograms(ttH124);
    yields->MakeHistograms(ttH125);
    yields->MakeHistograms(ttH126);
    yields->MakeHistograms(ttH130);
@@ -135,7 +139,7 @@ int main( int argc, char *argv[] )
  
    yields->GetHistos("Yields");
    yields->Print("Yields");
-   yields->Print("Yields", 118., 130.);
+   yields->Print("Yields", 70., 110.);
    yields->FillGraphs("Yields", 105., 140.);
    yields->PrepareYamlFiles("Yields", "13", "38.6", 105., 140.);
    
