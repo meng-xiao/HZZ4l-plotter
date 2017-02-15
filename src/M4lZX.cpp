@@ -32,13 +32,13 @@ M4lZX::~M4lZX()
 //================
 
 //===================================================================================
-void M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int category, TH1F* h_4e, TH1F* h_4mu, TH1F* h_2e2mu, TH1F* h_4l )
+void M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int category, vector< vector <float> > _norm_ZX_SS_SR, TH1F* h_4e, TH1F* h_4mu, TH1F* h_2e2mu, TH1F* h_4l )
 { 
    SetNormalization(category);
     
-   _norm_4mu = _norm_ZX_full_SR_4mu * f_4mu_comb->Integral(x_min, x_max) / f_4mu_comb->Integral(_bin_down, _bin_up);
-   _norm_4e = _norm_ZX_full_SR_4e * f_4e_comb->Integral(x_min, x_max) / f_4e_comb->Integral(_bin_down, _bin_up);
-   _norm_2e2mu = _norm_ZX_full_SR_2e2mu * f_2e2mu_comb->Integral(x_min, x_max) / f_2e2mu_comb->Integral(_bin_down, _bin_up);
+   _norm_4mu   = ((_norm_ZX_OS_SR_4mu   == 0.) ? 1. : (_norm_ZX_OS_SR_4mu / _norm_ZX_SS_SR[Settings::fs4mu][category]))     * _norm_ZX_SS_SR[Settings::fs4mu][category]   * (f_4mu_comb->Integral(x_min, x_max) / f_4mu_comb->Integral(_bin_down, _bin_up));
+   _norm_4e    = ((_norm_ZX_OS_SR_4e    == 0.) ? 1. : (_norm_ZX_OS_SR_4e / _norm_ZX_SS_SR[Settings::fs4e][category]))       * _norm_ZX_SS_SR[Settings::fs4e][category]    * (f_4e_comb->Integral(x_min, x_max) / f_4e_comb->Integral(_bin_down, _bin_up));
+   _norm_2e2mu = ((_norm_ZX_OS_SR_2e2mu == 0.) ? 1. : (_norm_ZX_OS_SR_2e2mu / _norm_ZX_SS_SR[Settings::fs2e2mu][category])) * _norm_ZX_SS_SR[Settings::fs2e2mu][category] * (f_2e2mu_comb->Integral(x_min, x_max) / f_2e2mu_comb->Integral(_bin_down, _bin_up));
    
    h_4mu  ->FillRandom("f_4mu_comb"  , _n_entries);
    h_4e   ->FillRandom("f_4e_comb"   , _n_entries);
@@ -57,13 +57,13 @@ void M4lZX::GetM4lZX(int n_bins, int x_min, int x_max, int category, TH1F* h_4e,
 
 
 //================================================================================
-double M4lZX::GetM4lZX_Yields(int x_min, int x_max, int final_state, int category)
+double M4lZX::GetM4lZX_Yields(vector< vector <float> > _norm_ZX_SS_SR, int x_min, int x_max, int final_state, int category)
 { 
    SetNormalization(category);
 
-   _norm_4mu = _norm_ZX_full_SR_4mu * f_4mu_comb->Integral(x_min, x_max) / f_4mu_comb->Integral(_bin_down, _bin_up);
-   _norm_4e = _norm_ZX_full_SR_4e * f_4e_comb->Integral(x_min, x_max) / f_4e_comb->Integral(_bin_down, _bin_up);
-   _norm_2e2mu = _norm_ZX_full_SR_2e2mu * f_2e2mu_comb->Integral(x_min, x_max) / f_2e2mu_comb->Integral(_bin_down, _bin_up);
+   _norm_4mu   = ((_norm_ZX_OS_SR_4mu   == 0.) ? 1. : (_norm_ZX_OS_SR_4mu / _norm_ZX_SS_SR[Settings::fs4mu][category]))     * _norm_ZX_SS_SR[Settings::fs4mu][category]   * (f_4mu_comb->Integral(x_min, x_max) / f_4mu_comb->Integral(_bin_down, _bin_up));
+   _norm_4e    = ((_norm_ZX_OS_SR_4e    == 0.) ? 1. : (_norm_ZX_OS_SR_4e / _norm_ZX_SS_SR[Settings::fs4e][category]))       * _norm_ZX_SS_SR[Settings::fs4e][category]    * (f_4e_comb->Integral(x_min, x_max) / f_4e_comb->Integral(_bin_down, _bin_up));
+   _norm_2e2mu = ((_norm_ZX_OS_SR_2e2mu == 0.) ? 1. : (_norm_ZX_OS_SR_2e2mu / _norm_ZX_SS_SR[Settings::fs2e2mu][category])) * _norm_ZX_SS_SR[Settings::fs2e2mu][category] * (f_2e2mu_comb->Integral(x_min, x_max) / f_2e2mu_comb->Integral(_bin_down, _bin_up));
    
    if ( final_state == Settings::fs4mu ) return _norm_4mu;
    else if (final_state == Settings::fs4e)  return _norm_4e;
@@ -80,13 +80,13 @@ double M4lZX::GetM4lZX_Yields(int x_min, int x_max, int final_state, int categor
 
 
 //==========================================================================
-void M4lZX::RenormalizeZX( int cat, vector< vector <float> > _expected_yield_SR, TH1F* histo4e_ZX, TH1F* histo4mu_ZX, TH1F* histo2e2mu_ZX)
+void M4lZX::RenormalizeZX( int category, vector< vector <float> > _norm_ZX_SS_SR, TH1F* histo4e_ZX, TH1F* histo4mu_ZX, TH1F* histo2e2mu_ZX)
 {
-   SetNormalization(cat);
+   SetNormalization(category);
    
-   histo4e_ZX->Scale(_norm_ZX_full_SR_4e / _expected_yield_SR[Settings::fs4e][cat]);
-   histo4mu_ZX->Scale(_norm_ZX_full_SR_4mu / _expected_yield_SR[Settings::fs4mu][cat]);
-   histo2e2mu_ZX->Scale(_norm_ZX_full_SR_2e2mu / _expected_yield_SR[Settings::fs2e2mu][cat]);
+   histo4e_ZX   ->Scale((_norm_ZX_OS_SR_4mu   == 0.) ? 1. : (_norm_ZX_OS_SR_4mu / _norm_ZX_SS_SR[Settings::fs4mu][category]));
+   histo4mu_ZX  ->Scale((_norm_ZX_OS_SR_4e    == 0.) ? 1. : (_norm_ZX_OS_SR_4e / _norm_ZX_SS_SR[Settings::fs4e][category]));
+   histo2e2mu_ZX->Scale((_norm_ZX_OS_SR_2e2mu == 0.) ? 1. : (_norm_ZX_OS_SR_2e2mu / _norm_ZX_SS_SR[Settings::fs2e2mu][category]));
 
 }
 //==========================================================================
@@ -95,52 +95,52 @@ void M4lZX::RenormalizeZX( int cat, vector< vector <float> > _expected_yield_SR,
 void M4lZX::SetNormalization( int category)
 {
     switch (category) {
-        case 0:
-        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_untagged;
-        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_untagged;
-        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_untagged;
+       case Settings::untagged:
+        _norm_ZX_OS_SR_4e    = ZXVariables::ZX4e().OS_norm_untagged;
+        _norm_ZX_OS_SR_4mu   = ZXVariables::ZX4mu().OS_norm_untagged;
+        _norm_ZX_OS_SR_2e2mu = ZXVariables::ZX2e2mu().OS_norm_untagged;
         break;
         
-        case 1:
-        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_VBF_1j_tagged;
-        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_VBF_1j_tagged;
-        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_VBF_1j_tagged;
+        case Settings::VBF_1j_tagged:
+        _norm_ZX_OS_SR_4e    = ZXVariables::ZX4e().OS_norm_VBF_1j_tagged;
+        _norm_ZX_OS_SR_4mu   = ZXVariables::ZX4mu().OS_norm_VBF_1j_tagged;
+        _norm_ZX_OS_SR_2e2mu = ZXVariables::ZX2e2mu().OS_norm_VBF_1j_tagged;
         break;
         
-        case 2:
-        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_VBF_2j_tagged;
-        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_VBF_2j_tagged;
-        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_VBF_2j_tagged;
+        case Settings::VBF_2j_tagged:
+        _norm_ZX_OS_SR_4e    = ZXVariables::ZX4e().OS_norm_VBF_2j_tagged;
+        _norm_ZX_OS_SR_4mu   = ZXVariables::ZX4mu().OS_norm_VBF_2j_tagged;
+        _norm_ZX_OS_SR_2e2mu = ZXVariables::ZX2e2mu().OS_norm_VBF_2j_tagged;
         break;
         
-        case 3:
-        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_VH_lepton_tagged;
-        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_VH_lepton_tagged;
-        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_VH_lepton_tagged;
+        case Settings::VH_lepton_tagged:
+        _norm_ZX_OS_SR_4e    = ZXVariables::ZX4e().OS_norm_VH_lepton_tagged;
+        _norm_ZX_OS_SR_4mu   = ZXVariables::ZX4mu().OS_norm_VH_lepton_tagged;
+        _norm_ZX_OS_SR_2e2mu = ZXVariables::ZX2e2mu().OS_norm_VH_lepton_tagged;
         break;
         
-        case 4:
-        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_VH_hadron_tagged;
-        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_VH_hadron_tagged;
-        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_VH_hadron_tagged;
+        case Settings::VH_hadron_tagged:
+        _norm_ZX_OS_SR_4e    = ZXVariables::ZX4e().OS_norm_VH_hadron_tagged;
+        _norm_ZX_OS_SR_4mu   = ZXVariables::ZX4mu().OS_norm_VH_hadron_tagged;
+        _norm_ZX_OS_SR_2e2mu = ZXVariables::ZX2e2mu().OS_norm_VH_hadron_tagged;
         break;
         
-        case 5:
-        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_ttH_tagged;
-        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_ttH_tagged;
-        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_ttH_tagged;
+        case Settings::ttH_tagged:
+        _norm_ZX_OS_SR_4e    = ZXVariables::ZX4e().OS_norm_ttH_tagged;
+        _norm_ZX_OS_SR_4mu   = ZXVariables::ZX4mu().OS_norm_ttH_tagged;
+        _norm_ZX_OS_SR_2e2mu = ZXVariables::ZX2e2mu().OS_norm_ttH_tagged;
         break;
           
-        case 6:
-        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_VH_MET_tagged;
-        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_VH_MET_tagged;
-        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_VH_MET_tagged;
+        case Settings::VH_MET_tagged:
+        _norm_ZX_OS_SR_4e    = ZXVariables::ZX4e().OS_norm_VH_MET_tagged;
+        _norm_ZX_OS_SR_4mu   = ZXVariables::ZX4mu().OS_norm_VH_MET_tagged;
+        _norm_ZX_OS_SR_2e2mu = ZXVariables::ZX2e2mu().OS_norm_VH_MET_tagged;
         break;
         
-        case 7:
-        _norm_ZX_full_SR_4e    = ZXVariables::ZX4e().norm_combined;
-        _norm_ZX_full_SR_4mu   = ZXVariables::ZX4mu().norm_combined;
-        _norm_ZX_full_SR_2e2mu = ZXVariables::ZX2e2mu().norm_combined;
+        case Settings::inclusive:
+        _norm_ZX_OS_SR_4e    = ZXVariables::ZX4e().OS_norm_inclusive;
+        _norm_ZX_OS_SR_4mu   = ZXVariables::ZX4mu().OS_norm_inclusive;
+        _norm_ZX_OS_SR_2e2mu = ZXVariables::ZX2e2mu().OS_norm_inclusive;
         break;
         
         default:

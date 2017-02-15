@@ -678,12 +678,12 @@ void Histograms::FillYields( float M4l, float weight, int fs, int cat, int rs, i
 
 
 //=======================================================================================
-void Histograms::MakeZXShape( int current_category)
+void Histograms::MakeZXShape( vector< vector <float> > _expected_yield_SR, int current_category)
 {
    
    M4lZX *ZXShape = new M4lZX();
    
-   ZXShape->GetM4lZX(Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max, current_category,
+   ZXShape->GetM4lZX(Variables::M4lMain().var_N_bin, Variables::M4lMain().var_min, Variables::M4lMain().var_max, current_category, _expected_yield_SR,
                      histos_1D_ZX_shape[Settings::M4lMain][Settings::fs4e][current_category],
                      histos_1D_ZX_shape[Settings::M4lMain][Settings::fs4mu][current_category],
                      histos_1D_ZX_shape[Settings::M4lMain][Settings::fs2e2mu][current_category],
@@ -692,7 +692,7 @@ void Histograms::MakeZXShape( int current_category)
    
    M4lZX *ZXShape_zoomed = new M4lZX();
    
-   ZXShape_zoomed->GetM4lZX(Variables::M4lMainZoomed().var_N_bin, Variables::M4lMainZoomed().var_min, Variables::M4lMainZoomed().var_max, current_category,
+   ZXShape_zoomed->GetM4lZX(Variables::M4lMainZoomed().var_N_bin, Variables::M4lMainZoomed().var_min, Variables::M4lMainZoomed().var_max, current_category, _expected_yield_SR,
                             histos_1D_ZX_shape[Settings::M4lMainZoomed][Settings::fs4e][current_category],
                             histos_1D_ZX_shape[Settings::M4lMainZoomed][Settings::fs4mu][current_category],
                             histos_1D_ZX_shape[Settings::M4lMainZoomed][Settings::fs2e2mu][current_category],
@@ -701,7 +701,7 @@ void Histograms::MakeZXShape( int current_category)
       
    M4lZX *ZXShape_HighMass = new M4lZX();
    
-   ZXShape_HighMass->GetM4lZX(Variables::M4lMainHighMass().var_N_bin, Variables::M4lMainHighMass().var_min, Variables::M4lMainHighMass().var_max, current_category,
+   ZXShape_HighMass->GetM4lZX(Variables::M4lMainHighMass().var_N_bin, Variables::M4lMainHighMass().var_min, Variables::M4lMainHighMass().var_max, current_category, _expected_yield_SR,
                               histos_1D_ZX_shape[Settings::M4lMainHighMass][Settings::fs4e][current_category],
                               histos_1D_ZX_shape[Settings::M4lMainHighMass][Settings::fs4mu][current_category],
                               histos_1D_ZX_shape[Settings::M4lMainHighMass][Settings::fs2e2mu][current_category],
@@ -2257,6 +2257,8 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    {
       stack->SetMinimum(1e-5);
       stack->SetMaximum((data_max + data_max_error)*1.1);
+      if (plot_index == Settings::MZ1_M4L118130) stack->SetMaximum(35.);
+      if (plot_index == Settings::MZ2_M4L118130) stack->SetMaximum(20.);
    }
    
    stack->GetXaxis()->SetTitle(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
@@ -2837,7 +2839,7 @@ void Histograms::FillYieldGraphs( float M4l_down, float M4l_up)
 
 
 //========================================================================================================
-void Histograms::PrepareYamlFiles( TString sqrt, TString lumi, float M4l_down, float M4l_up)
+void Histograms::PrepareYamlFiles( TString sqrt, TString lumi, float M4l_down, float M4l_up, vector< vector <float> > _expected_yield_SR)
 {
    
    TString out_file_name[num_of_final_states - 1];
@@ -2905,7 +2907,7 @@ void Histograms::PrepareYamlFiles( TString sqrt, TString lumi, float M4l_down, f
                                                                      histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][Settings::yggZZ]->FindBin(M4l_down),
                                                                      histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][Settings::yggZZ]->FindBin(M4l_up) - 1) << "'" << endl;
          
-         out_file[i_fs] << "zjets: '" << ZXYields->GetM4lZX_Yields(M4l_down, M4l_up, i_fs, i_cat) << endl;
+         out_file[i_fs] << "zjets: '" << ZXYields->GetM4lZX_Yields(_expected_yield_SR, M4l_down, M4l_up, i_fs, i_cat) << endl;
          out_file[i_fs] << endl;
       
       } // end i_cat
@@ -2920,10 +2922,10 @@ void Histograms::PrepareYamlFiles( TString sqrt, TString lumi, float M4l_down, f
 
 
 //========================================================================================================
-void Histograms::PrintYields()
+void Histograms::PrintYields( vector< vector <float> > _expected_yield_SR)
 {
    
-   cout << std::setprecision(2) << fixed;
+   //cout << std::setprecision(2) << fixed;
    
    cout << endl;
    cout << "=========================" << endl;
@@ -2933,7 +2935,9 @@ void Histograms::PrintYields()
    
    for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
    {
-      cout << endl;
+      if (i_proc > Settings::yH130 && i_proc < Settings::yqqZZ
+          || i_proc == Settings::yH120 || i_proc == Settings::yH124 || i_proc == Settings::yH126 || i_proc == Settings::yH130
+          || i_proc == Settings::yDY || i_proc == Settings::yttbar) continue;      cout << endl;
       
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
@@ -2963,7 +2967,7 @@ void Histograms::PrintYields()
       {
          if( i_fs == Settings::fs2mu2e ) continue;
          
-          cout << ZXYields->GetM4lZX_Yields(0, 3000, i_fs, i_cat) << "   ";
+          cout << ZXYields->GetM4lZX_Yields(_expected_yield_SR, 0, 3000, i_fs, i_cat) << "   ";
       }
       cout << endl;
    }
@@ -2975,7 +2979,7 @@ void Histograms::PrintYields()
 
 
 //========================================================
-void Histograms::PrintYields(float M4l_down, float M4l_up)
+void Histograms::PrintYields(float M4l_down, float M4l_up, vector< vector <float> > _expected_yield_SR)
 {
    //cout << std::setprecision(2) << fixed;
    
@@ -2991,7 +2995,9 @@ void Histograms::PrintYields(float M4l_down, float M4l_up)
    
    for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
    {
-      cout << endl;
+      if (i_proc > Settings::yH130 && i_proc < Settings::yqqZZ
+          || i_proc == Settings::yH120 || i_proc == Settings::yH124 || i_proc == Settings::yH126 || i_proc == Settings::yH130
+          || i_proc == Settings::yDY || i_proc == Settings::yttbar) continue;      cout << endl;
       
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
@@ -3025,7 +3031,7 @@ void Histograms::PrintYields(float M4l_down, float M4l_up)
    {         
       cout << "Z+X" << "   " << _s_category.at(i_cat) << "   ";
       
-      temp_yield = ZXYields->GetM4lZX_Yields(M4l_down, M4l_up, num_of_final_states-1, i_cat);
+      temp_yield = ZXYields->GetM4lZX_Yields(_expected_yield_SR, M4l_down, M4l_up, num_of_final_states-1, i_cat);
       
       yields_ZX.push_back(temp_yield);
       
@@ -3033,7 +3039,7 @@ void Histograms::PrintYields(float M4l_down, float M4l_up)
       {
          if( i_fs == Settings::fs2mu2e ) continue;
          
-         cout << ZXYields->GetM4lZX_Yields(M4l_down, M4l_up, i_fs, i_cat) << "   ";
+         cout << ZXYields->GetM4lZX_Yields(_expected_yield_SR, M4l_down, M4l_up, i_fs, i_cat) << "   ";
       }
       cout << endl;
    }
@@ -3091,6 +3097,228 @@ void Histograms::PrintYields(float M4l_down, float M4l_up)
    cout << "\\\\" << endl;
    
    cout << "\\hline" << endl << endl; 
+   
+   delete ZXYields;
+}
+//========================================================
+
+//========================================================
+void Histograms::PrintLatexTables(float M4l_down, float M4l_up, vector< vector <float> > _expected_yield_SR)
+{
+   cout << std::setprecision(2) << fixed;
+   
+   map<int, vector<float>> yields_map;
+   vector<float> yields_ZX;
+   float temp_yield;
+   int i_fs_ordered = 0;
+   
+//======================================================
+// TABLE 1
+//======================================================
+   for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
+   {
+      for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+      {
+         temp_yield = histos_1D[Settings::M4lYields][i_fs][Settings::inclusive][Settings::all_resonant][i_proc]->Integral();
+         yields_map[i_proc].push_back(temp_yield);
+      }
+   }
+   
+   // Z+X
+   M4lZX *ZXYields = new M4lZX();
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      if ( i_fs == Settings::fs2mu2e) {yields_ZX.push_back(0.); continue;}
+      temp_yield = ZXYields->GetM4lZX_Yields(_expected_yield_SR, 30., 3000., i_fs, Settings::inclusive);
+      yields_ZX.push_back(temp_yield);
+   }
+   
+   cout << endl;
+   cout << "\\textbf{Channel} & $4\\Pe$ & $4\\Pgm$ & $2\\Pe2\\Pgm$& $4\\ell$ \\\\" << endl;
+   cout << "\\hline" << endl;
+   
+   cout << "\\qqZZ ";
+  
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      i_fs_ordered = i_fs;
+      if ( i_fs == Settings::fs2mu2e) continue;
+      if ( i_fs == Settings::fs4e) i_fs_ordered = Settings::fs4mu;
+      if ( i_fs == Settings::fs4mu) i_fs_ordered = Settings::fs4e;
+      cout << "& $" << yields_map[Settings::yqqZZ].at(i_fs_ordered) << "^{+ y.y}_{- z.z}$ ";
+   }
+   cout << "\\\\" << endl;
+   
+   cout << "\\ggZZ ";
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      i_fs_ordered = i_fs;
+      if ( i_fs == Settings::fs2mu2e) continue;
+      if ( i_fs == Settings::fs4e) i_fs_ordered = Settings::fs4mu;
+      if ( i_fs == Settings::fs4mu) i_fs_ordered = Settings::fs4e;
+      cout << "& $" << yields_map[Settings::yggZZ].at(i_fs_ordered) << "^{+ y.y}_{- z.z}$ ";
+   }
+   cout << "\\\\" << endl;
+   
+   cout << "\\cPZ\\ + X ";
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      i_fs_ordered = i_fs;
+      if ( i_fs == Settings::fs2mu2e) continue;
+      if ( i_fs == Settings::fs4e) i_fs_ordered = Settings::fs4mu;
+      if ( i_fs == Settings::fs4mu) i_fs_ordered = Settings::fs4e;
+      cout << "& $" << yields_ZX.at(i_fs_ordered) << "^{+ y.y}_{- z.z}$ ";
+   }
+   cout << "\\\\" << endl;
+   
+   cout << "\\hline" << endl;
+   
+   cout << "Sum of backgrounds ";
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      i_fs_ordered = i_fs;
+      if ( i_fs == Settings::fs2mu2e) continue;
+      if ( i_fs == Settings::fs4e) i_fs_ordered = Settings::fs4mu;
+      if ( i_fs == Settings::fs4mu) i_fs_ordered = Settings::fs4e;
+      cout << "& $" << yields_map[Settings::yqqZZ].at(i_fs_ordered) + yields_map[Settings::yggZZ].at(i_fs_ordered)+ yields_ZX.at(i_fs_ordered) << "^{+ y.y}_{- z.z}$ ";
+   }
+   cout << "\\\\" << endl;
+   
+   cout << "\\hline" << endl;
+   
+   cout << "Signal ($\\mH=125~\\GeV$) ";
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      i_fs_ordered = i_fs;
+      if ( i_fs == Settings::fs2mu2e) continue;
+      if ( i_fs == Settings::fs4e) i_fs_ordered = Settings::fs4mu;
+      if ( i_fs == Settings::fs4mu) i_fs_ordered = Settings::fs4e;
+      cout << "& $" << yields_map[Settings::yH125].at(i_fs_ordered) << "$ ";
+   }
+   cout << "\\\\" << endl;
+   
+   cout << "\\hline" << endl;
+   
+   cout << "Total expected ";
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      i_fs_ordered = i_fs;
+      if ( i_fs == Settings::fs2mu2e) continue;
+      if ( i_fs == Settings::fs4e) i_fs_ordered = Settings::fs4mu;
+      if ( i_fs == Settings::fs4mu) i_fs_ordered = Settings::fs4e;
+      cout << "& $" << yields_map[Settings::yH125].at(i_fs) + yields_map[Settings::yqqZZ].at(i_fs_ordered) + yields_map[Settings::yggZZ].at(i_fs)+ yields_ZX.at(i_fs) << "^{+ y.y}_{- z.z}$ ";
+   }
+   cout << "\\\\" << endl;
+   
+   cout << "\\hline" << endl;
+   cout << "Observed    & XXX & XXX & XXX & XXX \\\\" << endl << endl << endl;
+
+   
+//======================================================
+// TABLE 2
+//======================================================
+   yields_map.clear();
+   yields_ZX.clear();
+   i_fs_ordered = 0;
+   
+   for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
+   {
+      for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+      {
+         temp_yield = histos_1D[Settings::M4lYields][i_fs][Settings::inclusive][Settings::all_resonant][i_proc]->Integral(
+                                histos_1D[Settings::M4lYields][i_fs][Settings::inclusive][Settings::all_resonant][i_proc]->FindBin(M4l_down),
+                                histos_1D[Settings::M4lYields][i_fs][Settings::inclusive][Settings::all_resonant][i_proc]->FindBin(M4l_up));
+         yields_map[i_proc].push_back(temp_yield);
+      }
+   }
+   
+   // Z+X
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      if ( i_fs == Settings::fs2mu2e) {yields_ZX.push_back(0.); continue;}
+      temp_yield = ZXYields->GetM4lZX_Yields(_expected_yield_SR, M4l_down, M4l_up, i_fs, Settings::inclusive);
+      yields_ZX.push_back(temp_yield);
+   }
+   
+   cout << endl;
+   cout << "\\textbf{Channel} & $4\\Pe$ & $4\\Pgm$ & $2\\Pe2\\Pgm$& $4\\ell$ \\\\" << endl;
+   cout << "\\hline" << endl;
+   
+   cout << "\\qqZZ ";
+   
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      i_fs_ordered = i_fs;
+      if ( i_fs == Settings::fs2mu2e) continue;
+      if ( i_fs == Settings::fs4e) i_fs_ordered = Settings::fs4mu;
+      if ( i_fs == Settings::fs4mu) i_fs_ordered = Settings::fs4e;
+      cout << "& $" << yields_map[Settings::yqqZZ].at(i_fs_ordered) << "^{+ y.y}_{- z.z}$ ";
+   }
+   cout << "\\\\" << endl;
+   
+   cout << "\\ggZZ ";
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      i_fs_ordered = i_fs;
+      if ( i_fs == Settings::fs2mu2e) continue;
+      if ( i_fs == Settings::fs4e) i_fs_ordered = Settings::fs4mu;
+      if ( i_fs == Settings::fs4mu) i_fs_ordered = Settings::fs4e;
+      cout << "& $" << yields_map[Settings::yggZZ].at(i_fs_ordered) << "^{+ y.y}_{- z.z}$ ";
+   }
+   cout << "\\\\" << endl;
+   
+   cout << "\\cPZ\\ + X ";
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      i_fs_ordered = i_fs;
+      if ( i_fs == Settings::fs2mu2e) continue;
+      if ( i_fs == Settings::fs4e) i_fs_ordered = Settings::fs4mu;
+      if ( i_fs == Settings::fs4mu) i_fs_ordered = Settings::fs4e;
+      cout << "& $" << yields_ZX.at(i_fs_ordered) << "^{+ y.y}_{- z.z}$ ";
+   }
+   cout << "\\\\" << endl;
+   
+   cout << "\\hline" << endl;
+   
+   cout << "Sum of backgrounds ";
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      i_fs_ordered = i_fs;
+      if ( i_fs == Settings::fs2mu2e) continue;
+      if ( i_fs == Settings::fs4e) i_fs_ordered = Settings::fs4mu;
+      if ( i_fs == Settings::fs4mu) i_fs_ordered = Settings::fs4e;
+      cout << "& $" << yields_map[Settings::yqqZZ].at(i_fs_ordered) + yields_map[Settings::yggZZ].at(i_fs_ordered)+ yields_ZX.at(i_fs_ordered) << "^{+ y.y}_{- z.z}$ ";
+   }
+   cout << "\\\\" << endl;
+   
+   cout << "\\hline" << endl;
+   
+   cout << "Signal ($\\mH=125~\\GeV$) ";
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      i_fs_ordered = i_fs;
+      if ( i_fs == Settings::fs2mu2e) continue;
+      if ( i_fs == Settings::fs4e) i_fs_ordered = Settings::fs4mu;
+      if ( i_fs == Settings::fs4mu) i_fs_ordered = Settings::fs4e;
+      cout << "& $" << yields_map[Settings::yH125].at(i_fs_ordered) << "$ ";
+   }
+   cout << "\\\\" << endl;
+   
+   cout << "\\hline" << endl;
+   
+   cout << "Total expected ";
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      i_fs_ordered = i_fs;
+      if ( i_fs == Settings::fs2mu2e) continue;
+      if ( i_fs == Settings::fs4e) i_fs_ordered = Settings::fs4mu;
+      if ( i_fs == Settings::fs4mu) i_fs_ordered = Settings::fs4e;
+      cout << "& $" << yields_map[Settings::yH125].at(i_fs) + yields_map[Settings::yqqZZ].at(i_fs_ordered) + yields_map[Settings::yggZZ].at(i_fs)+ yields_ZX.at(i_fs) << "^{+ y.y}_{- z.z}$ ";
+   }
+   cout << "\\\\" << endl;
+   
+   cout << "\\hline" << endl;
+   cout << "Observed    & XXX & XXX & XXX & XXX \\\\" << endl << endl << endl;
    
    delete ZXYields;
 }
@@ -3410,7 +3638,7 @@ void Histograms::DrawLogX( TCanvas *c, int i_cat )
       
    float u_y_max = c->GetUymax();
    
-   if ( i_cat == 6 ) _y_max = u_y_max;
+   if ( i_cat == Settings::inclusive ) _y_max = u_y_max;
    
    float factor = u_y_max/_y_max;
    float y_latex = -0.6;

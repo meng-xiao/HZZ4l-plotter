@@ -216,8 +216,8 @@ void Plotter::MakeM4lZX()
 
      for(int i_cat = 0; i_cat < num_of_categories; i_cat++)
      {
-         blinded_histos->MakeZXShape( i_cat );
-         unblinded_histos->MakeZXShape( i_cat);
+         blinded_histos->MakeZXShape( _expected_yield_SR, i_cat );
+         unblinded_histos->MakeZXShape( _expected_yield_SR, i_cat);
      }
    
    cout << "[INFO] Z+X shape for M4l done." << endl;

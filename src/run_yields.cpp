@@ -26,9 +26,11 @@ int main( int argc, char *argv[] )
 
    TString path = "Moriond_2017/";
    TString file_name = "/ZZ4lAnalysis.root";
+   TString file_name_FR = "/FakeRate_SS_Moriond368.root";
    
    //Data
    TString Data        = path + "Data" + file_name;
+   TString FakeRates   = path + "FakeRates" + file_name_FR;
    
    // Signal
    TString ggH120      = path + "ggH120" + file_name;
@@ -138,10 +140,12 @@ int main( int argc, char *argv[] )
 //==============
  
    yields->GetHistos("Yields");
+   yields->Calculate_SS_ZX_Yields( Data, FakeRates);
    yields->Print("Yields");
-   yields->Print("Yields", 70., 110.);
+   yields->Print("Yields", 118., 130.);
+   yields->PrintLatexTables("Yields", 118., 130.);
    yields->FillGraphs("Yields", 105., 140.);
-   yields->PrepareYamlFiles("Yields", "13", "38.6", 105., 140.);
+   yields->PrepareYamlFiles("Yields", "13", "35.8", 105., 140.);
    
    delete yields;
 }

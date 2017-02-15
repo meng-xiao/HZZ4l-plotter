@@ -50,8 +50,10 @@ public:
    ~Yields();
    
    void MakeHistograms( TString );
+   void Calculate_SS_ZX_Yields( TString, TString );
    float calculate_K_factor( TString );
    int FindFinalState();
+   int FindFinalStateZX();
    int find_current_process( TString );
    int find_resonant_status();
    void FillInclusive();
@@ -62,6 +64,7 @@ public:
    void PrepareYamlFiles( TString, TString , TString , float , float );
    void Print( TString );
    void Print( TString, float, float );
+   void PrintLatexTables( TString, float, float );
    
 private:
 
@@ -94,6 +97,9 @@ private:
    int _current_process, _current_final_state, _current_category, _current_resonant_status;
    float _lumi, _k_factor, _SMP_signal_strength, _yield_SR, partial_sample_weight;
    double gen_sum_weights, _event_weight;
+   
+   vector< vector <float> > _expected_yield_SR, _number_of_events_CR;
+   vector<float> _fs_ROS_SS;
    
 };
 #endif

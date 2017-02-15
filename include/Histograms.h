@@ -94,11 +94,12 @@ public:
    void Plot2D_single( TString, TString, TString, int );
    void Plot2DError_single( TString, TString, TString, int );
    void FillYieldGraphs( float, float);
-   void PrepareYamlFiles(TString , TString , float , float );
-   void PrintYields( );
-   void PrintYields( float, float);
+   void PrepareYamlFiles(TString , TString , float , float, vector< vector <float> > );
+   void PrintYields( vector< vector <float> > );
+   void PrintYields( float, float, vector< vector <float> >);
+   void PrintLatexTables( float, float, vector< vector <float> >);
    void setColZGradient_OneColor(int , bool);
-   void MakeZXShape( int);
+   void MakeZXShape( vector< vector <float> >, int);
    int SetPlotName( TString );
    bool GetVarLogX( TString );
    bool GetVarLogY( TString );

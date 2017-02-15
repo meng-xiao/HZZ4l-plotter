@@ -29,6 +29,24 @@ Yields::Yields():Tree()
    _tclr->GetColor("#000099");
    _tclr->GetColor("#003300");
    _tclr->GetColor("#5f3f3f");
+   
+   // Z+X SS factors
+   // FIXME: recompute this for Run II, OS/SS ratio taken when computing fake rates in SS method
+   _fs_ROS_SS.push_back(1.22);//4mu
+   _fs_ROS_SS.push_back(0.97);//4e
+   _fs_ROS_SS.push_back(1.30);//2e2mu
+   _fs_ROS_SS.push_back(0.98);//2mu2e
+   
+   vector<float> temp;
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+      {
+         temp.push_back(0);
+      }
+      _expected_yield_SR.push_back(temp);
+      _number_of_events_CR.push_back(temp);
+   }
 }
 //============================================================
 
@@ -116,6 +134,96 @@ void Yields::MakeHistograms( TString input_file_name )
 }
 //=====================================================
 
+//===============================================================================
+void Yields::Calculate_SS_ZX_Yields( TString input_file_data_name, TString  input_file_FR_name )
+{
+   
+   FakeRates *FR = new FakeRates( input_file_FR_name );
+   
+   input_file_data = new TFile("./" + input_file_data_name);
+   input_tree_data = (TTree*)input_file_data->Get("CRZLLTree/candTree");
+   Init( input_tree_data, input_file_data_name );
+   
+   
+   if (fChain == 0) return;
+   
+   Long64_t nentries = fChain->GetEntriesFast();
+   
+   Long64_t nbytes = 0, nb = 0;
+   
+   for (Long64_t jentry=0; jentry<nentries;jentry++)
+   {
+      
+      Long64_t ientry = LoadTree(jentry);
+      if (ientry < 0) break;
+      nb = fChain->GetEntry(jentry);
+      nbytes += nb;
+      
+      if ( !CRflag ) continue;
+      if ( !test_bit(CRflag, CRZLLss) ) continue;
+      
+      _current_final_state = FindFinalStateZX();
+      
+      _current_category = categoryMor17(nExtraLep, nExtraZ, nCleanedJetsPt30, nCleanedJetsPt30BTagged_bTagSF, jetQGL,
+                                        p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, p_JQCD_SIG_ghg2_1_JHUGen_JECNominal, p_JJVBF_SIG_ghv1_1_JHUGen_JECNominal,
+                                        p_JVBF_SIG_ghv1_1_JHUGen_JECNominal, pAux_JVBF_SIG_ghv1_1_JHUGen_JECNominal, p_HadWH_SIG_ghw1_1_JHUGen_JECNominal,
+                                        p_HadZH_SIG_ghz1_1_JHUGen_JECNominal, jetPhi, ZZMass, PFMET, true, false);
+      
+      
+      // Calculate yield
+      _yield_SR = _fs_ROS_SS.at(_current_final_state)*FR->GetFakeRate(LepPt->at(2),LepEta->at(2),LepLepId->at(2))*FR->GetFakeRate(LepPt->at(3),LepEta->at(3),LepLepId->at(3));
+      
+      _expected_yield_SR[_current_final_state][_current_category] += _yield_SR; // this number needs to be used when renormalizing histograms that have some cut/blinding
+      _number_of_events_CR[_current_final_state][_current_category]++;
+      
+   } // END events loop
+   
+   for (  int i_cat = 0; i_cat < num_of_categories - 1; i_cat++  )
+   {
+      for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++  )
+      {
+         _expected_yield_SR[Settings::fs4l][i_cat]       += _expected_yield_SR[i_fs][i_cat];   //calculate expected yield for inclusive 4l final state
+         _number_of_events_CR[Settings::fs4l][i_cat]     += _number_of_events_CR[i_fs][i_cat];
+         _expected_yield_SR[i_fs][Settings::inclusive]   += _expected_yield_SR[i_fs][i_cat];   //calculate expected yield for inclusive category
+         _number_of_events_CR[i_fs][Settings::inclusive] += _number_of_events_CR[i_fs][i_cat];
+         
+         if ( MERGE_2E2MU )
+         {
+            _expected_yield_SR[Settings::fs2e2mu][i_cat]       += _expected_yield_SR[Settings::fs2mu2e][i_cat];   //merge 2e2mu and 2mu2e final state
+            _number_of_events_CR[Settings::fs2e2mu][i_cat]     += _number_of_events_CR[Settings::fs2mu2e][i_cat];
+            _expected_yield_SR[Settings::fs2mu2e][i_cat]        = 0.;
+            _number_of_events_CR[Settings::fs2mu2e][i_cat]      = 0.;
+         }
+         
+      }
+   }
+   for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++  )
+   {
+      _expected_yield_SR[Settings::fs4l][Settings::inclusive] += _expected_yield_SR[i_fs][Settings::inclusive];
+   }
+   
+   // Print Z + X expected yields for inclusive category
+   cout << endl;
+   cout << "========================================================================================" << endl;
+   cout << "[INFO] Control printout." << endl << "!!! Numbers shoud be identical to yields from SS method !!!" << endl;
+   for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++ )
+   {
+      if ( MERGE_2E2MU && i_fs == Settings::fs2mu2e) continue;
+      cout << "Category: " << Settings::inclusive << "   Final state: " << i_fs << endl;
+      cout << _expected_yield_SR[i_fs][Settings::inclusive] << " +/- " <<
+      _expected_yield_SR[i_fs][Settings::inclusive]/sqrt(_number_of_events_CR[i_fs][Settings::inclusive]) << " (stat., evt: " <<
+      _number_of_events_CR[i_fs][Settings::inclusive] << ")" << " +/- " << _expected_yield_SR[i_fs][Settings::inclusive]*0.50 << " (syst.)" << endl;
+   }
+   
+   cout << "[INFO] Total = " << _expected_yield_SR[Settings::fs4l][Settings::inclusive] << endl;
+   cout << "========================================================================================" << endl;
+   cout << endl;
+   
+   cout << "[INFO] Z+X yields calculated using SS method." << endl;
+}
+//===============================================================================
+
+
 
 //=========================================
 void Yields::GetHistos( TString file_name )
@@ -172,7 +280,7 @@ void Yields::FillGraphs( TString file_name, float M4l_down, float M4l_up )
 //==================
 void Yields::PrepareYamlFiles( TString file_name, TString sqrt, TString lumi, float M4l_down, float M4l_up )
 {
-   histo_map[file_name]->PrepareYamlFiles( sqrt, lumi, M4l_down, M4l_up );
+   histo_map[file_name]->PrepareYamlFiles( sqrt, lumi, M4l_down, M4l_up, _expected_yield_SR );
    
    cout << "[INFO] Prepared Yaml files." << endl;   
 }
@@ -183,7 +291,7 @@ void Yields::PrepareYamlFiles( TString file_name, TString sqrt, TString lumi, fl
 //==================
 void Yields::Print( TString file_name )
 {
-   histo_map[file_name]->PrintYields( );
+   histo_map[file_name]->PrintYields( _expected_yield_SR );
    
 }
 //==================
@@ -193,11 +301,18 @@ void Yields::Print( TString file_name )
 //==================
 void Yields::Print( TString file_name, float M4l_down, float M4l_up  )
 {
-   histo_map[file_name]->PrintYields( M4l_down, M4l_up);
+   histo_map[file_name]->PrintYields( M4l_down, M4l_up, _expected_yield_SR);
    
 }
 //==================
 
+//==================
+void Yields::PrintLatexTables( TString file_name, float M4l_down, float M4l_up  )
+{
+   histo_map[file_name]->PrintLatexTables( M4l_down, M4l_up, _expected_yield_SR);
+   
+}
+//==================
 
 
 //==========================================================
@@ -317,7 +432,37 @@ int Yields::FindFinalState()
 }
 //===========================
 
-
+//=============================
+int Yields::FindFinalStateZX()
+{
+   int final_state = -999;
+   
+   if ( Z1Flav == -121 )
+   {
+      if ( Z2Flav == +121 )
+         final_state = Settings::fs4e;
+      else if ( Z2Flav == +169 )
+         final_state = Settings::fs2e2mu;
+      else
+         cerr << "[ERROR] in event " << RunNumber << ":" << LumiNumber << ":" << EventNumber << ", Z2Flav = " << Z2Flav << endl;
+   }
+   else if ( Z1Flav == -169 )
+   {
+      if ( Z2Flav == +121 )
+         final_state = Settings::fs2mu2e;
+      else if ( Z2Flav == +169 )
+         final_state = Settings::fs4mu;
+      else
+         cerr << "[ERROR] in event " << RunNumber << ":" << LumiNumber << ":" << EventNumber << ", Z2Flav = " << Z2Flav << endl;
+   }
+   else
+   {
+      cerr << "[ERROR] in event " << RunNumber << ":" << LumiNumber << ":" << EventNumber << ", Z1Flav = " << Z1Flav << endl;
+   }
+   
+   return final_state;
+}
+//=============================
 
 //=================================
 int Yields::find_resonant_status()
