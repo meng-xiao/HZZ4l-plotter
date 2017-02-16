@@ -3,12 +3,12 @@
 
 // Constructor
 //=======================
-Yields::Yields():Tree()
+Yields::Yields( double lumi ):Tree()
 {
-   yields_histos = new Histograms();
+   yields_histos = new Histograms( lumi );
    histo_map["Yields"] = yields_histos;
 
-   _lumi = 35.8;
+   _lumi = lumi;
    _current_process = -999;
    _k_factor = 1;
    _current_final_state = -999;
@@ -278,9 +278,9 @@ void Yields::FillGraphs( TString file_name, float M4l_down, float M4l_up )
 
 
 //==================
-void Yields::PrepareYamlFiles( TString file_name, TString sqrt, TString lumi, float M4l_down, float M4l_up )
+void Yields::PrepareYamlFiles( TString file_name, TString sqrt, float M4l_down, float M4l_up )
 {
-   histo_map[file_name]->PrepareYamlFiles( sqrt, lumi, M4l_down, M4l_up, _expected_yield_SR );
+   histo_map[file_name]->PrepareYamlFiles( sqrt, M4l_down, M4l_up, _expected_yield_SR );
    
    cout << "[INFO] Prepared Yaml files." << endl;   
 }

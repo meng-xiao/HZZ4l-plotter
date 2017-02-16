@@ -51,7 +51,7 @@ class Plotter: public Tree
 
 public:
 	
-	Plotter();
+	Plotter( double );
 	~Plotter();
    
    void MakeHistograms( TString );

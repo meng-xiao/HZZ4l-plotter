@@ -46,7 +46,7 @@ class Yields: public Tree
 
 public:
 
-   Yields();
+   Yields( double );
    ~Yields();
    
    void MakeHistograms( TString );
@@ -61,7 +61,7 @@ public:
    void Delete();
    void GetHistos( TString );
    void FillGraphs( TString , float, float );
-   void PrepareYamlFiles( TString, TString , TString , float , float );
+   void PrepareYamlFiles( TString, TString , float , float );
    void Print( TString );
    void Print( TString, float, float );
    void PrintLatexTables( TString, float, float );

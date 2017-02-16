@@ -3,14 +3,14 @@
 
 // Constructor
 //============================================================
-Plotter::Plotter():Tree()
+Plotter::Plotter( double lumi ):Tree()
 {
-   unblinded_histos = new Histograms("Unblinded");
-   blinded_histos = new Histograms("Blinded");
+   unblinded_histos = new Histograms(lumi, "Unblinded");
+   blinded_histos = new Histograms(lumi, "Blinded");
    histo_map["Unblinded"] = unblinded_histos;
    histo_map["Blinded"] = blinded_histos;
       
-   _lumi = 35.8;
+   _lumi = lumi;
    _current_process = -999;
    _k_factor = 1;
    _current_final_state = -999;

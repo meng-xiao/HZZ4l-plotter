@@ -44,7 +44,7 @@ int main( int argc, char *argv[] )
    TString ggZZ2mu2tau = path + "ggTo2mu2tau" + file_name;
    TString FakeRates   = path + "FakeRates" + file_name_FR;
 
-   Plotter *plotter = new Plotter();
+   Plotter *plotter = new Plotter( 35.867 );
 
    plotter->SetBlinding(110, 150, 300, 1000);
 

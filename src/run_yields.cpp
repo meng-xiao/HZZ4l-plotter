@@ -79,7 +79,7 @@ int main( int argc, char *argv[] )
    TString ggZZ2e2tau  = path + "ggTo2e2tau" + file_name;
    TString ggZZ2mu2tau = path + "ggTo2mu2tau" + file_name;
    
-   Yields *yields = new Yields();
+   Yields *yields = new Yields( 35.867);
    
 //===============
 // Produce plots 
@@ -145,7 +145,7 @@ int main( int argc, char *argv[] )
    yields->Print("Yields", 118., 130.);
    yields->PrintLatexTables("Yields", 118., 130.);
    yields->FillGraphs("Yields", 105., 140.);
-   yields->PrepareYamlFiles("Yields", "13", "35.8", 105., 140.);
+   yields->PrepareYamlFiles("Yields", "13", 105., 140.);
    
    delete yields;
 }

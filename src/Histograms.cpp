@@ -8,8 +8,9 @@ using namespace std;
 
 // Constructor
 //======================================
-Histograms::Histograms( string blinding )
+Histograms::Histograms( double lumi, string blinding )
 {
+   _lumi = lumi;
    _blinding = blinding;
    
    _s_process.push_back("Data");
@@ -265,8 +266,9 @@ Histograms::Histograms( string blinding )
 
 //Constructor
 //======================
-Histograms::Histograms()
-{  
+Histograms::Histograms( double lumi)
+{
+   _lumi = lumi;
    _blinding = "Unblinded";
    
    _s_process.push_back("Data");
@@ -2257,8 +2259,10 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    {
       stack->SetMinimum(1e-5);
       stack->SetMaximum((data_max + data_max_error)*1.1);
-      if (plot_index == Settings::MZ1_M4L118130) stack->SetMaximum(35.);
-      if (plot_index == Settings::MZ2_M4L118130) stack->SetMaximum(20.);
+      if (plot_index == Settings::MZ1_M4L118130) stack->SetMaximum(25.);//temoporary solution for unblinded plots without data, should be deleted once we unblind
+      if (plot_index == Settings::MZ2_M4L118130) stack->SetMaximum(15.);
+      if (plot_index == Settings::KD_M4L118130) stack->SetMaximum(15.);
+      if (plot_index == Settings::D1jet_M4L118130) stack->SetMaximum(5.);
    }
    
    stack->GetXaxis()->SetTitle(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
@@ -2299,7 +2303,7 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    
    // Draw lumi
    CMS_lumi *lumi = new CMS_lumi;
-   lumi->set_lumi(c, 0, 0);
+   lumi->set_lumi(c, _lumi, 0);
    
    // Draw X-axis log scale
    if ( plot_index == Settings::M4lMain )
@@ -2406,7 +2410,7 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       
       // Draw lumi
       CMS_lumi *lumi = new CMS_lumi;
-      lumi->set_lumi(c, 0, 0);
+      lumi->set_lumi(c, _lumi, 0);
       
       // Draw X-axis log scale
       if ( plot_index == Settings::M4lMain )
@@ -2514,7 +2518,7 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
       
       // Draw lumi
       CMS_lumi *lumi = new CMS_lumi;
-      lumi->set_lumi(c, 0, 0);
+      lumi->set_lumi(c, _lumi, 0);
       
       // Draw X-axis log scale
       if ( plot_index == Settings::M4lMain )
@@ -2601,7 +2605,7 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
    
    // Draw lumi
    CMS_lumi *lumi = new CMS_lumi;
-   lumi->set_lumi(c, 0, 0);
+   lumi->set_lumi(c, _lumi, 0);
    
    stringstream ss;
    ss << folder << "/" << variable_name << "_" << filename << "_" << _s_category.at(cat);
@@ -2680,7 +2684,7 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
    
    // Draw lumi
    CMS_lumi *lumi = new CMS_lumi;
-   lumi->set_lumi(c, 0, 0);
+   lumi->set_lumi(c, _lumi, 0);
    
    stringstream ss;
    ss << folder << "/" << variable_name << "_" << filename << "_" << _s_category.at(cat);
@@ -2768,7 +2772,7 @@ void Histograms::FillYieldGraphs( float M4l_down, float M4l_up)
             yields_graph[i_fs][i_cat][i_prod_mode]->SetMarkerStyle(22);
             yields_graph[i_fs][i_cat][i_prod_mode]->SetMarkerSize(3);
             yields_graph[i_fs][i_cat][i_prod_mode]->GetXaxis()->SetTitle("generated m_{H}");
-            yields_graph[i_fs][i_cat][i_prod_mode]->GetYaxis()->SetTitle(Form("expected yield in %.1f fb^{-1}", 36.8));
+            yields_graph[i_fs][i_cat][i_prod_mode]->GetYaxis()->SetTitle(Form("expected yield in %.1f fb^{-1}", _lumi));
             yields_graph[i_fs][i_cat][i_prod_mode]->SetMarkerStyle(fs_marker[i_fs]);
             yields_graph[i_fs][i_cat][i_prod_mode]->SetMarkerColor(catColor[i_cat]);
             yields_graph[i_fs][i_cat][i_prod_mode]->SetLineColor(kBlack);
@@ -2839,7 +2843,7 @@ void Histograms::FillYieldGraphs( float M4l_down, float M4l_up)
 
 
 //========================================================================================================
-void Histograms::PrepareYamlFiles( TString sqrt, TString lumi, float M4l_down, float M4l_up, vector< vector <float> > _expected_yield_SR)
+void Histograms::PrepareYamlFiles( TString sqrt, float M4l_down, float M4l_up, vector< vector <float> > _expected_yield_SR)
 {
    
    TString out_file_name[num_of_final_states - 1];
@@ -2862,7 +2866,7 @@ void Histograms::PrepareYamlFiles( TString sqrt, TString lumi, float M4l_down, f
     
       out_file[i_fs] << "---" << endl;
       out_file[i_fs] << "# sqrt(s) = " << sqrt << " TeV" << endl;
-      out_file[i_fs] << "# integrated luminosity = " << lumi << " fb-1" << endl;
+      out_file[i_fs] << "# integrated luminosity = " << _lumi << " fb-1" << endl;
       out_file[i_fs] << endl;
       out_file[i_fs] << "mass_range: '" << M4l_down << ", " << M4l_up << "'" << endl;
       out_file[i_fs] << "kd_range: '0, 1'"<<endl;

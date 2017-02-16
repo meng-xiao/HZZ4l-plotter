@@ -65,10 +65,9 @@ public:
       TString var_X_label = "m_{4#font[12]{l}} (GeV)";
       TString var_Y_label = "Events / 2 GeV";
       TString var_cut_label = "";
- //     Int_t var_N_bin = 28;
-      Int_t var_N_bin = 56;
+      Int_t var_N_bin = 50;
       Float_t var_min = 70;
-      Float_t var_max = 182;
+      Float_t var_max = 170;
       Bool_t var_log_x = 0;
       Bool_t var_log_y = 0;
       Int_t restrict_count_var = 0;
@@ -83,10 +82,9 @@ public:
       TString var_X_label = "m_{4#font[12]{l}} (GeV)";
       TString var_Y_label = "Events / 10 GeV";
       TString var_cut_label = "";
-//      Int_t var_N_bin = 42;
-      Int_t var_N_bin = 84;     
-      Float_t var_min = 172;
-      Float_t var_max = 1012;
+      Int_t var_N_bin = 83;
+      Float_t var_min = 170;
+      Float_t var_max = 1000;
       Bool_t var_log_x = 0;
       Bool_t var_log_y = 0;
       Int_t restrict_count_var = 0;

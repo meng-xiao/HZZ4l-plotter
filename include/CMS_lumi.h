@@ -15,7 +15,7 @@ public:
       
    CMS_lumi();
    ~CMS_lumi();
-   void set_lumi(TPad* pad, int iPeriod = 3, int iPosX = 10 );
+   void set_lumi(TPad* pad, float lumi, int iPosX = 10 );
       
 private:
       
@@ -39,12 +39,8 @@ private:
       
    // ratio of "CMS" and extra text size
    float extraOverCmsTextSize  = 0.76;
-      
-   TString lumi_13TeV = "20.1 fb^{-1}";
-   TString lumi_8TeV  = "19.7 fb^{-1}";
-   TString lumi_7TeV  = "5.1 fb^{-1}";
-   //TString lumi_sqrtS = "12.9 fb^{-1} (13 TeV)";
-   TString lumi_sqrtS = "35.8 fb^{-1} (13 TeV)";
+   
+   TString lumi_sqrtS = " fb^{-1} (13 TeV)";
       
    bool drawLogo = false;    
 };

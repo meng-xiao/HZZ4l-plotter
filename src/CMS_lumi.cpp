@@ -15,7 +15,7 @@ CMS_lumi::~CMS_lumi(){}
 //=====================
 
 
-void CMS_lumi::set_lumi( TPad* pad, int iPeriod, int iPosX )
+void CMS_lumi::set_lumi( TPad* pad, float lumi, int iPosX )
 {           
    bool outOfFrame = false;
   
@@ -67,50 +67,9 @@ void CMS_lumi::set_lumi( TPad* pad, int iPeriod, int iPosX )
 
    pad->cd();
    
-   if( iPeriod == 1 )
-   {
-      lumiText += lumi_7TeV;
-      lumiText += " (7 TeV)";
-   }
-   else if ( iPeriod == 2 )
-   {
-      lumiText += lumi_8TeV;
-      lumiText += " (8 TeV)";
-   }
-   else if( iPeriod == 3 ) 
-   {
-      lumiText = lumi_8TeV; 
-      lumiText += " (8 TeV)";
-      lumiText += " + ";
-      lumiText += lumi_7TeV;
-      lumiText += " (7 TeV)";
-   }
-   else if ( iPeriod == 4 )
-   {
-      lumiText += lumi_13TeV;
-      lumiText += " (13 TeV)";
-   }
-   else if ( iPeriod == 7 )
-   { 
-      if( outOfFrame ) lumiText += "#scale[0.85]{";
-      lumiText += lumi_13TeV; 
-      lumiText += " (13 TeV)";
-      lumiText += " + ";
-      lumiText += lumi_8TeV; 
-      lumiText += " (8 TeV)";
-      lumiText += " + ";
-      lumiText += lumi_7TeV;
-      lumiText += " (7 TeV)";
-      if( outOfFrame) lumiText += "}";
-   }
-   else if ( iPeriod == 12 )
-   {
-      lumiText += "8 TeV";
-   }
-   else if ( iPeriod == 0 )
-   {
-      lumiText += lumi_sqrtS;
-   }
+   
+   lumiText = Form("%.1f",lumi) + lumi_sqrtS;
+   
    
    TLatex latex;
    latex.SetNDC();

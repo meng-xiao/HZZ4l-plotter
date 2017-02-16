@@ -44,8 +44,8 @@ class Histograms
 {
    
 public:
-   Histograms();
-   Histograms( string );
+   Histograms( double );
+   Histograms( double, string );
    ~Histograms();
    void FillM4l( float, float, int, int, int, int );
    void FillM4lZX( float, float, int, int );
@@ -94,7 +94,7 @@ public:
    void Plot2D_single( TString, TString, TString, int );
    void Plot2DError_single( TString, TString, TString, int );
    void FillYieldGraphs( float, float);
-   void PrepareYamlFiles(TString , TString , float , float, vector< vector <float> > );
+   void PrepareYamlFiles(TString , float , float, vector< vector <float> > );
    void PrintYields( vector< vector <float> > );
    void PrintYields( float, float, vector< vector <float> >);
    void PrintLatexTables( float, float, vector< vector <float> >);
@@ -115,7 +115,7 @@ public:
    
 private:
    
-   float _y_max;
+   float _lumi, _y_max;
    
    vector<double> mass_points;
 
