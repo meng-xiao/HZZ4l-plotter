@@ -2939,9 +2939,13 @@ void Histograms::PrintYields( vector< vector <float> > _expected_yield_SR)
    
    for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
    {
+      /*
       if (i_proc > Settings::yH130 && i_proc < Settings::yqqZZ
           || i_proc == Settings::yH120 || i_proc == Settings::yH124 || i_proc == Settings::yH126 || i_proc == Settings::yH130
-          || i_proc == Settings::yDY || i_proc == Settings::yttbar) continue;      cout << endl;
+          || i_proc == Settings::yDY || i_proc == Settings::yttbar) continue;
+      */
+      
+      cout << endl;
       
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
@@ -2999,9 +3003,12 @@ void Histograms::PrintYields(float M4l_down, float M4l_up, vector< vector <float
    
    for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
    {
-      if (i_proc > Settings::yH130 && i_proc < Settings::yqqZZ
-          || i_proc == Settings::yH120 || i_proc == Settings::yH124 || i_proc == Settings::yH126 || i_proc == Settings::yH130
-          || i_proc == Settings::yDY || i_proc == Settings::yttbar) continue;      cout << endl;
+      /*
+      if (i_proc > Settings::yH130 && i_proc < Settings::yqqZZ || i_proc == Settings::yH120 || i_proc == Settings::yH124 || i_proc == Settings::yH126
+          || i_proc == Settings::yH130 || i_proc == Settings::yDY || i_proc == Settings::yttbar) continue;
+      */
+      
+      cout << endl;
       
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
@@ -3048,63 +3055,11 @@ void Histograms::PrintYields(float M4l_down, float M4l_up, vector< vector <float
       cout << endl;
    }
 
-   cout << endl;
-   cout << "\\textbf{Category} & Untagged & VBF-1j & VBF-2j & VH-lept. & VH-hadr. & \ttH & Total \\\\" << endl; 
-   cout << "\\hline" << endl; 
-   
-   cout << "\\qqZZ ";
-   for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
-   {
-      cout << "& $" << yields_map[Settings::yqqZZ].at(i_cat) << "$ ";
-   }   
-   cout << "\\\\" << endl;
-   
-   cout << "\\ggZZ ";
-   for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
-   {
-      cout << "& $" << yields_map[Settings::yggZZ].at(i_cat) << "$ ";
-   }   
-   cout << "\\\\" << endl;
-   
-   cout << "\\cPZ\\ + X ";
-   for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
-   {
-      cout << "& $" << yields_ZX.at(i_cat) << "$ ";
-   }   
-   cout << "\\\\" << endl;
-       
-   cout << "\\hline" << endl; 
-   
-   cout << "Sum of backgrounds ";      
-   for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
-   {
-      cout << "& $" << yields_map[Settings::yqqZZ].at(i_cat) + yields_map[Settings::yggZZ].at(i_cat)+ yields_ZX.at(i_cat) << "$ ";
-   }
-   cout << "\\\\" << endl;
-      
-   cout << "\\hline" << endl;
-   
-   cout << "Signal ($\\mH=125~\\GeV$) ";
-   for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
-   {
-      cout << "& $" << yields_map[Settings::yH125].at(i_cat) << "$ ";
-   }   
-   cout << "\\\\" << endl;   
-   
-   cout << "\\hline" << endl; 
-   
-   cout << "Total expected ";
-   for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
-   {
-      cout << "& $" << yields_map[Settings::yH125].at(i_cat) + yields_map[Settings::yqqZZ].at(i_cat) + yields_map[Settings::yggZZ].at(i_cat)+ yields_ZX.at(i_cat) << "$ ";
-   }
-   cout << "\\\\" << endl;
-   
-   cout << "\\hline" << endl << endl; 
-   
    delete ZXYields;
 }
 //========================================================
+
+
 
 //========================================================
 void Histograms::PrintLatexTables(float M4l_down, float M4l_up, vector< vector <float> > _expected_yield_SR)
@@ -3116,9 +3071,11 @@ void Histograms::PrintLatexTables(float M4l_down, float M4l_up, vector< vector <
    float temp_yield;
    int i_fs_ordered = 0;
    
-//======================================================
-// TABLE 1
-//======================================================
+   
+//==============
+// T a b l e  1
+//==============
+   
    for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
    {
       for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
@@ -3130,6 +3087,7 @@ void Histograms::PrintLatexTables(float M4l_down, float M4l_up, vector< vector <
    
    // Z+X
    M4lZX *ZXYields = new M4lZX();
+   
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
    {
       if ( i_fs == Settings::fs2mu2e) {yields_ZX.push_back(0.); continue;}
@@ -3210,7 +3168,7 @@ void Histograms::PrintLatexTables(float M4l_down, float M4l_up, vector< vector <
       if ( i_fs == Settings::fs2mu2e) continue;
       if ( i_fs == Settings::fs4e) i_fs_ordered = Settings::fs4mu;
       if ( i_fs == Settings::fs4mu) i_fs_ordered = Settings::fs4e;
-      cout << "& $" << yields_map[Settings::yH125].at(i_fs) + yields_map[Settings::yqqZZ].at(i_fs_ordered) + yields_map[Settings::yggZZ].at(i_fs)+ yields_ZX.at(i_fs) << "^{+ y.y}_{- z.z}$ ";
+      cout << "& $" << yields_map[Settings::yH125].at(i_fs_ordered) + yields_map[Settings::yqqZZ].at(i_fs_ordered) + yields_map[Settings::yggZZ].at(i_fs_ordered)+ yields_ZX.at(i_fs_ordered) << "^{+ y.y}_{- z.z}$ ";
    }
    cout << "\\\\" << endl;
    
@@ -3218,9 +3176,10 @@ void Histograms::PrintLatexTables(float M4l_down, float M4l_up, vector< vector <
    cout << "Observed    & XXX & XXX & XXX & XXX \\\\" << endl << endl << endl;
 
    
-//======================================================
-// TABLE 2
-//======================================================
+//==============
+// T a b l e  2
+//==============
+   
    yields_map.clear();
    yields_ZX.clear();
    i_fs_ordered = 0;
@@ -3317,12 +3276,142 @@ void Histograms::PrintLatexTables(float M4l_down, float M4l_up, vector< vector <
       if ( i_fs == Settings::fs2mu2e) continue;
       if ( i_fs == Settings::fs4e) i_fs_ordered = Settings::fs4mu;
       if ( i_fs == Settings::fs4mu) i_fs_ordered = Settings::fs4e;
-      cout << "& $" << yields_map[Settings::yH125].at(i_fs) + yields_map[Settings::yqqZZ].at(i_fs_ordered) + yields_map[Settings::yggZZ].at(i_fs)+ yields_ZX.at(i_fs) << "^{+ y.y}_{- z.z}$ ";
+      cout << "& $" << yields_map[Settings::yH125].at(i_fs_ordered) + yields_map[Settings::yqqZZ].at(i_fs_ordered) + yields_map[Settings::yggZZ].at(i_fs_ordered)+ yields_ZX.at(i_fs_ordered) << "^{+ y.y}_{- z.z}$ ";
    }
    cout << "\\\\" << endl;
    
    cout << "\\hline" << endl;
    cout << "Observed    & XXX & XXX & XXX & XXX \\\\" << endl << endl << endl;
+   
+   
+   
+   
+//==============
+// T a b l e  3
+//==============
+   
+   yields_map.clear();
+   yields_ZX.clear();
+   double total;
+    
+   for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+   {
+      for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
+      {
+         if (i_proc == Settings::yH125ggH || i_proc == Settings::yH125VBF || i_proc == Settings::yH125WH || i_proc == Settings::yH125ZH 
+         || i_proc == Settings::yH125ttH || i_proc == Settings::yqqZZ || i_proc == Settings::yggZZ)
+         {
+            temp_yield = histos_1D[Settings::M4lYields][Settings::fs4l][i_cat][Settings::all_resonant][i_proc]->Integral(
+                         histos_1D[Settings::M4lYields][Settings::fs4l][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_down),
+                         histos_1D[Settings::M4lYields][Settings::fs4l][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_up) - 1);
+         
+            yields_map[i_cat].push_back(temp_yield);
+         }
+      }
+   }
+   
+   // Z+X
+   for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
+   {
+      temp_yield = ZXYields->GetM4lZX_Yields(_expected_yield_SR, M4l_down, M4l_up, Settings::fs4l, i_cat);
+      yields_ZX.push_back(temp_yield);
+   }
+      
+   
+   cout << endl;
+   cout << "\\begin{tabular}{c|ccccc|ccc|c|c}" << endl;
+   cout << "\\hline" << endl;
+   cout << "\\hline" << endl;
+   cout << "Event & \\multicolumn{5}{c|}{Signal} & \\multicolumn{3}{c|}{Background} & Total & Observed \\\\" << endl;
+   cout << "category & $\\ggH$ & VBF & WH & ZH & $\\ttH$ & \\qqZZ & \\ggZZ & \\cPZ\\ + X & expected & \\\\" << endl;
+   cout << "\\hline" << endl; 
+   
+   
+   cout << "Untagged ";
+   total = 0;
+   for ( int i_proc = 0; i_proc < yields_map[Settings::untagged].size(); i_proc++ )
+   {
+      cout << "& $" << yields_map[Settings::untagged].at(i_proc) << "$ ";
+      total += yields_map[Settings::untagged].at(i_proc);
+   }
+   cout << "& $" << yields_ZX.at(Settings::untagged) << "& $" << total + yields_ZX.at(Settings::untagged) << "$ & XXX \\\\" << endl;
+   
+   
+   cout << "VBF-1j ";
+   total = 0;
+   for ( int i_proc = 0; i_proc < yields_map[Settings::VBF_1j_tagged].size(); i_proc++ )
+   {
+      cout << "& $" << yields_map[Settings::VBF_1j_tagged].at(i_proc) << "$ ";
+      total += yields_map[Settings::VBF_1j_tagged].at(i_proc);
+   }
+   cout << "& $" << yields_ZX.at(Settings::VBF_1j_tagged) << "& $" << total + yields_ZX.at(Settings::VBF_1j_tagged) << "$ & XXX \\\\" << endl;
+   
+   
+   cout << "VBF-2j ";
+   total = 0;
+   for ( int i_proc = 0; i_proc < yields_map[Settings::VBF_2j_tagged].size(); i_proc++ )
+   {
+      cout << "& $" << yields_map[Settings::VBF_2j_tagged].at(i_proc) << "$ ";
+      total += yields_map[Settings::VBF_2j_tagged].at(i_proc);
+   }
+   cout << "& $" << yields_ZX.at(Settings::VBF_2j_tagged) << "& $" << total + yields_ZX.at(Settings::VBF_1j_tagged) << "$ & XXX \\\\" << endl;
+   
+   
+   cout << "VH-lept. ";
+   total = 0;
+   for ( int i_proc = 0; i_proc < yields_map[Settings::VH_lepton_tagged].size(); i_proc++ )
+   {
+      cout << "& $" << yields_map[Settings::VH_lepton_tagged].at(i_proc) << "$ ";
+      total += yields_map[Settings::VH_lepton_tagged].at(i_proc);
+   }
+   cout << "& $" << yields_ZX.at(Settings::VH_lepton_tagged) << "& $" << total + yields_ZX.at(Settings::VH_lepton_tagged) << "$ & XXX \\\\" << endl;
+   
+   
+   cout << "VH-hadr. ";
+   total = 0;
+   for ( int i_proc = 0; i_proc < yields_map[Settings::VH_hadron_tagged].size(); i_proc++ )
+   {
+      cout << "& $" << yields_map[Settings::VH_hadron_tagged].at(i_proc) << "$ ";
+      total += yields_map[Settings::VH_hadron_tagged].at(i_proc);
+   }
+   cout << "& $" << yields_ZX.at(Settings::VH_hadron_tagged) << "& $" << total + yields_ZX.at(Settings::VH_hadron_tagged) << "$ & XXX \\\\" << endl;
+   
+   
+   cout << "ttH ";
+   total = 0;
+   for ( int i_proc = 0; i_proc < yields_map[Settings::ttH_tagged].size(); i_proc++ )
+   {
+      cout << "& $" << yields_map[Settings::ttH_tagged].at(i_proc) << "$ ";
+      total += yields_map[Settings::ttH_tagged].at(i_proc);
+   }
+   cout << "& $" << yields_ZX.at(Settings::ttH_tagged) << "& $" << total + yields_ZX.at(Settings::ttH_tagged) << "$ & XXX \\\\" << endl;
+   
+  
+   cout << "VH-MET ";
+   total = 0;
+   for ( int i_proc = 0; i_proc < yields_map[Settings::VH_MET_tagged].size(); i_proc++ )
+   {
+      cout << "& $" << yields_map[Settings::VH_MET_tagged].at(i_proc) << "$ ";
+      total += yields_map[Settings::VH_MET_tagged].at(i_proc);
+   }
+   cout << "& $" << yields_ZX.at(Settings::VH_MET_tagged) << "& $" << total + yields_ZX.at(Settings::VH_MET_tagged) << "$ & XXX \\\\" << endl;
+   
+   cout << "\\hline" << endl; 
+   
+   
+   cout << "Total ";
+   total = 0;
+   for ( int i_proc = 0; i_proc < yields_map[Settings::inclusive].size(); i_proc++ )
+   {
+      cout << "& $" << yields_map[Settings::inclusive].at(i_proc) << "$ ";
+      total += yields_map[Settings::inclusive].at(i_proc);
+   }
+   cout << "& $" << yields_ZX.at(Settings::inclusive) << "& $" << total + yields_ZX.at(Settings::inclusive) << "$ & XXX \\\\" << endl;
+   
+   cout << "\\hline" << endl;
+   cout << "\\hline" << endl;
+   cout << "\\end{tabular}" << endl;
+   
    
    delete ZXYields;
 }
