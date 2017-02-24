@@ -12,7 +12,7 @@ public:
 	~Settings();
    
    enum _blindings { fullyblind = 0, blindabove_110 = 1, blindbelow_150 = 2, blind_110_150 = 3, unblinded = 4 };
-   enum _final_state { fs4mu = 0, fs4e = 1, fs2e2mu = 2, fs2mu2e = 3, fs4l = 4, MAX_NUM_OF_FINAL_STATES };
+   enum _final_state { fs4e = 0, fs4mu = 1, fs2e2mu = 2, fs2mu2e = 3, fs4l = 4, MAX_NUM_OF_FINAL_STATES };
    enum _resonant_status { resonant = 0, nonresonant = 1, all_resonant = 2, MAX_NUM_OF_RESONANT_STATUSES };
    
    enum _category

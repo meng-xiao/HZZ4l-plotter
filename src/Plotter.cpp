@@ -34,8 +34,8 @@ Plotter::Plotter( double lumi ):Tree()
    
    // Z+X SS factors
    // FIXME: recompute this for Run II, OS/SS ratio taken when computing fake rates in SS method
-   _fs_ROS_SS.push_back(1.22);//4mu
    _fs_ROS_SS.push_back(0.97);//4e
+   _fs_ROS_SS.push_back(1.22);//4mu
    _fs_ROS_SS.push_back(1.30);//2e2mu
    _fs_ROS_SS.push_back(0.98);//2mu2e
    
@@ -131,11 +131,11 @@ void Plotter::MakeHistograms( TString input_file_name )
       
       // Calculate kinematic discriminants
       KD = p_GG_SIG_ghg2_1_ghz1_1_JHUGen / ( p_GG_SIG_ghg2_1_ghz1_1_JHUGen + p_QQB_BKG_MCFM*getDbkgkinConstant(Z1Flav*Z2Flav,ZZMass) );
-      D2jet = (nCleanedJetsPt30>=2) ? DVBF2j_ME(p_JJVBF_SIG_ghv1_1_JHUGen_JECNominal, p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass) : -2 ;
-      D1jet = (nCleanedJetsPt30==1) ? DVBF1j_ME(p_JVBF_SIG_ghv1_1_JHUGen_JECNominal, pAux_JVBF_SIG_ghv1_1_JHUGen_JECNominal, p_JQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass) : -2 ;
-      DWH = (nCleanedJetsPt30>=2) ? DWHh_ME(p_HadWH_SIG_ghw1_1_JHUGen_JECNominal, p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass) : -2 ;
-      DZH = (nCleanedJetsPt30>=2) ? DZHh_ME(p_HadZH_SIG_ghz1_1_JHUGen_JECNominal, p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass) : -2 ;
-   
+      D2jet = (nCleanedJetsPt30>=2) ? DVBF2j_ME(p_JJVBF_SIG_ghv1_1_JHUGen_JECNominal, p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass) : -2;
+      D1jet = (nCleanedJetsPt30==1) ? DVBF1j_ME(p_JVBF_SIG_ghv1_1_JHUGen_JECNominal, pAux_JVBF_SIG_ghv1_1_JHUGen_JECNominal, p_JQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass) : -2;
+      DWH = (nCleanedJetsPt30>=2) ? DWHh_ME(p_HadWH_SIG_ghw1_1_JHUGen_JECNominal, p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass) : -2;
+      DZH = (nCleanedJetsPt30>=2) ? DZHh_ME(p_HadZH_SIG_ghz1_1_JHUGen_JECNominal, p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass) : -2;
+      
       // Fill M4l histograms
       if ( (_current_process == Settings::Data && blind(ZZMass)) || _current_process != Settings::Data )
       {
@@ -171,6 +171,7 @@ void Plotter::MakeHistograms( TString input_file_name )
       }
       
       unblinded_histos->FillKD( ZZMass, KD, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+      
       if(nCleanedJetsPt30==1) unblinded_histos->FillD1jet( ZZMass, D1jet, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       if(nCleanedJetsPt30>=2) unblinded_histos->FillD2jet( ZZMass, D2jet, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       if(nCleanedJetsPt30>=2) unblinded_histos->FillDWH( ZZMass, DWH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
@@ -187,7 +188,7 @@ void Plotter::MakeHistograms( TString input_file_name )
       // Fill 2D histograms vs M4l with error
       if ( blind(ZZMass) || _current_process != Settings::Data )
       {
-         if(_current_process == Settings::Data)
+         if (_current_process == Settings::Data)
          {
             blinded_histos->FillVectors( ZZMass, ZZMassErrCorr, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _current_final_state, _current_category);
          }
@@ -195,7 +196,7 @@ void Plotter::MakeHistograms( TString input_file_name )
          blinded_histos->FillDvsM4l( ZZMass, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
       }
       
-      if(_current_process == Settings::Data)
+      if (_current_process == Settings::Data)
       {
          unblinded_histos->FillVectors( ZZMass, ZZMassErrCorr, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _current_final_state, _current_category );
       }
@@ -214,7 +215,7 @@ void Plotter::MakeHistograms( TString input_file_name )
 void Plotter::MakeM4lZX()
 {
 
-     for(int i_cat = 0; i_cat < num_of_categories; i_cat++)
+     for (int i_cat = 0; i_cat < num_of_categories; i_cat++)
      {
          blinded_histos->MakeZXShape( _expected_yield_SR, i_cat );
          unblinded_histos->MakeZXShape( _expected_yield_SR, i_cat);
@@ -308,7 +309,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       // Fill mZ1 Z+X histograms
       unblinded_histos->FillMZ1ZX( ZZMass, Z1Mass, _yield_SR, _current_final_state, _current_category );
       
-      if ( !blind(ZZMass))
+      if (blind(ZZMass))
       {
          blinded_histos->FillMZ1ZX( ZZMass, Z1Mass, _yield_SR, _current_final_state, _current_category);
       }
@@ -316,7 +317,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       // Fill mZ2 Z+X histograms
       unblinded_histos->FillMZ2ZX( ZZMass, Z2Mass, _yield_SR, _current_final_state, _current_category );
       
-      if ( !blind(ZZMass))
+      if (blind(ZZMass))
       {
          blinded_histos->FillMZ2ZX( ZZMass, Z2Mass, _yield_SR, _current_final_state, _current_category);
       }
@@ -329,7 +330,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       if(nCleanedJetsPt30 >= 2) unblinded_histos->FillDWHZX( ZZMass, DWH, _yield_SR, _current_final_state, _current_category );
       if(nCleanedJetsPt30 >= 2) unblinded_histos->FillDZHZX( ZZMass, DZH, _yield_SR, _current_final_state, _current_category );
       
-      if ( !blind(ZZMass) )
+      if (blind(ZZMass))
       {
          blinded_histos->FillKDZX( ZZMass, KD, _yield_SR, _current_final_state, _current_category);
          if(nCleanedJetsPt30 == 1) blinded_histos->FillD1jetZX( ZZMass, D1jet, _yield_SR, _current_final_state, _current_category);
@@ -337,9 +338,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
          if(nCleanedJetsPt30 >= 2) blinded_histos->FillDWHZX( ZZMass, DWH, _yield_SR, _current_final_state, _current_category);
          if(nCleanedJetsPt30 >= 2) blinded_histos->FillDZHZX( ZZMass, DZH, _yield_SR, _current_final_state, _current_category);
       }
-
-   
-   } // END events loop
+   } // End events loop
    
    for (  int i_cat = 0; i_cat < num_of_categories - 1; i_cat++  )
    {
@@ -357,7 +356,6 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
             _expected_yield_SR[Settings::fs2mu2e][i_cat]        = 0.;
             _number_of_events_CR[Settings::fs2mu2e][i_cat]      = 0.;
          }
-         
       }
    }
    for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++  )

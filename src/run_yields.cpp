@@ -85,7 +85,7 @@ int main( int argc, char *argv[] )
 // Produce plots 
 //===============
    
-/*
+
    yields->MakeHistograms(Data);
    
    yields->MakeHistograms(ggH120);
@@ -135,7 +135,7 @@ int main( int argc, char *argv[] )
    yields->FillInclusive();
 
    yields->Save();
-*/
+
    
 //==============
 // Print Yields 
