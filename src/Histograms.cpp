@@ -2253,10 +2253,6 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    {
       stack->SetMinimum(1e-5);
       stack->SetMaximum((data_max + data_max_error)*1.1);
-      if (plot_index == Settings::MZ1_M4L118130) stack->SetMaximum(25.);//temoporary solution for unblinded plots without data, should be deleted once we unblind
-      if (plot_index == Settings::MZ2_M4L118130) stack->SetMaximum(15.);
-      if (plot_index == Settings::KD_M4L118130) stack->SetMaximum(15.);
-      if (plot_index == Settings::D1jet_M4L118130) stack->SetMaximum(5.);
    }
    
    stack->GetXaxis()->SetTitle(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
@@ -2272,7 +2268,7 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
    
    TLegend *legend;
-   if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass")
+   if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass" )
    {
       legend  = CreateLegend("right",histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX_shape[plot_index][fs][cat]);
    }
@@ -2290,7 +2286,7 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    }
    else
    {
-      legend = CreateLegend((plot_index == Settings::MZ1 || plot_index == Settings::MZ1_M4L118130 || plot_index == Settings::MZ2 || plot_index == Settings::MZ2_M4L118130)?"left":"right",histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][fs][cat]);
+      legend = CreateLegend((plot_index == Settings::MZ1 || plot_index == Settings::MZ1_M4L118130 || plot_index == Settings::MZ2)?"left":"right",histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][fs][cat]);
    }
 
    legend->Draw();
@@ -2391,7 +2387,7 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
 
       TLegend *legend;
-      if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass")
+      if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass" || variable_name == "MZ2_M4L118130")
       {
         legend  = CreateLegend("right",histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]);
       }
