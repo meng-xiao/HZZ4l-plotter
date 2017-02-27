@@ -48,7 +48,7 @@ int main( int argc, char *argv[] )
 
    plotter->SetBlinding(110, 150, 300, 1000);
 
-/*  
+  
    plotter->MakeHistograms(Data);
    plotter->MakeHistograms(ggH125);
    plotter->MakeHistograms(VBFH125);
@@ -71,26 +71,26 @@ int main( int argc, char *argv[] )
    plotter->FillInclusive();
 
    plotter->Save(); 
-*/
+
 
 //===========================
 // Plotting of blinded plots
 //===========================
   
 
-   plotter->GetHistos( "Blinded" );
-   plotter->Plot1D_allCAT( "Blinded", "M4lMain", "Plots");
-   plotter->Plot1D_allFS( "Blinded", "M4lMain", "Plots");
-   plotter->Plot1D_allCAT( "Blinded", "M4lMainZoomed", "Plots");
-   plotter->Plot1D_allFS( "Blinded", "M4lMainZoomed", "Plots");
-   plotter->Plot1D_single( "Blinded", "M4lMainHighMass", "Plots", 4, 7);
-   plotter->Plot1D_single( "Blinded", "MZ1", "Plots", 4, 7);
-   plotter->Plot1D_single( "Blinded", "MZ2", "Plots", 4, 7);
-   plotter->Plot2D_single( "Blinded", "MZ1vsMZ2", "Plots", 7);
-   plotter->Plot1D_single( "Blinded", "KD", "Plots", 4, 7);
-   plotter->Plot2DError_single( "Blinded", "KDvsM4l", "Plots", 7);
-   plotter->Plot2DError_single( "Blinded", "KDvsM4lZoomed", "Plots", 7);
-   plotter->Plot2DError_single( "Blinded", "KDvsM4lHighMass", "Plots", 7);
+//   plotter->GetHistos( "Blinded" );
+//   plotter->Plot1D_allCAT( "Blinded", "M4lMain", "Plots");
+//   plotter->Plot1D_allFS( "Blinded", "M4lMain", "Plots");
+//   plotter->Plot1D_allCAT( "Blinded", "M4lMainZoomed", "Plots");
+//   plotter->Plot1D_allFS( "Blinded", "M4lMainZoomed", "Plots");
+//   plotter->Plot1D_single( "Blinded", "M4lMainHighMass", "Plots", 4, 7);
+//   plotter->Plot1D_single( "Blinded", "MZ1", "Plots", 4, 7);
+//   plotter->Plot1D_single( "Blinded", "MZ2", "Plots", 4, 7);
+//   plotter->Plot2D_single( "Blinded", "MZ1vsMZ2", "Plots", 7);
+//   plotter->Plot1D_single( "Blinded", "KD", "Plots", 4, 7);
+//   plotter->Plot2DError_single( "Blinded", "KDvsM4l", "Plots", 7);
+//   plotter->Plot2DError_single( "Blinded", "KDvsM4lZoomed", "Plots", 7);
+//   plotter->Plot2DError_single( "Blinded", "KDvsM4lHighMass", "Plots", 7);
 
    
    
@@ -110,10 +110,6 @@ int main( int argc, char *argv[] )
    plotter->Plot1D_single( "Unblinded", "MZ2_M4L118130", "Plots", 4, 7 );
   
    plotter->Plot1D_single( "Unblinded", "KD", "Plots", 4, 7 );
-   plotter->Plot1D_single( "Unblinded", "D1jet", "Plots", 4, 7 );
-   plotter->Plot1D_single( "Unblinded", "D2jet", "Plots", 4, 7 );
-   plotter->Plot1D_single( "Unblinded", "DWH", "Plots", 4, 7 );
-   plotter->Plot1D_single( "Unblinded", "DZH", "Plots", 4, 7 );
    plotter->Plot1D_single( "Unblinded", "KD_M4L118130", "Plots", 4, 7 );
    plotter->Plot1D_single( "Unblinded", "D1jet_M4L118130", "Plots", 4, 7 );
    plotter->Plot1D_single( "Unblinded", "D2jet_M4L118130", "Plots", 4, 7 );
@@ -131,7 +127,11 @@ int main( int argc, char *argv[] )
    plotter->Plot2DError_single( "Unblinded", "DWHvsM4lZoomed", "Plots", 7 );
    plotter->Plot2DError_single( "Unblinded", "DZHvsM4lZoomed", "Plots", 7 );
    
+   plotter->Plot2DErrorAllCat( "Unblinded", "KDvsM4lZoomed", "Plots" );
    plotter->Plot2DErrorAllCat( "Unblinded", "D1jetvsM4lZoomed", "Plots" );
+   plotter->Plot2DErrorAllCat( "Unblinded", "D2jetvsM4lZoomed", "Plots" );
+   plotter->Plot2DErrorAllCat( "Unblinded", "DWHvsM4lZoomed", "Plots" );
+   plotter->Plot2DErrorAllCat( "Unblinded", "DZHvsM4lZoomed", "Plots" );
    
    delete plotter;
 }

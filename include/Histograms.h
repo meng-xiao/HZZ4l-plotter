@@ -21,6 +21,7 @@
 #include "TStyle.h"
 #include "TPaletteAxis.h"
 #include "TPaveText.h"
+#include "TSystem.h"
 
 // Include classes
 #include "Settings.h"
@@ -111,6 +112,7 @@ public:
    TLegend* Create2DErrorLegend( string, TGraphErrors*, TGraphErrors*, TGraphErrors*);
    void DrawLogX( TCanvas *, int );
    void MakeCOLZGrey( bool );
+   void SavePlots ( TCanvas *, string);
    float SetMassPoint( int );
    int SetProcess( int, int );
    
@@ -123,7 +125,7 @@ private:
    vector<string> _s_category, _s_resonant_status, _s_final_state, _s_process, _s_production_mode;
    string _histo_name, _histo_labels, _blinding;
    
-   TString _graph_name, _fit_funct_name;
+   TString _graph_name, _fit_funct_name, _fs_label;
    
    //==========
    // 1D plots

@@ -2256,7 +2256,10 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
       stack->SetMaximum((data_max + data_max_error)*1.1);
    }
    
-   stack->GetXaxis()->SetTitle(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
+   if ( (plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && fs == Settings::fs4e) _fs_label = "m_{4#font[12]{e}} (GeV)";
+   if ( (plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && fs == Settings::fs4mu) _fs_label = "m_{4#font[12]{#mu}} (GeV)";
+   if ( (plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && fs == Settings::fs2e2mu) _fs_label = "m_{2#font[12]{e}2#font[12]{#mu}} (GeV)";
+   stack->GetXaxis()->SetTitle(((plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && fs != Settings::fs4l ) ? _fs_label : (TString)histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
    stack->GetXaxis()->SetTitleSize(0.05);
    stack->GetXaxis()->SetLabelSize(0.05);
    stack->GetYaxis()->SetTitle(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
@@ -2307,11 +2310,7 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    stringstream ss;
    ss << folder << "/" << variable_name << "_" << filename << "_" << _s_final_state.at(fs) << "_" << _s_category.at(cat);
 
-   c->SaveAs((ss.str() + ".pdf").c_str());
-   c->SaveAs((ss.str() + ".png").c_str());
-   c->SaveAs((ss.str() + ".root").c_str());
-   c->SaveAs((ss.str() + ".C").c_str());
-   c->SaveAs((ss.str() + ".eps").c_str());
+   SavePlots ( c, ss.str() );
 
 }
 //========================================================================================================
@@ -2413,12 +2412,8 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       
       stringstream ss;
       ss << folder << "/" << variable_name << "_" <<filename << "_" << _s_final_state.at(Settings::fs4l) << "_" << _s_category.at(i_cat);
-      cout << ss.str() << endl;
-      c->SaveAs((ss.str() + ".pdf").c_str());
-      c->SaveAs((ss.str() + ".png").c_str());
-      c->SaveAs((ss.str() + ".root").c_str());
-      c->SaveAs((ss.str() + ".C").c_str());
-      c->SaveAs((ss.str() + ".eps").c_str());
+
+      SavePlots ( c, ss.str() );
    }
    delete c;
 }
@@ -2483,7 +2478,10 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
          stack->SetMaximum((data_max + data_max_error)*1.1);
       }
       
-      stack->GetXaxis()->SetTitle(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
+      if ( (plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && i_fs == Settings::fs4e) _fs_label = "m_{4#font[12]{e}} (GeV)";
+      if ( (plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && i_fs == Settings::fs4mu) _fs_label = "m_{4#font[12]{#mu}} (GeV)";
+      if ( (plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && i_fs == Settings::fs2e2mu) _fs_label = "m_{2#font[12]{e}2#font[12]{#mu}} (GeV)";
+      stack->GetXaxis()->SetTitle(((plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && i_fs != Settings::fs4l ) ? _fs_label : (TString)histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
       stack->GetXaxis()->SetTitleSize(0.05);
       stack->GetXaxis()->SetLabelSize(0.05);
       stack->GetYaxis()->SetTitle(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
@@ -2521,12 +2519,8 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
       
       stringstream ss;
       ss << folder << "/" << variable_name << "_" <<filename << "_" << _s_final_state.at(i_fs) << "_" << _s_category.at(Settings::inclusive);
-      cout << ss.str() << endl;
-      c->SaveAs((ss.str() + ".pdf").c_str());
-      c->SaveAs((ss.str() + ".png").c_str());
-      c->SaveAs((ss.str() + ".root").c_str());
-      c->SaveAs((ss.str() + ".C").c_str());
-      c->SaveAs((ss.str() + ".eps").c_str());
+
+      SavePlots ( c, ss.str() );
    }
    delete c;
 }
@@ -2601,11 +2595,7 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
    stringstream ss;
    ss << folder << "/" << variable_name << "_" << filename << "_" << _s_category.at(cat);
    
-   c->SaveAs((ss.str() + ".pdf").c_str());
-   c->SaveAs((ss.str() + ".png").c_str());
-   c->SaveAs((ss.str() + ".root").c_str());
-   c->SaveAs((ss.str() + ".C").c_str());
-   c->SaveAs((ss.str() + ".eps").c_str());
+   SavePlots ( c, ss.str() );
    
 }
 //========================================================================================================
@@ -2680,11 +2670,7 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
    stringstream ss;
    ss << folder << "/" << variable_name << "_" << filename << "_" << _s_category.at(cat);
    
-   c->SaveAs((ss.str() + ".pdf").c_str());
-   c->SaveAs((ss.str() + ".png").c_str());
-   c->SaveAs((ss.str() + ".root").c_str());
-   c->SaveAs((ss.str() + ".C").c_str());
-   c->SaveAs((ss.str() + ".eps").c_str());
+   SavePlots ( c, ss.str() );
    
 }
 //========================================================================================================
@@ -2787,7 +2773,7 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    c->SaveAs(out_file_name + ".pdf");
    c->SaveAs(out_file_name + ".png");
    c->SaveAs(out_file_name + ".root");
-   c->SaveAs(out_file_name + ".C");
+//   c->SaveAs(out_file_name + ".C"); why does it segfault here???
    c->SaveAs(out_file_name + ".eps");
    
 }
@@ -3483,6 +3469,16 @@ void Histograms::PrintLatexTables(float M4l_down, float M4l_up, vector< vector <
 //========================================================
 
 
+//=======================================
+void Histograms::SavePlots( TCanvas *c, string ss)
+{
+   c->SaveAs((ss + ".pdf").c_str());
+   gSystem->Exec(("convert -density 150 -quality 100 "+ss+".eps "+ss+".png").c_str());
+   c->SaveAs((ss + ".root").c_str());
+   c->SaveAs((ss + ".C").c_str());
+   c->SaveAs((ss + ".eps").c_str());
+}
+//=======================================
 
 //==================================================
 int Histograms::SetPlotName( TString variable_name )
@@ -4053,3 +4049,4 @@ int Histograms::SetProcess( int point, int production_mode)
    }
 }
 //=======================================
+
