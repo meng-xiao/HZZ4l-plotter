@@ -93,6 +93,7 @@ public:
    void Plot1D_allFS( TString, TString, TString );
    void Plot2D_single( TString, TString, TString, int );
    void Plot2DError_single( TString, TString, TString, int );
+   void Plot2DErrorAllCat( TString , TString , TString );
    void FillYieldGraphs( float, float);
    void PrepareYamlFiles(TString , float , float, vector< vector <float> > );
    void PrintYields( vector< vector <float> > );

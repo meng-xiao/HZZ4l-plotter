@@ -623,6 +623,7 @@ void Histograms::FillVectors( float M4l, float ZZMassErrCorr, float KD, int nCle
    vector_EX[Settings::KDvsM4lHighMass][fs][cat].push_back(ZZMassErrCorr);
    vector_EY[Settings::KDvsM4lHighMass][fs][cat].push_back(0.);
    
+   
    if (nCleanedJetsPt30 == 1)
    {
       vector_X[Settings::D1jetvsM4lZoomed][fs][cat].push_back(M4l);
@@ -2690,6 +2691,110 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
 
 
 
+//===========================================================================================
+void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TString folder )
+{
+   int plot_index = SetPlotName( variable_name);
+   
+   gStyle->SetPadLeftMargin(0.12);
+   gStyle->SetPadRightMargin(0.14);
+   gStyle->SetEndErrorSize(0.);
+   
+   TCanvas *c = new TCanvas(variable_name, variable_name, 650, 500);
+   
+   if ( GetVarLogX( variable_name) ) c->SetLogx();
+   if ( GetVarLogY( variable_name) ) c->SetLogy();
+   
+   // Plot MC histogram
+   TH2F* stack;
+   stack = (TH2F*)histos_2DError[plot_index][Settings::fs4l][Settings::inclusive][Settings::all_resonant][Settings::H125]->Clone();
+   stack->Add(histos_2DError[plot_index][Settings::fs4l][Settings::inclusive][Settings::all_resonant][Settings::qqZZ]);
+   stack->Add(histos_2DError[plot_index][Settings::fs4l][Settings::inclusive][Settings::all_resonant][Settings::ggZZ]);
+   
+   stack->GetXaxis()->SetTitleOffset(1.2);
+   stack->GetYaxis()->SetTitleOffset(1.4);
+   stack->GetZaxis()->SetTitleOffset(1.15);
+   
+   MakeCOLZGrey(false);
+   stack->Draw("COLZ");
+   
+   //Plot data histograms
+   for (int i_fs = 0; i_fs < Settings::fs4l; i_fs++)
+   {
+      histos_2DError_data[plot_index][i_fs][Settings::untagged]->SetMarkerStyle(20);
+      histos_2DError_data[plot_index][i_fs][Settings::untagged]->SetMarkerSize(0.7);
+      
+      histos_2DError_data[plot_index][i_fs][Settings::VBF_1j_tagged]->SetMarkerStyle(26);
+      histos_2DError_data[plot_index][i_fs][Settings::VBF_1j_tagged]->SetMarkerSize(0.7);
+  
+      histos_2DError_data[plot_index][i_fs][Settings::VBF_2j_tagged]->SetMarkerStyle(32);
+      histos_2DError_data[plot_index][i_fs][Settings::VBF_2j_tagged]->SetMarkerSize(0.7);
+        
+      histos_2DError_data[plot_index][i_fs][Settings::VH_lepton_tagged]->SetMarkerStyle(28);
+      histos_2DError_data[plot_index][i_fs][Settings::VH_lepton_tagged]->SetMarkerSize(0.7);
+              
+      histos_2DError_data[plot_index][i_fs][Settings::VH_hadron_tagged]->SetMarkerStyle(27);
+      histos_2DError_data[plot_index][i_fs][Settings::VH_hadron_tagged]->SetMarkerSize(0.7);
+  
+      histos_2DError_data[plot_index][i_fs][Settings::ttH_tagged]->SetMarkerStyle(30);
+      histos_2DError_data[plot_index][i_fs][Settings::ttH_tagged]->SetMarkerSize(0.7);
+  
+      histos_2DError_data[plot_index][i_fs][Settings::VH_MET_tagged]->SetMarkerStyle(25);
+      histos_2DError_data[plot_index][i_fs][Settings::VH_MET_tagged]->SetMarkerSize(0.7);
+   }
+   
+   for (int i_cat = 0; i_cat < Settings::inclusive; i_cat++)
+   {
+      
+      histos_2DError_data[plot_index][Settings::fs4e][i_cat]->SetMarkerColor(kGreen);
+      histos_2DError_data[plot_index][Settings::fs4e][i_cat]->SetLineColor(kGreen);  
+ 
+      histos_2DError_data[plot_index][Settings::fs4mu][i_cat]->SetMarkerColor(kRed);
+      histos_2DError_data[plot_index][Settings::fs4mu][i_cat]->SetLineColor(kRed); 
+      
+      histos_2DError_data[plot_index][Settings::fs2e2mu][i_cat]->SetMarkerColor(kBlue);
+      histos_2DError_data[plot_index][Settings::fs2e2mu][i_cat]->SetLineColor(kBlue);   
+   }
+      
+   for (int i_fs = 0; i_fs < Settings::fs4l; i_fs++)
+   {   
+      for (int i_cat = 0; i_cat < Settings::inclusive; i_cat++)
+      {
+         histos_2DError_data[plot_index][i_fs][i_cat]->Draw("SAME P");
+      }
+   }
+   
+   
+   //Draw legend
+   TLegend *legend;
+   legend = Create2DErrorLegend("right",histos_2DError_data[plot_index][Settings::fs4e][Settings::untagged],histos_2DError_data[plot_index][Settings::fs4mu][Settings::untagged],histos_2DError_data[plot_index][Settings::fs2e2mu][Settings::untagged]);
+   legend->Draw();
+   
+   // Adjust axis color
+   c->Update();
+   TPaletteAxis* pal = (TPaletteAxis*)stack->GetListOfFunctions()->FindObject("palette");
+   pal->SetX1NDC(0.875);
+   pal->SetX2NDC(0.90);
+   pal->SetY2NDC(0.78);
+   
+   // Draw lumi
+   CMS_lumi *lumi = new CMS_lumi;
+   lumi->set_lumi(c, _lumi, 0);
+   
+   TString out_file_name;
+   out_file_name = folder + "/" + variable_name + "_" + filename + "_" + "all_categories";
+   
+   c->SaveAs(out_file_name + ".pdf");
+   c->SaveAs(out_file_name + ".png");
+   c->SaveAs(out_file_name + ".root");
+   c->SaveAs(out_file_name + ".C");
+   c->SaveAs(out_file_name + ".eps");
+   
+}
+//===========================================================================================
+
+
+
 //========================================================================================================
 void Histograms::FillYieldGraphs( float M4l_down, float M4l_up)
 { 
@@ -3674,7 +3779,6 @@ TLegend* Histograms::Create2DErrorLegend( string position, TGraphErrors *fs4e, T
    leg->AddEntry(fs4mu,"4mu","lp");
    leg->AddEntry(fs2e2mu,"2e2mu","lp");
    leg->Draw();
-   
    
    return leg;
 }

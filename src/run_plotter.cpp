@@ -48,7 +48,7 @@ int main( int argc, char *argv[] )
 
    plotter->SetBlinding(110, 150, 300, 1000);
 
-   
+/*  
    plotter->MakeHistograms(Data);
    plotter->MakeHistograms(ggH125);
    plotter->MakeHistograms(VBFH125);
@@ -71,7 +71,7 @@ int main( int argc, char *argv[] )
    plotter->FillInclusive();
 
    plotter->Save(); 
-
+*/
 
 //===========================
 // Plotting of blinded plots
@@ -99,36 +99,39 @@ int main( int argc, char *argv[] )
 //=============================
 
    plotter->GetHistos( "Unblinded" );
-   plotter->Plot1D_allCAT( "Unblinded", "M4lMain" , "Plots");
+   plotter->Plot1D_allCAT( "Unblinded", "M4lMain" , "Plots" );
    plotter->Plot1D_allFS( "Unblinded", "M4lMain" , "Plots");
-   plotter->Plot1D_allCAT( "Unblinded", "M4lMainZoomed" , "Plots");
+   plotter->Plot1D_allCAT( "Unblinded", "M4lMainZoomed" , "Plots" );
    plotter->Plot1D_allFS( "Unblinded", "M4lMainZoomed" , "Plots");
-   plotter->Plot1D_single( "Unblinded", "M4lMainHighMass", "Plots", 4, 7);
-   plotter->Plot1D_single( "Unblinded", "MZ1", "Plots", 4, 7);
-   plotter->Plot1D_single( "Unblinded", "MZ1_M4L118130", "Plots", 4, 7);
-   plotter->Plot1D_single( "Unblinded", "MZ2", "Plots", 4, 7);
-   plotter->Plot1D_single( "Unblinded", "MZ2_M4L118130", "Plots", 4, 7);
+   plotter->Plot1D_single( "Unblinded", "M4lMainHighMass", "Plots", 4, 7 );
+   plotter->Plot1D_single( "Unblinded", "MZ1", "Plots", 4, 7 );
+   plotter->Plot1D_single( "Unblinded", "MZ1_M4L118130", "Plots", 4, 7 );
+   plotter->Plot1D_single( "Unblinded", "MZ2", "Plots", 4, 7 );
+   plotter->Plot1D_single( "Unblinded", "MZ2_M4L118130", "Plots", 4, 7 );
   
-   plotter->Plot1D_single( "Unblinded", "KD", "Plots", 4, 7);
-   plotter->Plot1D_single( "Unblinded", "D1jet", "Plots", 4, 7);
-   plotter->Plot1D_single( "Unblinded", "D2jet", "Plots", 4, 7);
-   plotter->Plot1D_single( "Unblinded", "DWH", "Plots", 4, 7);
-   plotter->Plot1D_single( "Unblinded", "DZH", "Plots", 4, 7);
-   plotter->Plot1D_single( "Unblinded", "KD_M4L118130", "Plots", 4, 7);
-   plotter->Plot1D_single( "Unblinded", "D1jet_M4L118130", "Plots", 4, 7);
-   plotter->Plot1D_single( "Unblinded", "D2jet_M4L118130", "Plots", 4, 7);
-   plotter->Plot1D_single( "Unblinded", "DWH_M4L118130", "Plots", 4, 7);
-   plotter->Plot1D_single( "Unblinded", "DZH_M4L118130", "Plots", 4, 7);
+   plotter->Plot1D_single( "Unblinded", "KD", "Plots", 4, 7 );
+   plotter->Plot1D_single( "Unblinded", "D1jet", "Plots", 4, 7 );
+   plotter->Plot1D_single( "Unblinded", "D2jet", "Plots", 4, 7 );
+   plotter->Plot1D_single( "Unblinded", "DWH", "Plots", 4, 7 );
+   plotter->Plot1D_single( "Unblinded", "DZH", "Plots", 4, 7 );
+   plotter->Plot1D_single( "Unblinded", "KD_M4L118130", "Plots", 4, 7 );
+   plotter->Plot1D_single( "Unblinded", "D1jet_M4L118130", "Plots", 4, 7 );
+   plotter->Plot1D_single( "Unblinded", "D2jet_M4L118130", "Plots", 4, 7 );
+   plotter->Plot1D_single( "Unblinded", "DWH_M4L118130", "Plots", 4, 7 );
+   plotter->Plot1D_single( "Unblinded", "DZH_M4L118130", "Plots", 4, 7 );
 
-   plotter->Plot2D_single( "Unblinded", "MZ1vsMZ2", "Plots", 7);
-   plotter->Plot2D_single( "Unblinded", "MZ1vsMZ2_M4L118130", "Plots", 7);
-   plotter->Plot2DError_single( "Unblinded", "KDvsM4l", "Plots", 7);
-   plotter->Plot2DError_single( "Unblinded", "KDvsM4lZoomed", "Plots", 7);
-   plotter->Plot2DError_single( "Unblinded", "KDvsM4lHighMass", "Plots", 7);
-   plotter->Plot2DError_single( "Unblinded", "D1jetvsM4lZoomed", "Plots", 7);
-   plotter->Plot2DError_single( "Unblinded", "D2jetvsM4lZoomed", "Plots", 7);
-   plotter->Plot2DError_single( "Unblinded", "DWHvsM4lZoomed", "Plots", 7);
-   plotter->Plot2DError_single( "Unblinded", "DZHvsM4lZoomed", "Plots", 7);
+   plotter->Plot2D_single( "Unblinded", "MZ1vsMZ2", "Plots", 7 ) ;
+   plotter->Plot2D_single( "Unblinded", "MZ1vsMZ2_M4L118130", "Plots", 7 );
+   
+   plotter->Plot2DError_single( "Unblinded", "KDvsM4l", "Plots", 7 );
+   plotter->Plot2DError_single( "Unblinded", "KDvsM4lZoomed", "Plots", 7 );
+   plotter->Plot2DError_single( "Unblinded", "KDvsM4lHighMass", "Plots", 7 );
+   plotter->Plot2DError_single( "Unblinded", "D1jetvsM4lZoomed", "Plots", 7 );
+   plotter->Plot2DError_single( "Unblinded", "D2jetvsM4lZoomed", "Plots", 7 );
+   plotter->Plot2DError_single( "Unblinded", "DWHvsM4lZoomed", "Plots", 7 );
+   plotter->Plot2DError_single( "Unblinded", "DZHvsM4lZoomed", "Plots", 7 );
+   
+   plotter->Plot2DErrorAllCat( "Unblinded", "D1jetvsM4lZoomed", "Plots" );
    
    delete plotter;
 }

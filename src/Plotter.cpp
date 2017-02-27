@@ -494,6 +494,16 @@ void Plotter::Plot2DError_single( TString file_name, TString variable_name, TStr
 
 
 
+//==================
+void Plotter::Plot2DErrorAllCat( TString file_name, TString variable_name, TString folder )
+{
+   histo_map[file_name]->Plot2DErrorAllCat( file_name, variable_name, folder );
+   
+}
+//==================
+
+
+
 //==========================================================
 int Plotter::find_current_process( TString input_file_name )
 {
