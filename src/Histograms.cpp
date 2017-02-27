@@ -38,6 +38,15 @@ Histograms::Histograms( double lumi, string blinding )
    _s_category.push_back("VHMETTagged");
    _s_category.push_back("Inclusive");
    
+   _s_category_label.push_back("Untagged");
+   _s_category_label.push_back("VBF-1j tagged");
+   _s_category_label.push_back("VBF-2j tagged");
+   _s_category_label.push_back("VH-Lept. tagged");
+   _s_category_label.push_back("VH-Hadr. tagged");
+   _s_category_label.push_back("ttH tagged");
+   _s_category_label.push_back("VH-MET tagged");
+   _s_category_label.push_back("Inclusive");
+   
    _s_resonant_status.push_back("resonant");
    _s_resonant_status.push_back("nonresonant");
    _s_resonant_status.push_back("allres");
@@ -2276,7 +2285,7 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    {
       legend  = CreateLegend("right",histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX_shape[plot_index][fs][cat]);
    }
-   else if ( plot_index == Settings::D1jet_M4L118130 || plot_index == Settings::D1jet)
+   else if ( plot_index == Settings::D1jet_M4L118130 || plot_index == Settings::D1jet )
    {
       legend  = CreateLegendVBF("left",histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VBF],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125other],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][fs][cat]);
    }
@@ -2290,10 +2299,21 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    }
    else
    {
-      legend = CreateLegend((plot_index == Settings::MZ1 || plot_index == Settings::MZ1_M4L118130 || plot_index == Settings::MZ2)?"left":"right",histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][fs][cat]);
+      legend = CreateLegend((plot_index == Settings::MZ1 || plot_index == Settings::MZ1_M4L118130 || plot_index == Settings::MZ2 || plot_index == Settings::KD_M4L118130)?"left":"right",histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][fs][cat]);
    }
 
    legend->Draw();
+   
+   TPaveText *text;
+   if ( plot_index == Settings::D1jet_M4L118130 || plot_index == Settings::KD_M4L118130    || plot_index == Settings::MZ1_M4L118130 )
+   {
+      text = CreateCutText("left under legend", "118 < m_{4#font[12]{l}} < 130 GeV");
+   }
+   else if ( plot_index == Settings::D2jet_M4L118130 || plot_index == Settings::DWH_M4L118130 || plot_index == Settings::DZH_M4L118130 ||  plot_index == Settings::MZ2_M4L118130)
+   {
+      text = CreateCutText("right under legend", "118 < m_{4#font[12]{l}} < 130 GeV");
+   }
+   text->Draw();
    
    // Draw lumi
    CMS_lumi *lumi = new CMS_lumi;
@@ -2331,7 +2351,7 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
        
-   for( int i_cat = num_of_categories - 1; i_cat >= 0; i_cat--)
+   for( int i_cat = Settings::inclusive; i_cat >= 0; i_cat--)
    {  
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]->SetFillColor(1180);
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(851);
@@ -2398,6 +2418,13 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       }
       legend->Draw();
       
+      TPaveText *text;
+      if ( (plot_index == Settings::M4lMainZoomed || plot_index == Settings::M4lMain ) && i_cat != Settings::inclusive)
+      {
+         text = CreateCatText("top left", _s_category_label.at(i_cat));
+      }
+      text->Draw();
+      
       // Draw lumi
       CMS_lumi *lumi = new CMS_lumi;
       lumi->set_lumi(c, _lumi, 0);
@@ -2414,6 +2441,7 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       ss << folder << "/" << variable_name << "_" <<filename << "_" << _s_final_state.at(Settings::fs4l) << "_" << _s_category.at(i_cat);
 
       SavePlots ( c, ss.str() );
+      
    }
    delete c;
 }
@@ -3473,10 +3501,10 @@ void Histograms::PrintLatexTables(float M4l_down, float M4l_up, vector< vector <
 void Histograms::SavePlots( TCanvas *c, string ss)
 {
    c->SaveAs((ss + ".pdf").c_str());
-   gSystem->Exec(("convert -density 150 -quality 100 "+ss+".eps "+ss+".png").c_str());
    c->SaveAs((ss + ".root").c_str());
    c->SaveAs((ss + ".C").c_str());
    c->SaveAs((ss + ".eps").c_str());
+   gSystem->Exec(("convert -density 150 -quality 100 "+ss+".eps "+ss+".png").c_str());
 }
 //=======================================
 
@@ -3780,6 +3808,39 @@ TLegend* Histograms::Create2DErrorLegend( string position, TGraphErrors *fs4e, T
 }
 //=======================================================================================================================
 
+
+//=======================================================================================================================
+TPaveText* Histograms::CreateCutText( string position, TString cut_label)
+{
+   TPaveText *pav;
+   if (position == "left under legend")  pav = new TPaveText(.14, .55, .48, .61,"brNDC");
+   if (position == "right under legend") pav = new TPaveText(.63, .55, .97, .61 ,"brNDC");
+   pav->SetFillStyle(0);
+   pav->SetBorderSize(0);
+   pav->SetTextAlign(11);
+   pav->SetTextSize(0.037);
+   pav->SetTextFont(42);
+   pav->AddText(cut_label);
+   
+   return pav;
+}
+//=======================================================================================================================
+
+//=======================================================================================================================
+TPaveText* Histograms::CreateCatText( string position, TString cat_label)
+{
+   TPaveText *pav;
+   if (position == "top left")  pav = new TPaveText(.14, .85, .48, .91,"brNDC");
+   pav->SetFillStyle(0);
+   pav->SetBorderSize(0);
+   pav->SetTextAlign(11);
+   pav->SetTextSize(0.037);
+   pav->SetTextFont(42);
+   pav->AddText(cat_label);
+   
+   return pav;
+}
+//=======================================================================================================================
 
 
 //================================================
