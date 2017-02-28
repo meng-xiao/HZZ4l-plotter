@@ -118,7 +118,7 @@ public:
    struct MZ1_M4L118130
    {
       TString var_X_label = "m_{Z1} (GeV)";
-      TString var_Y_label = "Events / 4 GeV";
+      TString var_Y_label = "Events / 2 GeV";
       TString var_cut_label = "118 < m_{4#font[12]{l}} < 130 GeV";
       Int_t var_N_bin = 40;
       Float_t var_min = 40;
@@ -160,7 +160,7 @@ public:
    struct MZ2_M4L118130
    {
       TString var_X_label = "m_{Z2} (GeV)";
-      TString var_Y_label = "Events / 4 GeV";
+      TString var_Y_label = "Events / 2 GeV";
       TString var_cut_label = "118 < m_{4#font[12]{l}} < 130 GeV";
       Int_t var_N_bin = 54;
       Float_t var_min = 12;

@@ -2189,10 +2189,9 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
 {
    int plot_index = SetPlotName( variable_name);
    
-   gStyle->SetPadLeftMargin(0.10);
-   gStyle->SetPadRightMargin(0.01);
-   
-   TCanvas *c = new TCanvas(variable_name, variable_name, 650, 500);
+   TCanvas *c;
+   if(variable_name == "M4lMain") c = new TCanvas(variable_name, variable_name, 650, 500);
+   else c = new TCanvas(variable_name, variable_name, 600, 600);
    
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
@@ -2224,7 +2223,7 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass") histos_1D_ZX_shape[plot_index][fs][cat]->SetLineColor(420);
    else histos_1D_ZX[plot_index][fs][cat]->SetLineColor(420);
    
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
+   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.8);
    histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
    histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
    histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetLineColor(kBlack);
@@ -2277,7 +2276,7 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    stack->GetYaxis()->SetLabelSize(0.05);
    
    stack->GetXaxis()->SetTitleOffset(1.2);
-   stack->GetYaxis()->SetTitleOffset(1.);
+   stack->GetYaxis()->SetTitleOffset(1.25);
    
    histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
    
@@ -2344,12 +2343,10 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
 void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TString folder )
 {
    int plot_index = SetPlotName( variable_name);
-   
-   gStyle->SetPadLeftMargin(0.10);
-   gStyle->SetPadRightMargin(0.01);
-   
-   
-   TCanvas *c = new TCanvas(variable_name, variable_name, 650, 500);
+
+   TCanvas *c;
+   if(variable_name == "M4lMain") c = new TCanvas(variable_name, variable_name, 650, 500);
+   else c = new TCanvas(variable_name, variable_name, 600, 600);
 
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
@@ -2368,7 +2365,7 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass") histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]->SetLineColor(420);
       else histos_1D_ZX[plot_index][Settings::fs4l][i_cat]->SetLineColor(420);
       
-      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.8);
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetLineColor(kBlack);
@@ -2405,7 +2402,7 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       stack->GetYaxis()->SetLabelSize(0.05);
       
       stack->GetXaxis()->SetTitleOffset(1.2);
-      stack->GetYaxis()->SetTitleOffset(1.);
+      stack->GetYaxis()->SetTitleOffset(1.25);
       
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
 
@@ -2458,10 +2455,9 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
 {
    int plot_index = SetPlotName( variable_name);
    
-   gStyle->SetPadLeftMargin(0.10);
-   gStyle->SetPadRightMargin(0.01);
-   
-   TCanvas *c = new TCanvas(variable_name, variable_name, 650, 500);
+   TCanvas *c;
+   if(variable_name == "M4lMain") c = new TCanvas(variable_name, variable_name, 650, 500);
+   else c = new TCanvas(variable_name, variable_name, 600, 600);
    
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
@@ -2481,7 +2477,7 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
       if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass") histos_1D_ZX_shape[plot_index][i_fs][Settings::inclusive]->SetLineColor(420);
       else histos_1D_ZX[plot_index][i_fs][Settings::inclusive]->SetLineColor(420);
       
-      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.7);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.8);
       histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
       histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
       histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->SetLineColor(kBlack);
@@ -2521,7 +2517,7 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
       stack->GetYaxis()->SetLabelSize(0.05);
       
       stack->GetXaxis()->SetTitleOffset(1.2);
-      stack->GetYaxis()->SetTitleOffset(1.);
+      stack->GetYaxis()->SetTitleOffset(1.25);
       
       histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
       
@@ -2565,10 +2561,10 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
 {
    int plot_index = SetPlotName( variable_name);
 
-   gStyle->SetPadLeftMargin(0.12);
-   gStyle->SetPadRightMargin(0.14);
+   gStyle->SetPadLeftMargin(0.14);
+   gStyle->SetPadRightMargin(0.12);
 
-   TCanvas *c = new TCanvas(variable_name, variable_name, 650, 500);
+   TCanvas *c = new TCanvas(variable_name, variable_name, 600, 600);
    
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
@@ -2580,8 +2576,13 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
    stack->Add(histos_2D[plot_index][Settings::fs4l][cat][Settings::all_resonant][Settings::ggZZ]);
    
    stack->GetXaxis()->SetTitleOffset(1.2);
-   stack->GetYaxis()->SetTitleOffset(1.4);
-   stack->GetZaxis()->SetTitleOffset(1.15);
+   stack->GetYaxis()->SetTitleOffset(1.3);
+   stack->GetZaxis()->SetTitle("Events / bin");
+   stack->GetZaxis()->SetTitleOffset(1.45);
+   stack->GetXaxis()->SetTitleSize(0.05);
+   stack->GetXaxis()->SetLabelSize(0.05);
+   stack->GetYaxis()->SetTitleSize(0.05);
+   stack->GetYaxis()->SetLabelSize(0.05);
 
    stack->SetMinimum(+1e-10);
    MakeCOLZGrey(true);
@@ -2606,6 +2607,8 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
    histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.9);
    histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->SetMarkerColor(kGreen+2);
    histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->SetLineColor(kGreen+2);
+   
+
    
    histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->Draw("SAME XP");
 
@@ -2652,7 +2655,7 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
    gStyle->SetPadRightMargin(0.14);
    gStyle->SetEndErrorSize(0.);
    
-   TCanvas *c = new TCanvas(variable_name, variable_name, 650, 500);
+   TCanvas *c = new TCanvas(variable_name, variable_name, 600, 600);
    
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
@@ -2664,8 +2667,13 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
    stack->Add(histos_2DError[plot_index][Settings::fs4l][cat][Settings::all_resonant][Settings::ggZZ]);
    
    stack->GetXaxis()->SetTitleOffset(1.2);
-   stack->GetYaxis()->SetTitleOffset(1.4);
-   stack->GetZaxis()->SetTitleOffset(1.15);
+   stack->GetYaxis()->SetTitleOffset(1.1);
+   stack->GetZaxis()->SetTitle("Events / bin");
+   stack->GetZaxis()->SetTitleOffset(1.3);
+   stack->GetXaxis()->SetTitleSize(0.05);
+   stack->GetXaxis()->SetLabelSize(0.05);
+   stack->GetYaxis()->SetTitleSize(0.05);
+   stack->GetYaxis()->SetLabelSize(0.05);
    
    MakeCOLZGrey(false);
    stack->Draw("COLZ");
@@ -2729,7 +2737,7 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    gStyle->SetPadRightMargin(0.14);
    gStyle->SetEndErrorSize(0.);
    
-   TCanvas *c = new TCanvas(variable_name, variable_name, 650, 500);
+   TCanvas *c = new TCanvas(variable_name, variable_name, 600, 600);
    
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
@@ -2741,8 +2749,13 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    stack->Add(histos_2DError[plot_index][Settings::fs4l][Settings::inclusive][Settings::all_resonant][Settings::ggZZ]);
    
    stack->GetXaxis()->SetTitleOffset(1.2);
-   stack->GetYaxis()->SetTitleOffset(1.4);
-   stack->GetZaxis()->SetTitleOffset(1.15);
+   stack->GetYaxis()->SetTitleOffset(1.1);
+   stack->GetZaxis()->SetTitle("Events / bin");
+   stack->GetZaxis()->SetTitleOffset(1.3);
+   stack->GetXaxis()->SetTitleSize(0.05);
+   stack->GetXaxis()->SetLabelSize(0.05);
+   stack->GetYaxis()->SetTitleSize(0.05);
+   stack->GetYaxis()->SetLabelSize(0.05);
    
    MakeCOLZGrey(false);
    stack->Draw("COLZ");
@@ -3721,8 +3734,8 @@ bool Histograms::GetVarLogY ( TString variable_name )
 TLegend* Histograms::CreateLegend( string position, TH1F *data, TH1F *h125,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX )
 {
    TLegend *leg;
-   if(position == "right") leg = new TLegend( .63, .62, .97, .9 );
-   else if(position == "left") leg = new TLegend(.14,.62,.48,.9);
+   if(position == "right") leg = new TLegend( .64, .65, .97, .9 );
+   else if(position == "left") leg = new TLegend(.18,.65,.51,.9);
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
    leg->SetFillStyle(0);
@@ -3743,8 +3756,8 @@ TLegend* Histograms::CreateLegend( string position, TH1F *data, TH1F *h125,TH1F 
 TLegend* Histograms::CreateLegendVBF( string position, TH1F *data, TH1F *h125VBF, TH1F *h125other,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX )
 {
    TLegend *leg;
-   if(position == "right") leg = new TLegend( .60, .62, .95, .9 );
-   else if(position == "left") leg = new TLegend(.14,.62,.48,.9);
+   if(position == "right") leg = new TLegend( .64, .65, .95, .9 );
+   else if(position == "left") leg = new TLegend(.18,.65,.51,.9);
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
    leg->SetFillStyle(0);
@@ -3766,8 +3779,8 @@ TLegend* Histograms::CreateLegendVBF( string position, TH1F *data, TH1F *h125VBF
 TLegend* Histograms::CreateLegendVH( string position, TH1F *data, TH1F *h125VH, TH1F *h125other,TH1F *qqZZ,TH1F *ggZZ,TH1F *ZX )
 {
    TLegend *leg;
-   if(position == "right") leg = new TLegend( .60, .62, .95, .9 );
-   else if(position == "left") leg = new TLegend(.14,.62,.48,.9);
+   if(position == "right") leg = new TLegend( .64, .65, .95, .9 );
+   else if(position == "left") leg = new TLegend(.18,.65,.51,.9);
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
    leg->SetFillStyle(0);
@@ -3830,9 +3843,9 @@ TLegend* Histograms::Create2DErrorLegend( string position, TGraphErrors *fs4e, T
 TPaveText* Histograms::CreateCutText( string position, TString cut_label)
 {
    TPaveText *pav;
-   if (position == "left under legend")    pav = new TPaveText(.14, .55, .48, .61 ,"brNDC");
-   if (position == "right under legend")   pav = new TPaveText(.63, .55, .97, .61 ,"brNDC");
-   if (position == "left under 2D legend") pav = new TPaveText(.14, .75, .27, .81 ,"brNDC");
+   if (position == "left under legend")    pav = new TPaveText(.18, .57, .51, .63 ,"brNDC");
+   if (position == "right under legend")   pav = new TPaveText(.63, .57, .93, .63 ,"brNDC");
+   if (position == "left under 2D legend") pav = new TPaveText(.18, .75, .31, .81 ,"brNDC");
    pav->SetFillStyle(0);
    pav->SetBorderSize(0);
    pav->SetTextAlign(11);
@@ -3848,7 +3861,7 @@ TPaveText* Histograms::CreateCutText( string position, TString cut_label)
 TPaveText* Histograms::CreateCatText( string position, TString cat_label)
 {
    TPaveText *pav;
-   if (position == "top left")  pav = new TPaveText(.14, .85, .48, .91,"brNDC");
+   if (position == "top left")  pav = new TPaveText(.18, .85, .52, .91,"brNDC");
    pav->SetFillStyle(0);
    pav->SetBorderSize(0);
    pav->SetTextAlign(11);
@@ -3862,7 +3875,7 @@ TPaveText* Histograms::CreateCatText( string position, TString cat_label)
 
 
 //================================================
-void Histograms::DrawLogX( TCanvas *c, int i_cat )
+void Histograms::DrawLogX( TCanvas *c, int k )
 {
    int x_low = 100;
    int x_up  = 700;
@@ -3870,7 +3883,7 @@ void Histograms::DrawLogX( TCanvas *c, int i_cat )
       
    float u_y_max = c->GetUymax();
    
-   if ( i_cat == Settings::inclusive ) _y_max = u_y_max;
+   if ( k == Settings::inclusive || k == Settings::fs4e) _y_max = u_y_max;
    
    float factor = u_y_max/_y_max;
    float y_latex = -0.6;
