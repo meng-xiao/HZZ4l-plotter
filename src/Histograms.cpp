@@ -38,14 +38,14 @@ Histograms::Histograms( double lumi, string blinding )
    _s_category.push_back("VHMETTagged");
    _s_category.push_back("Inclusive");
    
-   _s_category_label.push_back("Untagged");
-   _s_category_label.push_back("VBF-1j tagged");
-   _s_category_label.push_back("VBF-2j tagged");
-   _s_category_label.push_back("VH-Lept. tagged");
-   _s_category_label.push_back("VH-Hadr. tagged");
-   _s_category_label.push_back("ttH tagged");
-   _s_category_label.push_back("VH-MET tagged");
-   _s_category_label.push_back("Inclusive");
+   _s_category_label.push_back("Untagged category");
+   _s_category_label.push_back("VBF-1j tagged category");
+   _s_category_label.push_back("VBF-2j tagged category");
+   _s_category_label.push_back("VH-leptonic tagged category");
+   _s_category_label.push_back("VH-hadronic tagged category");
+   _s_category_label.push_back("ttH tagged category");
+   _s_category_label.push_back("VH-MET tagged category");
+   _s_category_label.push_back("Inclusive category");
    
    _s_resonant_status.push_back("resonant");
    _s_resonant_status.push_back("nonresonant");
@@ -2422,8 +2422,9 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       if ( (plot_index == Settings::M4lMainZoomed || plot_index == Settings::M4lMain ) && i_cat != Settings::inclusive)
       {
          text = CreateCatText("top left", _s_category_label.at(i_cat));
+         text->Draw();
       }
-      text->Draw();
+      
       
       // Draw lumi
       CMS_lumi *lumi = new CMS_lumi;
