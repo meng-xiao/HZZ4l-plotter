@@ -2234,6 +2234,7 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    else stack->Add(histos_1D_ZX[plot_index][fs][cat]);
    stack->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ]);
    stack->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ]);
+   
    if( plot_index == Settings::D1jet_M4L118130 || plot_index == Settings::D2jet_M4L118130 || plot_index == Settings::D1jet || plot_index == Settings::D2jet)
    {
       histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125other]->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VH]);
@@ -2308,12 +2309,14 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    if ( plot_index == Settings::D1jet_M4L118130 || plot_index == Settings::KD_M4L118130    || plot_index == Settings::MZ1_M4L118130 )
    {
       text = CreateCutText("left under legend", "118 < m_{4#font[12]{l}} < 130 GeV");
+      text->Draw();
    }
    else if ( plot_index == Settings::D2jet_M4L118130 || plot_index == Settings::DWH_M4L118130 || plot_index == Settings::DZH_M4L118130 ||  plot_index == Settings::MZ2_M4L118130)
    {
       text = CreateCutText("right under legend", "118 < m_{4#font[12]{l}} < 130 GeV");
+      text->Draw();
    }
-   text->Draw();
+   
    
    // Draw lumi
    CMS_lumi *lumi = new CMS_lumi;
@@ -2610,6 +2613,13 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
    TLegend *legend;
    legend = Create2DLegend("left",histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data],histos_2D[plot_index][Settings::fs4mu][cat][Settings::all_resonant][Settings::Data],histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::all_resonant][Settings::Data]);
    legend->Draw();
+   
+   TPaveText *text;
+   if ( plot_index == Settings::MZ1vsMZ2_M4L118130 )
+   {
+      text = CreateCutText("left under 2D legend", "118 < m_{4#font[12]{l}} < 130 GeV");
+      text->Draw();
+   }
 
    //----- adjust color axis
    c->Update();
@@ -2625,6 +2635,8 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
    ss << folder << "/" << variable_name << "_" << filename << "_" << _s_category.at(cat);
    
    SavePlots ( c, ss.str() );
+   
+   delete c;
    
 }
 //========================================================================================================
@@ -2700,6 +2712,8 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
    ss << folder << "/" << variable_name << "_" << filename << "_" << _s_category.at(cat);
    
    SavePlots ( c, ss.str() );
+   
+   delete c;
    
 }
 //========================================================================================================
@@ -2804,6 +2818,8 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    c->SaveAs(out_file_name + ".root");
 //   c->SaveAs(out_file_name + ".C"); why does it segfault here???
    c->SaveAs(out_file_name + ".eps");
+   
+   delete c;
    
 }
 //===========================================================================================
@@ -3814,8 +3830,9 @@ TLegend* Histograms::Create2DErrorLegend( string position, TGraphErrors *fs4e, T
 TPaveText* Histograms::CreateCutText( string position, TString cut_label)
 {
    TPaveText *pav;
-   if (position == "left under legend")  pav = new TPaveText(.14, .55, .48, .61,"brNDC");
-   if (position == "right under legend") pav = new TPaveText(.63, .55, .97, .61 ,"brNDC");
+   if (position == "left under legend")    pav = new TPaveText(.14, .55, .48, .61 ,"brNDC");
+   if (position == "right under legend")   pav = new TPaveText(.63, .55, .97, .61 ,"brNDC");
+   if (position == "left under 2D legend") pav = new TPaveText(.14, .75, .27, .81 ,"brNDC");
    pav->SetFillStyle(0);
    pav->SetBorderSize(0);
    pav->SetTextAlign(11);
