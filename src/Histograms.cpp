@@ -2739,9 +2739,19 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    
    TCanvas *c = new TCanvas(variable_name, variable_name, 600, 600);
    
-   if ( GetVarLogX( variable_name) ) c->SetLogx();
-   if ( GetVarLogY( variable_name) ) c->SetLogy();
+   TPad* plot_pad = new TPad("plot_pad", "plot_pad", 0., 0.05, 1., 0.85);
+   TPad* legend_pad = new TPad("legend_pad", "legend_pad", 0.12, 0.80, 1., 0.95);
    
+   if ( GetVarLogX( variable_name) ) plot_pad->SetLogx();
+   if ( GetVarLogY( variable_name) ) plot_pad->SetLogy();
+   
+   
+   plot_pad->SetTopMargin(0.06);
+   plot_pad->Draw();
+   legend_pad->Draw();
+   
+   
+   plot_pad->cd();
    // Plot MC histogram
    TH2F* stack;
    stack = (TH2F*)histos_2DError[plot_index][Settings::fs4l][Settings::inclusive][Settings::all_resonant][Settings::H125]->Clone();
@@ -2761,7 +2771,7 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    stack->Draw("COLZ");
    
    //Plot data histograms
-   for (int i_fs = 0; i_fs < Settings::fs4l; i_fs++)
+   for (int i_fs = 0; i_fs <= Settings::fs4l; i_fs++)
    {
       histos_2DError_data[plot_index][i_fs][Settings::untagged]->SetMarkerStyle(20);
       histos_2DError_data[plot_index][i_fs][Settings::untagged]->SetMarkerSize(0.7);
@@ -2795,7 +2805,10 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
       histos_2DError_data[plot_index][Settings::fs4mu][i_cat]->SetLineColor(kRed); 
       
       histos_2DError_data[plot_index][Settings::fs2e2mu][i_cat]->SetMarkerColor(kBlue);
-      histos_2DError_data[plot_index][Settings::fs2e2mu][i_cat]->SetLineColor(kBlue);   
+      histos_2DError_data[plot_index][Settings::fs2e2mu][i_cat]->SetLineColor(kBlue);
+      
+      histos_2DError_data[plot_index][Settings::fs4l][i_cat]->SetMarkerColor(kBlack);
+      histos_2DError_data[plot_index][Settings::fs4l][i_cat]->SetLineColor(kBlack);
    }
       
    for (int i_fs = 0; i_fs < Settings::fs4l; i_fs++)
@@ -2806,18 +2819,18 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
       }
    }
    
-   
-   //Draw legend
-   TLegend *legend;
-   legend = Create2DErrorLegend("right",histos_2DError_data[plot_index][Settings::fs4e][Settings::untagged],histos_2DError_data[plot_index][Settings::fs4mu][Settings::untagged],histos_2DError_data[plot_index][Settings::fs2e2mu][Settings::untagged]);
-   legend->Draw();
-   
    // Adjust axis color
    c->Update();
    TPaletteAxis* pal = (TPaletteAxis*)stack->GetListOfFunctions()->FindObject("palette");
    pal->SetX1NDC(0.875);
    pal->SetX2NDC(0.90);
-   pal->SetY2NDC(0.78);
+   pal->SetY2NDC(0.93);
+   
+   legend_pad->cd();
+   //Draw legend
+   TLegend *legend;
+   legend = Create2DLegendAllCat ("top",histos_2DError_data[plot_index][Settings::fs4e][Settings::untagged],histos_2DError_data[plot_index][Settings::fs4mu][Settings::untagged],histos_2DError_data[plot_index][Settings::fs2e2mu][Settings::untagged], histos_2DError_data[plot_index][Settings::fs4l][Settings::untagged], histos_2DError_data[plot_index][Settings::fs4l][Settings::VBF_1j_tagged], histos_2DError_data[plot_index][Settings::fs4l][Settings::VBF_2j_tagged], histos_2DError_data[plot_index][Settings::fs4l][Settings::VH_lepton_tagged], histos_2DError_data[plot_index][Settings::fs4l][Settings::VH_hadron_tagged], histos_2DError_data[plot_index][Settings::fs4l][Settings::ttH_tagged], histos_2DError_data[plot_index][Settings::fs4l][Settings::VH_MET_tagged]);
+   legend->Draw();
    
    // Draw lumi
    CMS_lumi *lumi = new CMS_lumi;
@@ -3813,6 +3826,38 @@ TLegend* Histograms::Create2DLegend( string position, TH2F *fs4e, TH2F *fs4mu,TH
    leg->AddEntry(fs2e2mu,"2e2mu","p");
    leg->Draw();
 
+   return leg;
+}
+//==========================================================================================
+
+//==========================================================================================
+TLegend* Histograms::Create2DLegendAllCat( string position, TGraphErrors *fs4e, TGraphErrors *fs4mu,TGraphErrors *fs2e2mu, TGraphErrors *untagged, TGraphErrors *VBF1jet, TGraphErrors *VBF2jet, TGraphErrors *VHlep, TGraphErrors *VHhad, TGraphErrors *ttH, TGraphErrors *VHmet)
+{
+   TLegend *leg;
+   leg = new TLegend(0.00,0.00,0.84,1.00);
+   
+   leg->SetFillStyle(0);
+   leg->SetBorderSize(1);
+   leg->SetTextFont(42);
+   leg->SetTextSize(0.18);
+   leg->SetNColumns(3);
+   
+   leg->AddEntry(fs4e,"4e","lp");
+   leg->AddEntry(untagged,"untagged","lp");
+   leg->AddEntry(VHlep,"VH-lept. tagged","lp");
+   
+   leg->AddEntry(fs4mu,"4mu","lp");
+   leg->AddEntry(VBF1jet,"VBF-1j tagged","lp");
+   leg->AddEntry(VHhad,"VH-hadr. tagged","lp");
+   
+   leg->AddEntry(fs2e2mu,"2e2mu","lp");
+   leg->AddEntry(VBF2jet,"VBF-2j tagged","lp");
+   leg->AddEntry(VHmet,"VH-MET tagged","lp");
+   leg->AddEntry((TObject*)0, "", "");
+   leg->AddEntry((TObject*)0, "", "");
+   leg->AddEntry(ttH,"ttH tagged","lp");
+   leg->Draw();
+   
    return leg;
 }
 //==========================================================================================
