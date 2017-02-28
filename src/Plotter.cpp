@@ -136,6 +136,18 @@ void Plotter::MakeHistograms( TString input_file_name )
       DWH = (nCleanedJetsPt30>=2) ? DWHh_ME(p_HadWH_SIG_ghw1_1_JHUGen_JECNominal, p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass) : -2;
       DZH = (nCleanedJetsPt30>=2) ? DZHh_ME(p_HadZH_SIG_ghz1_1_JHUGen_JECNominal, p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass) : -2;
       
+      //Spread DWH and DZH distributions with custom c-constants
+      NEWWP = 0.8;
+      OLDWP = 0.951;
+      CUSTOMCCONST = ((1.-NEWWP)/(NEWWP/OLDWP-NEWWP));
+      DWH = 1/(CUSTOMCCONST*(1/DWH-1)+1);
+      
+      NEWWP = 0.8;
+      OLDWP = 0.9937;
+      CUSTOMCCONST = ((1.-NEWWP)/(NEWWP/OLDWP-NEWWP));
+      DZH = 1/(CUSTOMCCONST*(1/DZH-1)+1);
+      
+      
       // Fill M4l histograms
       if ( (_current_process == Settings::Data && blind(ZZMass)) || _current_process != Settings::Data )
       {

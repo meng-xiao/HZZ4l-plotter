@@ -2740,7 +2740,7 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    TCanvas *c = new TCanvas(variable_name, variable_name, 600, 600);
    
    TPad* plot_pad = new TPad("plot_pad", "plot_pad", 0., 0.05, 1., 0.85);
-   TPad* legend_pad = new TPad("legend_pad", "legend_pad", 0.12, 0.80, 1., 0.95);
+   TPad* legend_pad = new TPad("legend_pad", "legend_pad", 0.12, 0.81, 1., 0.95);
    
    if ( GetVarLogX( variable_name) ) plot_pad->SetLogx();
    if ( GetVarLogY( variable_name) ) plot_pad->SetLogy();
@@ -2766,6 +2766,8 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    stack->GetXaxis()->SetLabelSize(0.05);
    stack->GetYaxis()->SetTitleSize(0.05);
    stack->GetYaxis()->SetLabelSize(0.05);
+   
+   stack->GetYaxis()->SetRangeUser(0.,1.);
    
    MakeCOLZGrey(false);
    stack->Draw("COLZ");
@@ -2798,11 +2800,11 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    for (int i_cat = 0; i_cat < Settings::inclusive; i_cat++)
    {
       
-      histos_2DError_data[plot_index][Settings::fs4e][i_cat]->SetMarkerColor(kGreen);
-      histos_2DError_data[plot_index][Settings::fs4e][i_cat]->SetLineColor(kGreen);  
+      histos_2DError_data[plot_index][Settings::fs4e][i_cat]->SetMarkerColor(kGreen+2);
+      histos_2DError_data[plot_index][Settings::fs4e][i_cat]->SetLineColor(kGreen+2);
  
-      histos_2DError_data[plot_index][Settings::fs4mu][i_cat]->SetMarkerColor(kRed);
-      histos_2DError_data[plot_index][Settings::fs4mu][i_cat]->SetLineColor(kRed); 
+      histos_2DError_data[plot_index][Settings::fs4mu][i_cat]->SetMarkerColor(kRed+1);
+      histos_2DError_data[plot_index][Settings::fs4mu][i_cat]->SetLineColor(kRed+1);
       
       histos_2DError_data[plot_index][Settings::fs2e2mu][i_cat]->SetMarkerColor(kBlue);
       histos_2DError_data[plot_index][Settings::fs2e2mu][i_cat]->SetLineColor(kBlue);
@@ -2826,6 +2828,13 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    pal->SetX2NDC(0.90);
    pal->SetY2NDC(0.93);
    
+   TLine *wp_line;
+   if (plot_index == Settings::DWHvsM4lZoomed || plot_index == Settings::DZHvsM4lZoomed || plot_index == Settings::D1jetvsM4lZoomed || plot_index == Settings::D2jetvsM4lZoomed )
+   {
+      wp_line = CreateDashedLine( plot_index );
+      wp_line->Draw();
+   }
+   
    legend_pad->cd();
    //Draw legend
    TLegend *legend;
@@ -2840,10 +2849,10 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    out_file_name = folder + "/" + variable_name + "_" + filename + "_" + "all_categories";
    
    c->SaveAs(out_file_name + ".pdf");
-   c->SaveAs(out_file_name + ".png");
    c->SaveAs(out_file_name + ".root");
 //   c->SaveAs(out_file_name + ".C"); why does it segfault here???
    c->SaveAs(out_file_name + ".eps");
+   gSystem->Exec(("convert -density 150 -quality 100 "+out_file_name+".eps "+out_file_name+".png"));
    
    delete c;
    
@@ -3915,6 +3924,23 @@ TPaveText* Histograms::CreateCatText( string position, TString cat_label)
    pav->AddText(cat_label);
    
    return pav;
+}
+//=======================================================================================================================
+
+//=======================================================================================================================
+TLine* Histograms::CreateDashedLine( int plot_index)
+{
+   TLine *line;
+   if (plot_index == Settings::DWHvsM4lZoomed) line = new TLine(0.,0.8,1.,0.8);
+   if (plot_index == Settings::DZHvsM4lZoomed) line = new TLine(0.,0.8,1.,0.8);
+   if (plot_index == Settings::D1jetvsM4lZoomed) line = new TLine(0.,0.8,1.,0.8);
+   if (plot_index == Settings::D2jetvsM4lZoomed) line = new TLine(0.,0.8,1.,0.8);
+      
+   line->SetLineStyle(9);
+   line->SetLineWidth(6);
+   line->SetLineColor(13);
+   
+   return line;
 }
 //=======================================================================================================================
 

@@ -17,6 +17,7 @@
 #include "TCanvas.h"
 #include "THStack.h"
 #include "TLegend.h"
+#include "TLine.h"
 #include "TLatex.h"
 #include "TStyle.h"
 #include "TPaletteAxis.h"
@@ -113,6 +114,7 @@ public:
    TLegend* Create2DLegendAllCat( string, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors* );
    TPaveText* CreateCutText( string, TString );
    TPaveText* CreateCatText( string, TString );
+   TLine* CreateDashedLine( int );
    void DrawLogX( TCanvas *, int );
    void MakeCOLZGrey( bool );
    void SavePlots ( TCanvas *, string);

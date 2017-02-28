@@ -103,6 +103,7 @@ private:
    Float_t D1jet;
    Float_t DWH;
    Float_t DZH;
+   Float_t CUSTOMCCONST, NEWWP, OLDWP;
 	
    
    float _blinding_lower[2], _blinding_upper[2];
