@@ -2354,6 +2354,11 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
    TCanvas *c;
    if(variable_name == "M4lMain") c = new TCanvas(variable_name, variable_name, 650, 500);
    else c = new TCanvas(variable_name, variable_name, 600, 600);
+   
+   // Set custom margins for plots where last label is cut off otherwise
+   if ( (plot_index == Settings::MZ1) ||  (plot_index == Settings::MZ1_M4L118130) ) c->SetRightMargin(0.05);
+   if ( (plot_index == Settings::MZ2) ||  (plot_index == Settings::MZ2_M4L118130) ) c->SetRightMargin(0.05);
+   if ( (plot_index == Settings::M4lMainHighMass) )                                 c->SetRightMargin(0.07);
 
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
@@ -2467,6 +2472,11 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
    TCanvas *c;
    if(variable_name == "M4lMain") c = new TCanvas(variable_name, variable_name, 650, 500);
    else c = new TCanvas(variable_name, variable_name, 600, 600);
+   
+   // Set custom margins for plots where last label is cut off otherwise
+   if ( (plot_index == Settings::MZ1) ||  (plot_index == Settings::MZ1_M4L118130) ) c->SetRightMargin(0.05);
+   if ( (plot_index == Settings::MZ2) ||  (plot_index == Settings::MZ2_M4L118130) ) c->SetRightMargin(0.05);
+   if ( (plot_index == Settings::M4lMainHighMass) )                                 c->SetRightMargin(0.07);
    
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
