@@ -2193,6 +2193,11 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    if(variable_name == "M4lMain") c = new TCanvas(variable_name, variable_name, 650, 500);
    else c = new TCanvas(variable_name, variable_name, 600, 600);
    
+   // Set custom margins for plots where last label is cut off otherwise
+   if ( (plot_index == Settings::MZ1) ||  (plot_index == Settings::MZ1_M4L118130) ) c->SetRightMargin(0.05);
+   if ( (plot_index == Settings::MZ2) ||  (plot_index == Settings::MZ2_M4L118130) ) c->SetRightMargin(0.05);
+   if ( (plot_index == Settings::M4lMainHighMass) )                                 c->SetRightMargin(0.07);
+   
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
    
@@ -2277,6 +2282,8 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    
    stack->GetXaxis()->SetTitleOffset(1.2);
    stack->GetYaxis()->SetTitleOffset(1.25);
+   
+   if ( (plot_index == Settings::M4lMainZoomed) ||  (plot_index == Settings::M4lMainHighMass) ) stack->GetXaxis()->SetNdivisions(1005);
    
    histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
    
@@ -2404,6 +2411,8 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       stack->GetXaxis()->SetTitleOffset(1.2);
       stack->GetYaxis()->SetTitleOffset(1.25);
       
+      if ( (plot_index == Settings::M4lMainZoomed) ||  (plot_index == Settings::M4lMainHighMass)) stack->GetXaxis()->SetNdivisions(1005);
+      
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
 
       TLegend *legend;
@@ -2518,6 +2527,8 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
       
       stack->GetXaxis()->SetTitleOffset(1.2);
       stack->GetYaxis()->SetTitleOffset(1.25);
+      
+      if ( (plot_index == Settings::M4lMainZoomed) ||  (plot_index == Settings::M4lMainHighMass)) stack->GetXaxis()->SetNdivisions(1005);
       
       histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
       
