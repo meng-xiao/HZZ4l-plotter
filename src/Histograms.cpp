@@ -2832,6 +2832,7 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    if (plot_index == Settings::DWHvsM4lZoomed || plot_index == Settings::DZHvsM4lZoomed || plot_index == Settings::D1jetvsM4lZoomed || plot_index == Settings::D2jetvsM4lZoomed )
    {
       wp_line = CreateDashedLine( plot_index );
+      plot_pad->cd(); // for some reason TLine can only be drawn on canvas and not on TPad
       wp_line->Draw();
    }
    
@@ -3931,14 +3932,15 @@ TPaveText* Histograms::CreateCatText( string position, TString cat_label)
 TLine* Histograms::CreateDashedLine( int plot_index)
 {
    TLine *line;
-   if (plot_index == Settings::DWHvsM4lZoomed) line = new TLine(0.,0.8,1.,0.8);
-   if (plot_index == Settings::DZHvsM4lZoomed) line = new TLine(0.,0.8,1.,0.8);
-   if (plot_index == Settings::D1jetvsM4lZoomed) line = new TLine(0.,0.8,1.,0.8);
-   if (plot_index == Settings::D2jetvsM4lZoomed) line = new TLine(0.,0.8,1.,0.8);
+   
+   if (plot_index == Settings::DWHvsM4lZoomed)   line = new TLine(100.,0.8,170.,0.8);
+   if (plot_index == Settings::DZHvsM4lZoomed)   line = new TLine(100.,0.8,170.,0.8);
+   if (plot_index == Settings::D1jetvsM4lZoomed) line = new TLine(100.,0.697,170.,0.697);
+   if (plot_index == Settings::D2jetvsM4lZoomed) line = new TLine(100.,1.043-460./(100.+634.),170.,1.043-460./(170.+634.));
       
    line->SetLineStyle(9);
-   line->SetLineWidth(6);
-   line->SetLineColor(13);
+   line->SetLineWidth(2);
+   line->SetLineColor(kBlack);
    
    return line;
 }
