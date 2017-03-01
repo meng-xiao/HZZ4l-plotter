@@ -3951,7 +3951,7 @@ TLine* Histograms::CreateDashedLine( int plot_index)
 void Histograms::DrawLogX( TCanvas *c, int k )
 {
    int x_low = 100;
-   int x_up  = 700;
+   int x_up  = 1000;
    int step  = 100;
       
    float u_y_max = c->GetUymax();
@@ -3966,15 +3966,10 @@ void Histograms::DrawLogX( TCanvas *c, int k )
    latex_80->SetTextFont (42);
    latex_80->SetTextSize (0.05);
    latex_80->Draw();
-    
-   TLatex *latex_800 = new TLatex(800, y_latex*factor, "800");  
-   latex_800->SetTextAlign(23);
-   latex_800->SetTextFont (42);
-   latex_800->SetTextSize (0.05);
-   latex_800->Draw();
-    
+   
    for ( int i = x_low; i < x_up; i += step )
    {
+      if (i == 600 || i == 800) continue;
       float i_x = i;
       
       TLatex *latex = new TLatex(i, y_latex*factor, Form("%.0f", i_x));
