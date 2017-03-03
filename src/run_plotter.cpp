@@ -48,7 +48,7 @@ int main( int argc, char *argv[] )
 
    plotter->SetBlinding(110, 150, 300, 1000);
 
-  
+/*  
    plotter->MakeHistograms(Data);
    plotter->MakeHistograms(ggH125);
    plotter->MakeHistograms(VBFH125);
@@ -71,7 +71,7 @@ int main( int argc, char *argv[] )
    plotter->FillInclusive();
 
    plotter->Save(); 
-
+*/
 
 //===========================
 // Plotting of blinded plots
@@ -99,6 +99,7 @@ int main( int argc, char *argv[] )
 //=============================
 
    plotter->GetHistos( "Unblinded" );
+   
    plotter->Plot1D_allCAT( "Unblinded", "M4lMain" , "Plots" );
    plotter->Plot1D_allFS( "Unblinded", "M4lMain" , "Plots");
    plotter->Plot1D_allCAT( "Unblinded", "M4lMainZoomed" , "Plots" );

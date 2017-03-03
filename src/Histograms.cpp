@@ -2333,14 +2333,11 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    {
       stack->GetXaxis()->SetNdivisions(10);
       stack->GetXaxis()->SetLabelSize(0);
-      DrawLogX(c, cat);
+      DrawLogX(c, cat, fs);
    }
 
-   stringstream ss;
-   ss << folder << "/" << variable_name << "_" << filename << "_" << _s_final_state.at(fs) << "_" << _s_category.at(cat);
-
-   SavePlots ( c, ss.str() );
-
+   _out_file_name = folder + "/" + variable_name + "_" + filename + "_" + _s_final_state.at(fs) + "_" + _s_category.at(cat);
+   SavePlots(c, _out_file_name);
 }
 //========================================================================================================
 
@@ -2352,23 +2349,29 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
    int plot_index = SetPlotName( variable_name);
 
    TCanvas *c;
-   if(variable_name == "M4lMain") c = new TCanvas(variable_name, variable_name, 650, 500);
-   else c = new TCanvas(variable_name, variable_name, 600, 600);
+   if (variable_name == "M4lMain")
+   {
+      c = new TCanvas(variable_name, variable_name, 650, 500);
+   }
+   else 
+   {
+      c = new TCanvas(variable_name, variable_name, 600, 600);
+   }
    
    // Set custom margins for plots where last label is cut off otherwise
-   if ( (plot_index == Settings::MZ1) ||  (plot_index == Settings::MZ1_M4L118130) ) c->SetRightMargin(0.05);
-   if ( (plot_index == Settings::MZ2) ||  (plot_index == Settings::MZ2_M4L118130) ) c->SetRightMargin(0.05);
-   if ( (plot_index == Settings::M4lMainHighMass) )                                 c->SetRightMargin(0.07);
+   if ((plot_index == Settings::MZ1) || (plot_index == Settings::MZ1_M4L118130)) c->SetRightMargin(0.05);
+   if ((plot_index == Settings::MZ2) || (plot_index == Settings::MZ2_M4L118130)) c->SetRightMargin(0.05);
+   if ((plot_index == Settings::M4lMainHighMass) )                               c->SetRightMargin(0.07);
 
-   if ( GetVarLogX( variable_name) ) c->SetLogx();
-   if ( GetVarLogY( variable_name) ) c->SetLogy();
+   if (GetVarLogX( variable_name)) c->SetLogx();
+   if (GetVarLogY( variable_name)) c->SetLogy();
        
    for( int i_cat = Settings::inclusive; i_cat >= 0; i_cat--)
    {  
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]->SetFillColor(1180);
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(851);
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(858);
-      if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass") histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]->SetFillColor(411);
+      if (variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass") histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]->SetFillColor(411);
       else histos_1D_ZX[plot_index][Settings::fs4l][i_cat]->SetFillColor(411);
 
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]->SetLineColor(633);
@@ -2416,24 +2419,31 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       stack->GetXaxis()->SetTitleOffset(1.2);
       stack->GetYaxis()->SetTitleOffset(1.25);
       
-      if ( (plot_index == Settings::M4lMainZoomed) ||  (plot_index == Settings::M4lMainHighMass)) stack->GetXaxis()->SetNdivisions(1005);
+      if (plot_index == Settings::M4lMainZoomed || plot_index == Settings::M4lMainHighMass) stack->GetXaxis()->SetNdivisions(1005);
       
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
 
       TLegend *legend;
-      if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass" || variable_name == "MZ2_M4L118130")
+      if (variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass" || variable_name == "MZ2_M4L118130")
       {
-        legend  = CreateLegend("right",histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]);
+        legend  = CreateLegend("right", histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],
+                                        histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125],
+                                        histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],
+                                        histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ],
+                                        histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]);
       }
-      
       else
       {
-         legend = CreateLegend("right",histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][Settings::fs4l][i_cat]);
+         legend = CreateLegend("right", histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],
+                                        histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125],
+                                        histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],
+                                        histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ],
+                                        histos_1D_ZX[plot_index][Settings::fs4l][i_cat]);
       }
       legend->Draw();
       
       TPaveText *text;
-      if ( (plot_index == Settings::M4lMainZoomed || plot_index == Settings::M4lMain ) && i_cat != Settings::inclusive)
+      if ((plot_index == Settings::M4lMainZoomed || plot_index == Settings::M4lMain) && i_cat != Settings::inclusive)
       {
          text = CreateCatText("top left", _s_category_label.at(i_cat));
          text->Draw();
@@ -2449,13 +2459,11 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       {
          stack->GetXaxis()->SetNdivisions(10);
          stack->GetXaxis()->SetLabelSize(0);
-         DrawLogX(c, i_cat);
+         DrawLogX(c, i_cat, Settings::fs4l);
       }
       
-      stringstream ss;
-      ss << folder << "/" << variable_name << "_" <<filename << "_" << _s_final_state.at(Settings::fs4l) << "_" << _s_category.at(i_cat);
-
-      SavePlots ( c, ss.str() );
+      _out_file_name = folder + "/" + variable_name + "_" + filename + "_" + _s_final_state.at(Settings::fs4l) + "_" + _s_category.at(i_cat);
+      SavePlots(c, _out_file_name);
       
    }
    delete c;
@@ -2563,13 +2571,11 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
       {
          stack->GetXaxis()->SetNdivisions(10);
          stack->GetXaxis()->SetLabelSize(0);
-         DrawLogX(c, i_fs);
+         DrawLogX(c, Settings::inclusive, i_fs);
       }
       
-      stringstream ss;
-      ss << folder << "/" << variable_name << "_" <<filename << "_" << _s_final_state.at(i_fs) << "_" << _s_category.at(Settings::inclusive);
-
-      SavePlots ( c, ss.str() );
+      _out_file_name = folder + "/" + variable_name + "_" + filename + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(Settings::inclusive);
+      SavePlots(c, _out_file_name);
    }
    delete c;
 }
@@ -2629,7 +2635,6 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
    histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->SetMarkerColor(kGreen+2);
    histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->SetLineColor(kGreen+2);
    
-
    
    histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->Draw("SAME XP");
 
@@ -2654,14 +2659,11 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
    // Draw lumi
    CMS_lumi *lumi = new CMS_lumi;
    lumi->set_lumi(c, _lumi, 0);
-   
-   stringstream ss;
-   ss << folder << "/" << variable_name << "_" << filename << "_" << _s_category.at(cat);
-   
-   SavePlots ( c, ss.str() );
-   
-   delete c;
-   
+     
+   _out_file_name = folder + "/" + variable_name + "_" + filename + "_" + _s_category.at(cat);
+   SavePlots(c, _out_file_name);
+      
+   delete c;  
 }
 //========================================================================================================
 
@@ -2736,14 +2738,11 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
    // Draw lumi
    CMS_lumi *lumi = new CMS_lumi;
    lumi->set_lumi(c, _lumi, 0);
+      
+   _out_file_name = folder + "/" + variable_name + "_" + filename + "_" + _s_category.at(cat);
+   SavePlots(c, _out_file_name);
    
-   stringstream ss;
-   ss << folder << "/" << variable_name << "_" << filename << "_" << _s_category.at(cat);
-   
-   SavePlots ( c, ss.str() );
-   
-   delete c;
-   
+   delete c; 
 }
 //========================================================================================================
 
@@ -2867,17 +2866,10 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    CMS_lumi *lumi = new CMS_lumi;
    lumi->set_lumi(c, _lumi, 0);
    
-   TString out_file_name;
-   out_file_name = folder + "/" + variable_name + "_" + filename + "_" + "all_categories";
-   
-   c->SaveAs(out_file_name + ".pdf");
-   c->SaveAs(out_file_name + ".root");
-//   c->SaveAs(out_file_name + ".C"); why does it segfault here???
-   c->SaveAs(out_file_name + ".eps");
-   gSystem->Exec(("convert -density 150 -quality 100 "+out_file_name+".eps "+out_file_name+".png"));
-   
+   _out_file_name = folder + "/" + variable_name + "_" + filename + "_" + "all_categories";
+   SavePlots(c, _out_file_name);
+      
    delete c;
-   
 }
 //===========================================================================================
 
@@ -2991,13 +2983,13 @@ void Histograms::FillYieldGraphs( float M4l_down, float M4l_up)
             yields_graph[i_fs][i_cat][i_prod_mode]->SetName(_graph_name);
             yields_graph[i_fs][i_cat][i_prod_mode]->Write();
             
-            lgd->AddEntry(yields_graph[i_fs][i_cat][i_prod_mode],_s_final_state[i_fs].c_str(),"P");
+            lgd->AddEntry(yields_graph[i_fs][i_cat][i_prod_mode],_s_final_state[i_fs],"P");
             
          } // i_fs 
          
             TCanvas *c = new TCanvas("", "", 1500, 1500);
             
-            pav->AddText((_s_production_mode[i_prod_mode] + ", " + _s_category[i_cat]).c_str());
+            pav->AddText(_s_production_mode[i_prod_mode] + ", " + _s_category[i_cat]);
             
             yields_graph[Settings::fs2e2mu][i_cat][i_prod_mode]->Draw("AP");
             yields_graph[Settings::fs4e][i_cat][i_prod_mode]->Draw("P");
@@ -3006,11 +2998,9 @@ void Histograms::FillYieldGraphs( float M4l_down, float M4l_up)
             lgd->Draw();
             
             TString fit_name = _s_production_mode.at(i_prod_mode) + "_" + _s_category.at(i_cat);
-            c->SaveAs("Fits/" + fit_name + ".pdf");
-            c->SaveAs("Fits/" + fit_name + ".eps");
-            c->SaveAs("Fits/" + fit_name + ".png");
-            c->SaveAs("Fits/" + fit_name + ".root");
-            c->SaveAs("Fits/" + fit_name + ".C");
+            
+             _out_file_name = "Fits/" + _s_production_mode.at(i_prod_mode) + "_" + _s_category.at(i_cat);
+             SavePlots(c, _out_file_name);
             
             pav->Clear();    
             lgd->Clear();
@@ -3571,16 +3561,19 @@ void Histograms::PrintLatexTables(float M4l_down, float M4l_up, vector< vector <
 //========================================================
 
 
+
 //=======================================
-void Histograms::SavePlots( TCanvas *c, string ss)
+void Histograms::SavePlots( TCanvas *c, TString name)
 {
-   c->SaveAs((ss + ".pdf").c_str());
-   c->SaveAs((ss + ".root").c_str());
-   c->SaveAs((ss + ".C").c_str());
-   c->SaveAs((ss + ".eps").c_str());
-   gSystem->Exec(("convert -density 150 -quality 100 "+ss+".eps "+ss+".png").c_str());
+   c->SaveAs(name + ".pdf");
+   c->SaveAs(name + ".root");
+   //c->SaveAs(name + ".C");
+   c->SaveAs(name + ".eps");
+   gSystem->Exec("convert -density 300 -quality 100 " + name + ".eps " + name + ".png");
 }
 //=======================================
+
+
 
 //==================================================
 int Histograms::SetPlotName( TString variable_name )
@@ -3861,8 +3854,11 @@ TLegend* Histograms::Create2DLegend( string position, TH2F *fs4e, TH2F *fs4mu,TH
 }
 //==========================================================================================
 
+
+
 //==========================================================================================
-TLegend* Histograms::Create2DLegendAllCat( string position, TGraphErrors *fs4e, TGraphErrors *fs4mu,TGraphErrors *fs2e2mu, TGraphErrors *untagged, TGraphErrors *VBF1jet, TGraphErrors *VBF2jet, TGraphErrors *VHlep, TGraphErrors *VHhad, TGraphErrors *ttH, TGraphErrors *VHmet)
+TLegend* Histograms::Create2DLegendAllCat( string position, TGraphErrors *fs4e, TGraphErrors *fs4mu, TGraphErrors *fs2e2mu, TGraphErrors *untagged, TGraphErrors *VBF1jet,
+                                                            TGraphErrors *VBF2jet, TGraphErrors *VHlep, TGraphErrors *VHhad, TGraphErrors *ttH, TGraphErrors *VHmet)
 {
    TLegend *leg;
    leg = new TLegend(0.00,0.00,0.84,1.00);
@@ -3915,6 +3911,7 @@ TLegend* Histograms::Create2DErrorLegend( string position, TGraphErrors *fs4e, T
 //=======================================================================================================================
 
 
+
 //=======================================================================================================================
 TPaveText* Histograms::CreateCutText( string position, TString cut_label)
 {
@@ -3933,6 +3930,8 @@ TPaveText* Histograms::CreateCutText( string position, TString cut_label)
 }
 //=======================================================================================================================
 
+
+
 //=======================================================================================================================
 TPaveText* Histograms::CreateCatText( string position, TString cat_label)
 {
@@ -3948,6 +3947,8 @@ TPaveText* Histograms::CreateCatText( string position, TString cat_label)
    return pav;
 }
 //=======================================================================================================================
+
+
 
 //=======================================================================================================================
 TLine* Histograms::CreateDashedLine( int plot_index)
@@ -3968,8 +3969,9 @@ TLine* Histograms::CreateDashedLine( int plot_index)
 //=======================================================================================================================
 
 
+
 //================================================
-void Histograms::DrawLogX( TCanvas *c, int k )
+void Histograms::DrawLogX( TCanvas *c, int cat, int fs )
 {
    int x_low = 100;
    int x_up  = 1000;
@@ -3977,11 +3979,13 @@ void Histograms::DrawLogX( TCanvas *c, int k )
       
    float u_y_max = c->GetUymax();
    
-   if ( k == Settings::inclusive || k == Settings::fs4e) _y_max = u_y_max;
+   if ( cat == Settings::inclusive && fs == Settings::fs4l) _y_max = u_y_max;
    
    float factor = u_y_max/_y_max;
-   float y_latex = -0.6;
+   float y_latex = -2;
        
+   cout << "Factor = " << factor << endl;
+   
    TLatex *latex_80 = new TLatex(80, y_latex*factor, "80");  
    latex_80->SetTextAlign(23);
    latex_80->SetTextFont (42);
@@ -4230,4 +4234,3 @@ int Histograms::SetProcess( int point, int production_mode)
    }
 }
 //=======================================
-
