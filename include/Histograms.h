@@ -23,6 +23,7 @@
 #include "TPaletteAxis.h"
 #include "TPaveText.h"
 #include "TSystem.h"
+#include "TIterator.h"
 
 // Include classes
 #include "Settings.h"
@@ -109,6 +110,7 @@ public:
    TLegend* CreateLegend( string, TH1F*, TH1F*, TH1F*, TH1F*, TH1F* );
    TLegend* CreateLegendVBF( string, TH1F*, TH1F*, TH1F*, TH1F*, TH1F* ,TH1F* );
    TLegend* CreateLegendVH( string, TH1F*, TH1F*, TH1F*, TH1F*, TH1F* ,TH1F* );
+   TLegend* CreateLegendttH( string, TH1F*, TH1F*, TH1F*, TH1F*, TH1F* ,TH1F* );
    TLegend* Create2DLegend( string, TH2F*, TH2F*, TH2F*);
    TLegend* Create2DErrorLegend( string, TGraphErrors*, TGraphErrors*, TGraphErrors*);
    TLegend* Create2DLegendAllCat( string, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors* );
@@ -117,9 +119,11 @@ public:
    TLine* CreateDashedLine( int );
    void DrawLogX( TCanvas *, int, int );
    void MakeCOLZGrey( bool );
-   void SavePlots ( TCanvas *, TString);
+   void SavePlots ( TCanvas *, TString );
    float SetMassPoint( int );
    int SetProcess( int, int );
+   void Rebin( THStack * );
+      
    
 private:
    

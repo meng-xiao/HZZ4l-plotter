@@ -52,20 +52,33 @@ public:
    };
    
    enum _2Dplot_name { MZ1vsMZ2 = 0, MZ1vsMZ2_M4L118130 = 1, MAX_NUM_OF_2DPLOT_NAMES};
-   enum _2DErrorplot_name { KDvsM4l = 0,  KDvsM4lZoomed = 1, KDvsM4lHighMass = 2, D1jetvsM4lZoomed = 3, D2jetvsM4lZoomed = 4, DWHvsM4lZoomed = 5, DZHvsM4lZoomed = 6, MAX_NUM_OF_2DERRORPLOT_NAMES};
+   
+   enum _2DErrorplot_name 
+   {
+      KDvsM4l = 0,
+      KDvsM4lZoomed = 1,
+      KDvsM4lHighMass = 2,
+      D1jetvsM4lZoomed = 3,
+      D2jetvsM4lZoomed = 4,
+      DWHvsM4lZoomed = 5,
+      DZHvsM4lZoomed = 6,
+      MAX_NUM_OF_2DERRORPLOT_NAMES
+   };
+   
    enum _production_modes { ggH = 0, VBF = 1, WH = 2, ZH = 3, ttH = 4, MAX_NUM_OF_PRODUCTION_MODES };
    
    enum _process
    { 
       Data = 0,
       H125 = 1,
-      H125VBF = 2,
-      H125VH = 3,
-      H125other = 4,
-      qqZZ = 5,
-      ggZZ = 6,
-      DY = 7,
-      ttbar = 8,
+      H125ggH = 2,
+      H125VBF = 3,
+      H125VH = 4,
+      H125ttH = 5,
+      qqZZ = 6,
+      ggZZ = 7,
+      DY = 8,
+      ttbar = 9,
       MAX_NUM_OF_PROCESSES
    };
    

@@ -15,34 +15,23 @@ public:
       
    CMS_lumi();
    ~CMS_lumi();
-   void set_lumi(TPad* pad, float lumi, int iPosX = 10 );
+   void set_lumi( TPad* pad, float lumi );
       
 private:
       
-   TString lumiText;
-      
-   TString cmsText   = "CMS";
-   float cmsTextFont = 61; // default is helvetic-bold
-
-   bool writeExtraText = true;
-   TString extraText   = "Preliminary";
-   float extraTextFont = 52;  // default is helvetica-italics
-
-   float lumiTextSize   = 0.6;
-   float lumiTextOffset = 0.2;
-   float cmsTextSize    = 0.75;
-   float cmsTextOffset  = 0.1;  // only used in outOfFrame version
+   TString CMS_text, lumi_text;
+   TString lumi_sqrt = " fb^{-1} (13 TeV)";
    
-   float relPosX    = 0.045;
-   float relPosY    = 0.035;
-   float relExtraDY = 1.2;
-      
-   // ratio of "CMS" and extra text size
-   float extraOverCmsTextSize  = 0.76;
+   int CMS_text_font = 62;
+   int extra_text_font = 52;
+
+   float lumi_text_size   = 0.6;
+   float lumi_text_offset = 0.2;
+   float cms_text_size    = 0.75;
+   float cms_text_offset  = 0.2;
+         
+   // ratio of CMS and extra text size
+   float extra_over_CMS_text_size  = 0.76;
    
-   TString lumi_sqrtS = " fb^{-1} (13 TeV)";
-      
-   bool drawLogo = false;    
 };
-
 #endif

@@ -524,12 +524,12 @@ int Plotter::find_current_process( TString input_file_name )
    
    // Assign dataset to correct process
    if ( input_file_name.Contains("Data") )           current_process = Settings::Data;
-   if ( input_file_name.Contains("ggH125") )         current_process = Settings::H125other;
+   if ( input_file_name.Contains("ggH125") )         current_process = Settings::H125ggH;
    if ( input_file_name.Contains("VBFH125") )        current_process = Settings::H125VBF;
    if ( input_file_name.Contains("WplusH125") )      current_process = Settings::H125VH;
    if ( input_file_name.Contains("WminusH125") )     current_process = Settings::H125VH;
    if ( input_file_name.Contains("ZH125") )          current_process = Settings::H125VH;
-   if ( input_file_name.Contains("ttH125") )         current_process = Settings::H125other;
+   if ( input_file_name.Contains("ttH125") )         current_process = Settings::H125ttH;
    if ( input_file_name.Contains("ZZTo4l") )         current_process = Settings::qqZZ;
    if ( input_file_name.Contains("ggTo4e") )         current_process = Settings::ggZZ;
    if ( input_file_name.Contains("ggTo4mu") )        current_process = Settings::ggZZ;
