@@ -1665,7 +1665,7 @@ void Histograms::RenormalizeZX( vector< vector <float> > _expected_yield_SR )
 //=============================================
 void Histograms::SaveHistos( string file_name )
 {
-   TFile* fOutHistos = new TFile(file_name.c_str(), "recreate");
+   TFile *fOutHistos = new TFile(file_name.c_str(), "recreate");
    fOutHistos->cd();
    
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
@@ -2503,10 +2503,11 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
 
 
 //=====================================================================================
-void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TString folder )
+void Histograms::Plot1D_all_cat( TString filename, TString variable_name , TString folder )
 {
    int plot_index = SetPlotName( variable_name);
-
+   
+   
    TCanvas *c;
    
    if (variable_name == "M4lMain")
@@ -2529,21 +2530,26 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
    
    for ( int i_cat = Settings::inclusive; i_cat >= 0; i_cat-- )
    {  
-      if ( variable_name == "M4lMainZoomed" && (i_cat == Settings::VBF_1j_tagged || i_cat == Settings::VBF_2j_tagged) )
+      VBF_tagged_ = i_cat == Settings::VBF_1j_tagged || i_cat == Settings::VBF_2j_tagged;
+      VH_tagged_  = i_cat == Settings::VH_lepton_tagged || i_cat == Settings::VH_hadron_tagged || i_cat == Settings::VH_MET_tagged;
+      ttH_tagged_ = i_cat == Settings::ttH_tagged;
+      
+      
+      if ( variable_name == "M4lMainZoomed" && VBF_tagged_ )
       {
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VBF]->SetFillColor(1180);
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->SetFillColor(kRed-10);
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VH]->SetFillColor(kRed-10);
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ttH]->SetFillColor(kRed-10);
       }
-      else if ( variable_name == "M4lMainZoomed" && (i_cat == Settings::VH_lepton_tagged || i_cat == Settings::VH_hadron_tagged || i_cat == Settings::VH_MET_tagged) )
+      else if ( variable_name == "M4lMainZoomed" && VH_tagged_ )
       {
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VH]->SetFillColor(1180);
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->SetFillColor(kRed-10);
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VBF]->SetFillColor(kRed-10);
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ttH]->SetFillColor(kRed-10);
       }
-      else if ( variable_name == "M4lMainZoomed" && (i_cat == Settings::ttH_tagged) )
+      else if ( variable_name == "M4lMainZoomed" && ttH_tagged_ )
       {
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ttH]->SetFillColor(1180);
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->SetFillColor(kRed-10);
@@ -2578,7 +2584,7 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetLineColor(kBlack);
       
-      THStack *stack = new THStack( "stack", "stack" );
+      THStack *stack = new THStack();
       
       if ( variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass" )
       {
@@ -2593,17 +2599,17 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]);
       
       
-      if ( variable_name == "M4lMainZoomed" && (i_cat == Settings::VBF_1j_tagged || i_cat == Settings::VBF_2j_tagged) )
+      if ( variable_name == "M4lMainZoomed" && VBF_tagged_ )
       {
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VH]);
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ttH]);
-            
+         
          stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]);            
          stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VBF]);
          
          Rebin(stack);   
       }
-      else if ( variable_name == "M4lMainZoomed" && (i_cat == Settings::VH_lepton_tagged || i_cat == Settings::VH_hadron_tagged || i_cat == Settings::VH_MET_tagged) )
+      else if ( variable_name == "M4lMainZoomed" && VH_tagged_ )
       {
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VBF]);
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ttH]);
@@ -2613,7 +2619,7 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
          
          Rebin(stack);   
       }
-      else if ( variable_name == "M4lMainZoomed" && (i_cat == Settings::ttH_tagged) )
+      else if ( variable_name == "M4lMainZoomed" && ttH_tagged_ )
       {
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VBF]);
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VH]);
@@ -2621,16 +2627,15 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
          stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]);            
          stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ttH]);
          
-         Rebin(stack);   
+         Rebin(stack);
       }
       else
       {
          stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]);
       }
       
+      stack->Draw("HIST");
       
-      stack->Draw("HIST");  
-
       float data_max = histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetBinContent(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
       float data_max_error = histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetBinErrorUp(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
       
@@ -2646,6 +2651,7 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
          stack->SetMaximum((data_max + data_max_error)*1.1);
       }
 
+      // Axis title
       stack->GetXaxis()->SetTitle(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
       stack->GetXaxis()->SetTitleSize(0.05);
       stack->GetXaxis()->SetLabelSize(0.05);
@@ -2657,12 +2663,14 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       
       if ( plot_index == Settings::M4lMainZoomed || plot_index == Settings::M4lMainHighMass ) stack->GetXaxis()->SetNdivisions(1005);
       
-      if ( variable_name == "M4lMainZoomed" && (i_cat == Settings::VBF_1j_tagged || i_cat == Settings::VBF_2j_tagged || i_cat == Settings::VH_lepton_tagged || i_cat == Settings::VH_hadron_tagged || i_cat == Settings::VH_MET_tagged || i_cat == Settings::ttH_tagged) )
+      if ( variable_name == "M4lMainZoomed" && VBF_tagged_ || VH_tagged_ || ttH_tagged_ )
       {
          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Rebin(2);
+         ChangeYaxisTitle(stack);
       }
       
       histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
+
 
 //=============
 // L E G E N D
@@ -2670,7 +2678,7 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
       
       TLegend *legend;
       
-      if ( variable_name == "M4lMain" || variable_name == "M4lMainHighMass" || variable_name == "MZ2_M4L118130" )
+      if ( variable_name == "M4lMain" || variable_name == "M4lMainHighMass" || variable_name == "M4lMainZoomed" && (i_cat == Settings::untagged || i_cat == Settings::inclusive) )
       {
          legend  = CreateLegend("right", histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],
                                          histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125],
@@ -2721,7 +2729,8 @@ void Histograms::Plot1D_allCAT( TString filename, TString variable_name , TStrin
 //===========
       
       TPaveText *text;
-      if ((plot_index == Settings::M4lMainZoomed || plot_index == Settings::M4lMain) && i_cat != Settings::inclusive)
+      
+      if ( (plot_index == Settings::M4lMainZoomed || plot_index == Settings::M4lMain) && i_cat != Settings::inclusive )
       {
          text = CreateCatText("top left", _s_category_label.at(i_cat));
          text->Draw();
@@ -4342,7 +4351,7 @@ void Histograms::MakeCOLZGrey(bool shift)
 
                           
 //=======================================
-float Histograms::SetMassPoint( int point)
+float Histograms::SetMassPoint(int point)
 {
    switch (point) {
       case 0:
@@ -4376,7 +4385,7 @@ float Histograms::SetMassPoint( int point)
 
 
 //=======================================
-int Histograms::SetProcess( int point, int production_mode)
+int Histograms::SetProcess(int point, int production_mode)
 {
    if (point == 0)
    {
@@ -4540,7 +4549,8 @@ int Histograms::SetProcess( int point, int production_mode)
 
 
 
-void Histograms::Rebin (THStack *stack)
+//=====================================
+void Histograms::Rebin(THStack *stack)
 {
    for ( int i = 0; i < stack->GetHists()->GetSize(); i++ )
    {
@@ -4548,3 +4558,13 @@ void Histograms::Rebin (THStack *stack)
       h->Rebin(2);
    }
 }
+//=====================================
+
+
+
+//========================================
+void Histograms::ChangeYaxisTitle(THStack *stack)
+{
+   stack->GetYaxis()->SetTitle("Events / 4 GeV");
+}
+//========================================

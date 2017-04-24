@@ -15,7 +15,7 @@ public:
    
    struct ZX4e
    {
-       float OS_norm_inclusive        = 0.;
+       float OS_norm_inclusive        = 21.1;
        float OS_norm_untagged         = 0.;
        float OS_norm_VBF_1j_tagged    = 0.;
        float OS_norm_VBF_2j_tagged    = 0.;
@@ -30,7 +30,7 @@ public:
     
     struct ZX4mu
     {
-        float OS_norm_inclusive        = 0.;
+        float OS_norm_inclusive        = 34.4;
         float OS_norm_untagged         = 0.;
         float OS_norm_VBF_1j_tagged    = 0.;
         float OS_norm_VBF_2j_tagged    = 0.;
@@ -45,7 +45,7 @@ public:
    
     struct ZX2e2mu
     {
-        float OS_norm_inclusive        = 0.;
+        float OS_norm_inclusive        = 59.9;
         float OS_norm_untagged         = 0.;
         float OS_norm_VBF_1j_tagged    = 0.;
         float OS_norm_VBF_2j_tagged    = 0.;

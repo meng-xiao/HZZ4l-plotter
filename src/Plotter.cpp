@@ -400,8 +400,8 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       unblinded_histos->SmoothHistograms();
    }
       
-   unblinded_histos->RenormalizeZX( _expected_yield_SR );   
-   blinded_histos->RenormalizeZX( _expected_yield_SR );
+   unblinded_histos->RenormalizeZX(_expected_yield_SR);   
+   blinded_histos->RenormalizeZX(_expected_yield_SR);
    
    cout << "[INFO] Z+X histograms filled." << endl;
 }
@@ -412,7 +412,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
 //=========================================
 void Plotter::GetHistos( TString file_name )
 {
-   histo_map[file_name]->GetHistos( file_name + ".root" );
+   histo_map[file_name]->GetHistos("ROOT_files/" + file_name + ".root");
    
    cout << "[INFO] Got all histograms." << endl;
 }
@@ -435,8 +435,8 @@ void Plotter::FillInclusive()
 //==================
 void Plotter::Save()
 {
-   unblinded_histos->SaveHistos("Unblinded.root");
-   blinded_histos->SaveHistos("Blinded.root");
+   unblinded_histos->SaveHistos("ROOT_files/Unblinded.root");
+   blinded_histos->SaveHistos("ROOT_files/Blinded.root");
    
    cout << "[INFO] All histograms are saved in a root file." << endl;
 }
@@ -467,9 +467,9 @@ void Plotter::Plot1D_single( TString file_name, TString variable_name, TString f
 
 
 //==================
-void Plotter::Plot1D_allCAT( TString file_name, TString variable_name, TString folder)
+void Plotter::Plot1D_all_cat( TString file_name, TString variable_name, TString folder)
 {
-   histo_map[file_name]->Plot1D_allCAT( file_name, variable_name, folder);
+   histo_map[file_name]->Plot1D_all_cat( file_name, variable_name, folder);
    
 }
 //==================

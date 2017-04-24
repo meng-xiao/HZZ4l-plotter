@@ -4,6 +4,7 @@
 // C++
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <vector>
 #include <map>
 
@@ -24,11 +25,14 @@
 #include "TPaveText.h"
 #include "TSystem.h"
 #include "TIterator.h"
+#include "TROOT.h"
 
 // Include classes
 #include "Settings.h"
 #include "M4lZX.h"
 #include "CMS_lumi.h"
+#include "Variables.h"
+
 
 using namespace std;
 
@@ -50,6 +54,7 @@ public:
    Histograms( double );
    Histograms( double, string );
    ~Histograms();
+   
    void FillM4l( float, float, int, int, int, int );
    void FillM4lZX( float, float, int, int );
    
@@ -88,46 +93,52 @@ public:
    void FillInclusive();
    void FillInclusiveYields();
    void SmoothHistograms();
-   void RenormalizeZX(vector< vector <float> >);
+   void RenormalizeZX( vector<vector<float>> );
    void GetHistos( TString );
    void GetYieldsHistos( TString );
    void Plot1D_single( TString, TString, TString, int, int );
-   void Plot1D_allCAT( TString, TString, TString );
+   void Plot1D_all_cat( TString, TString, TString );
    void Plot1D_allFS( TString, TString, TString );
    void Plot2D_single( TString, TString, TString, int );
    void Plot2DError_single( TString, TString, TString, int );
    void Plot2DErrorAllCat( TString , TString , TString );
-   void FillYieldGraphs( float, float);
-   void PrepareYamlFiles(TString , float , float, vector< vector <float> > );
-   void PrintYields( vector< vector <float> > );
-   void PrintYields( float, float, vector< vector <float> >);
-   void PrintLatexTables( float, float, vector< vector <float> >);
-   void setColZGradient_OneColor(int , bool);
-   void MakeZXShape( vector< vector <float> >, int);
+   void FillYieldGraphs( float, float );
+   void PrepareYamlFiles( TString , float , float, vector<vector<float>> );
+   void PrintYields( vector<vector<float>> );
+   void PrintYields( float, float, vector<vector<float>> );
+   void PrintLatexTables( float, float, vector<vector<float>> );
+   void setColZGradient_OneColor( int , bool );
+   void MakeZXShape( vector<vector<float>>, int );
    int SetPlotName( TString );
    bool GetVarLogX( TString );
    bool GetVarLogY( TString );
+   
    TLegend* CreateLegend( string, TH1F*, TH1F*, TH1F*, TH1F*, TH1F* );
    TLegend* CreateLegendVBF( string, TH1F*, TH1F*, TH1F*, TH1F*, TH1F* ,TH1F* );
    TLegend* CreateLegendVH( string, TH1F*, TH1F*, TH1F*, TH1F*, TH1F* ,TH1F* );
    TLegend* CreateLegendttH( string, TH1F*, TH1F*, TH1F*, TH1F*, TH1F* ,TH1F* );
-   TLegend* Create2DLegend( string, TH2F*, TH2F*, TH2F*);
-   TLegend* Create2DErrorLegend( string, TGraphErrors*, TGraphErrors*, TGraphErrors*);
+   TLegend* Create2DLegend( string, TH2F*, TH2F*, TH2F* );
+   TLegend* Create2DErrorLegend( string, TGraphErrors*, TGraphErrors*, TGraphErrors* );
    TLegend* Create2DLegendAllCat( string, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors*, TGraphErrors* );
-   TPaveText* CreateCutText( string, TString );
-   TPaveText* CreateCatText( string, TString );
+   
+   TPaveText* CreateCutText( string, TString);
+   TPaveText* CreateCatText( string, TString);
+   
    TLine* CreateDashedLine( int );
    void DrawLogX( TCanvas *, int, int );
    void MakeCOLZGrey( bool );
-   void SavePlots ( TCanvas *, TString );
+   void SavePlots( TCanvas *, TString );
    float SetMassPoint( int );
    int SetProcess( int, int );
    void Rebin( THStack * );
+   void ChangeYaxisTitle( THStack * );
       
    
 private:
    
    float _lumi, _y_max;
+   bool VBF_tagged_, VH_tagged_, ttH_tagged_;
+
    
    vector<double> mass_points;
 

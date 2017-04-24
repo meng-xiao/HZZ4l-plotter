@@ -68,7 +68,7 @@ public:
    void Delete();
    void GetHistos( TString );
    void Plot1D_single( TString, TString, TString, int, int );
-   void Plot1D_allCAT( TString, TString, TString);
+   void Plot1D_all_cat( TString, TString, TString);
    void Plot1D_allFS( TString, TString, TString);
    void Plot2D_single( TString, TString, TString, int );
    void Plot2DError_single( TString, TString, TString, int );
