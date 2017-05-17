@@ -18,7 +18,8 @@ SRCPP_PLOTTER = run_plotter.cpp\
                 FakeRates.cpp\
                 Category.cpp\
                 ZXVariables.cpp\
-                CMS_lumi.cpp
+                CMS_lumi.cpp\
+                Cosmetics.cpp
         
 SRCPP_YIELDS = run_yields.cpp\
                Yields.cpp\
@@ -42,7 +43,8 @@ INCLUDES = Plotter.h\
            FakeRates.h\
            Category.h\
            ZXVariables.h\
-           CMS_lumi.h
+           CMS_lumi.h\
+           Cosmetics.h
     
     
 OBJCPP_PLOTTER = $(patsubst %.cpp,obj/%.o,$(SRCPP_PLOTTER))

@@ -240,7 +240,7 @@ public:
       TString var_X_label = "D_{1jet}";
       TString var_Y_label = "Events / 0.1";
       TString var_cut_label = "118 < m_{4#font[12]{l}} < 130 GeV";
-      Int_t var_N_bin = 20;
+      Int_t var_N_bin = 10;
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;
@@ -277,11 +277,11 @@ public:
       TString var_X_label = "D_{2jet}";
       TString var_Y_label = "Events / 0.1";
       TString var_cut_label = "118 < m_{4#font[12]{l}} < 130 GeV";
-      Int_t var_N_bin = 20;
+      Int_t var_N_bin = 10;
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;
-      Bool_t var_log_y = 1;
+      Bool_t var_log_y = 0;
       Int_t restrict_count_var = 0;
       Float_t var_min_factor = 0;
       Int_t var_CMS_pos = 0;
@@ -314,7 +314,7 @@ public:
       TString var_X_label = "D_{WH}";
       TString var_Y_label = "Events / 0.1";
       TString var_cut_label = "118 < m_{4#font[12]{l}} < 130 GeV";
-      Int_t var_N_bin = 20;
+      Int_t var_N_bin = 10;
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;
@@ -351,7 +351,7 @@ public:
       TString var_X_label = "D_{ZH}";
       TString var_Y_label = "Events / 0.1";
       TString var_cut_label = "118 < m_{4#font[12]{l}} < 130 GeV";
-      Int_t var_N_bin = 20;
+      Int_t var_N_bin = 10;
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;

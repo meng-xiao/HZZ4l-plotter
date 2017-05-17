@@ -47,185 +47,177 @@ Histograms::Histograms( double lumi, string blinding )
    _s_category_label.push_back("ttH tagged category");
    _s_category_label.push_back("VH-MET tagged category");
    _s_category_label.push_back("Inclusive category");
-   
-   _s_resonant_status.push_back("resonant");
-   _s_resonant_status.push_back("nonresonant");
-   _s_resonant_status.push_back("allres");
-   
+      
 
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
+         for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
          {
-            for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
-            {
-               //=====
-               // M4l
-               //=====
-               _histo_name = "M4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::M4lMain().var_X_label + ";" + Variables::M4lMain().var_Y_label;     
-               histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMain().var_N_bin,
-                                                                                  Variables::M4lMain().var_min, Variables::M4lMain().var_max);
+            //=====
+            // M4l
+            //=====
+            _histo_name = "M4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::M4lMain().var_X_label + ";" + Variables::M4lMain().var_Y_label;     
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMain().var_N_bin,
+                                                                               Variables::M4lMain().var_min, Variables::M4lMain().var_max);
                
-               _histo_name = "M4l_zoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::M4lMainZoomed().var_X_label + ";" + Variables::M4lMainZoomed().var_Y_label;
-               histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMainZoomed().var_N_bin,
-                                                                                        Variables::M4lMainZoomed().var_min, Variables::M4lMainZoomed().var_max);
+            _histo_name = "M4l_zoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::M4lMainZoomed().var_X_label + ";" + Variables::M4lMainZoomed().var_Y_label;
+            histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMainZoomed().var_N_bin,
+                                                                                     Variables::M4lMainZoomed().var_min, Variables::M4lMainZoomed().var_max);
                
-               _histo_name = "M4l_HighMass" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::M4lMainHighMass().var_X_label + ";" + Variables::M4lMainHighMass().var_Y_label;
-               histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMainHighMass().var_N_bin,
-                                                                                          Variables::M4lMainHighMass().var_min, Variables::M4lMainHighMass().var_max);
+            _histo_name = "M4l_HighMass" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::M4lMainHighMass().var_X_label + ";" + Variables::M4lMainHighMass().var_Y_label;
+            histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lMainHighMass().var_N_bin,
+                                                                                       Variables::M4lMainHighMass().var_min, Variables::M4lMainHighMass().var_max);
 
-               //=====
-               // MZ1
-               //=====
-               _histo_name = "MZ1" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::MZ1().var_X_label + ";" + Variables::MZ1().var_Y_label;
-               histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::MZ1().var_N_bin,
-                                                                              Variables::MZ1().var_min, Variables::MZ1().var_max);
+            //=====
+            // MZ1
+            //=====
+            _histo_name = "MZ1" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::MZ1().var_X_label + ";" + Variables::MZ1().var_Y_label;
+            histos_1D[Settings::MZ1][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::MZ1().var_N_bin,
+                                                                           Variables::MZ1().var_min, Variables::MZ1().var_max);
                
-               _histo_name = "MZ1_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::MZ1_M4L118130().var_X_label + ";" + Variables::MZ1_M4L118130().var_Y_label;
-               histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::MZ1_M4L118130().var_N_bin,
+            _histo_name = "MZ1_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::MZ1_M4L118130().var_X_label + ";" + Variables::MZ1_M4L118130().var_Y_label;
+            histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::MZ1_M4L118130().var_N_bin,
                                                                                         Variables::MZ1_M4L118130().var_min, Variables::MZ1_M4L118130().var_max);
                
-               //=====
-               // MZ2
-               //=====
-               _histo_name = "MZ2" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::MZ2().var_X_label + ";" + Variables::MZ2().var_Y_label;
-               histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::MZ2().var_N_bin,
+            //=====
+            // MZ2
+            //=====
+            _histo_name = "MZ2" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::MZ2().var_X_label + ";" + Variables::MZ2().var_Y_label;
+            histos_1D[Settings::MZ2][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::MZ2().var_N_bin,
                                                                               Variables::MZ2().var_min, Variables::MZ2().var_max);
                
-               _histo_name = "MZ2_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::MZ2_M4L118130().var_X_label + ";" + Variables::MZ2_M4L118130().var_Y_label;
-               histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::MZ2_M4L118130().var_N_bin,
+            _histo_name = "MZ2_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::MZ2_M4L118130().var_X_label + ";" + Variables::MZ2_M4L118130().var_Y_label;
+            histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::MZ2_M4L118130().var_N_bin,
                                                                                         Variables::MZ2_M4L118130().var_min, Variables::MZ2_M4L118130().var_max);
                
-               //====
-               // KD
-               //====
-               _histo_name = "KD" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::KD().var_X_label + ";" + Variables::KD().var_Y_label;
-               histos_1D[Settings::KD][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::KD().var_N_bin, Variables::KD().var_min,
+            //====
+            // KD
+            //====
+            _histo_name = "KD" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::KD().var_X_label + ";" + Variables::KD().var_Y_label;
+            histos_1D[Settings::KD][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::KD().var_N_bin, Variables::KD().var_min,
                                                                              Variables::KD().var_max);
-               
-               _histo_name = "KD_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::KD_M4L118130().var_X_label + ";" + Variables::KD_M4L118130().var_Y_label;
-               histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::KD_M4L118130().var_N_bin, 
+              
+            _histo_name = "KD_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::KD_M4L118130().var_X_label + ";" + Variables::KD_M4L118130().var_Y_label;
+            histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::KD_M4L118130().var_N_bin, 
                                                                                        Variables::KD_M4L118130().var_min, Variables::KD_M4L118130().var_max);
                
-               _histo_name = "D1jet" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::D1jet().var_X_label + ";" + Variables::D1jet().var_Y_label;
-               histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D1jet().var_N_bin,
+            _histo_name = "D1jet" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::D1jet().var_X_label + ";" + Variables::D1jet().var_Y_label;
+            histos_1D[Settings::D1jet][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D1jet().var_N_bin,
                                                                                 Variables::D1jet().var_min, Variables::D1jet().var_max);
                
-               _histo_name = "D1jet_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::D1jet_M4L118130().var_X_label + ";" + Variables::D1jet_M4L118130().var_Y_label;
-               histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D1jet_M4L118130().var_N_bin,
+            _histo_name = "D1jet_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::D1jet_M4L118130().var_X_label + ";" + Variables::D1jet_M4L118130().var_Y_label;
+            histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D1jet_M4L118130().var_N_bin,
                                                                                           Variables::D1jet_M4L118130().var_min, Variables::D1jet_M4L118130().var_max);
                
-               _histo_name = "D2jet" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::D2jet().var_X_label + ";" + Variables::D2jet().var_Y_label;
-               histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D2jet().var_N_bin,
+            _histo_name = "D2jet" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::D2jet().var_X_label + ";" + Variables::D2jet().var_Y_label;
+            histos_1D[Settings::D2jet][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D2jet().var_N_bin,
                                                                                 Variables::D2jet().var_min, Variables::D2jet().var_max);
                
-               _histo_name = "D2jet_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::D2jet_M4L118130().var_X_label + ";" + Variables::D2jet_M4L118130().var_Y_label;
-               histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D2jet_M4L118130().var_N_bin,
+            _histo_name = "D2jet_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::D2jet_M4L118130().var_X_label + ";" + Variables::D2jet_M4L118130().var_Y_label;
+            histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D2jet_M4L118130().var_N_bin,
                                                                                           Variables::D2jet_M4L118130().var_min, Variables::D2jet_M4L118130().var_max);
                
-               _histo_name = "DWH" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::DWH().var_X_label + ";" + Variables::DWH().var_Y_label;
-               histos_1D[Settings::DWH][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DWH().var_N_bin,
+            _histo_name = "DWH" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::DWH().var_X_label + ";" + Variables::DWH().var_Y_label;
+            histos_1D[Settings::DWH][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DWH().var_N_bin,
                                                                               Variables::DWH().var_min, Variables::DWH().var_max);
                
-               _histo_name = "DWH_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::DWH_M4L118130().var_X_label + ";" + Variables::DWH_M4L118130().var_Y_label;
-               histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DWH_M4L118130().var_N_bin,
-                                                                                        Variables::DWH_M4L118130().var_min, Variables::DWH_M4L118130().var_max);
-               
-               _histo_name = "DZH" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::DZH().var_X_label + ";" + Variables::DZH().var_Y_label;
-               histos_1D[Settings::DZH][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DZH().var_N_bin,
-                                                                              Variables::DZH().var_min, Variables::DZH().var_max);
-               
-               _histo_name = "DZH_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::DZH_M4L118130().var_X_label + ";" + Variables::DZH_M4L118130().var_Y_label;
-               histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DZH_M4L118130().var_N_bin,
+            _histo_name = "DWH_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::DWH_M4L118130().var_X_label + ";" + Variables::DWH_M4L118130().var_Y_label;
+            histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DWH_M4L118130().var_N_bin,
+                                                                                     Variables::DWH_M4L118130().var_min, Variables::DWH_M4L118130().var_max);
+            
+            _histo_name = "DZH" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::DZH().var_X_label + ";" + Variables::DZH().var_Y_label;
+            histos_1D[Settings::DZH][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DZH().var_N_bin,
+                                                                           Variables::DZH().var_min, Variables::DZH().var_max);
+            
+            _histo_name = "DZH_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::DZH_M4L118130().var_X_label + ";" + Variables::DZH_M4L118130().var_Y_label;
+            histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DZH_M4L118130().var_N_bin,
                                                                                         Variables::DZH_M4L118130().var_min, Variables::DZH_M4L118130().var_max);
                
-               //===========
-               // MZ1 vs MZ2
-               //===========
-               _histo_name = "MZ1vsMZ2" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::MZ1vsMZ2().var_X_label + ";" + Variables::MZ1vsMZ2().var_Y_label;
-               histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_rs][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::MZ1vsMZ2().var_X_N_bin, 
-                                                                                   Variables::MZ1vsMZ2().var_X_min, Variables::MZ1vsMZ2().var_X_max, Variables::MZ1vsMZ2().var_Y_N_bin,
-                                                                                   Variables::MZ1vsMZ2().var_Y_min, Variables::MZ1vsMZ2().var_Y_max);
-               
-               _histo_name = "MZ1vsMZ2_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::MZ1vsMZ2_M4L118130().var_X_label + ";" + Variables::MZ1vsMZ2_M4L118130().var_Y_label;
-               histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_rs][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::MZ1vsMZ2_M4L118130().var_X_N_bin,
-                                                                                             Variables::MZ1vsMZ2_M4L118130().var_X_min, Variables::MZ1vsMZ2_M4L118130().var_X_max,
-                                                                                             Variables::MZ1vsMZ2_M4L118130().var_Y_N_bin, Variables::MZ1vsMZ2_M4L118130().var_Y_min,
-                                                                                             Variables::MZ1vsMZ2_M4L118130().var_Y_max);
-               
-               //===========
-               // KD vs M4l
-               //===========
-               _histo_name = "KDvsM4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::KDvsM4l().var_X_label + ";" + Variables::KDvsM4l().var_Y_label;
-               histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_rs][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::KDvsM4l().var_X_N_bin,
-                                                                                       Variables::KDvsM4l().var_X_min, Variables::KDvsM4l().var_X_max, Variables::KDvsM4l().var_Y_N_bin,
-                                                                                       Variables::KDvsM4l().var_Y_min, Variables::KDvsM4l().var_Y_max);
-               
-               _histo_name = "KDvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::KDvsM4lZoomed().var_X_label + ";" + Variables::KDvsM4lZoomed().var_Y_label;
-               histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_rs][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::KDvsM4lZoomed().var_X_N_bin,
-                                                                                             Variables::KDvsM4lZoomed().var_X_min, Variables::KDvsM4lZoomed().var_X_max,
-                                                                                             Variables::KDvsM4lZoomed().var_Y_N_bin, Variables::KDvsM4lZoomed().var_Y_min,
-                                                                                             Variables::KDvsM4lZoomed().var_Y_max);
-               
-               _histo_name = "KDvsM4lHighMass" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::KDvsM4lHighMass().var_X_label + ";" + Variables::KDvsM4lHighMass().var_Y_label;
-               histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_rs][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::KDvsM4lHighMass().var_X_N_bin,
-                                                                                               Variables::KDvsM4lHighMass().var_X_min, Variables::KDvsM4lHighMass().var_X_max,
-                                                                                               Variables::KDvsM4lHighMass().var_Y_N_bin, Variables::KDvsM4lHighMass().var_Y_min,
-                                                                                               Variables::KDvsM4l().var_Y_max);
-               
-               _histo_name = "D1jetvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::D1jetvsM4lZoomed().var_X_label + ";" + Variables::D1jetvsM4lZoomed().var_Y_label;
-               histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D1jetvsM4lZoomed().var_X_N_bin,
-                                                                                                Variables::D1jetvsM4lZoomed().var_X_min, Variables::D1jetvsM4lZoomed().var_X_max,
-                                                                                                Variables::D1jetvsM4lZoomed().var_Y_N_bin, Variables::D1jetvsM4lZoomed().var_Y_min,
-                                                                                                Variables::D1jetvsM4lZoomed().var_Y_max);
-               
-               _histo_name = "D2jetvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::D2jetvsM4lZoomed().var_X_label + ";" + Variables::D2jetvsM4lZoomed().var_Y_label;
-               histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D2jetvsM4lZoomed().var_X_N_bin,
-                                                                                                Variables::D2jetvsM4lZoomed().var_X_min, Variables::D2jetvsM4lZoomed().var_X_max,
-                                                                                                Variables::D2jetvsM4lZoomed().var_Y_N_bin, Variables::D2jetvsM4lZoomed().var_Y_min,
-                                                                                                Variables::D2jetvsM4lZoomed().var_Y_max);
-               
-               _histo_name = "DWHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::DWHvsM4lZoomed().var_X_label + ";" + Variables::DWHvsM4lZoomed().var_Y_label;
-               histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DWHvsM4lZoomed().var_X_N_bin,
-                                                                                              Variables::DWHvsM4lZoomed().var_X_min, Variables::DWHvsM4lZoomed().var_X_max,
-                                                                                              Variables::DWHvsM4lZoomed().var_Y_N_bin, Variables::DWHvsM4lZoomed().var_Y_min,
-                                                                                              Variables::DWHvsM4lZoomed().var_Y_max);
-               
-               _histo_name = "DZHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               _histo_labels = ";" + Variables::DZHvsM4lZoomed().var_X_label + ";" + Variables::DZHvsM4lZoomed().var_Y_label;
-               histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DZHvsM4lZoomed().var_X_N_bin,
-                                                                                              Variables::DZHvsM4lZoomed().var_X_min, Variables::DZHvsM4lZoomed().var_X_max,
-                                                                                              Variables::DZHvsM4lZoomed().var_Y_N_bin, Variables::DZHvsM4lZoomed().var_Y_min,
-                                                                                              Variables::DZHvsM4lZoomed().var_Y_max);
-               
-            }
+            //===========
+            // MZ1 vs MZ2
+            //===========
+            _histo_name = "MZ1vsMZ2" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::MZ1vsMZ2().var_X_label + ";" + Variables::MZ1vsMZ2().var_Y_label;
+            histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::MZ1vsMZ2().var_X_N_bin, 
+                                                                                Variables::MZ1vsMZ2().var_X_min, Variables::MZ1vsMZ2().var_X_max, Variables::MZ1vsMZ2().var_Y_N_bin,
+                                                                                Variables::MZ1vsMZ2().var_Y_min, Variables::MZ1vsMZ2().var_Y_max);
+            
+            _histo_name = "MZ1vsMZ2_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::MZ1vsMZ2_M4L118130().var_X_label + ";" + Variables::MZ1vsMZ2_M4L118130().var_Y_label;
+            histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::MZ1vsMZ2_M4L118130().var_X_N_bin,
+                                                                                          Variables::MZ1vsMZ2_M4L118130().var_X_min, Variables::MZ1vsMZ2_M4L118130().var_X_max,
+                                                                                          Variables::MZ1vsMZ2_M4L118130().var_Y_N_bin, Variables::MZ1vsMZ2_M4L118130().var_Y_min,
+                                                                                          Variables::MZ1vsMZ2_M4L118130().var_Y_max);
+            
+            //===========
+            // KD vs M4l
+            //===========
+            _histo_name = "KDvsM4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::KDvsM4l().var_X_label + ";" + Variables::KDvsM4l().var_Y_label;
+            histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::KDvsM4l().var_X_N_bin,
+                                                                                    Variables::KDvsM4l().var_X_min, Variables::KDvsM4l().var_X_max, Variables::KDvsM4l().var_Y_N_bin,
+                                                                                    Variables::KDvsM4l().var_Y_min, Variables::KDvsM4l().var_Y_max);
+            
+            _histo_name = "KDvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::KDvsM4lZoomed().var_X_label + ";" + Variables::KDvsM4lZoomed().var_Y_label;
+            histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::KDvsM4lZoomed().var_X_N_bin,
+                                                                                          Variables::KDvsM4lZoomed().var_X_min, Variables::KDvsM4lZoomed().var_X_max,
+                                                                                          Variables::KDvsM4lZoomed().var_Y_N_bin, Variables::KDvsM4lZoomed().var_Y_min,
+                                                                                          Variables::KDvsM4lZoomed().var_Y_max);
+            
+            _histo_name = "KDvsM4lHighMass" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::KDvsM4lHighMass().var_X_label + ";" + Variables::KDvsM4lHighMass().var_Y_label;
+            histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::KDvsM4lHighMass().var_X_N_bin,
+                                                                                            Variables::KDvsM4lHighMass().var_X_min, Variables::KDvsM4lHighMass().var_X_max,
+                                                                                            Variables::KDvsM4lHighMass().var_Y_N_bin, Variables::KDvsM4lHighMass().var_Y_min,
+                                                                                            Variables::KDvsM4l().var_Y_max);
+            
+            _histo_name = "D1jetvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::D1jetvsM4lZoomed().var_X_label + ";" + Variables::D1jetvsM4lZoomed().var_Y_label;
+            histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D1jetvsM4lZoomed().var_X_N_bin,
+                                                                                             Variables::D1jetvsM4lZoomed().var_X_min, Variables::D1jetvsM4lZoomed().var_X_max,
+                                                                                             Variables::D1jetvsM4lZoomed().var_Y_N_bin, Variables::D1jetvsM4lZoomed().var_Y_min,
+                                                                                             Variables::D1jetvsM4lZoomed().var_Y_max);
+            
+            _histo_name = "D2jetvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::D2jetvsM4lZoomed().var_X_label + ";" + Variables::D2jetvsM4lZoomed().var_Y_label;
+            histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D2jetvsM4lZoomed().var_X_N_bin,
+                                                                                             Variables::D2jetvsM4lZoomed().var_X_min, Variables::D2jetvsM4lZoomed().var_X_max,
+                                                                                             Variables::D2jetvsM4lZoomed().var_Y_N_bin, Variables::D2jetvsM4lZoomed().var_Y_min,
+                                                                                             Variables::D2jetvsM4lZoomed().var_Y_max);
+            
+            _histo_name = "DWHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::DWHvsM4lZoomed().var_X_label + ";" + Variables::DWHvsM4lZoomed().var_Y_label;
+            histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DWHvsM4lZoomed().var_X_N_bin,
+                                                                                           Variables::DWHvsM4lZoomed().var_X_min, Variables::DWHvsM4lZoomed().var_X_max,
+                                                                                           Variables::DWHvsM4lZoomed().var_Y_N_bin, Variables::DWHvsM4lZoomed().var_Y_min,
+                                                                                           Variables::DWHvsM4lZoomed().var_Y_max);
+            
+            _histo_name = "DZHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::DZHvsM4lZoomed().var_X_label + ";" + Variables::DZHvsM4lZoomed().var_Y_label;
+            histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DZHvsM4lZoomed().var_X_N_bin,
+                                                                                           Variables::DZHvsM4lZoomed().var_X_min, Variables::DZHvsM4lZoomed().var_X_max,
+                                                                                           Variables::DZHvsM4lZoomed().var_Y_N_bin, Variables::DZHvsM4lZoomed().var_Y_min,
+                                                                                           Variables::DZHvsM4lZoomed().var_Y_max);
          }
       }
    }
@@ -395,11 +387,7 @@ Histograms::Histograms( double lumi)
    _s_category.push_back("ttHTagged");
    _s_category.push_back("VHMETTagged");
    _s_category.push_back("Inclusive");
-   
-   _s_resonant_status.push_back("resonant");
-   _s_resonant_status.push_back("nonresonant");
-   _s_resonant_status.push_back("allres");
-   
+      
    _s_production_mode.push_back("ggH");
    _s_production_mode.push_back("qqH");
    _s_production_mode.push_back("WH");
@@ -411,18 +399,12 @@ Histograms::Histograms( double lumi)
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
+         for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
          {
-            for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
-            {
-               //=============
-               // M4l
-               //=============
-               _histo_name = "M4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + "_" + _blinding;
-               _histo_labels = ";" + Variables::M4lYields().var_X_label + ";" + Variables::M4lYields().var_Y_label;     
-               histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lYields().var_N_bin,
+            _histo_name = "M4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + "_" + _blinding;
+            _histo_labels = ";" + Variables::M4lYields().var_X_label + ";" + Variables::M4lYields().var_Y_label;     
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::M4lYields().var_N_bin,
                                                                                     Variables::M4lYields().var_min, Variables::M4lYields().var_max);
-            }
          }
       }
    }    
@@ -442,11 +424,11 @@ Histograms::~Histograms()
 //====
 // M4l
 //====================================================================================
-void Histograms::FillM4l( float M4l, float weight, int fs, int cat, int rs, int proc )
+void Histograms::FillM4l( float M4l, float weight, int fs, int cat, int proc )
 {
-   histos_1D[Settings::M4lMain][fs][cat][rs][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
-   histos_1D[Settings::M4lMainZoomed][fs][cat][rs][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
-   histos_1D[Settings::M4lMainHighMass][fs][cat][rs][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
+   histos_1D[Settings::M4lMain][fs][cat][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
+   histos_1D[Settings::M4lMainZoomed][fs][cat][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
+   histos_1D[Settings::M4lMainHighMass][fs][cat][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
 }
 //====================================================================================
 
@@ -464,13 +446,13 @@ void Histograms::FillM4lZX( float M4l, float weight, int fs, int cat )
 //====
 // MZ1
 //====================================================================================
-void Histograms::FillMZ1( float M4l, float MZ1, float weight, int fs, int cat, int rs, int proc )
+void Histograms::FillMZ1( float M4l, float MZ1, float weight, int fs, int cat, int proc )
 {
-   histos_1D[Settings::MZ1][fs][cat][rs][proc]->Fill(MZ1, (proc == Settings::Data) ? 1. : weight);
+   histos_1D[Settings::MZ1][fs][cat][proc]->Fill(MZ1, (proc == Settings::Data) ? 1. : weight);
    
    if( M4l >= Variables::MZ1_M4L118130().cut_d && M4l <= Variables::MZ1_M4L118130().cut_u)
    {
-      histos_1D[Settings::MZ1_M4L118130][fs][cat][rs][proc]->Fill(MZ1, (proc == Settings::Data) ? 1. : weight);
+      histos_1D[Settings::MZ1_M4L118130][fs][cat][proc]->Fill(MZ1, (proc == Settings::Data) ? 1. : weight);
    }
 }
 //====================================================================================
@@ -492,13 +474,13 @@ void Histograms::FillMZ1ZX( float M4l, float MZ1, float weight, int fs, int cat 
 //====
 // MZ2
 //===============================================================================================
-void Histograms::FillMZ2( float M4l, float MZ2, float weight, int fs, int cat, int rs, int proc )
+void Histograms::FillMZ2( float M4l, float MZ2, float weight, int fs, int cat, int proc )
 {
-   histos_1D[Settings::MZ2][fs][cat][rs][proc]->Fill(MZ2, (proc == Settings::Data) ? 1. : weight);
+   histos_1D[Settings::MZ2][fs][cat][proc]->Fill(MZ2, (proc == Settings::Data) ? 1. : weight);
    
    if( M4l >= Variables::MZ2_M4L118130().cut_d && M4l <= Variables::MZ2_M4L118130().cut_u)
    {
-      histos_1D[Settings::MZ2_M4L118130][fs][cat][rs][proc]->Fill(MZ2, (proc == Settings::Data) ? 1. : weight);
+      histos_1D[Settings::MZ2_M4L118130][fs][cat][proc]->Fill(MZ2, (proc == Settings::Data) ? 1. : weight);
    }
 }
 //===============================================================================================
@@ -521,13 +503,13 @@ void Histograms::FillMZ2ZX( float M4l, float MZ2, float weight, int fs, int cat 
 // KD
 //===
 //====================================================================================
-void Histograms::FillKD( float M4l, float KD, float weight, int fs, int cat, int rs, int proc )
+void Histograms::FillKD( float M4l, float KD, float weight, int fs, int cat, int proc )
 {
-   histos_1D[Settings::KD][fs][cat][rs][proc]->Fill(KD, (proc == Settings::Data) ? 1. : weight);
+   histos_1D[Settings::KD][fs][cat][proc]->Fill(KD, (proc == Settings::Data) ? 1. : weight);
    
    if( M4l >= Variables::KD_M4L118130().cut_d && M4l <= Variables::KD_M4L118130().cut_u)
    {
-      histos_1D[Settings::KD_M4L118130][fs][cat][rs][proc]->Fill(KD, (proc == Settings::Data) ? 1. : weight);
+      histos_1D[Settings::KD_M4L118130][fs][cat][proc]->Fill(KD, (proc == Settings::Data) ? 1. : weight);
    }
 }
 //====================================================================================
@@ -549,13 +531,13 @@ void Histograms::FillKDZX( float M4l, float KD, float weight, int fs, int cat )
 //======
 // D1jet
 //====================================================================================
-void Histograms::FillD1jet( float M4l, float D1jet, float weight, int fs, int cat, int rs, int proc )
+void Histograms::FillD1jet( float M4l, float D1jet, float weight, int fs, int cat, int proc )
 {
-   histos_1D[Settings::D1jet][fs][cat][rs][proc]->Fill(D1jet, (proc == Settings::Data) ? 1. : weight);
+   histos_1D[Settings::D1jet][fs][cat][proc]->Fill(D1jet, (proc == Settings::Data) ? 1. : weight);
    
    if( M4l >= Variables::D1jet_M4L118130().cut_d && M4l <= Variables::D1jet_M4L118130().cut_u)
    {
-      histos_1D[Settings::D1jet_M4L118130][fs][cat][rs][proc]->Fill(D1jet, (proc == Settings::Data) ? 1. : weight);
+      histos_1D[Settings::D1jet_M4L118130][fs][cat][proc]->Fill(D1jet, (proc == Settings::Data) ? 1. : weight);
    }
 }
 //====================================================================================
@@ -577,13 +559,13 @@ void Histograms::FillD1jetZX( float M4l, float D1jet, float weight, int fs, int 
 //======
 // D2jet
 //====================================================================================
-void Histograms::FillD2jet( float M4l, float D2jet, float weight, int fs, int cat, int rs, int proc )
+void Histograms::FillD2jet( float M4l, float D2jet, float weight, int fs, int cat, int proc )
 {
-   histos_1D[Settings::D2jet][fs][cat][rs][proc]->Fill(D2jet, (proc == Settings::Data) ? 1. : weight);
+   histos_1D[Settings::D2jet][fs][cat][proc]->Fill(D2jet, (proc == Settings::Data) ? 1. : weight);
    
    if( M4l >= Variables::D2jet_M4L118130().cut_d && M4l <= Variables::D2jet_M4L118130().cut_u)
    {
-      histos_1D[Settings::D2jet_M4L118130][fs][cat][rs][proc]->Fill(D2jet, (proc == Settings::Data) ? 1. : weight);
+      histos_1D[Settings::D2jet_M4L118130][fs][cat][proc]->Fill(D2jet, (proc == Settings::Data) ? 1. : weight);
    }
 }
 //====================================================================================
@@ -605,13 +587,13 @@ void Histograms::FillD2jetZX( float M4l, float D2jet, float weight, int fs, int 
 //=====
 // DWH
 //====================================================================================
-void Histograms::FillDWH( float M4l, float DWH, float weight, int fs, int cat, int rs, int proc )
+void Histograms::FillDWH( float M4l, float DWH, float weight, int fs, int cat, int proc )
 {
-   histos_1D[Settings::DWH][fs][cat][rs][proc]->Fill(DWH, (proc == Settings::Data) ? 1. : weight);
+   histos_1D[Settings::DWH][fs][cat][proc]->Fill(DWH, (proc == Settings::Data) ? 1. : weight);
    
    if( M4l >= Variables::DWH_M4L118130().cut_d && M4l <= Variables::DWH_M4L118130().cut_u)
    {
-      histos_1D[Settings::DWH_M4L118130][fs][cat][rs][proc]->Fill(DWH, (proc == Settings::Data) ? 1. : weight);
+      histos_1D[Settings::DWH_M4L118130][fs][cat][proc]->Fill(DWH, (proc == Settings::Data) ? 1. : weight);
    }
 }
 //====================================================================================
@@ -633,13 +615,13 @@ void Histograms::FillDWHZX( float M4l, float DWH, float weight, int fs, int cat 
 //====
 // DZH
 //====================================================================================
-void Histograms::FillDZH( float M4l, float DZH, float weight, int fs, int cat, int rs, int proc )
+void Histograms::FillDZH( float M4l, float DZH, float weight, int fs, int cat, int proc )
 {
-   histos_1D[Settings::DZH][fs][cat][rs][proc]->Fill(DZH, (proc == Settings::Data) ? 1. : weight);
+   histos_1D[Settings::DZH][fs][cat][proc]->Fill(DZH, (proc == Settings::Data) ? 1. : weight);
    
    if( M4l >= Variables::DZH_M4L118130().cut_d && M4l <= Variables::DZH_M4L118130().cut_u)
    {
-      histos_1D[Settings::DZH_M4L118130][fs][cat][rs][proc]->Fill(DZH, (proc == Settings::Data) ? 1. : weight);
+      histos_1D[Settings::DZH_M4L118130][fs][cat][proc]->Fill(DZH, (proc == Settings::Data) ? 1. : weight);
    }
 }
 //====================================================================================
@@ -661,13 +643,13 @@ void Histograms::FillDZHZX( float M4l, float DZH, float weight, int fs, int cat 
 //=========
 // MZ1vsMZ2
 //====================================================================================
-void Histograms::FillMZ1vsMZ2( float M4l, float MZ1, float MZ2, float weight, int fs, int cat, int rs, int proc )
+void Histograms::FillMZ1vsMZ2( float M4l, float MZ1, float MZ2, float weight, int fs, int cat, int proc )
 {
-   histos_2D[Settings::MZ1vsMZ2][fs][cat][rs][proc]->Fill(MZ1, MZ2, (proc == Settings::Data) ? 1. : weight);
+   histos_2D[Settings::MZ1vsMZ2][fs][cat][proc]->Fill(MZ1, MZ2, (proc == Settings::Data) ? 1. : weight);
    
    if( M4l >= Variables::MZ1vsMZ2_M4L118130().cut_d && M4l <= Variables::MZ1vsMZ2_M4L118130().cut_u)
    {
-      histos_2D[Settings::MZ1vsMZ2_M4L118130][fs][cat][rs][proc]->Fill(MZ1, MZ2, (proc == Settings::Data) ? 1. : weight);
+      histos_2D[Settings::MZ1vsMZ2_M4L118130][fs][cat][proc]->Fill(MZ1, MZ2, (proc == Settings::Data) ? 1. : weight);
    }
 }
 //====================================================================================
@@ -725,25 +707,25 @@ void Histograms::FillVectors( float M4l, float ZZMassErrCorr, float KD, int nCle
 
 
 //====================================================================================
-void Histograms::FillDvsM4l( float M4l, float KD, int nCleanedJetsPt30, float D1jet, float D2jet, float DWH, float DZH, float weight, int fs, int cat, int rs, int proc )
+void Histograms::FillDvsM4l( float M4l, float KD, int nCleanedJetsPt30, float D1jet, float D2jet, float DWH, float DZH, float weight, int fs, int cat, int proc )
 {
-   histos_2DError[Settings::KDvsM4l][fs][cat][rs][proc]        ->Fill(M4l, KD, (proc == Settings::Data) ? 1. : weight);
-   histos_2DError[Settings::KDvsM4lZoomed][fs][cat][rs][proc]  ->Fill(M4l, KD, (proc == Settings::Data) ? 1. : weight);
-   histos_2DError[Settings::KDvsM4lHighMass][fs][cat][rs][proc]->Fill(M4l, KD, (proc == Settings::Data) ? 1. : weight);
+   histos_2DError[Settings::KDvsM4l][fs][cat][proc]        ->Fill(M4l, KD, (proc == Settings::Data) ? 1. : weight);
+   histos_2DError[Settings::KDvsM4lZoomed][fs][cat][proc]  ->Fill(M4l, KD, (proc == Settings::Data) ? 1. : weight);
+   histos_2DError[Settings::KDvsM4lHighMass][fs][cat][proc]->Fill(M4l, KD, (proc == Settings::Data) ? 1. : weight);
    
-   if (nCleanedJetsPt30 == 1) histos_2DError[Settings::D1jetvsM4lZoomed][fs][cat][rs][proc]->Fill(M4l, D1jet, (proc == Settings::Data) ? 1. : weight);
-   if (nCleanedJetsPt30 >= 2) histos_2DError[Settings::D2jetvsM4lZoomed][fs][cat][rs][proc]->Fill(M4l, D2jet, (proc == Settings::Data) ? 1. : weight);
-   if (nCleanedJetsPt30 >= 2) histos_2DError[Settings::DWHvsM4lZoomed][fs][cat][rs][proc]  ->Fill(M4l, DWH, (proc == Settings::Data) ? 1. : weight);
-   if (nCleanedJetsPt30 >= 2) histos_2DError[Settings::DZHvsM4lZoomed][fs][cat][rs][proc]  ->Fill(M4l, DZH, (proc == Settings::Data) ? 1. : weight);
+   if (nCleanedJetsPt30 == 1) histos_2DError[Settings::D1jetvsM4lZoomed][fs][cat][proc]->Fill(M4l, D1jet, (proc == Settings::Data) ? 1. : weight);
+   if (nCleanedJetsPt30 >= 2) histos_2DError[Settings::D2jetvsM4lZoomed][fs][cat][proc]->Fill(M4l, D2jet, (proc == Settings::Data) ? 1. : weight);
+   if (nCleanedJetsPt30 >= 2) histos_2DError[Settings::DWHvsM4lZoomed][fs][cat][proc]  ->Fill(M4l, DWH, (proc == Settings::Data) ? 1. : weight);
+   if (nCleanedJetsPt30 >= 2) histos_2DError[Settings::DZHvsM4lZoomed][fs][cat][proc]  ->Fill(M4l, DZH, (proc == Settings::Data) ? 1. : weight);
 }
 //====================================================================================
 
 
 
 //====================================================================================
-void Histograms::FillYields( float M4l, float weight, int fs, int cat, int rs, int proc )
+void Histograms::FillYields( float M4l, float weight, int fs, int cat, int proc )
 {
-   histos_1D[Settings::M4lYields][fs][cat][rs][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
+   histos_1D[Settings::M4lYields][fs][cat][proc]->Fill(M4l, (proc == Settings::Data) ? 1. : weight);
 }
 //====================================================================================
 
@@ -789,157 +771,155 @@ void Histograms::FillInclusive()
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ ) // Change to num_of_categories - 1
       {
-         for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ ) // Remove
-         {
-            //=====
-            // M4l
-            //=====
-            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            //=====
-            // MZ1
-            //=====
-            histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][Settings::H125ggH]);            
-            histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][Settings::H125ggH]);            
-            histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            //=====
-            // MZ2
-            //=====
-            histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
+         
+         //=====
+         // M4l
+         //=====
+         histos_1D[Settings::M4lMain][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][Settings::H125ggH]);
+         histos_1D[Settings::M4lMain][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::M4lMain][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::M4lMain][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][Settings::H125ggH]);
+         histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][Settings::H125ggH]);
+         histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][Settings::H125ttH]);
+         
+         //=====
+         // MZ1
+         //=====
+         histos_1D[Settings::MZ1][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::MZ1][i_fs][i_cat][Settings::H125ggH]);            
+         histos_1D[Settings::MZ1][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::MZ1][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::MZ1][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::MZ1][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::MZ1][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::MZ1][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][Settings::H125ggH]);            
+         histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][Settings::H125ttH]);
+         
+         //=====
+         // MZ2
+         //=====
+         histos_1D[Settings::MZ2][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::MZ2][i_fs][i_cat][Settings::H125ggH]);
+         histos_1D[Settings::MZ2][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::MZ2][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::MZ2][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::MZ2][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::MZ2][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::MZ2][i_fs][i_cat][Settings::H125ttH]);
+         
 
-            histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            //====
-            // KD
-            //====
-            histos_1D[Settings::KD][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::KD][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_1D[Settings::KD][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::KD][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::KD][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::KD][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::KD][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::KD][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][Settings::H125ggH]);            
-            histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_1D[Settings::DWH][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DWH][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_1D[Settings::DWH][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DWH][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::DWH][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DWH][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::DWH][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DWH][i_fs][i_cat][i_rs][Settings::H125ttH]);
+         histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][Settings::H125ggH]);
+         histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][Settings::H125ttH]);
+         
+         //====
+         // KD
+         //====
+         histos_1D[Settings::KD][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::KD][i_fs][i_cat][Settings::H125ggH]);
+         histos_1D[Settings::KD][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::KD][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::KD][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::KD][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::KD][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::KD][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_1D[Settings::KD_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][Settings::H125ggH]);            
+         histos_1D[Settings::KD_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::KD_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::KD_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_1D[Settings::D1jet][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][Settings::H125ggH]);
+         histos_1D[Settings::D1jet][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::D1jet][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::D1jet][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][Settings::H125ggH]);
+         histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_1D[Settings::D2jet][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][Settings::H125ggH]);
+         histos_1D[Settings::D2jet][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::D2jet][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::D2jet][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][Settings::H125ggH]);
+         histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_1D[Settings::DWH][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::DWH][i_fs][i_cat][Settings::H125ggH]);
+         histos_1D[Settings::DWH][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::DWH][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::DWH][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::DWH][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::DWH][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::DWH][i_fs][i_cat][Settings::H125ttH]);
 
-            histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][Settings::H125ggH]);            
-            histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][Settings::H125ttH]);
+         histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][Settings::H125ggH]);            
+         histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][Settings::H125ttH]);
 
-            histos_1D[Settings::DZH][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DZH][i_fs][i_cat][i_rs][Settings::H125ggH]);            
-            histos_1D[Settings::DZH][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DZH][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::DZH][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DZH][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::DZH][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DZH][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            //============
-            // MZ1 vs MZ2
-            //============
-            histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            //==========================
-            // 2D plots with mass error
-            //==========================
-            histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125ttH]);
-            
-            histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125ggH]);
-            histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125VBF]);
-            histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125VH]);
-            histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][Settings::H125ttH]);
-         }
+         histos_1D[Settings::DZH][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::DZH][i_fs][i_cat][Settings::H125ggH]);            
+         histos_1D[Settings::DZH][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::DZH][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::DZH][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::DZH][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::DZH][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::DZH][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][Settings::H125ggH]);
+         histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][Settings::H125VBF]);
+         histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][Settings::H125VH]);
+         histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][Settings::H125ttH]);
+         
+         //============
+         // MZ1 vs MZ2
+         //============
+         histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][Settings::H125]->Add(histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][Settings::H125ggH]);
+         histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][Settings::H125]->Add(histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][Settings::H125VBF]);
+         histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][Settings::H125]->Add(histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][Settings::H125VH]);
+         histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][Settings::H125]->Add(histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][Settings::H125ggH]);
+         histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][Settings::H125VBF]);
+         histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][Settings::H125VH]);
+         histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][Settings::H125]->Add(histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][Settings::H125ttH]);
+         
+         //==========================
+         // 2D plots with mass error
+         //==========================
+         histos_2DError[Settings::KDvsM4l][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::KDvsM4l][i_fs][i_cat][Settings::H125ggH]);
+         histos_2DError[Settings::KDvsM4l][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::KDvsM4l][i_fs][i_cat][Settings::H125VBF]);
+         histos_2DError[Settings::KDvsM4l][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::KDvsM4l][i_fs][i_cat][Settings::H125VH]);
+         histos_2DError[Settings::KDvsM4l][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::KDvsM4l][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][Settings::H125ggH]);
+         histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][Settings::H125VBF]);
+         histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][Settings::H125VH]);
+         histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][Settings::H125ggH]);
+         histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][Settings::H125VBF]);
+         histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][Settings::H125VH]);
+         histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][Settings::H125ggH]);
+         histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][Settings::H125VBF]);
+         histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][Settings::H125VH]);
+         histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][Settings::H125ggH]);
+         histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][Settings::H125VBF]);
+         histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][Settings::H125VH]);
+         histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][Settings::H125ggH]);
+         histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][Settings::H125VBF]);
+         histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][Settings::H125VH]);
+         histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][Settings::H125ggH]);
+         histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][Settings::H125VBF]);
+         histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][Settings::H125VH]);
+         histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][Settings::H125ttH]);
       }
    }
 
@@ -947,206 +927,135 @@ void Histograms::FillInclusive()
    {
       for ( int i_cat = 0; i_cat < num_of_categories - 1; i_cat++ )
       {
-         for ( int i_rs = 0; i_rs < num_of_resonant_statuses - 1; i_rs++ )
+         for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
          {
-            for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
-            {
-               //=====
-               // M4l
-               //=====
-               histos_1D[Settings::M4lMain][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::M4lMainZoomed][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::M4lMainHighMass][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_rs][i_proc]);
                
-               //=====
-               // MZ1
-               //=====
-               histos_1D[Settings::MZ1][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::MZ1_M4L118130][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               //=====
-               // MZ2
-               //=====
-               histos_1D[Settings::MZ2][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::MZ2_M4L118130][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               //====
-               // KD
-               //====
-               histos_1D[Settings::KD][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::KD][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::KD_M4L118130][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_1D[Settings::D1jet][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::D1jet_M4L118130][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_1D[Settings::D2jet][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::D2jet_M4L118130][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_1D[Settings::DWH][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::DWH][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::DWH_M4L118130][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_1D[Settings::DZH][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::DZH][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::DZH_M4L118130][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               //============
-               // MZ1 vs MZ2
-               //============
-               histos_2D[Settings::MZ1vsMZ2][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_2D[Settings::MZ1vsMZ2_M4L118130][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+            //=====
+            // M4l
+            //=====
+            histos_1D[Settings::M4lMain][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::M4lMainZoomed][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::M4lMainHighMass][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_proc]);
+            
+            //=====
+            // MZ1
+            //=====
+            histos_1D[Settings::MZ1][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::MZ1][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::MZ1_M4L118130][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_proc]);
+            
+            //=====
+            // MZ2
+            //=====
+            histos_1D[Settings::MZ2][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::MZ2][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::MZ2_M4L118130][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_proc]);
+            
+            //====
+            // KD
+            //====
+            histos_1D[Settings::KD][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::KD][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::KD_M4L118130][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_proc]);
+            
+            histos_1D[Settings::D1jet][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::D1jet_M4L118130][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_proc]);
+            
+            histos_1D[Settings::D2jet][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::D2jet_M4L118130][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_proc]);
+            
+            histos_1D[Settings::DWH][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::DWH][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::DWH_M4L118130][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_proc]);
+            
+            histos_1D[Settings::DZH][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::DZH][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::DZH_M4L118130][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_proc]);
+            
+            //============
+            // MZ1 vs MZ2
+            //============
+            histos_2D[Settings::MZ1vsMZ2][Settings::fs4l][i_cat][i_proc]->Add(histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_proc]);
+            
+            histos_2D[Settings::MZ1vsMZ2_M4L118130][Settings::fs4l][i_cat][i_proc]->Add(histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_proc]);
 
-               //==========================
-               // 2D plots with mass error
-               //==========================
-               histos_2DError[Settings::KDvsM4l][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_rs][i_proc]);
-               histos_2DError[Settings::KDvsM4lZoomed][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
-               histos_2DError[Settings::KDvsM4lHighMass][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_2DError[Settings::D1jetvsM4lZoomed][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
-               histos_2DError[Settings::D2jetvsM4lZoomed][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
-               histos_2DError[Settings::DWHvsM4lZoomed][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
-               histos_2DError[Settings::DZHvsM4lZoomed][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
+            //==========================
+            // 2D plots with mass error
+            //==========================
+            histos_2DError[Settings::KDvsM4l][Settings::fs4l][i_cat][i_proc]->Add(histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_proc]);
+            histos_2DError[Settings::KDvsM4lZoomed][Settings::fs4l][i_cat][i_proc]->Add(histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_proc]);
+            histos_2DError[Settings::KDvsM4lHighMass][Settings::fs4l][i_cat][i_proc]->Add(histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_proc]);
+            
+            histos_2DError[Settings::D1jetvsM4lZoomed][Settings::fs4l][i_cat][i_proc]->Add(histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_proc]);
+            histos_2DError[Settings::D2jetvsM4lZoomed][Settings::fs4l][i_cat][i_proc]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_proc]);
+            histos_2DError[Settings::DWHvsM4lZoomed][Settings::fs4l][i_cat][i_proc]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_proc]);
+            histos_2DError[Settings::DZHvsM4lZoomed][Settings::fs4l][i_cat][i_proc]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_proc]);
 
-            }
          }
       }
    }
-
+      
+      
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
    {
       for ( int i_cat = 0; i_cat < num_of_categories - 1; i_cat++ )
       {
-         for ( int i_rs = 0; i_rs < num_of_resonant_statuses - 1; i_rs++ )
+         for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
          {
-            for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
-            {
-               //=====
-               // M4l
-               //=====
-               histos_1D[Settings::M4lMain][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::M4lMainZoomed][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::M4lMainHighMass][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_rs][i_proc]);
-               
-               //=====
-               // MZ1
-               //=====
-               histos_1D[Settings::MZ1][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::MZ1_M4L118130][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               //=====
-               // MZ2
-               //=====
-               histos_1D[Settings::MZ2][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::MZ2_M4L118130][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               //====
-               // KD
-               //====
-               histos_1D[Settings::KD][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::KD][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::KD_M4L118130][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_1D[Settings::D1jet][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::D1jet_M4L118130][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_1D[Settings::D2jet][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::D2jet_M4L118130][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_1D[Settings::DWH][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::DWH][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::DWH_M4L118130][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_1D[Settings::DZH][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::DZH][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::DZH_M4L118130][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               //============
-               // MZ1 vs MZ2
-               //============
-               histos_2D[Settings::MZ1vsMZ2][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_rs][i_proc]);
+            //=====
+            // M4l
+            //=====
+            histos_1D[Settings::M4lMain][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::M4lMainZoomed][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::M4lMainHighMass][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_proc]);
+            
+            //=====
+            // MZ1
+            //=====
+            histos_1D[Settings::MZ1][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::MZ1][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::MZ1_M4L118130][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_proc]);
+            
+            //=====
+            // MZ2
+            //=====
+            histos_1D[Settings::MZ2][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::MZ2][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::MZ2_M4L118130][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_proc]);
+            
+            //====
+            // KD
+            //====
+            histos_1D[Settings::KD][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::KD][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::KD_M4L118130][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_proc]);
+            
+            histos_1D[Settings::D1jet][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::D1jet_M4L118130][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_proc]);
+            
+            histos_1D[Settings::D2jet][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::D2jet_M4L118130][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_proc]);
+            
+            histos_1D[Settings::DWH][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::DWH][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::DWH_M4L118130][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_proc]);
+            
+            histos_1D[Settings::DZH][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::DZH][i_fs][i_cat][i_proc]);
+            histos_1D[Settings::DZH_M4L118130][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_proc]);
+            
+            //============
+            // MZ1 vs MZ2
+            //============
+            histos_2D[Settings::MZ1vsMZ2][i_fs][Settings::inclusive][i_proc]->Add(histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_proc]);
+            
+            histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][Settings::inclusive][i_proc]->Add(histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_proc]);
 
-               //==========================
-               // 2D plots with mass error
-               //==========================
-               histos_2DError[Settings::KDvsM4l][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_rs][i_proc]);
-               histos_2DError[Settings::KDvsM4lZoomed][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
-               histos_2DError[Settings::KDvsM4lHighMass][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
-               histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
-               histos_2DError[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
-               histos_2DError[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
-            }
+            //==========================
+            // 2D plots with mass error
+            //==========================
+            histos_2DError[Settings::KDvsM4l][i_fs][Settings::inclusive][i_proc]->Add(histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_proc]);
+            histos_2DError[Settings::KDvsM4lZoomed][i_fs][Settings::inclusive][i_proc]->Add(histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_proc]);
+            histos_2DError[Settings::KDvsM4lHighMass][i_fs][Settings::inclusive][i_proc]->Add(histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_proc]);
+            
+            histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][Settings::inclusive][i_proc]->Add(histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_proc]);
+            histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][Settings::inclusive][i_proc]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_proc]);
+            histos_2DError[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive][i_proc]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_proc]);
+            histos_2DError[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive][i_proc]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_proc]);
          }
       }
    }
 
-   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
-   {
-      for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
-      {
-         for ( int i_rs = 0; i_rs < num_of_resonant_statuses - 1; i_rs++ )
-         {
-            for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
-            {
-               //=============
-               // M4l
-               //=============
-               histos_1D[Settings::M4lMain][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_rs][i_proc]);
-               
-               //=============
-               // MZ1
-               //=============
-               histos_1D[Settings::MZ1][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               //=============
-               // MZ2
-               //=============
-               histos_1D[Settings::MZ2][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               //=============
-               // KD
-               //=============
-               histos_1D[Settings::KD][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::KD][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::KD_M4L118130][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_1D[Settings::D1jet][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_1D[Settings::D2jet][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_1D[Settings::DWH][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::DWH][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_1D[Settings::DZH][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::DZH][i_fs][i_cat][i_rs][i_proc]);
-               histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               //=============
-               // MZ1vsMZ2
-               //=============
-               histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_rs][i_proc]);
-               
-               //==========================
-               // 2D plots with mass error
-               //==========================
-               histos_2DError[Settings::KDvsM4l][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_rs][i_proc]);
-               histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
-               histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_rs][i_proc]);
-               
-               histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
-               histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
-               histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
-               histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]);
-            }
-         }
-      }
-   }
 
    //====================
    // Sum Z+X histograms
@@ -1325,41 +1234,35 @@ void Histograms::FillInclusiveYields()
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
-         {
-            //=============
-            // M4l
-            //=============
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ggH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120VBF]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120WH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ZH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH120ttH]);
-            
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124ggH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124VBF]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124WH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124ZH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH124ttH]);
-            
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125ggH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125VBF]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125WH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125ZH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH125ttH]);
-            
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126ggH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126VBF]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126WH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126ZH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH126ttH]);
-            
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130ggH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130VBF]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130WH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130ZH]);
-            histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][Settings::yH130ttH]);
-         }
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH120ggH]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH120VBF]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH120WH]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH120ZH]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH120]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH120ttH]);
+         
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH124ggH]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH124VBF]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH124WH]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH124ZH]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH124]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH124ttH]);
+         
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH125ggH]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH125VBF]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH125WH]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH125ZH]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH125]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH125ttH]);
+         
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH126ggH]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH126VBF]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH126WH]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH126ZH]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH126]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH126ttH]);
+         
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH130ggH]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH130VBF]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH130WH]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH130ZH]);
+         histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH130]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yH130ttH]);
       }
    }
 
@@ -1367,15 +1270,9 @@ void Histograms::FillInclusiveYields()
    {
       for ( int i_cat = 0; i_cat < num_of_categories - 1; i_cat++ )
       {
-         for ( int i_rs = 0; i_rs < num_of_resonant_statuses - 1; i_rs++ )
+         for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
          {
-            for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
-            {
-               //=============
-               // M4l
-               //=============
-               histos_1D[Settings::M4lYields][Settings::fs4l][i_cat][i_rs][i_proc]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][i_proc]);
-            }
+            histos_1D[Settings::M4lYields][Settings::fs4l][i_cat][i_proc]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_proc]);
          }
       }
    }
@@ -1384,15 +1281,9 @@ void Histograms::FillInclusiveYields()
    {
       for ( int i_cat = 0; i_cat < num_of_categories - 1; i_cat++ )
       {
-         for ( int i_rs = 0; i_rs < num_of_resonant_statuses - 1; i_rs++ )
+         for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
          {
-            for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
-            {
-               //=============
-               // M4l
-               //=============
-               histos_1D[Settings::M4lYields][i_fs][Settings::inclusive][i_rs][i_proc]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][i_proc]);
-            }
+            histos_1D[Settings::M4lYields][i_fs][Settings::inclusive][i_proc]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_proc]);
          }
       }
    }
@@ -1401,15 +1292,9 @@ void Histograms::FillInclusiveYields()
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         for ( int i_rs = 0; i_rs < num_of_resonant_statuses - 1; i_rs++ )
+         for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
          {
-            for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
-            {
-               //=============
-               // M4l
-               //=============
-               histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][i_proc]);
-            }
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_proc]->Add(histos_1D[Settings::M4lYields][i_fs][i_cat][i_proc]);
          }
       }
    }
@@ -1774,60 +1659,58 @@ void Histograms::SaveHistos( string file_name )
          histos_2DError_data[Settings::DZHvsM4lZoomed][i_fs][i_cat]->SetName(_histo_name.c_str());
          histos_2DError_data[Settings::DZHvsM4lZoomed][i_fs][i_cat]->Write();
       
-         for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
+         
+         for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
          {
-            for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
-            {
-               //=============
-               // M4l
-               //=============
-               histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_rs][i_proc]->Write();
-               
-               //=============
-               // MZ1
-               //=============
-               histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][i_proc]->Write();
-               
-               //=============
-               // MZ2
-               //=============
-               histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][i_proc]->Write();
-               
-               //=============
-               // KD
-               //=============
-               histos_1D[Settings::KD][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_1D[Settings::DWH][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_1D[Settings::DZH][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][i_proc]->Write();
-               
-               //=============
-               // MZ1vsMZ2
-               //=============
-               histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_rs][i_proc]->Write();
-               
-               //=============
-               // KDvsM4l
-               //=============
-               histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]->Write();
-               histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc]->Write();
-            }
+            //=============
+            // M4l
+            //=============
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_proc]->Write();
+            histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_proc]->Write();
+            histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_proc]->Write();
+            
+            //=============
+            // MZ1
+            //=============
+            histos_1D[Settings::MZ1][i_fs][i_cat][i_proc]->Write();
+            histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_proc]->Write();
+            
+            //=============
+            // MZ2
+            //=============
+            histos_1D[Settings::MZ2][i_fs][i_cat][i_proc]->Write();
+            histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_proc]->Write();
+            
+            //=============
+            // KD
+            //=============
+            histos_1D[Settings::KD][i_fs][i_cat][i_proc]->Write();
+            histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_proc]->Write();
+            histos_1D[Settings::D1jet][i_fs][i_cat][i_proc]->Write();
+            histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_proc]->Write();
+            histos_1D[Settings::D2jet][i_fs][i_cat][i_proc]->Write();
+            histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_proc]->Write();
+            histos_1D[Settings::DWH][i_fs][i_cat][i_proc]->Write();
+            histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_proc]->Write();
+            histos_1D[Settings::DZH][i_fs][i_cat][i_proc]->Write();
+            histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_proc]->Write();
+            
+            //=============
+            // MZ1vsMZ2
+            //=============
+            histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_proc]->Write();
+            histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_proc]->Write();
+            
+            //=============
+            // KDvsM4l
+            //=============
+            histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_proc]->Write();
+            histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_proc]->Write();
+            histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_proc]->Write();
+            histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_proc]->Write();
+            histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_proc]->Write();
+            histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_proc]->Write();
+            histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_proc]->Write();
          }
       }
    }
@@ -1853,13 +1736,9 @@ void Histograms::SaveYieldHistos( string file_name )
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-
-         for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
+         for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
          {
-            for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
-            {
-               histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][i_proc]->Write();
-            }
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_proc]->Write();
          }
       }
    }
@@ -1928,61 +1807,57 @@ void Histograms::DeleteHistos()
          delete histos_2DError_data[Settings::DZHvsM4lZoomed][i_fs][i_cat];
          
          
-         for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
+         for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
          {
-            for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
-            {
-               //=============
-               // M4l
-               //=============
-               delete histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc];
-               delete histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][i_proc];
-               delete histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_rs][i_proc];
-               
-               //=============
-               // MZ1
-               //=============
-               delete histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][i_proc];
-               delete histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][i_proc];
-               
-               //=============
-               // MZ2
-               //=============
-               delete histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][i_proc];
-               delete histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][i_proc];
-               
-               //=============
-               // KD
-               //=============
-               delete histos_1D[Settings::KD][i_fs][i_cat][i_rs][i_proc];
-               delete histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][i_proc];
-               delete histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][i_proc];
-               delete histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][i_proc];
-               delete histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][i_proc];
-               delete histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][i_proc];
-               delete histos_1D[Settings::DWH][i_fs][i_cat][i_rs][i_proc];
-               delete histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][i_proc];
-               delete histos_1D[Settings::DZH][i_fs][i_cat][i_rs][i_proc];
-               delete histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][i_proc];
-               
-               //=============
-               // MZ1vsMZ2
-               //=============
-               delete histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_rs][i_proc];
-               delete histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_rs][i_proc];
-               
-               //=============
-               // KDvsM4l
-               //=============
-               delete histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_rs][i_proc];
-               delete histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_rs][i_proc];
-               delete histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_rs][i_proc];
-               delete histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc];
-               delete histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc];
-               delete histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc];
-               delete histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc];
-               
-            }
+            //=============
+            // M4l
+            //=============
+            delete histos_1D[Settings::M4lMain][i_fs][i_cat][i_proc];
+            delete histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_proc];
+            delete histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_proc];
+            
+            //=============
+            // MZ1
+            //=============
+            delete histos_1D[Settings::MZ1][i_fs][i_cat][i_proc];
+            delete histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_proc];
+            
+            //=============
+            // MZ2
+            //=============
+            delete histos_1D[Settings::MZ2][i_fs][i_cat][i_proc];
+            delete histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_proc];
+            
+            //=============
+            // KD
+            //=============
+            delete histos_1D[Settings::KD][i_fs][i_cat][i_proc];
+            delete histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_proc];
+            delete histos_1D[Settings::D1jet][i_fs][i_cat][i_proc];
+            delete histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_proc];
+            delete histos_1D[Settings::D2jet][i_fs][i_cat][i_proc];
+            delete histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_proc];
+            delete histos_1D[Settings::DWH][i_fs][i_cat][i_proc];
+            delete histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_proc];
+            delete histos_1D[Settings::DZH][i_fs][i_cat][i_proc];
+            delete histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_proc];
+            
+            //=============
+            // MZ1vsMZ2
+            //=============
+            delete histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_proc];
+            delete histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_proc];
+            
+            //=============
+            // KDvsM4l
+            //=============
+            delete histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_proc];
+            delete histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_proc];
+            delete histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_proc];
+            delete histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_proc];
+            delete histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_proc];
+            delete histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_proc];
+            delete histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_proc];
          }
       }
    }
@@ -1999,19 +1874,9 @@ void Histograms::DeleteYieldsHistos()
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         //=============
-         // M4l
-         //=============
-         
-         for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
+         for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
          {
-            for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
-            {
-               //=============
-               // M4l
-               //=============
-               delete histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][i_proc];               
-            }
+            delete histos_1D[Settings::M4lYields][i_fs][i_cat][i_proc];               
          }
       }
    }
@@ -2029,107 +1894,103 @@ void Histograms::GetHistos( TString file_name )
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
+         for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
          {
-            for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
-            {
-               //=============
-               // M4l
-               //=============
-               _histo_name = "M4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::M4lMain][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "M4l_zoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "M4l_HighMass" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               //=============
-               // MZ1
-               //=============
-               _histo_name = "MZ1" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::MZ1][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "MZ1_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               //=============
-               // MZ2
-               //=============
-               _histo_name = "MZ2" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::MZ2][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "MZ2_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               //=============
-               // KD
-               //=============
-               _histo_name = "KD" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::KD][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "KD_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "D1jet" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::D1jet][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "D1jet_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "D2jet" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::D2jet][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "D2jet_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "DWH" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::DWH][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "DWH_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "DZH" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::DZH][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "DZH_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-               
-               //=============
-               // MZ1vsMZ2
-               //=============
-               _histo_name = "MZ1vsMZ2" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_rs][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "MZ1vsMZ2_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_rs][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
-               
-               //=============
-               // KDvsM4l
-               //=============
-               _histo_name = "KDvsM4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_rs][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "KDvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_rs][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "KDvsM4lHighMass" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_rs][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "D1jetvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "D2jetvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_rs][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "DWHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
-               
-               _histo_name = "DZHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + _blinding;
-               histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_rs][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
+            //=============
+            // M4l
+            //=============
+            _histo_name = "M4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::M4lMain][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
             
-            }
+            _histo_name = "M4l_zoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::M4lMainZoomed][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "M4l_HighMass" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::M4lMainHighMass][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            
+            //=============
+            // MZ1
+            //=============
+            _histo_name = "MZ1" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::MZ1][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "MZ1_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::MZ1_M4L118130][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            
+            //=============
+            // MZ2
+            //=============
+            _histo_name = "MZ2" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::MZ2][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "MZ2_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::MZ2_M4L118130][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            
+            //=============
+            // KD
+            //=============
+            _histo_name = "KD" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::KD][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "KD_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::KD_M4L118130][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "D1jet" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::D1jet][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "D1jet_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::D1jet_M4L118130][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "D2jet" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::D2jet][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "D2jet_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::D2jet_M4L118130][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "DWH" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::DWH][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "DWH_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::DWH_M4L118130][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "DZH" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::DZH][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "DZH_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_1D[Settings::DZH_M4L118130][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            
+            //=============
+            // MZ1vsMZ2
+            //=============
+            _histo_name = "MZ1vsMZ2" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_2D[Settings::MZ1vsMZ2][i_fs][i_cat][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "MZ1vsMZ2_M4L118130" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_2D[Settings::MZ1vsMZ2_M4L118130][i_fs][i_cat][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
+            
+            //=============
+            // KDvsM4l
+            //=============
+            _histo_name = "KDvsM4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "KDvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "KDvsM4lHighMass" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "D1jetvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "D2jetvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "DWHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "DZHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
          }
       }
    }
@@ -2252,16 +2113,10 @@ void Histograms::GetYieldsHistos( TString file_name )
    {
       for ( int i_cat = 0; i_cat < num_of_categories; i_cat++ )
       {
-         for ( int i_rs = 0; i_rs < num_of_resonant_statuses; i_rs++ )
+         for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
          {
-            for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
-            {
-               //=============
-               // M4l
-               //=============
-               _histo_name = "M4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_resonant_status.at(i_rs) + "_" + _s_process.at(i_proc) + "_" + _blinding;
-               histos_1D[Settings::M4lYields][i_fs][i_cat][i_rs][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
-            }
+            _histo_name = "M4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + "_" + _blinding;
+            histos_1D[Settings::M4lYields][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
          }
       }
    }
@@ -2290,56 +2145,56 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    
    if( plot_index == Settings::D1jet_M4L118130 || plot_index == Settings::D2jet_M4L118130 || plot_index == Settings::D1jet || plot_index == Settings::D2jet )
    {
-      histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VBF]->SetFillColor(1180);
-      histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ggH]->SetFillColor(kRed-10);
-      histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VH]->SetFillColor(kRed-10);
-      histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ttH]->SetFillColor(kRed-10);
+      histos_1D[plot_index][fs][cat][Settings::H125VBF]->SetFillColor(Cosmetics::VBF().fill_color);
+      histos_1D[plot_index][fs][cat][Settings::H125ggH]->SetFillColor(Cosmetics::Higgs_other().fill_color);
+      histos_1D[plot_index][fs][cat][Settings::H125VH]->SetFillColor(Cosmetics::Higgs_other().fill_color);
+      histos_1D[plot_index][fs][cat][Settings::H125ttH]->SetFillColor(Cosmetics::Higgs_other().fill_color);
    }
    else if ( plot_index == Settings::DWH_M4L118130 || plot_index == Settings::DZH_M4L118130 || plot_index == Settings::DWH || plot_index == Settings::DZH )
    {
-      histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VH]->SetFillColor(1180);
-      histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ggH]->SetFillColor(kRed-10);
-      histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VBF]->SetFillColor(kRed-10);
-      histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ttH]->SetFillColor(kRed-10);
+      histos_1D[plot_index][fs][cat][Settings::H125VH]->SetFillColor(Cosmetics::VH().fill_color);
+      histos_1D[plot_index][fs][cat][Settings::H125ggH]->SetFillColor(Cosmetics::Higgs_other().fill_color);
+      histos_1D[plot_index][fs][cat][Settings::H125VBF]->SetFillColor(Cosmetics::Higgs_other().fill_color);
+      histos_1D[plot_index][fs][cat][Settings::H125ttH]->SetFillColor(Cosmetics::Higgs_other().fill_color);
    }
    else
    {
-      histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125]->SetFillColor(1180);
+      histos_1D[plot_index][fs][cat][Settings::H125]->SetFillColor(Cosmetics::Higgs_all().fill_color);
    }
    
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(851);
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(858);
+   histos_1D[plot_index][fs][cat][Settings::qqZZ]->SetFillColor(Cosmetics::qqZZ().fill_color);
+   histos_1D[plot_index][fs][cat][Settings::ggZZ]->SetFillColor(Cosmetics::ggZZ().fill_color);
    
    if ( variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass" )
    {
-      histos_1D_ZX_shape[plot_index][fs][cat]->SetFillColor(411);
+      histos_1D_ZX_shape[plot_index][fs][cat]->SetFillColor(Cosmetics::ZX().fill_color);
    }
    else
    {   
-      histos_1D_ZX[plot_index][fs][cat]->SetFillColor(411);
+      histos_1D_ZX[plot_index][fs][cat]->SetFillColor(Cosmetics::ZX().fill_color);
    }
    
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125]->SetLineColor(633);
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ggH]->SetLineColor(633);
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VBF]->SetLineColor(633);
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VH]->SetLineColor(633);
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ttH]->SetLineColor(633);
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ]->SetLineColor(602);
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ]->SetLineColor(602);
+   histos_1D[plot_index][fs][cat][Settings::H125]->SetLineColor(Cosmetics::Higgs_all().line_color);
+   histos_1D[plot_index][fs][cat][Settings::H125ggH]->SetLineColor(Cosmetics::Higgs_all().line_color);
+   histos_1D[plot_index][fs][cat][Settings::H125VBF]->SetLineColor(Cosmetics::Higgs_all().line_color);
+   histos_1D[plot_index][fs][cat][Settings::H125VH]->SetLineColor(Cosmetics::Higgs_all().line_color);
+   histos_1D[plot_index][fs][cat][Settings::H125ttH]->SetLineColor(Cosmetics::Higgs_all().line_color);
+   histos_1D[plot_index][fs][cat][Settings::qqZZ]->SetLineColor(Cosmetics::qqZZ().line_color);
+   histos_1D[plot_index][fs][cat][Settings::ggZZ]->SetLineColor(Cosmetics::ggZZ().line_color);
    
    if ( variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass" )
    {
-      histos_1D_ZX_shape[plot_index][fs][cat]->SetLineColor(420);
+      histos_1D_ZX_shape[plot_index][fs][cat]->SetLineColor(Cosmetics::ZX().line_color);
    }
    else
    {
-      histos_1D_ZX[plot_index][fs][cat]->SetLineColor(420);
+      histos_1D_ZX[plot_index][fs][cat]->SetLineColor(Cosmetics::ZX().line_color);
    }
    
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.8);
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->SetLineColor(kBlack);
+   histos_1D[plot_index][fs][cat][Settings::Data]->SetMarkerSize(0.7);
+   histos_1D[plot_index][fs][cat][Settings::Data]->SetMarkerStyle(20);
+   histos_1D[plot_index][fs][cat][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
+   histos_1D[plot_index][fs][cat][Settings::Data]->SetLineColor(kBlack);
    
    THStack *stack = new THStack( "stack", "stack" );
    
@@ -2352,32 +2207,32 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
       stack->Add(histos_1D_ZX[plot_index][fs][cat]);
    }
    
-   stack->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ]);
-   stack->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ]);
+   stack->Add(histos_1D[plot_index][fs][cat][Settings::ggZZ]);
+   stack->Add(histos_1D[plot_index][fs][cat][Settings::qqZZ]);
    
    if ( plot_index == Settings::D1jet_M4L118130 || plot_index == Settings::D2jet_M4L118130 || plot_index == Settings::D1jet || plot_index == Settings::D2jet )
    {
-      histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ggH]->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VH]);
-      histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ggH]->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ttH]);
-      stack->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ggH]);
-      stack->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VBF]);
+      histos_1D[plot_index][fs][cat][Settings::H125ggH]->Add(histos_1D[plot_index][fs][cat][Settings::H125VH]);
+      histos_1D[plot_index][fs][cat][Settings::H125ggH]->Add(histos_1D[plot_index][fs][cat][Settings::H125ttH]);
+      stack->Add(histos_1D[plot_index][fs][cat][Settings::H125ggH]);
+      stack->Add(histos_1D[plot_index][fs][cat][Settings::H125VBF]);
    }
    else if ( plot_index == Settings::DWH_M4L118130 || plot_index == Settings::DZH_M4L118130 || plot_index == Settings::DWH || plot_index == Settings::DZH )
    {
-      histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ggH]->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VBF]);
-      histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ggH]->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ttH]);
-      stack->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ggH]);
-      stack->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VH]);
+      histos_1D[plot_index][fs][cat][Settings::H125ggH]->Add(histos_1D[plot_index][fs][cat][Settings::H125VBF]);
+      histos_1D[plot_index][fs][cat][Settings::H125ggH]->Add(histos_1D[plot_index][fs][cat][Settings::H125ttH]);
+      stack->Add(histos_1D[plot_index][fs][cat][Settings::H125ggH]);
+      stack->Add(histos_1D[plot_index][fs][cat][Settings::H125VH]);
    }
    else 
    {   
-      stack->Add(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125]);
+      stack->Add(histos_1D[plot_index][fs][cat][Settings::H125]);
    }
    
    stack->Draw("HIST");
    
-   float data_max = histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetBinContent(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
-   float data_max_error = histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetBinErrorUp(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
+   float data_max = histos_1D[plot_index][fs][cat][Settings::Data]->GetBinContent(histos_1D[plot_index][fs][cat][Settings::Data]->GetMaximumBin());
+   float data_max_error = histos_1D[plot_index][fs][cat][Settings::Data]->GetBinErrorUp(histos_1D[plot_index][fs][cat][Settings::Data]->GetMaximumBin());
    
    if ( GetVarLogY( variable_name) )
    {
@@ -2395,11 +2250,11 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    if ( (plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && fs == Settings::fs4mu)   _fs_label = "m_{4#font[12]{#mu}} (GeV)";
    if ( (plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && fs == Settings::fs2e2mu) _fs_label = "m_{2#font[12]{e}2#font[12]{#mu}} (GeV)";
    
-   stack->GetXaxis()->SetTitle(((plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && fs != Settings::fs4l ) ? _fs_label : (TString)histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
+   stack->GetXaxis()->SetTitle(((plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && fs != Settings::fs4l ) ? _fs_label : (TString)histos_1D[plot_index][fs][cat][Settings::Data]->GetXaxis()->GetTitle());
    
    stack->GetXaxis()->SetTitleSize(0.05);
    stack->GetXaxis()->SetLabelSize(0.05);
-   stack->GetYaxis()->SetTitle(histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
+   stack->GetYaxis()->SetTitle(histos_1D[plot_index][fs][cat][Settings::Data]->GetYaxis()->GetTitle());
    stack->GetYaxis()->SetTitleSize(0.05);
    stack->GetYaxis()->SetLabelSize(0.05);
    stack->GetXaxis()->SetTitleOffset(1.2);
@@ -2407,7 +2262,7 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    
    if ( (plot_index == Settings::M4lMainZoomed) || (plot_index == Settings::M4lMainHighMass) ) stack->GetXaxis()->SetNdivisions(1005);
    
-   histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
+   histos_1D[plot_index][fs][cat][Settings::Data]->Draw("SAME p E1 X0");
    
    
 //=============
@@ -2418,46 +2273,46 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    
    if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass" )
    {
-      legend  = CreateLegend("right", histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],
-                                      histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125],
-                                      histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],
-                                      histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ],
+      legend  = CreateLegend("right", histos_1D[plot_index][fs][cat][Settings::Data],
+                                      histos_1D[plot_index][fs][cat][Settings::H125],
+                                      histos_1D[plot_index][fs][cat][Settings::qqZZ],
+                                      histos_1D[plot_index][fs][cat][Settings::ggZZ],
                                       histos_1D_ZX_shape[plot_index][fs][cat]);
    }
    else if ( plot_index == Settings::D1jet_M4L118130 || plot_index == Settings::D1jet )
    {
-      legend  = CreateLegendVBF("left", histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],
-                                        histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VBF],
-                                        histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ggH], // ggH = ggH + VH + ttH
-                                        histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],
-                                        histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ],
+      legend  = CreateLegendVBF("left", histos_1D[plot_index][fs][cat][Settings::Data],
+                                        histos_1D[plot_index][fs][cat][Settings::H125VBF],
+                                        histos_1D[plot_index][fs][cat][Settings::H125ggH], // ggH = ggH + VH + ttH
+                                        histos_1D[plot_index][fs][cat][Settings::qqZZ],
+                                        histos_1D[plot_index][fs][cat][Settings::ggZZ],
                                         histos_1D_ZX[plot_index][fs][cat]);
    }
    else if ( plot_index == Settings::D2jet_M4L118130 || plot_index == Settings::D2jet )
    {
-      legend  = CreateLegendVBF("right", histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],
-                                         histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VBF],
-                                         histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ggH], // ggH = ggH + VH + ttH
-                                         histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],
-                                         histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ],
+      legend  = CreateLegendVBF("right", histos_1D[plot_index][fs][cat][Settings::Data],
+                                         histos_1D[plot_index][fs][cat][Settings::H125VBF],
+                                         histos_1D[plot_index][fs][cat][Settings::H125ggH], // ggH = ggH + VH + ttH
+                                         histos_1D[plot_index][fs][cat][Settings::qqZZ],
+                                         histos_1D[plot_index][fs][cat][Settings::ggZZ],
                                          histos_1D_ZX[plot_index][fs][cat]);
    }
    else if ( plot_index == Settings::DWH_M4L118130 || plot_index == Settings::DZH_M4L118130 || plot_index == Settings::DWH || plot_index == Settings::DZH )
    {
-      legend  = CreateLegendVH("right", histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],
-                                        histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125VH],
-                                        histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125ggH], // ggH = ggH + VBF + ttH
-                                        histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],
-                                        histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ],
+      legend  = CreateLegendVH("right", histos_1D[plot_index][fs][cat][Settings::Data],
+                                        histos_1D[plot_index][fs][cat][Settings::H125VH],
+                                        histos_1D[plot_index][fs][cat][Settings::H125ggH], // ggH = ggH + VBF + ttH
+                                        histos_1D[plot_index][fs][cat][Settings::qqZZ],
+                                        histos_1D[plot_index][fs][cat][Settings::ggZZ],
                                         histos_1D_ZX[plot_index][fs][cat]);
    }
    else
    {
       legend = CreateLegend((plot_index == Settings::MZ1 || plot_index == Settings::MZ1_M4L118130 || plot_index == Settings::MZ2 || plot_index == Settings::KD_M4L118130) ? "left" : "right",
-                             histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::Data],
-                             histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::H125],
-                             histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::qqZZ],
-                             histos_1D[plot_index][fs][cat][Settings::all_resonant][Settings::ggZZ],
+                             histos_1D[plot_index][fs][cat][Settings::Data],
+                             histos_1D[plot_index][fs][cat][Settings::H125],
+                             histos_1D[plot_index][fs][cat][Settings::qqZZ],
+                             histos_1D[plot_index][fs][cat][Settings::ggZZ],
                              histos_1D_ZX[plot_index][fs][cat]);
    }
 
@@ -2537,52 +2392,52 @@ void Histograms::Plot1D_all_cat( TString filename, TString variable_name , TStri
       
       if ( variable_name == "M4lMainZoomed" && VBF_tagged_ )
       {
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VBF]->SetFillColor(1180);
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->SetFillColor(kRed-10);
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VH]->SetFillColor(kRed-10);
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ttH]->SetFillColor(kRed-10);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125VBF]->SetFillColor(Cosmetics::VBF().fill_color);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ggH]->SetFillColor(Cosmetics::Higgs_other().fill_color);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125VH]->SetFillColor(Cosmetics::Higgs_other().fill_color);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ttH]->SetFillColor(Cosmetics::Higgs_other().fill_color);
       }
       else if ( variable_name == "M4lMainZoomed" && VH_tagged_ )
       {
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VH]->SetFillColor(1180);
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->SetFillColor(kRed-10);
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VBF]->SetFillColor(kRed-10);
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ttH]->SetFillColor(kRed-10);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125VH]->SetFillColor(Cosmetics::VH().fill_color);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ggH]->SetFillColor(Cosmetics::Higgs_other().fill_color);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125VBF]->SetFillColor(Cosmetics::Higgs_other().fill_color);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ttH]->SetFillColor(Cosmetics::Higgs_other().fill_color);
       }
       else if ( variable_name == "M4lMainZoomed" && ttH_tagged_ )
       {
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ttH]->SetFillColor(1180);
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->SetFillColor(kRed-10);
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VBF]->SetFillColor(kRed-10);
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VH]->SetFillColor(kRed-10);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ttH]->SetFillColor(Cosmetics::ttH().fill_color);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ggH]->SetFillColor(Cosmetics::Higgs_other().fill_color);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125VBF]->SetFillColor(Cosmetics::Higgs_other().fill_color);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125VH]->SetFillColor(Cosmetics::Higgs_other().fill_color);
       }
       else
       {
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]->SetFillColor(1180);
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]->SetLineColor(633);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125]->SetFillColor(Cosmetics::Higgs_all().fill_color);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125]->SetLineColor(Cosmetics::Higgs_all().line_color);
       }
       
-      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]->SetFillColor(851);
-      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]->SetFillColor(858);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::qqZZ]->SetFillColor(Cosmetics::qqZZ().fill_color);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::ggZZ]->SetFillColor(Cosmetics::ggZZ().fill_color);
       
-      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]->SetLineColor(602);
-      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]->SetLineColor(602);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::qqZZ]->SetLineColor(Cosmetics::qqZZ().line_color);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::ggZZ]->SetLineColor(Cosmetics::ggZZ().line_color);
       
       if ( variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass" )
       {
-         histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]->SetFillColor(411);
-         histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]->SetLineColor(420);
+         histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]->SetFillColor(Cosmetics::ZX().fill_color);
+         histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]->SetLineColor(Cosmetics::ZX().line_color);
       }
       else
       {
-         histos_1D_ZX[plot_index][Settings::fs4l][i_cat]->SetFillColor(411);
-         histos_1D_ZX[plot_index][Settings::fs4l][i_cat]->SetLineColor(420);
+         histos_1D_ZX[plot_index][Settings::fs4l][i_cat]->SetFillColor(Cosmetics::ZX().fill_color);
+         histos_1D_ZX[plot_index][Settings::fs4l][i_cat]->SetLineColor(Cosmetics::ZX().line_color);
       }
       
-      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.8);
-      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
-      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
-      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->SetLineColor(kBlack);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data]->SetMarkerSize(0.7);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data]->SetMarkerStyle(20);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data]->SetLineColor(kBlack);
       
       THStack *stack = new THStack();
       
@@ -2595,49 +2450,49 @@ void Histograms::Plot1D_all_cat( TString filename, TString variable_name , TStri
          stack->Add(histos_1D_ZX[plot_index][Settings::fs4l][i_cat]);
       }
       
-      stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ]);
-      stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ]);
+      stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::ggZZ]);
+      stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::qqZZ]);
       
       
       if ( variable_name == "M4lMainZoomed" && VBF_tagged_ )
       {
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VH]);
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ttH]);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125VH]);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ttH]);
          
-         stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]);            
-         stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VBF]);
+         stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ggH]);            
+         stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125VBF]);
          
          Rebin(stack);   
       }
       else if ( variable_name == "M4lMainZoomed" && VH_tagged_ )
       {
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VBF]);
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ttH]);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125VBF]);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ttH]);
             
-         stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]);            
-         stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VH]);
+         stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ggH]);            
+         stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125VH]);
          
          Rebin(stack);   
       }
       else if ( variable_name == "M4lMainZoomed" && ttH_tagged_ )
       {
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VBF]);
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VH]);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125VBF]);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ggH]->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125VH]);
             
-         stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH]);            
-         stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ttH]);
+         stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ggH]);            
+         stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ttH]);
          
          Rebin(stack);
       }
       else
       {
-         stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125]);
+         stack->Add(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125]);
       }
       
       stack->Draw("HIST");
       
-      float data_max = histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetBinContent(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
-      float data_max_error = histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetBinErrorUp(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetMaximumBin());
+      float data_max = histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data]->GetBinContent(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data]->GetMaximumBin());
+      float data_max_error = histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data]->GetBinErrorUp(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data]->GetMaximumBin());
       
       if( GetVarLogY( variable_name) )
       {
@@ -2652,10 +2507,10 @@ void Histograms::Plot1D_all_cat( TString filename, TString variable_name , TStri
       }
 
       // Axis title
-      stack->GetXaxis()->SetTitle(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
+      stack->GetXaxis()->SetTitle(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data]->GetXaxis()->GetTitle());
       stack->GetXaxis()->SetTitleSize(0.05);
       stack->GetXaxis()->SetLabelSize(0.05);
-      stack->GetYaxis()->SetTitle(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
+      stack->GetYaxis()->SetTitle(histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data]->GetYaxis()->GetTitle());
       stack->GetYaxis()->SetTitleSize(0.05);
       stack->GetYaxis()->SetLabelSize(0.05);
       stack->GetXaxis()->SetTitleOffset(1.2);
@@ -2665,11 +2520,11 @@ void Histograms::Plot1D_all_cat( TString filename, TString variable_name , TStri
       
       if ( variable_name == "M4lMainZoomed" && VBF_tagged_ || VH_tagged_ || ttH_tagged_ )
       {
-         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Rebin(2);
+         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data]->Rebin(2);
          ChangeYaxisTitle(stack);
       }
       
-      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
+      histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data]->Draw("SAME p E1 X0");
 
 
 //=============
@@ -2680,45 +2535,45 @@ void Histograms::Plot1D_all_cat( TString filename, TString variable_name , TStri
       
       if ( variable_name == "M4lMain" || variable_name == "M4lMainHighMass" || variable_name == "M4lMainZoomed" && (i_cat == Settings::untagged || i_cat == Settings::inclusive) )
       {
-         legend  = CreateLegend("right", histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],
-                                         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125],
-                                         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],
-                                         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ],
+         legend  = CreateLegend("right", histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data],
+                                         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125],
+                                         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::qqZZ],
+                                         histos_1D[plot_index][Settings::fs4l][i_cat][Settings::ggZZ],
                                          histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]);
       }
       else if ( variable_name == "M4lMainZoomed" && (i_cat == Settings::VBF_1j_tagged || i_cat == Settings::VBF_2j_tagged) )
       {
-         legend  = CreateLegendVBF("right", histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],
-                                            histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VBF],
-                                            histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH],
-                                            histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],
-                                            histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ],
+         legend  = CreateLegendVBF("right", histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data],
+                                            histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125VBF],
+                                            histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ggH],
+                                            histos_1D[plot_index][Settings::fs4l][i_cat][Settings::qqZZ],
+                                            histos_1D[plot_index][Settings::fs4l][i_cat][Settings::ggZZ],
                                             histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]);
       }
       else if ( variable_name == "M4lMainZoomed" && (i_cat == Settings::VH_lepton_tagged || i_cat == Settings::VH_hadron_tagged || i_cat == Settings::VH_MET_tagged) )
       {
-         legend  = CreateLegendVH("right", histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],
-                                           histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125VH],
-                                           histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH],
-                                           histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],
-                                           histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ],
+         legend  = CreateLegendVH("right", histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data],
+                                           histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125VH],
+                                           histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ggH],
+                                           histos_1D[plot_index][Settings::fs4l][i_cat][Settings::qqZZ],
+                                           histos_1D[plot_index][Settings::fs4l][i_cat][Settings::ggZZ],
                                            histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]);
       }
       else if ( variable_name == "M4lMainZoomed" && (i_cat == Settings::ttH_tagged) )
       {
-         legend  = CreateLegendttH("right", histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],
-                                            histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ttH],
-                                            histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125ggH],
-                                            histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],
-                                            histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ],
+         legend  = CreateLegendttH("right", histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data],
+                                            histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ttH],
+                                            histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125ggH],
+                                            histos_1D[plot_index][Settings::fs4l][i_cat][Settings::qqZZ],
+                                            histos_1D[plot_index][Settings::fs4l][i_cat][Settings::ggZZ],
                                             histos_1D_ZX_shape[plot_index][Settings::fs4l][i_cat]);
       }
       else
       {
-         legend = CreateLegend("right", histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::Data],
-                                        histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::H125],
-                                        histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::qqZZ],
-                                        histos_1D[plot_index][Settings::fs4l][i_cat][Settings::all_resonant][Settings::ggZZ],
+         legend = CreateLegend("right", histos_1D[plot_index][Settings::fs4l][i_cat][Settings::Data],
+                                        histos_1D[plot_index][Settings::fs4l][i_cat][Settings::H125],
+                                        histos_1D[plot_index][Settings::fs4l][i_cat][Settings::qqZZ],
+                                        histos_1D[plot_index][Settings::fs4l][i_cat][Settings::ggZZ],
                                         histos_1D_ZX[plot_index][Settings::fs4l][i_cat]);
       }
       
@@ -2784,34 +2639,34 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
    {
       if( i_fs == Settings::fs2mu2e) continue;
-      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::H125]->SetFillColor(1180);
-      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::qqZZ]->SetFillColor(851);
-      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::ggZZ]->SetFillColor(858);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::H125]->SetFillColor(1180);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::qqZZ]->SetFillColor(851);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::ggZZ]->SetFillColor(858);
       if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass") histos_1D_ZX_shape[plot_index][i_fs][Settings::inclusive]->SetFillColor(411);
       else histos_1D_ZX[plot_index][i_fs][Settings::inclusive]->SetFillColor(411);
       
-      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::H125]->SetLineColor(633);
-      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::qqZZ]->SetLineColor(602);
-      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::ggZZ]->SetLineColor(602);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::H125]->SetLineColor(633);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::qqZZ]->SetLineColor(602);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::ggZZ]->SetLineColor(602);
       if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass") histos_1D_ZX_shape[plot_index][i_fs][Settings::inclusive]->SetLineColor(420);
       else histos_1D_ZX[plot_index][i_fs][Settings::inclusive]->SetLineColor(420);
       
-      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.8);
-      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
-      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
-      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->SetLineColor(kBlack);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::Data]->SetMarkerSize(0.7);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::Data]->SetMarkerStyle(20);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::Data]->SetBinErrorOption(TH1::kPoisson);
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::Data]->SetLineColor(kBlack);
       
       THStack *stack = new THStack( "stack", "stack" );
       if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass") stack->Add(histos_1D_ZX_shape[plot_index][i_fs][Settings::inclusive]);
       else stack->Add(histos_1D_ZX[plot_index][i_fs][Settings::inclusive]);
-      stack->Add(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::ggZZ]);
-      stack->Add(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::qqZZ]);
-      stack->Add(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::H125]);
+      stack->Add(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::ggZZ]);
+      stack->Add(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::qqZZ]);
+      stack->Add(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::H125]);
       
       stack->Draw("HIST");
       
-      float data_max = histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetBinContent(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetMaximumBin());
-      float data_max_error = histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetBinErrorUp(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetMaximumBin());
+      float data_max = histos_1D[plot_index][i_fs][Settings::inclusive][Settings::Data]->GetBinContent(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::Data]->GetMaximumBin());
+      float data_max_error = histos_1D[plot_index][i_fs][Settings::inclusive][Settings::Data]->GetBinErrorUp(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::Data]->GetMaximumBin());
       
       if( GetVarLogY( variable_name) )
       {
@@ -2828,10 +2683,10 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
       if ( (plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && i_fs == Settings::fs4e) _fs_label = "m_{4#font[12]{e}} (GeV)";
       if ( (plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && i_fs == Settings::fs4mu) _fs_label = "m_{4#font[12]{#mu}} (GeV)";
       if ( (plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && i_fs == Settings::fs2e2mu) _fs_label = "m_{2#font[12]{e}2#font[12]{#mu}} (GeV)";
-      stack->GetXaxis()->SetTitle(((plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && i_fs != Settings::fs4l ) ? _fs_label : (TString)histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetXaxis()->GetTitle());
+      stack->GetXaxis()->SetTitle(((plot_index == Settings::M4lMain || plot_index == Settings::M4lMainZoomed) && i_fs != Settings::fs4l ) ? _fs_label : (TString)histos_1D[plot_index][i_fs][Settings::inclusive][Settings::Data]->GetXaxis()->GetTitle());
       stack->GetXaxis()->SetTitleSize(0.05);
       stack->GetXaxis()->SetLabelSize(0.05);
-      stack->GetYaxis()->SetTitle(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->GetYaxis()->GetTitle());
+      stack->GetYaxis()->SetTitle(histos_1D[plot_index][i_fs][Settings::inclusive][Settings::Data]->GetYaxis()->GetTitle());
       stack->GetYaxis()->SetTitleSize(0.05);
       stack->GetYaxis()->SetLabelSize(0.05);
       
@@ -2840,17 +2695,17 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
       
       if ( (plot_index == Settings::M4lMainZoomed) ||  (plot_index == Settings::M4lMainHighMass)) stack->GetXaxis()->SetNdivisions(1005);
       
-      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data]->Draw("SAME p E1 X0");
+      histos_1D[plot_index][i_fs][Settings::inclusive][Settings::Data]->Draw("SAME p E1 X0");
       
       TLegend *legend;
       if(variable_name == "M4lMain" || variable_name == "M4lMainZoomed" || variable_name == "M4lMainHighMass")
       {
-         legend  = CreateLegend("right",histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::H125],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX_shape[plot_index][i_fs][Settings::inclusive]);
+         legend  = CreateLegend("right",histos_1D[plot_index][i_fs][Settings::inclusive][Settings::Data],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::H125],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::qqZZ],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::ggZZ], histos_1D_ZX_shape[plot_index][i_fs][Settings::inclusive]);
       }
       
       else
       {
-         legend = CreateLegend("right",histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::Data],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::H125],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::qqZZ],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::all_resonant][Settings::ggZZ], histos_1D_ZX[plot_index][i_fs][Settings::inclusive]);
+         legend = CreateLegend("right",histos_1D[plot_index][i_fs][Settings::inclusive][Settings::Data],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::H125],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::qqZZ],histos_1D[plot_index][i_fs][Settings::inclusive][Settings::ggZZ], histos_1D_ZX[plot_index][i_fs][Settings::inclusive]);
       }
       legend->Draw();
       
@@ -2890,9 +2745,9 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
    
    // Plot MC histogram
    TH2F* stack;
-   stack = (TH2F*)histos_2D[plot_index][Settings::fs4l][cat][Settings::all_resonant][Settings::H125]->Clone();
-   stack->Add(histos_2D[plot_index][Settings::fs4l][cat][Settings::all_resonant][Settings::qqZZ]);
-   stack->Add(histos_2D[plot_index][Settings::fs4l][cat][Settings::all_resonant][Settings::ggZZ]);
+   stack = (TH2F*)histos_2D[plot_index][Settings::fs4l][cat][Settings::H125]->Clone();
+   stack->Add(histos_2D[plot_index][Settings::fs4l][cat][Settings::qqZZ]);
+   stack->Add(histos_2D[plot_index][Settings::fs4l][cat][Settings::ggZZ]);
    
    stack->GetXaxis()->SetTitleOffset(1.2);
    stack->GetYaxis()->SetTitleOffset(1.3);
@@ -2908,31 +2763,31 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
    stack->Draw("COLZ");
 
    //Plot data histograms
-   histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(21);
-   histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.9);
-   histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::all_resonant][Settings::Data]->SetMarkerColor(kBlue);
-   histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::all_resonant][Settings::Data]->SetLineColor(kBlue);
+   histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::Data]->SetMarkerStyle(21);
+   histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::Data]->SetMarkerSize(0.7);
+   histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::Data]->SetMarkerColor(kBlue);
+   histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::Data]->SetLineColor(kBlue);
    
-   histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::all_resonant][Settings::Data]->Draw("SAME XP");
+   histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::Data]->Draw("SAME XP");
    
-   histos_2D[plot_index][Settings::fs4mu][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(20);
-   histos_2D[plot_index][Settings::fs4mu][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.9);
-   histos_2D[plot_index][Settings::fs4mu][cat][Settings::all_resonant][Settings::Data]->SetMarkerColor(kRed+1);
-   histos_2D[plot_index][Settings::fs4mu][cat][Settings::all_resonant][Settings::Data]->SetLineColor(kRed+1);
+   histos_2D[plot_index][Settings::fs4mu][cat][Settings::Data]->SetMarkerStyle(20);
+   histos_2D[plot_index][Settings::fs4mu][cat][Settings::Data]->SetMarkerSize(0.7);
+   histos_2D[plot_index][Settings::fs4mu][cat][Settings::Data]->SetMarkerColor(kRed+1);
+   histos_2D[plot_index][Settings::fs4mu][cat][Settings::Data]->SetLineColor(kRed+1);
    
-   histos_2D[plot_index][Settings::fs4mu][cat][Settings::all_resonant][Settings::Data]->Draw("SAME XP");
+   histos_2D[plot_index][Settings::fs4mu][cat][Settings::Data]->Draw("SAME XP");
    
-   histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->SetMarkerStyle(22);
-   histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->SetMarkerSize(0.9);
-   histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->SetMarkerColor(kGreen+2);
-   histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->SetLineColor(kGreen+2);
+   histos_2D[plot_index][Settings::fs4e][cat][Settings::Data]->SetMarkerStyle(22);
+   histos_2D[plot_index][Settings::fs4e][cat][Settings::Data]->SetMarkerSize(0.7);
+   histos_2D[plot_index][Settings::fs4e][cat][Settings::Data]->SetMarkerColor(kGreen+2);
+   histos_2D[plot_index][Settings::fs4e][cat][Settings::Data]->SetLineColor(kGreen+2);
    
    
-   histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data]->Draw("SAME XP");
+   histos_2D[plot_index][Settings::fs4e][cat][Settings::Data]->Draw("SAME XP");
 
    //Draw legend
    TLegend *legend;
-   legend = Create2DLegend("left",histos_2D[plot_index][Settings::fs4e][cat][Settings::all_resonant][Settings::Data],histos_2D[plot_index][Settings::fs4mu][cat][Settings::all_resonant][Settings::Data],histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::all_resonant][Settings::Data]);
+   legend = Create2DLegend("left",histos_2D[plot_index][Settings::fs4e][cat][Settings::Data],histos_2D[plot_index][Settings::fs4mu][cat][Settings::Data],histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::Data]);
    legend->Draw();
    
    TPaveText *text;
@@ -2977,9 +2832,9 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
    
    // Plot MC histogram
    TH2F* stack;
-   stack = (TH2F*)histos_2DError[plot_index][Settings::fs4l][cat][Settings::all_resonant][Settings::H125]->Clone();
-   stack->Add(histos_2DError[plot_index][Settings::fs4l][cat][Settings::all_resonant][Settings::qqZZ]);
-   stack->Add(histos_2DError[plot_index][Settings::fs4l][cat][Settings::all_resonant][Settings::ggZZ]);
+   stack = (TH2F*)histos_2DError[plot_index][Settings::fs4l][cat][Settings::H125]->Clone();
+   stack->Add(histos_2DError[plot_index][Settings::fs4l][cat][Settings::qqZZ]);
+   stack->Add(histos_2DError[plot_index][Settings::fs4l][cat][Settings::ggZZ]);
    
    stack->GetXaxis()->SetTitleOffset(1.2);
    stack->GetYaxis()->SetTitleOffset(1.1);
@@ -3066,9 +2921,9 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    plot_pad->cd();
    // Plot MC histogram
    TH2F* stack;
-   stack = (TH2F*)histos_2DError[plot_index][Settings::fs4l][Settings::inclusive][Settings::all_resonant][Settings::H125]->Clone();
-   stack->Add(histos_2DError[plot_index][Settings::fs4l][Settings::inclusive][Settings::all_resonant][Settings::qqZZ]);
-   stack->Add(histos_2DError[plot_index][Settings::fs4l][Settings::inclusive][Settings::all_resonant][Settings::ggZZ]);
+   stack = (TH2F*)histos_2DError[plot_index][Settings::fs4l][Settings::inclusive][Settings::H125]->Clone();
+   stack->Add(histos_2DError[plot_index][Settings::fs4l][Settings::inclusive][Settings::qqZZ]);
+   stack->Add(histos_2DError[plot_index][Settings::fs4l][Settings::inclusive][Settings::ggZZ]);
    
    stack->GetXaxis()->SetTitleOffset(1.2);
    stack->GetYaxis()->SetTitleOffset(1.1);
@@ -3213,9 +3068,9 @@ void Histograms::FillYieldGraphs( float M4l_down, float M4l_up)
                
                if ( process == Settings::yH124WH || process == Settings::yH124ttH ) continue;
                   
-               temp_yield = histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][process]->IntegralAndError(
-                            histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][process]->FindBin(M4l_down),
-                            histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][process]->FindBin(M4l_up) - 1, temp_error);
+               temp_yield = histos_1D[Settings::M4lYields][i_fs][i_cat][process]->IntegralAndError(
+                            histos_1D[Settings::M4lYields][i_fs][i_cat][process]->FindBin(M4l_down),
+                            histos_1D[Settings::M4lYields][i_fs][i_cat][process]->FindBin(M4l_up) - 1, temp_error);
                
                cout << " " << temp_yield;
                
@@ -3368,13 +3223,13 @@ void Histograms::PrepareYamlFiles( TString sqrt, float M4l_down, float M4l_up, v
             }
             out_file[i_fs] << endl;
          }
-         out_file[i_fs] << _s_process.at(Settings::yqqZZ) << ": '" << histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][Settings::yqqZZ]->Integral(
-                                                                      histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][Settings::yqqZZ]->FindBin(M4l_down),
-                                                                      histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][Settings::yqqZZ]->FindBin(M4l_up) - 1) << "'" << endl;
+         out_file[i_fs] << _s_process.at(Settings::yqqZZ) << ": '" << histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yqqZZ]->Integral(
+                                                                      histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yqqZZ]->FindBin(M4l_down),
+                                                                      histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yqqZZ]->FindBin(M4l_up) - 1) << "'" << endl;
          
-         out_file[i_fs] << _s_process.at(Settings::yggZZ) << ": '" << histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][Settings::yggZZ]->Integral(
-                                                                     histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][Settings::yggZZ]->FindBin(M4l_down),
-                                                                     histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][Settings::yggZZ]->FindBin(M4l_up) - 1) << "'" << endl;
+         out_file[i_fs] << _s_process.at(Settings::yggZZ) << ": '" << histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yggZZ]->Integral(
+                                                                     histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yggZZ]->FindBin(M4l_down),
+                                                                     histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::yggZZ]->FindBin(M4l_up) - 1) << "'" << endl;
          
          out_file[i_fs] << "zjets: '" << ZXYields->GetM4lZX_Yields(_expected_yield_SR, M4l_down, M4l_up, i_fs, i_cat) << endl;
          out_file[i_fs] << endl;
@@ -3418,7 +3273,7 @@ void Histograms::PrintYields( vector< vector <float> > _expected_yield_SR)
          {
             if( i_fs == Settings::fs2mu2e ) continue;
       
-            cout << histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->Integral() << "   ";
+            cout << histos_1D[Settings::M4lYields][i_fs][i_cat][i_proc]->Integral() << "   ";
          }
          cout << endl;
       }
@@ -3476,9 +3331,9 @@ void Histograms::PrintYields(float M4l_down, float M4l_up, vector< vector <float
          {
             if( i_fs == Settings::fs2mu2e ) continue;
       
-            cout << histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->Integral(
-                    histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_down),
-                    histos_1D[Settings::M4lYields][i_fs][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_up) - 1)
+            cout << histos_1D[Settings::M4lYields][i_fs][i_cat][i_proc]->Integral(
+                    histos_1D[Settings::M4lYields][i_fs][i_cat][i_proc]->FindBin(M4l_down),
+                    histos_1D[Settings::M4lYields][i_fs][i_cat][i_proc]->FindBin(M4l_up) - 1)
             << "   ";
          }
          cout << endl;
@@ -3538,7 +3393,7 @@ void Histograms::PrintLatexTables(float M4l_down, float M4l_up, vector< vector <
          for (int i_fs = 0; i_fs < num_of_final_states; i_fs++)
          {
             if ( i_fs == Settings::fs2mu2e) continue;
-            temp_yield = histos_1D[Settings::M4lYields][i_fs][Settings::inclusive][Settings::all_resonant][i_proc]->Integral();
+            temp_yield = histos_1D[Settings::M4lYields][i_fs][Settings::inclusive][i_proc]->Integral();
             yields_map[i_proc].push_back(temp_yield);
          }
       }
@@ -3637,9 +3492,9 @@ void Histograms::PrintLatexTables(float M4l_down, float M4l_up, vector< vector <
          for (int i_fs = 0; i_fs < num_of_final_states; i_fs++)
          {
             if ( i_fs == Settings::fs2mu2e) continue;
-            temp_yield = histos_1D[Settings::M4lYields][i_fs][Settings::inclusive][Settings::all_resonant][i_proc]->Integral(
-                         histos_1D[Settings::M4lYields][i_fs][Settings::inclusive][Settings::all_resonant][i_proc]->FindBin(M4l_down),
-                         histos_1D[Settings::M4lYields][i_fs][Settings::inclusive][Settings::all_resonant][i_proc]->FindBin(M4l_up)-1);
+            temp_yield = histos_1D[Settings::M4lYields][i_fs][Settings::inclusive][i_proc]->Integral(
+                         histos_1D[Settings::M4lYields][i_fs][Settings::inclusive][i_proc]->FindBin(M4l_down),
+                         histos_1D[Settings::M4lYields][i_fs][Settings::inclusive][i_proc]->FindBin(M4l_up)-1);
             yields_map[i_proc].push_back(temp_yield);
          }
       }
@@ -3738,9 +3593,9 @@ void Histograms::PrintLatexTables(float M4l_down, float M4l_up, vector< vector <
          if (i_proc == Settings::yH125ggH || i_proc == Settings::yH125VBF || i_proc == Settings::yH125WH || i_proc == Settings::yH125ZH 
          || i_proc == Settings::yH125ttH || i_proc == Settings::yqqZZ || i_proc == Settings::yggZZ)
          {
-            temp_yield = histos_1D[Settings::M4lYields][Settings::fs4l][i_cat][Settings::all_resonant][i_proc]->Integral(
-                         histos_1D[Settings::M4lYields][Settings::fs4l][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_down),
-                         histos_1D[Settings::M4lYields][Settings::fs4l][i_cat][Settings::all_resonant][i_proc]->FindBin(M4l_up) - 1);
+            temp_yield = histos_1D[Settings::M4lYields][Settings::fs4l][i_cat][i_proc]->Integral(
+                         histos_1D[Settings::M4lYields][Settings::fs4l][i_cat][i_proc]->FindBin(M4l_down),
+                         histos_1D[Settings::M4lYields][Settings::fs4l][i_cat][i_proc]->FindBin(M4l_up) - 1);
          
             yields_map[i_cat].push_back(temp_yield);
          }
@@ -3861,7 +3716,7 @@ void Histograms::SavePlots( TCanvas *c, TString name)
    c->SaveAs(name + ".root");
 //   c->SaveAs(name + ".C");
    c->SaveAs(name + ".eps");
-   gSystem->Exec("convert -density 300 -quality 100 " + name + ".eps " + name + ".png");
+   gSystem->Exec("convert -density 150 -quality 100 " + name + ".eps " + name + ".png");
 }
 //=======================================
 

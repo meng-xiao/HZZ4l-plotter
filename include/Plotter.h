@@ -42,7 +42,14 @@
 #define USE_ZX_RUN2_COMBINED_SHAPE 0
 #define USE_ZX_FULL_RUN2_SS 1
 #define RENORMALIZE_ZX_FULL_RUN2_SS 1
-#define SMOOTH_ZX_FULL_RUN2_SS 1
+#define SMOOTH_ZX_FULL_RUN2_SS 0
+
+#define NEWWP2J 0.5
+#define NEWWP1J 0.5
+#define COMWPVH 0.5
+#define NEWWPWH COMWPVH
+#define NEWWPZH COMWPVH
+#define NEWWPVH COMWPVH
 
 using namespace std;
 
@@ -61,7 +68,6 @@ public:
    int FindFinalState();
    int FindFinalStateZX();
    int find_current_process( TString );
-   int find_resonant_status();
    bool blind( float );
    void FillInclusive();
    void Save();
@@ -108,7 +114,7 @@ private:
    
    float _blinding_lower[2], _blinding_upper[2];
    
-   int _current_process, _current_final_state, _current_category, _current_resonant_status;
+   int _current_process, _current_final_state, _current_category;
    float _lumi, _k_factor, _SMP_signal_strength, _yield_SR, partial_sample_weight;
    double gen_sum_weights, _event_weight;
    

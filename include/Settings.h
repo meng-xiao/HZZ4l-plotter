@@ -13,7 +13,6 @@ public:
    
    enum _blindings { fullyblind = 0, blindabove_110 = 1, blindbelow_150 = 2, blind_110_150 = 3, unblinded = 4 };
    enum _final_state { fs4e = 0, fs4mu = 1, fs2e2mu = 2, fs2mu2e = 3, fs4l = 4, MAX_NUM_OF_FINAL_STATES };
-   enum _resonant_status { resonant = 0, nonresonant = 1, all_resonant = 2, MAX_NUM_OF_RESONANT_STATUSES };
    
    enum _category
    {
@@ -28,7 +27,7 @@ public:
       MAX_NUM_OF_CATEGORIES
    };
    
-   enum _1Dplot_name
+   enum _1D_plot_name
    {
       M4lMain = 0,
       M4lMainZoomed = 1,
@@ -48,12 +47,17 @@ public:
       DZH = 15,
       DZH_M4L118130 = 16,
       M4lYields = 17,
-      MAX_NUM_OF_1DPLOT_NAMES
+      MAX_NUM_OF_1D_PLOT_NAMES
    };
    
-   enum _2Dplot_name { MZ1vsMZ2 = 0, MZ1vsMZ2_M4L118130 = 1, MAX_NUM_OF_2DPLOT_NAMES};
+   enum _2D_plot_name
+   {
+      MZ1vsMZ2 = 0,
+      MZ1vsMZ2_M4L118130 = 1,
+      MAX_NUM_OF_2D_PLOT_NAMES
+   };
    
-   enum _2DErrorplot_name 
+   enum _2D_error_plot_name 
    {
       KDvsM4l = 0,
       KDvsM4lZoomed = 1,
@@ -62,7 +66,7 @@ public:
       D2jetvsM4lZoomed = 4,
       DWHvsM4lZoomed = 5,
       DZHvsM4lZoomed = 6,
-      MAX_NUM_OF_2DERRORPLOT_NAMES
+      MAX_NUM_OF_2D_ERROR_PLOT_NAMES
    };
    
    enum _production_modes { ggH = 0, VBF = 1, WH = 2, ZH = 3, ttH = 4, MAX_NUM_OF_PRODUCTION_MODES };
@@ -122,15 +126,14 @@ public:
       MAX_NUM_OF_PROCESSES_YIELDS
    };
    
-   static const int num_of_production_modes  = MAX_NUM_OF_PRODUCTION_MODES;
-   static const int num_of_processes         = MAX_NUM_OF_PROCESSES;
-   static const int num_of_processes_yields  = MAX_NUM_OF_PROCESSES_YIELDS;
-   static const int num_of_final_states      = MAX_NUM_OF_FINAL_STATES;
-   static const int num_of_res_statuses      = MAX_NUM_OF_RESONANT_STATUSES;
-   static const int num_of_categories        = MAX_NUM_OF_CATEGORIES;
-   static const int num_of_1Dplot_names      = MAX_NUM_OF_1DPLOT_NAMES;
-   static const int num_of_2Dplot_names      = MAX_NUM_OF_2DPLOT_NAMES;
-   static const int num_of_2DErrorplot_names = MAX_NUM_OF_2DERRORPLOT_NAMES;
+   static const int num_of_production_modes    = MAX_NUM_OF_PRODUCTION_MODES;
+   static const int num_of_processes           = MAX_NUM_OF_PROCESSES;
+   static const int num_of_processes_yields    = MAX_NUM_OF_PROCESSES_YIELDS;
+   static const int num_of_final_states        = MAX_NUM_OF_FINAL_STATES;
+   static const int num_of_categories          = MAX_NUM_OF_CATEGORIES;
+   static const int num_of_1D_plot_names       = MAX_NUM_OF_1D_PLOT_NAMES;
+   static const int num_of_2D_plot_names       = MAX_NUM_OF_2D_PLOT_NAMES;
+   static const int num_of_2D_error_plot_names = MAX_NUM_OF_2D_ERROR_PLOT_NAMES;
    
    private:
       
