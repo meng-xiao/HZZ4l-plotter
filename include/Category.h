@@ -94,6 +94,27 @@ extern "C" int categoryMor17(
                              bool useQGTagging = false
                              );
 
+//int category(
+extern "C" int categoryAnomalousCouplings(
+                                          int nExtraLep,
+                                          int nExtraZ,
+                                          int nCleanedJetsPt30,
+                                          int nCleanedJetsPt30BTagged_bTagSF,
+                                          float p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal,
+                                          float p_JJVBF_SIG_ghv1_1_JHUGen_JECNominal,
+                                          float p_JJVBF_SIG_ghv4_1_JHUGen_JECNominal,
+                                          float p_HadWH_SIG_ghw1_1_JHUGen_JECNominal,
+                                          float p_HadZH_SIG_ghz1_1_JHUGen_JECNominal,
+                                          float p_HadWH_SIG_ghw4_1_JHUGen_JECNominal,
+                                          float p_HadZH_SIG_ghz4_1_JHUGen_JECNominal,
+                                          float ZZMass
+                             );
+
+enum CategoryAnomalousCouplings {
+   UntaggedAC     = 0,
+   VBFTaggedAC    = 1,
+   VHTaggedAC     = 2,
+};
 
 
 #endif

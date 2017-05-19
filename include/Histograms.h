@@ -40,11 +40,16 @@ using namespace std;
 const int num_of_production_modes    = Settings::num_of_production_modes;
 const int num_of_processes           = Settings::num_of_processes;
 const int num_of_processes_yields    = Settings::num_of_processes_yields;
+const int num_of_processes_AC        = Settings::num_of_processes_AC;
 const int num_of_final_states        = Settings::num_of_final_states;
 const int num_of_categories          = Settings::num_of_categories;
+const int num_of_categories_AC       = Settings::num_of_categories_AC;
 const int num_of_1D_plot_names       = Settings::num_of_1D_plot_names;
 const int num_of_2D_plot_names       = Settings::num_of_2D_plot_names;
 const int num_of_2D_error_plot_names = Settings::num_of_2D_error_plot_names;
+const int num_of_1D_ACplot_names     = Settings::num_of_1D_ACplot_names;
+const int num_of_2D_ACplot_names     = Settings::num_of_2D_ACplot_names;
+const int num_of_m4l_slices          = Settings::num_of_m4l_slices;
 
 
 class Histograms
@@ -53,6 +58,7 @@ class Histograms
 public:
    Histograms( double );
    Histograms( double, string );
+   Histograms( double, int );
    ~Histograms();
    
    void FillM4l( float, float, int, int, int );
@@ -84,24 +90,32 @@ public:
    void FillVectors( float, float, float, int, float, float, float, float, int, int) ;
    void FillDvsM4l( float, float, int, float, float, float, float, float, int, int, int );
    
+   void FillACHistos( int, int, int, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float);
+   
    void FillYields( float, float, int, int, int );
    
-   void SaveHistos( string );
-   void SaveYieldHistos( string );
+   void SaveHistos( TString );
+   void SaveYieldHistos( TString );
+   void SaveACHistos( TString );
    void DeleteHistos();
    void DeleteYieldsHistos();
+   void DeleteACHistos();
    void FillInclusive();
    void FillInclusiveYields();
+   void FillInclusiveAC();
    void SmoothHistograms();
    void RenormalizeZX( vector<vector<float>> );
    void GetHistos( TString );
    void GetYieldsHistos( TString );
+   void GetACHistos( TString );
    void Plot1D_single( TString, TString, TString, int, int );
    void Plot1D_all_cat( TString, TString, TString );
    void Plot1D_allFS( TString, TString, TString );
    void Plot2D_single( TString, TString, TString, int );
    void Plot2DError_single( TString, TString, TString, int );
    void Plot2DErrorAllCat( TString , TString , TString );
+   void Plot1D_AC( TString, TString );
+   void Plot2D_AC( TString, TString );
    void FillYieldGraphs( float, float );
    void PrepareYamlFiles( TString , float , float, vector<vector<float>> );
    void PrintYields( vector<vector<float>> );
@@ -111,6 +125,7 @@ public:
    void MakeZXShape( vector<vector<float>>, int );
    void DrawLogX( TCanvas *, int, int );
    void MakeCOLZGrey( bool );
+   void ConditionalizeInM4L();
    void SavePlots( TCanvas *, TString );
    void Rebin( THStack * );
    void ChangeYaxisTitle( THStack * );
@@ -141,7 +156,7 @@ private:
 
    vector<double> mass_points;
 
-   vector<TString> _s_category, _s_category_label, _s_final_state, _s_process, _s_production_mode;
+   vector<TString> _s_category, _s_category_label, _s_final_state, _s_process, _s_production_mode, _s_m4l_slice;
    string _histo_name, _histo_labels, _blinding;
    
    TString _graph_name, _fit_funct_name, _fs_label, _out_file_name;
@@ -150,6 +165,7 @@ private:
 // 1D plots
 //==========
    TH1F *histos_1D[num_of_1D_plot_names][num_of_final_states][num_of_categories][num_of_processes_yields];
+   TH1F *histos_1D_AC[num_of_1D_ACplot_names][num_of_m4l_slices][num_of_final_states][num_of_categories_AC][num_of_processes_AC];
    
    // Z+X
    TH1F *histos_1D_ZX[num_of_1D_plot_names][num_of_final_states][num_of_categories];
@@ -159,6 +175,7 @@ private:
 // 2D plots
 //==========
    TH2F *histos_2D[num_of_2D_plot_names][num_of_final_states][num_of_categories][num_of_processes];
+   TH2F *histos_2D_AC[num_of_2D_ACplot_names][num_of_final_states][num_of_categories_AC][num_of_processes_AC];
    
 //==========================
 // 2D plots with mass error

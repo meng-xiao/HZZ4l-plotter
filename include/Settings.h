@@ -27,6 +27,14 @@ public:
       MAX_NUM_OF_CATEGORIES
    };
    
+   enum _category_AC
+   {
+      ac_untagged = 0,
+      ac_VBF_tagged = 1,
+      ac_VH_tagged = 2,
+      MAX_NUM_OF_CATEGORIES_AC
+   };
+   
    enum _1D_plot_name
    {
       M4lMain = 0,
@@ -69,6 +77,35 @@ public:
       MAX_NUM_OF_2D_ERROR_PLOT_NAMES
    };
    
+   enum _1D_ACplot_name
+   {
+      DZeroMinus = 0,
+      DZerohPlus = 1,
+      DL1        = 2,
+      MAX_NUM_OF_1D_ACPLOT_NAMES
+   };
+   
+   enum _2D_ACplot_name
+   {
+      DZeroMinusvsM4l = 0,
+      DZerohPlusvsM4l = 1,
+      DL1vsM4l        = 2,
+      MAX_NUM_OF_2D_ACPLOT_NAMES
+   };
+
+   enum _m4l_slices
+   {
+      _70To220 = 0,
+      _220To370 = 1,
+      _370To520 = 2,
+      _520To670 = 3,
+      _670To820 = 4,
+      _820To970 = 5,
+      OnShell = 6,
+      OffShell = 7,
+      MAX_NUM_OF_M4L_SLICES
+   };
+   
    enum _production_modes { ggH = 0, VBF = 1, WH = 2, ZH = 3, ttH = 4, MAX_NUM_OF_PRODUCTION_MODES };
    
    enum _process
@@ -84,6 +121,25 @@ public:
       DY = 8,
       ttbar = 9,
       MAX_NUM_OF_PROCESSES
+   };
+   
+   enum _process_AC
+   {
+      acData = 0,
+      acH125 = 1,
+      acH125ggH = 2,
+      acH125VBF = 3,
+      acH125VH = 4,
+      acH125ttH = 5,
+      acqqZZ = 6,
+      acggZZ = 7,
+      acH125_0MH = 8,
+      acH125_0PH = 9,
+      acH125_0PL1 = 10,
+      acH125_0MHf05 = 11,
+      acH125_0PHf05 = 12,
+      acH125_0PL1f05 = 13,
+      MAX_NUM_OF_PROCESSES_AC
    };
    
    enum _process_yields
@@ -129,11 +185,16 @@ public:
    static const int num_of_production_modes    = MAX_NUM_OF_PRODUCTION_MODES;
    static const int num_of_processes           = MAX_NUM_OF_PROCESSES;
    static const int num_of_processes_yields    = MAX_NUM_OF_PROCESSES_YIELDS;
+   static const int num_of_processes_AC        = MAX_NUM_OF_PROCESSES_AC;
    static const int num_of_final_states        = MAX_NUM_OF_FINAL_STATES;
    static const int num_of_categories          = MAX_NUM_OF_CATEGORIES;
+   static const int num_of_categories_AC       = MAX_NUM_OF_CATEGORIES_AC;
    static const int num_of_1D_plot_names       = MAX_NUM_OF_1D_PLOT_NAMES;
    static const int num_of_2D_plot_names       = MAX_NUM_OF_2D_PLOT_NAMES;
    static const int num_of_2D_error_plot_names = MAX_NUM_OF_2D_ERROR_PLOT_NAMES;
+   static const int num_of_1D_ACplot_names     = MAX_NUM_OF_1D_ACPLOT_NAMES;
+   static const int num_of_2D_ACplot_names     = MAX_NUM_OF_2D_ACPLOT_NAMES;
+   static const int num_of_m4l_slices          = MAX_NUM_OF_M4L_SLICES;
    
    private:
       

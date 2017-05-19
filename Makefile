@@ -33,8 +33,21 @@ SRCPP_YIELDS = run_yields.cpp\
                ZXVariables.cpp\
                CMS_lumi.cpp
 
+SRCPP_OFFSHELLAC = run_OffshellAC.cpp\
+                   Offshell_AC.cpp\
+                   Histograms.cpp\
+                   Variables.cpp\
+                   Tree.cpp\
+                   Settings.cpp\
+                   M4lZX.cpp\
+                   FakeRates.cpp\
+                   Category.cpp\
+                   ZXVariables.cpp\
+                   CMS_lumi.cpp
+
 INCLUDES = Plotter.h\
            Yields.h\
+	   Offshell_AC.h\
            Histograms.h\
            Variables.h\
            Tree.h\
@@ -49,11 +62,13 @@ INCLUDES = Plotter.h\
     
 OBJCPP_PLOTTER = $(patsubst %.cpp,obj/%.o,$(SRCPP_PLOTTER))
 OBJCPP_YIELDS = $(patsubst %.cpp,obj/%.o,$(SRCPP_YIELDS))
+OBJCPP_OFFSHELLAC = $(patsubst %.cpp,obj/%.o,$(SRCPP_OFFSHELLAC))
 
 
 all: run
 plotter: run_plotter
 yields: run_yields
+offshellAC: run_OffshellAC
 
 
 obj/%.o: %.cpp $(INCLUDES)
@@ -68,6 +83,10 @@ run_plotter: $(OBJCPP_PLOTTER)
 
 
 run_yields: $(OBJCPP_YIELDS)
+	@echo ">> linking..."
+	@$(CXX) $^ $(EXTLIBS) ${LDFLAGS} ${CXXFLAGS}  -o $@
+
+run_OffshellAC: $(OBJCPP_OFFSHELLAC)
 	@echo ">> linking..."
 	@$(CXX) $^ $(EXTLIBS) ${LDFLAGS} ${CXXFLAGS}  -o $@
    

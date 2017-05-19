@@ -192,3 +192,57 @@ extern "C" int categoryMor17(
    }
    
 }
+
+extern "C" int categoryAnomalousCouplings(
+                             int nExtraLep,
+                             int nExtraZ,
+                             int nCleanedJetsPt30,
+                             int nCleanedJetsPt30BTagged_bTagSF,
+                             float p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal,
+                             float p_JJVBF_SIG_ghv1_1_JHUGen_JECNominal,
+                             float p_JJVBF_SIG_ghv4_1_JHUGen_JECNominal,
+                             float p_HadWH_SIG_ghw1_1_JHUGen_JECNominal,
+                             float p_HadZH_SIG_ghz1_1_JHUGen_JECNominal,
+                             float p_HadWH_SIG_ghw4_1_JHUGen_JECNominal,
+                             float p_HadZH_SIG_ghz4_1_JHUGen_JECNominal,
+                             float ZZMass
+                             )
+{
+   
+   float D_VBF = -2;
+   float D_ZH  = -2;
+   float D_WH  = -2;
+
+   if(nCleanedJetsPt30>=2)
+   {
+      D_VBF  = TMath::Max(DVBF2j_ME_shiftWP(p_JJVBF_SIG_ghv1_1_JHUGen_JECNominal, p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass),DVBF2j_ME_shiftWP(p_JJVBF_SIG_ghv4_1_JHUGen_JECNominal, p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass));
+      D_ZH   = TMath::Max(DZHh_ME_shiftWP(p_HadZH_SIG_ghz1_1_JHUGen_JECNominal, p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass), DZHh_ME_shiftWP(p_HadZH_SIG_ghz4_1_JHUGen_JECNominal, p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass));
+      D_WH   = TMath::Max(DWHh_ME_shiftWP(p_HadWH_SIG_ghw1_1_JHUGen_JECNominal, p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass), DWHh_ME_shiftWP(p_HadWH_SIG_ghw4_1_JHUGen_JECNominal, p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass));
+   }
+   
+   float WP_VBF = 0.5;
+   float WP_VH  = 0.5;
+   
+   if( nExtraLep==0 && (((nCleanedJetsPt30==2||nCleanedJetsPt30==3)&&nCleanedJetsPt30BTagged_bTagSF<=1)||(nCleanedJetsPt30>=4&&nCleanedJetsPt30BTagged_bTagSF==0)) && D_VBF>WP_VBF )
+   {
+      
+      return VBFTaggedAC;
+      
+   }
+   
+   else if( nExtraLep==0 && (nCleanedJetsPt30==2||nCleanedJetsPt30==3||(nCleanedJetsPt30>=4&&nCleanedJetsPt30BTagged_bTagSF==0)) && ((D_ZH > WP_VH) || (D_WH > WP_VH)) )
+   {
+      
+      return VHTaggedAC;
+      
+   }
+   
+   else
+   {
+      
+      return UntaggedAC;
+      
+   }
+   
+}
+

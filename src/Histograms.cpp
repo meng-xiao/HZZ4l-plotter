@@ -411,6 +411,102 @@ Histograms::Histograms( double lumi)
 }
 //==================================
 
+//Constructor
+//==================================
+Histograms::Histograms( double lumi, int dummy)
+{
+   _lumi = lumi;
+   _blinding = "Unblinded";
+   
+   _s_process.push_back("Data");
+   _s_process.push_back("H125");
+   _s_process.push_back("H125ggH");
+   _s_process.push_back("H125VBF");
+   _s_process.push_back("H125VH");
+   _s_process.push_back("H125ttH");
+   
+   _s_process.push_back("qqZZ");
+   _s_process.push_back("ggZZ");
+   
+   _s_process.push_back("H125_0MH");
+   _s_process.push_back("H125_0PH");
+   _s_process.push_back("H125_0PL1");
+   
+   _s_process.push_back("H125_0MHf05");
+   _s_process.push_back("H125_0PHf05");
+   _s_process.push_back("H125_0PL1f05");
+
+   
+   _s_final_state.push_back("4e");
+   _s_final_state.push_back("4mu");
+   _s_final_state.push_back("2e2mu");
+   _s_final_state.push_back("2mu2e");
+   _s_final_state.push_back("4l");
+   
+   _s_category.push_back("UnTagged");
+   _s_category.push_back("VBFTagged");
+   _s_category.push_back("VHTagged");
+   _s_category.push_back("Inclusive");
+   
+   _s_m4l_slice.push_back("70To220");
+   _s_m4l_slice.push_back("220To370");
+   _s_m4l_slice.push_back("370To520");
+   _s_m4l_slice.push_back("520To670");
+   _s_m4l_slice.push_back("670To820");
+   _s_m4l_slice.push_back("820To970");
+   _s_m4l_slice.push_back("OnShell");
+   _s_m4l_slice.push_back("OffShell");
+   
+   
+   
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      for ( int i_cat = 0; i_cat < num_of_categories_AC; i_cat++ )
+      {
+         for ( int i_proc = 0; i_proc < num_of_processes_AC; i_proc++ )
+         {
+            _histo_name = "DZeroMinusvsM4l_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + "_" + _blinding;
+            _histo_labels = ";" + Variables::DZeroMinusvsM4l().var_X_label + ";" + Variables::DZeroMinusvsM4l().var_Y_label;
+            histos_2D_AC[Settings::DZeroMinusvsM4l][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DZeroMinusvsM4l().var_X_N_bin,
+                                                                                    Variables::DZeroMinusvsM4l().var_X_min, Variables::DZeroMinusvsM4l().var_X_max, Variables::DZeroMinusvsM4l().var_Y_N_bin,
+                                                                                    Variables::DZeroMinusvsM4l().var_Y_min, Variables::DZeroMinusvsM4l().var_Y_max);
+            
+            _histo_name = "DZerohPlusvsM4l_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + "_" + _blinding;
+            _histo_labels = ";" + Variables::DZerohPlusvsM4l().var_X_label + ";" + Variables::DZerohPlusvsM4l().var_Y_label;
+            histos_2D_AC[Settings::DZerohPlusvsM4l][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DZerohPlusvsM4l().var_X_N_bin,
+                                                                                    Variables::DZerohPlusvsM4l().var_X_min, Variables::DZerohPlusvsM4l().var_X_max, Variables::DZerohPlusvsM4l().var_Y_N_bin,
+                                                                                    Variables::DZerohPlusvsM4l().var_Y_min, Variables::DZerohPlusvsM4l().var_Y_max);
+            
+            _histo_name = "DL1vsM4l_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + "_" + _blinding;
+            _histo_labels = ";" + Variables::DL1vsM4l().var_X_label + ";" + Variables::DL1vsM4l().var_Y_label;
+            histos_2D_AC[Settings::DL1vsM4l][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DL1vsM4l().var_X_N_bin,
+                                                                                    Variables::DL1vsM4l().var_X_min, Variables::DL1vsM4l().var_X_max, Variables::DL1vsM4l().var_Y_N_bin,
+                                                                                    Variables::DL1vsM4l().var_Y_min, Variables::DL1vsM4l().var_Y_max);
+            
+            for ( int i_slice = 0; i_slice < num_of_m4l_slices; i_slice++ )
+            {
+               _histo_name = "DZeroMinus_" + _s_m4l_slice.at(i_slice) + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + "_" + _blinding;
+               _histo_labels = ";" + Variables::DZeroMinus().var_X_label + ";" + Variables::DZeroMinus().var_Y_label;
+               histos_1D_AC[Settings::DZeroMinus][i_slice][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DZeroMinus().var_N_bin,
+                                                                                           Variables::DZeroMinus().var_min, Variables::DZeroMinus().var_max);
+               
+               _histo_name = "DZerohPlus_" + _s_m4l_slice.at(i_slice) + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + "_" + _blinding;
+               _histo_labels = ";" + Variables::DZerohPlus().var_X_label + ";" + Variables::DZerohPlus().var_Y_label;
+               histos_1D_AC[Settings::DZerohPlus][i_slice][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DZerohPlus().var_N_bin,
+                                                                                           Variables::DZerohPlus().var_min, Variables::DZerohPlus().var_max);
+               
+               _histo_name = "DL1_" + _s_m4l_slice.at(i_slice) + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + "_" + _blinding;
+               _histo_labels = ";" + Variables::DL1().var_X_label + ";" + Variables::DL1().var_Y_label;
+               histos_1D_AC[Settings::DL1][i_slice][i_fs][i_cat][i_proc] = new TH1F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DL1().var_N_bin,
+                                                                                           Variables::DL1().var_min, Variables::DL1().var_max);
+            }
+         }
+      }
+   }
+}
+//==================================
+
+
 
 
 //=======================
@@ -654,7 +750,218 @@ void Histograms::FillMZ1vsMZ2( float M4l, float MZ1, float MZ2, float weight, in
 }
 //====================================================================================
 
+//=========
+// ACHistos
+//====================================================================================
+void Histograms::FillACHistos( int cat, int fs, int proc, float M4l, float weight, float p_GG_ghz1, float p_GG_ghz4, float p_GG_ghz2, float p_GG_ghz1prime2, float p_JJVBF_ghv1, float p_JJVBF_ghv4, float p_JJVBF_ghv2, float p_JJVBF_ghv1prime2, float p_ZH_ghv1, float p_ZH_ghv4, float p_ZH_ghv2, float p_ZH_ghv1prime2 ,float p_WH_ghv1, float p_WH_ghv4, float p_WH_ghv2, float p_WH_ghv1prime2 )
+{
+   
+   //============
+   // DZeroMinus
+   //====================================================================================
+   float DZeroMinus = -2;
+   
+   float g_Decay_onshell  = 2.55502;
+   float g_Decay_offshell = 0.366354;
+   float g_VBF_onshell    = 0.297979;
+   float g_VBF_offshell   = 0.297979;
+   float g_ZH_onshell     = 0.144057;
+   float g_ZH_offshell    = 0.144057;
+   float g_WH_onshell     = 0.1236136;
+   float g_WH_offshell    = 0.1236136;
+   float g_VH_onshell     = 0.1274;
+   float g_VH_offshell    = 0.1274;
+   
+   if ( cat == Settings::ac_untagged)
+   {
+      if ( M4l <= 220) DZeroMinus = p_GG_ghz1 / (p_GG_ghz1 + g_Decay_onshell * g_Decay_onshell * p_GG_ghz4 );
+      else DZeroMinus = p_GG_ghz1 / (p_GG_ghz1 + g_Decay_offshell * g_Decay_offshell * p_GG_ghz4 );
+   }
+   
+   else if ( cat == Settings::ac_VBF_tagged)
+   {
+      if ( M4l <= 220) DZeroMinus = p_JJVBF_ghv1*p_GG_ghz1 / (p_JJVBF_ghv1*p_GG_ghz1 + (g_VBF_onshell * g_Decay_onshell) * (g_VBF_onshell * g_Decay_onshell) * p_JJVBF_ghv4*p_GG_ghz4 );
+      else DZeroMinus = p_JJVBF_ghv1*p_GG_ghz1 / (p_JJVBF_ghv1*p_GG_ghz1 + (g_VBF_offshell * g_Decay_offshell) * (g_VBF_offshell * g_Decay_offshell) * p_JJVBF_ghv4*p_GG_ghz4 );
+         
+   }
+   
+   else if ( cat == Settings::ac_VH_tagged)
+   {
+      if ( M4l <= 220) DZeroMinus = (p_ZH_ghv1 + p_WH_ghv1)*p_GG_ghz1 / ((p_ZH_ghv1 + p_WH_ghv1)*p_GG_ghz1 + (g_VH_onshell * g_Decay_onshell) * (g_VH_onshell * g_Decay_onshell) * (p_ZH_ghv4 + p_WH_ghv4)*p_GG_ghz4 );
+      else DZeroMinus = (p_ZH_ghv1 + p_WH_ghv1)*p_GG_ghz1 / ((p_ZH_ghv1 + p_WH_ghv1)*p_GG_ghz1 + (g_VH_offshell * g_Decay_offshell) * (g_VH_offshell * g_Decay_offshell) * (p_ZH_ghv4 + p_WH_ghv4)*p_GG_ghz4 );
+            
+   }
+   
+   if ( DZeroMinus < 0 || DZeroMinus > 1)
+   {
+      cout << "[ERROR] Discriminant value is out of bounds!" << endl;
+      exit(0);
+   }
+   
+   if ( proc <= Settings::acH125ttH || proc == Settings::acH125_0MH)
+   {
+      if( M4l <= 220) histos_1D_AC[Settings::DZeroMinus][Settings::_70To220][fs][cat][proc]->Fill(DZeroMinus, (proc == Settings::Data) ? 1. : weight);
+      else if( M4l <= 370) histos_1D_AC[Settings::DZeroMinus][Settings::_220To370][fs][cat][proc]->Fill(DZeroMinus, (proc == Settings::Data) ? 1. : weight);
+      else if( M4l <= 520) histos_1D_AC[Settings::DZeroMinus][Settings::_370To520][fs][cat][proc]->Fill(DZeroMinus, (proc == Settings::Data) ? 1. : weight);
+      else if( M4l <= 670) histos_1D_AC[Settings::DZeroMinus][Settings::_520To670][fs][cat][proc]->Fill(DZeroMinus, (proc == Settings::Data) ? 1. : weight);
+      else if( M4l <= 820) histos_1D_AC[Settings::DZeroMinus][Settings::_670To820][fs][cat][proc]->Fill(DZeroMinus, (proc == Settings::Data) ? 1. : weight);
+      else histos_1D_AC[Settings::DZeroMinus][Settings::_820To970][fs][cat][proc]->Fill(DZeroMinus, (proc == Settings::Data) ? 1. : weight);
+      
+      if( M4l <= 220) histos_1D_AC[Settings::DZeroMinus][Settings::OnShell][fs][cat][proc]->Fill(DZeroMinus, (proc == Settings::Data) ? 1. : weight);
+      else histos_1D_AC[Settings::DZeroMinus][Settings::OffShell][fs][cat][proc]->Fill(DZeroMinus, (proc == Settings::Data) ? 1. : weight);
+      
+      histos_2D_AC[Settings::DZeroMinusvsM4l][fs][cat][proc]->Fill(M4l, DZeroMinus, (proc == Settings::Data) ? 1. : weight);
+   }
+   //====================================================================================
+   
+   
+   //============
+   // DZerohPlus
+   //====================================================================================
+   float DZerohPlus = -2;
+   
+   g_Decay_onshell  = 2.55502;
+   g_Decay_offshell = 0.366354;
+   g_VBF_onshell    = 0.27196;
+   g_VBF_offshell   = 0.27196;
+   g_ZH_onshell     = 0.112481;
+   g_ZH_offshell    = 0.112481;
+   g_WH_onshell     = 0.112481;
+   g_WH_offshell    = 0.112481;
+   g_VH_onshell     = 0.112481;
+   g_VH_offshell    = 0.112481;
+   
+      if ( cat == Settings::ac_untagged)
+   {
+      if ( M4l <= 220) DZerohPlus = p_GG_ghz1 / (p_GG_ghz1 + g_Decay_onshell * g_Decay_onshell * p_GG_ghz2 );
+      else DZerohPlus = p_GG_ghz1 / (p_GG_ghz1 + g_Decay_offshell * g_Decay_offshell * p_GG_ghz2 );
+   }
+   
+   else if ( cat == Settings::ac_VBF_tagged)
+   {
+      if ( M4l <= 220) DZerohPlus = p_JJVBF_ghv1*p_GG_ghz1 / (p_JJVBF_ghv1*p_GG_ghz1 + (g_VBF_onshell * g_Decay_onshell) * (g_VBF_onshell * g_Decay_onshell) * p_JJVBF_ghv2*p_GG_ghz2 );
+      else DZerohPlus = p_JJVBF_ghv1*p_GG_ghz1 / (p_JJVBF_ghv1*p_GG_ghz1 + (g_VBF_offshell * g_Decay_offshell) * (g_VBF_offshell * g_Decay_offshell) * p_JJVBF_ghv2*p_GG_ghz2 );
+      
+   }
+   
+   else if ( cat == Settings::ac_VH_tagged)
+   {
+      if ( M4l <= 220) DZerohPlus = (p_ZH_ghv1 + p_WH_ghv1)*p_GG_ghz1 / ((p_ZH_ghv1 + p_WH_ghv1)*p_GG_ghz1 + (g_VH_onshell * g_Decay_onshell) * (g_VH_onshell * g_Decay_onshell) * (p_ZH_ghv2 + p_WH_ghv2)*p_GG_ghz2 );
+      else DZerohPlus = (p_ZH_ghv1 + p_WH_ghv1)*p_GG_ghz1 / ((p_ZH_ghv1 + p_WH_ghv1)*p_GG_ghz1 + (g_VH_offshell * g_Decay_offshell) * (g_VH_offshell * g_Decay_offshell) * (p_ZH_ghv2 + p_WH_ghv2)*p_GG_ghz2 );
+      
+   }
+   
+   if ( DZerohPlus < 0 || DZerohPlus > 1)
+   {
+      cout << "[ERROR] Discriminant value is out of bounds!" << endl;
+      exit(0);
+   }
+   if ( proc <= Settings::acH125ttH || proc == Settings::acH125_0PH)
+   {
+      if( M4l <= 220) histos_1D_AC[Settings::DZerohPlus][Settings::_70To220][fs][cat][proc]->Fill(DZerohPlus, (proc == Settings::Data) ? 1. : weight);
+      else if( M4l <= 370) histos_1D_AC[Settings::DZerohPlus][Settings::_220To370][fs][cat][proc]->Fill(DZerohPlus, (proc == Settings::Data) ? 1. : weight);
+      else if( M4l <= 520) histos_1D_AC[Settings::DZerohPlus][Settings::_370To520][fs][cat][proc]->Fill(DZerohPlus, (proc == Settings::Data) ? 1. : weight);
+      else if( M4l <= 670) histos_1D_AC[Settings::DZerohPlus][Settings::_520To670][fs][cat][proc]->Fill(DZerohPlus, (proc == Settings::Data) ? 1. : weight);
+      else if( M4l <= 820) histos_1D_AC[Settings::DZerohPlus][Settings::_670To820][fs][cat][proc]->Fill(DZerohPlus, (proc == Settings::Data) ? 1. : weight);
+      else histos_1D_AC[Settings::DZerohPlus][Settings::_820To970][fs][cat][proc]->Fill(DZerohPlus, (proc == Settings::Data) ? 1. : weight);
+      
+      if( M4l <= 220) histos_1D_AC[Settings::DZerohPlus][Settings::OnShell][fs][cat][proc]->Fill(DZerohPlus, (proc == Settings::Data) ? 1. : weight);
+      else histos_1D_AC[Settings::DZerohPlus][Settings::OffShell][fs][cat][proc]->Fill(DZerohPlus, (proc == Settings::Data) ? 1. : weight);
+      
+      histos_2D_AC[Settings::DZerohPlusvsM4l][fs][cat][proc]->Fill(M4l, DZerohPlus, (proc == Settings::Data) ? 1. : weight);
+   }
+   //====================================================================================
+   
+   //============
+   // DL1
+   //====================================================================================
+   float DL1 = -2;
+   
+   g_Decay_onshell  = 2.55502;
+   g_Decay_offshell = 0.366354;
+   g_VBF_onshell    = -2158.2;
+   g_VBF_offshell   = -2158.2;
+   g_ZH_onshell     = -517.788;
+   g_ZH_offshell    = -517.788;
+   g_WH_onshell     = -525.274;
+   g_WH_offshell    = -525.274;
+   g_VH_onshell     = -517.788;
+   g_VH_offshell    = -517.788;
+   
+   if ( cat == Settings::ac_untagged)
+   {
+      if ( M4l <= 220) DL1 = p_GG_ghz1 / (p_GG_ghz1 + g_Decay_onshell * g_Decay_onshell * p_GG_ghz1prime2 );
+      else DL1 = p_GG_ghz1 / (p_GG_ghz1 + g_Decay_offshell * g_Decay_offshell * p_GG_ghz1prime2 );
+   }
+   
+   else if ( cat == Settings::ac_VBF_tagged)
+   {
+      if ( M4l <= 220) DL1 = p_JJVBF_ghv1*p_GG_ghz1 / (p_JJVBF_ghv1*p_GG_ghz1 + (g_VBF_onshell * g_Decay_onshell) * (g_VBF_onshell * g_Decay_onshell) * p_JJVBF_ghv1prime2*p_GG_ghz1prime2 );
+      else DL1 = p_JJVBF_ghv1*p_GG_ghz1 / (p_JJVBF_ghv1*p_GG_ghz1 + (g_VBF_offshell * g_Decay_offshell) * (g_VBF_offshell * g_Decay_offshell) * p_JJVBF_ghv1prime2*p_GG_ghz1prime2 );
+      
+   }
+   
+   else if ( cat == Settings::ac_VH_tagged)
+   {
+      if ( M4l <= 220) DL1 = (p_ZH_ghv1 + p_WH_ghv1)*p_GG_ghz1 / ((p_ZH_ghv1 + p_WH_ghv1)*p_GG_ghz1 + (g_VH_onshell * g_Decay_onshell) * (g_VH_onshell * g_Decay_onshell) * (p_ZH_ghv1prime2 + p_WH_ghv1prime2)*p_GG_ghz1prime2 );
+      else DL1 = (p_ZH_ghv1 + p_WH_ghv1)*p_GG_ghz1 / ((p_ZH_ghv1 + p_WH_ghv1)*p_GG_ghz1 + (g_VH_offshell * g_Decay_offshell) * (g_VH_offshell * g_Decay_offshell) * (p_ZH_ghv1prime2 + p_WH_ghv1prime2)*p_GG_ghz1prime2 );
+      
+   }
+   
+   if ( DL1 < 0 || DL1 > 1)
+   {
+      cout << "[ERROR] Discriminant value is out of bounds!" << endl;
+      exit(0);
+   }
+   
+   if ( proc <= Settings::acH125ttH || proc == Settings::acH125_0PL1)
+   {
+      if( M4l <= 220) histos_1D_AC[Settings::DL1][Settings::_70To220][fs][cat][proc]->Fill(DL1, (proc == Settings::Data) ? 1. : weight);
+      else if( M4l <= 370) histos_1D_AC[Settings::DL1][Settings::_220To370][fs][cat][proc]->Fill(DL1, (proc == Settings::Data) ? 1. : weight);
+      else if( M4l <= 520) histos_1D_AC[Settings::DL1][Settings::_370To520][fs][cat][proc]->Fill(DL1, (proc == Settings::Data) ? 1. : weight);
+      else if( M4l <= 670) histos_1D_AC[Settings::DL1][Settings::_520To670][fs][cat][proc]->Fill(DL1, (proc == Settings::Data) ? 1. : weight);
+      else if( M4l <= 820) histos_1D_AC[Settings::DL1][Settings::_670To820][fs][cat][proc]->Fill(DL1, (proc == Settings::Data) ? 1. : weight);
+      else histos_1D_AC[Settings::DL1][Settings::_820To970][fs][cat][proc]->Fill(DL1, (proc == Settings::Data) ? 1. : weight);
+      
+      if( M4l <= 220) histos_1D_AC[Settings::DL1][Settings::OnShell][fs][cat][proc]->Fill(DL1, (proc == Settings::Data) ? 1. : weight);
+      else histos_1D_AC[Settings::DL1][Settings::OffShell][fs][cat][proc]->Fill(DL1, (proc == Settings::Data) ? 1. : weight);
+      
+      histos_2D_AC[Settings::DL1vsM4l][fs][cat][proc]->Fill(M4l, DL1, (proc == Settings::Data) ? 1. : weight);
+   }
+   //====================================================================================
+   
+  
+}
+//====================================================================================
 
+//=========
+// MZ1vsMZ2
+//====================================================================================
+void Histograms::ConditionalizeInM4L( )
+{
+   for ( int i_plot = 0; i_plot < num_of_2D_ACplot_names ; i_plot++)
+   {
+      for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+      {
+         for ( int i_cat = 0; i_cat < num_of_categories_AC; i_cat++ )
+         {
+            for ( int i_proc = 0; i_proc < num_of_processes_AC; i_proc++ )
+            {
+               for ( int i_x=0; i_x <= histos_2D_AC[i_plot][i_fs][i_cat][i_proc]->GetNbinsX() + 1; i_x++ )
+               {
+                  double integral = histos_2D_AC[i_plot][i_fs][i_cat][i_proc]->Integral(i_x, i_x, 0, histos_2D_AC[i_plot][i_fs][i_cat][i_proc]->GetNbinsY()+1);
+                  
+                  if( integral != 0.)
+                  {
+                     for ( int i_y = 0; i_y <= histos_2D_AC[i_plot][i_fs][i_cat][i_proc]->GetNbinsY() + 1; i_y++ ) histos_2D_AC[i_plot][i_fs][i_cat][i_proc]->SetBinContent(i_x,i_y,histos_2D_AC[i_plot][i_fs][i_cat][i_proc]->GetBinContent(i_x,i_y)/integral);
+                  }
+               }
+            }
+         }
+      }
+   }
+}
+//====================================================================================
 
 //====================================================================================
 void Histograms::FillVectors( float M4l, float ZZMassErrCorr, float KD, int nCleanedJetsPt30, float D1jet, float D2jet, float DWH, float DZH, int fs, int cat)
@@ -1303,6 +1610,75 @@ void Histograms::FillInclusiveYields()
 //==============================
 
 
+//==============================
+void Histograms::FillInclusiveAC()
+{
+   
+   for ( int i_plot = 0; i_plot < num_of_1D_ACplot_names ; i_plot++)
+   {
+      
+      for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+      {
+         for ( int i_cat = 0; i_cat < num_of_categories_AC; i_cat++ )
+         {
+            for ( int i_slice = 0; i_slice < num_of_m4l_slices; i_slice++ )
+            {
+               histos_1D_AC[i_plot][i_slice][i_fs][i_cat][Settings::acH125]->Add(histos_1D_AC[i_plot][i_slice][i_fs][i_cat][Settings::acH125ggH]);
+               histos_1D_AC[i_plot][i_slice][i_fs][i_cat][Settings::acH125]->Add(histos_1D_AC[i_plot][i_slice][i_fs][i_cat][Settings::acH125VBF]);
+               histos_1D_AC[i_plot][i_slice][i_fs][i_cat][Settings::acH125]->Add(histos_1D_AC[i_plot][i_slice][i_fs][i_cat][Settings::acH125VH]);
+               histos_1D_AC[i_plot][i_slice][i_fs][i_cat][Settings::acH125]->Add(histos_1D_AC[i_plot][i_slice][i_fs][i_cat][Settings::acH125ttH]);
+            }
+         }
+      }
+      
+      
+      for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++ )
+      {
+         for ( int i_cat = 0; i_cat < num_of_categories_AC ; i_cat++ )
+         {
+            for ( int i_proc = 0; i_proc < num_of_processes_AC; i_proc++ )
+            {
+               for ( int i_slice = 0; i_slice < num_of_m4l_slices; i_slice++ )
+               {
+                  histos_1D_AC[i_plot][i_slice][Settings::fs4l][i_cat][i_proc]->Add(histos_1D_AC[i_plot][i_slice][i_fs][i_cat][i_proc]);
+               }
+            }
+         }
+      }
+   }
+   
+   for ( int i_plot = 0; i_plot < num_of_2D_ACplot_names ; i_plot++)
+   {
+      
+      for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+      {
+         for ( int i_cat = 0; i_cat < num_of_categories_AC; i_cat++ )
+         {
+               histos_2D_AC[i_plot][i_fs][i_cat][Settings::acH125]->Add(histos_2D_AC[i_plot][i_fs][i_cat][Settings::acH125ggH]);
+               histos_2D_AC[i_plot][i_fs][i_cat][Settings::acH125]->Add(histos_2D_AC[i_plot][i_fs][i_cat][Settings::acH125VBF]);
+               histos_2D_AC[i_plot][i_fs][i_cat][Settings::acH125]->Add(histos_2D_AC[i_plot][i_fs][i_cat][Settings::acH125VH]);
+               histos_2D_AC[i_plot][i_fs][i_cat][Settings::acH125]->Add(histos_2D_AC[i_plot][i_fs][i_cat][Settings::acH125ttH]);
+         }
+      }
+      
+      
+      for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++ )
+      {
+         for ( int i_cat = 0; i_cat < num_of_categories_AC; i_cat++ )
+         {
+            for ( int i_proc = 0; i_proc < num_of_processes_AC; i_proc++ )
+            {
+                  histos_2D_AC[i_plot][Settings::fs4l][i_cat][i_proc]->Add(histos_2D_AC[i_plot][i_fs][i_cat][i_proc]);
+            }
+         }
+      }
+      
+   }
+   
+
+}
+//==============================
+
 
 //=================================
 void Histograms::SmoothHistograms()
@@ -1548,9 +1924,9 @@ void Histograms::RenormalizeZX( vector< vector <float> > _expected_yield_SR )
 
 
 //=============================================
-void Histograms::SaveHistos( string file_name )
+void Histograms::SaveHistos( TString file_name )
 {
-   TFile *fOutHistos = new TFile(file_name.c_str(), "recreate");
+   TFile *fOutHistos = new TFile(file_name, "recreate");
    fOutHistos->cd();
    
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
@@ -1724,12 +2100,12 @@ void Histograms::SaveHistos( string file_name )
 
 
 //=============================================
-void Histograms::SaveYieldHistos( string file_name )
+void Histograms::SaveYieldHistos( TString file_name )
 {
    
    cout << "[INFO] Saving yield histograms to ROOT file." << endl;
    
-   TFile* fOutHistos = new TFile(file_name.c_str(), "recreate");
+   TFile* fOutHistos = new TFile(file_name, "recreate");
    fOutHistos->cd();
    
    for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
@@ -1739,6 +2115,45 @@ void Histograms::SaveYieldHistos( string file_name )
          for ( int i_proc = 0; i_proc < num_of_processes_yields; i_proc++ )
          {
             histos_1D[Settings::M4lYields][i_fs][i_cat][i_proc]->Write();
+         }
+      }
+   }
+   
+   cout << "[INFO] Closing ROOT file." << endl;
+   
+   fOutHistos->Close();
+   delete fOutHistos;
+}
+//=============================================
+
+
+//=============================================
+void Histograms::SaveACHistos( TString file_name )
+{
+   cout << "[INFO] Saving yield histograms to ROOT file." << endl;
+   
+   TFile* fOutHistos = new TFile(file_name, "recreate");
+   fOutHistos->cd();
+   
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      for ( int i_cat = 0; i_cat < num_of_categories_AC; i_cat++ )
+      {
+         for ( int i_proc = 0; i_proc < num_of_processes_AC; i_proc++ )
+         {
+            histos_2D_AC[Settings::DZeroMinusvsM4l][i_fs][i_cat][i_proc]->Write();
+            histos_2D_AC[Settings::DZerohPlusvsM4l][i_fs][i_cat][i_proc]->Write();
+            histos_2D_AC[Settings::DL1vsM4l][i_fs][i_cat][i_proc]       ->Write();
+            
+            for ( int i_slice = 0; i_slice < num_of_m4l_slices; i_slice++ )
+            {
+               
+               histos_1D_AC[Settings::DZeroMinus][i_slice][i_fs][i_cat][i_proc]->Write();
+               histos_1D_AC[Settings::DZerohPlus][i_slice][i_fs][i_cat][i_proc]->Write();
+               histos_1D_AC[Settings::DL1][i_slice][i_fs][i_cat][i_proc]       ->Write();
+
+            }
+            
          }
       }
    }
@@ -1880,6 +2295,14 @@ void Histograms::DeleteYieldsHistos()
          }
       }
    }
+}
+//===================================
+
+
+//===================================
+void Histograms::DeleteACHistos()
+{
+   
 }
 //===================================
 
@@ -2124,6 +2547,45 @@ void Histograms::GetYieldsHistos( TString file_name )
 }
 //=============================================
 
+
+//=============================================
+void Histograms::GetACHistos( TString file_name )
+{
+      TFile* histo_file = TFile::Open(file_name);
+
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      for ( int i_cat = 0; i_cat < num_of_categories_AC; i_cat++ )
+      {
+         for ( int i_proc = 0; i_proc < num_of_processes_AC; i_proc++ )
+         {
+            
+            _histo_name = "DZeroMinusvsM4l_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + "_" + _blinding;
+            histos_2D_AC[Settings::DZeroMinusvsM4l][i_fs][i_cat][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "DZerohPlusvsM4l_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + "_" + _blinding;
+            histos_2D_AC[Settings::DZerohPlusvsM4l][i_fs][i_cat][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
+            
+            _histo_name = "DL1vsM4l_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + "_" + _blinding;
+            histos_2D_AC[Settings::DL1vsM4l][i_fs][i_cat][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
+            
+            for ( int i_slice = 0; i_slice < num_of_m4l_slices; i_slice++ )
+            {
+               _histo_name = "DZeroMinus_" + _s_m4l_slice.at(i_slice) + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + "_" + _blinding;
+               histos_1D_AC[Settings::DZeroMinus][i_slice][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+               
+               _histo_name = "DZerohPlus_" + _s_m4l_slice.at(i_slice) + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + "_" + _blinding;
+               histos_1D_AC[Settings::DZerohPlus][i_slice][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+               
+               _histo_name = "DL1_" + _s_m4l_slice.at(i_slice) + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + "_" + _blinding;
+               histos_1D_AC[Settings::DL1][i_slice][i_fs][i_cat][i_proc] = (TH1F*)histo_file->Get(_histo_name.c_str());
+            }
+         }
+      }
+   }
+   
+}
+//=============================================
 
 
 //========================================================================================================
@@ -2614,7 +3076,125 @@ void Histograms::Plot1D_all_cat( TString filename, TString variable_name , TStri
 }
 //=====================================================================================
 
+//==================
+void Histograms::Plot1D_AC( TString variable_name, TString folder )
+{
+   int plot_index = SetPlotName( variable_name);
+   
+   TCanvas *c;
+   c = new TCanvas(variable_name, variable_name, 600, 600);
+   
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      if( i_fs == Settings::fs2mu2e) continue;
+      
+      for ( int i_slice = 0; i_slice < num_of_m4l_slices; i_slice++)
+      {
+         for ( int i_cat = 0; i_cat < num_of_categories_AC; i_cat++)
+         {
+            histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125]->SetFillColor(1180);
+            histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125]->SetLineColor(633);
+            
+            histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125_0MH]->SetLineColor(kRed);
+            histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125_0PH]->SetLineColor(kRed);
+            histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125_0PL1]->SetLineColor(kRed);
+            
+            histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125]->Draw("HIST");
+            if ( plot_index == Settings::DZeroMinus ) histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125_0MH]  ->Draw("HIST SAME");
+            if ( plot_index == Settings::DZerohPlus ) histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125_0PH] ->Draw("HIST SAME");
+            if ( plot_index == Settings::DL1 )        histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125_0PL1]->Draw("HIST SAME");
+            
+            float max_bin = 0;
+            if ( plot_index == Settings::DZeroMinus ) max_bin = TMath::Max(histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125]->GetBinContent(histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125]->GetMaximumBin()),
+                                       histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125_0MH]->GetBinContent(histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125_0MH]->GetMaximumBin()));
+            if ( plot_index == Settings::DZerohPlus ) max_bin = TMath::Max(histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125]->GetBinContent(histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125]->GetMaximumBin()),
+                                                                           histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125_0PH]->GetBinContent(histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125_0PH]->GetMaximumBin()));
+            if ( plot_index == Settings::DL1 )        max_bin = TMath::Max(histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125]->GetBinContent(histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125]->GetMaximumBin()),
+                                                                           histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125_0PL1]->GetBinContent(histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125_0PL1]->GetMaximumBin()));
+                                       
+            histos_1D_AC[plot_index][i_slice][i_fs][i_cat][Settings::acH125]->SetMaximum( 1.2 * max_bin );
+            
+            if ( plot_index == Settings::DZeroMinus && i_cat == Settings::ac_VBF_tagged ) histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125]->GetXaxis()->SetTitle("D_{0-}^{VBF+dec}");
+            if ( plot_index == Settings::DZeroMinus && i_cat == Settings::ac_VH_tagged ) histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125]->GetXaxis()->SetTitle("D_{0-}^{VH+dec}");
+            if ( plot_index == Settings::DZerohPlus && i_cat == Settings::ac_VBF_tagged ) histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125]->GetXaxis()->SetTitle("D_{0h+}^{VBF+dec}");
+            if ( plot_index == Settings::DZerohPlus && i_cat == Settings::ac_VH_tagged ) histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125]->GetXaxis()->SetTitle("D_{0h+}^{VH+dec}");
+            if ( plot_index == Settings::DL1        && i_cat == Settings::ac_VBF_tagged ) histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125]->GetXaxis()->SetTitle("D_{#Lambda 1}^{VBF+dec}");
+            if ( plot_index == Settings::DL1        && i_cat == Settings::ac_VH_tagged ) histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125]->GetXaxis()->SetTitle("D_{#Lambda}^{VH+dec}");
+            
+            // Draw lumi
+            CMS_lumi *lumi = new CMS_lumi;
+            lumi->set_lumi(c, _lumi);
+            
+            _out_file_name = folder + "/" + variable_name + "_" +_s_m4l_slice.at(i_slice) + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat);
+            SavePlots(c, _out_file_name);
+            
+         }
+         
+      }
+      
+   }
+   
+   delete c;
 
+}
+//==================
+
+
+//==================
+void Histograms::Plot2D_AC( TString variable_name, TString folder )
+{
+   int plot_index = SetPlotName( variable_name);
+   
+   TCanvas *c;
+   c = new TCanvas(variable_name, variable_name, 600, 600);
+   
+   for ( int i_fs = 0; i_fs < num_of_final_states; i_fs++ )
+   {
+      if( i_fs == Settings::fs2mu2e) continue;
+
+         for ( int i_cat = 0; i_cat < num_of_categories_AC; i_cat++)
+         {
+            if ( plot_index == Settings::DZeroMinusvsM4l && i_cat == Settings::ac_VBF_tagged ) histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125]->GetYaxis()->SetTitle("D_{0-}^{VBF+dec}");
+            if ( plot_index == Settings::DZeroMinusvsM4l && i_cat == Settings::ac_VH_tagged ) histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125]->GetYaxis()->SetTitle("D_{0-}^{VH+dec}");
+            if ( plot_index == Settings::DZerohPlusvsM4l && i_cat == Settings::ac_VBF_tagged ) histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125]->GetYaxis()->SetTitle("D_{0h+}^{VBF+dec}");
+            if ( plot_index == Settings::DZerohPlusvsM4l && i_cat == Settings::ac_VH_tagged ) histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125]->GetYaxis()->SetTitle("D_{0h+}^{VH+dec}");
+            if ( plot_index == Settings::DL1vsM4l        && i_cat == Settings::ac_VBF_tagged ) histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125]->GetYaxis()->SetTitle("D_{#Lambda 1}^{VBF+dec}");
+            if ( plot_index == Settings::DL1vsM4l        && i_cat == Settings::ac_VH_tagged ) histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125]->GetYaxis()->SetTitle("D_{#Lambda}^{VH+dec}");
+            
+            histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125]->Draw("COLZ");
+            
+            // Draw lumi
+            CMS_lumi *lumi = new CMS_lumi;
+            lumi->set_lumi(c, _lumi);
+            
+            _out_file_name = folder + "/" + variable_name + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_H125";
+            SavePlots(c, _out_file_name);
+            
+            
+            if ( i_cat == Settings::ac_VBF_tagged ) histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125_0MH]->GetYaxis()->SetTitle("D_{0-}^{VBF+dec}");
+            if ( i_cat == Settings::ac_VH_tagged ) histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125_0MH]->GetYaxis()->SetTitle("D_{0-}^{VH+dec}");
+            
+            if ( plot_index == Settings::DZeroMinusvsM4l ) histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125_0MH]  ->Draw("COLZ");
+            if ( plot_index == Settings::DZerohPlusvsM4l ) histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125_0PH] ->Draw("COLZ");
+            if ( plot_index == Settings::DL1vsM4l )        histos_2D_AC[plot_index][i_fs][i_cat][Settings::acH125_0PL1]->Draw("COLZ");
+            
+            // Draw lumi
+            lumi->set_lumi(c, _lumi);
+            
+            if ( plot_index == Settings::DZeroMinusvsM4l ) _out_file_name = folder + "/" + variable_name + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_H125_0MH";
+            if ( plot_index == Settings::DZerohPlusvsM4l ) _out_file_name = folder + "/" + variable_name + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_H125_0PH";
+            if ( plot_index == Settings::DL1vsM4l )        _out_file_name = folder + "/" + variable_name + "_" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_H125_0PL1";
+            SavePlots(c, _out_file_name);
+            
+         }
+      
+      
+   }
+   
+   delete c;
+   
+}
+//==================
 
 //=====================================================================================
 void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString folder )
@@ -3774,6 +4354,17 @@ int Histograms::SetPlotName( TString variable_name )
    else if ( variable_name == "D2jetvsM4lZoomed" )return Settings::D2jetvsM4lZoomed;
    else if ( variable_name == "DWHvsM4lZoomed" )  return Settings::DWHvsM4lZoomed;
    else if ( variable_name == "DZHvsM4lZoomed" )  return Settings::DZHvsM4lZoomed;
+   
+   
+   //=============
+   // AC
+   //=============
+   else if ( variable_name == "DZeroMinus" )      return Settings::DZeroMinus;
+   else if ( variable_name == "DZerohPlus" )      return Settings::DZerohPlus;
+   else if ( variable_name == "DL1" )             return Settings::DL1;
+   else if ( variable_name == "DZeroMinusvsM4l" ) return Settings::DZeroMinusvsM4l;
+   else if ( variable_name == "DZerohPlusvsM4l" ) return Settings::DZerohPlusvsM4l;
+   else if ( variable_name == "DL1vsM4l" )        return Settings::DL1vsM4l;
    
    else
    {

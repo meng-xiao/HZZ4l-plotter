@@ -49,6 +49,47 @@ extern "C" float DZHh_ME(
    return 1./(1.+ c_MelaZH*p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal/p_HadZH_SIG_ghz1_1_JHUGen_JECNominal);
 }
 
+extern "C" float DVBF2j_ME_shiftWP(
+                           float p_JJVBF_SIG_ghv1_1_JHUGen_JECNominal,
+                           float p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal,
+                           float ZZMass
+                           )
+{
+   float c_Mela2j = getDVBF2jetsConstant_shiftWP(ZZMass, false, 0.5);
+   return 1./(1.+ c_Mela2j*p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal/p_JJVBF_SIG_ghv1_1_JHUGen_JECNominal);
+}
+
+extern "C" float DVBF1j_ME_shiftWP(
+                           float p_JVBF_SIG_ghv1_1_JHUGen_JECNominal,
+                           float pAux_JVBF_SIG_ghv1_1_JHUGen_JECNominal,
+                           float p_JQCD_SIG_ghg2_1_JHUGen_JECNominal,
+                           float ZZMass
+                           )
+{
+   float c_Mela1j = getDVBF1jetConstant_shiftWP(ZZMass, false, 0.5);
+   return 1./(1.+ c_Mela1j*p_JQCD_SIG_ghg2_1_JHUGen_JECNominal/(p_JVBF_SIG_ghv1_1_JHUGen_JECNominal*pAux_JVBF_SIG_ghv1_1_JHUGen_JECNominal));
+}
+
+extern "C" float DWHh_ME_shiftWP(
+                         float p_HadWH_SIG_ghw1_1_JHUGen_JECNominal,
+                         float p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal,
+                         float ZZMass
+                         )
+{
+   float c_MelaWH = getDWHhConstant_shiftWP(ZZMass, false, 0.5);
+   return 1./(1.+ c_MelaWH*p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal/p_HadWH_SIG_ghw1_1_JHUGen_JECNominal);
+}
+
+extern "C" float DZHh_ME_shiftWP(
+                         float p_HadZH_SIG_ghz1_1_JHUGen_JECNominal,
+                         float p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal,
+                         float ZZMass
+                         )
+{
+   float c_MelaZH = getDZHhConstant_shiftWP(ZZMass, false, 0.5);
+   return 1./(1.+ c_MelaZH*p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal/p_HadZH_SIG_ghz1_1_JHUGen_JECNominal);
+}
+
 float jetPgOverPq(float jetQGLikelihood, float jetPhi)
 {
    if(jetQGLikelihood<0.){
