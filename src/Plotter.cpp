@@ -15,31 +15,7 @@ Plotter::Plotter( double lumi ):Tree()
    _k_factor = 1;
    _current_final_state = -999;
    _current_category = -999;
-   
 
-   /*
-   //Get colours needed for plots
-   _tclr->GetColor("#000000");
-   _tclr->GetColor("#ffafaf");
-   _tclr->GetColor("#ff9090");
-   _tclr->GetColor("#99ccff");
-   _tclr->GetColor("#8bc5ff");
-   _tclr->GetColor("#3366ff");
-   _tclr->GetColor("#2c5Df0");
-   _tclr->GetColor("#669966");
-   _tclr->GetColor("#6dae6d");
-   _tclr->GetColor("#9a6666");
-   _tclr->GetColor("#cc0000");
-   _tclr->GetColor("#000099");
-   _tclr->GetColor("#003300");
-   _tclr->GetColor("#5f3f3f");
-   _tclr->GetColor("#ff9b9b");
-   _tclr->GetColor("#ff6868");
-         
-   
-   
-   //gStyle->SetPalette(73);
-*/
    
    // Z+X SS factors
    // FIXME: recompute this for Run II, OS/SS ratio taken when computing fake rates in SS method
@@ -143,20 +119,20 @@ void Plotter::MakeHistograms( TString input_file_name )
       DZH =   ( nCleanedJetsPt30 >= 2 ) ? DZHh_ME(p_HadZH_SIG_ghz1_1_JHUGen_JECNominal, p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass) : -2;
       
       
-      Float_t oldCConstD2jet = getDVBF2jetsConstant(ZZMass);
-      Float_t oldCConstD1jet = getDVBF1jetConstant(ZZMass);
-      Float_t oldCConstDWH = getDWHhConstant(ZZMass);
-      Float_t oldCConstDZH = getDZHhConstant(ZZMass);
-      Float_t newCConstD2jet = getDVBF2jetsConstant_shiftWP(ZZMass,false,NEWWP2J);
-      Float_t newCConstD1jet = getDVBF1jetConstant_shiftWP(ZZMass,false,NEWWP1J);
-      Float_t newCConstDWH = getDWHhConstant_shiftWP(ZZMass,false,NEWWPWH);
-      Float_t newCConstDZH = getDZHhConstant_shiftWP(ZZMass,false,NEWWPZH);
+      float oldCConstD2jet = getDVBF2jetsConstant(ZZMass);
+      float oldCConstD1jet = getDVBF1jetConstant(ZZMass);
+      float oldCConstDWH = getDWHhConstant(ZZMass);
+      float oldCConstDZH = getDZHhConstant(ZZMass);
+      float newCConstD2jet = getDVBF2jetsConstant_shiftWP(ZZMass,false,NEWWP2J);
+      float newCConstD1jet = getDVBF1jetConstant_shiftWP(ZZMass,false,NEWWP1J);
+      float newCConstDWH = getDWHhConstant_shiftWP(ZZMass,false,NEWWPWH);
+      float newCConstDZH = getDZHhConstant_shiftWP(ZZMass,false,NEWWPZH);
       D2jet = 1/(newCConstD2jet/oldCConstD2jet*(1/D2jet-1)+1);
       D1jet = 1/(newCConstD1jet/oldCConstD1jet*(1/D1jet-1)+1);
       DWH = 1/(newCConstDWH/oldCConstDWH*(1/DWH-1)+1);
       DZH = 1/(newCConstDZH/oldCConstDZH*(1/DZH-1)+1);
-      Float_t DVH = fmax(DWH,DZH);
-     
+      float DVH = max(DWH,DZH);
+           
       
       // Fill M4l histograms
       if ( (_current_process == Settings::Data && blind(ZZMass)) || _current_process != Settings::Data )
@@ -186,18 +162,20 @@ void Plotter::MakeHistograms( TString input_file_name )
       if ( blind(ZZMass) )
       {
          blinded_histos->FillKD( ZZMass, KD, _event_weight, _current_final_state, _current_category, _current_process );
-         if(nCleanedJetsPt30==1) blinded_histos->FillD1jet( ZZMass, D1jet, _event_weight, _current_final_state, _current_category, _current_process );
-         if(nCleanedJetsPt30>=2) blinded_histos->FillD2jet( ZZMass, D2jet, _event_weight, _current_final_state, _current_category, _current_process );
-         if(nCleanedJetsPt30>=2) blinded_histos->FillDWH( ZZMass, DWH, _event_weight, _current_final_state, _current_category, _current_process );
-         if(nCleanedJetsPt30>=2) blinded_histos->FillDZH( ZZMass, DZH, _event_weight, _current_final_state, _current_category, _current_process );
+         if ( nCleanedJetsPt30 ==1 ) blinded_histos->FillD1jet( ZZMass, D1jet, _event_weight, _current_final_state, _current_category, _current_process );
+         if ( nCleanedJetsPt30 >=2 ) blinded_histos->FillD2jet( ZZMass, D2jet, _event_weight, _current_final_state, _current_category, _current_process );
+         if ( nCleanedJetsPt30 >=2 ) blinded_histos->FillDWH( ZZMass, DWH, _event_weight, _current_final_state, _current_category, _current_process );
+         if ( nCleanedJetsPt30 >=2 ) blinded_histos->FillDZH( ZZMass, DZH, _event_weight, _current_final_state, _current_category, _current_process );
+         if ( nCleanedJetsPt30 >=2 ) blinded_histos->FillDVH( ZZMass, DVH, _event_weight, _current_final_state, _current_category, _current_process );
       }
       
       unblinded_histos->FillKD( ZZMass, KD, _event_weight, _current_final_state, _current_category, _current_process );
       
-      if(nCleanedJetsPt30==1) unblinded_histos->FillD1jet( ZZMass, D1jet, _event_weight, _current_final_state, _current_category, _current_process );
-      if(nCleanedJetsPt30>=2) unblinded_histos->FillD2jet( ZZMass, D2jet, _event_weight, _current_final_state, _current_category, _current_process );
-      if(nCleanedJetsPt30>=2) unblinded_histos->FillDWH( ZZMass, DWH, _event_weight, _current_final_state, _current_category, _current_process );
-      if(nCleanedJetsPt30>=2) unblinded_histos->FillDZH( ZZMass, DZH, _event_weight, _current_final_state, _current_category, _current_process );
+      if ( nCleanedJetsPt30 ==1 ) unblinded_histos->FillD1jet( ZZMass, D1jet, _event_weight, _current_final_state, _current_category, _current_process );
+      if ( nCleanedJetsPt30 >=2 ) unblinded_histos->FillD2jet( ZZMass, D2jet, _event_weight, _current_final_state, _current_category, _current_process );
+      if ( nCleanedJetsPt30 >=2 ) unblinded_histos->FillDWH( ZZMass, DWH, _event_weight, _current_final_state, _current_category, _current_process );
+      if ( nCleanedJetsPt30 >=2 ) unblinded_histos->FillDZH( ZZMass, DZH, _event_weight, _current_final_state, _current_category, _current_process );
+      if ( nCleanedJetsPt30 >=2 ) unblinded_histos->FillDVH( ZZMass, DVH, _event_weight, _current_final_state, _current_category, _current_process );
       
       // Fill MZ1 vs MZ2 histograms
       if ( blind(ZZMass) )
@@ -325,19 +303,19 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       DZH = (nCleanedJetsPt30>=2) ? DZHh_ME(p_HadZH_SIG_ghz1_1_JHUGen_JECNominal, p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, ZZMass) : -2 ;
       
       
-      Float_t oldCConstD2jet = getDVBF2jetsConstant(ZZMass);
-      Float_t oldCConstD1jet = getDVBF1jetConstant(ZZMass);
-      Float_t oldCConstDWH = getDWHhConstant(ZZMass);
-      Float_t oldCConstDZH = getDZHhConstant(ZZMass);
-      Float_t newCConstD2jet = getDVBF2jetsConstant_shiftWP(ZZMass,false,NEWWP2J);
-      Float_t newCConstD1jet = getDVBF1jetConstant_shiftWP(ZZMass,false,NEWWP1J);
-      Float_t newCConstDWH = getDWHhConstant_shiftWP(ZZMass,false,NEWWPWH);
-      Float_t newCConstDZH = getDZHhConstant_shiftWP(ZZMass,false,NEWWPZH);
+      float oldCConstD2jet = getDVBF2jetsConstant(ZZMass);
+      float oldCConstD1jet = getDVBF1jetConstant(ZZMass);
+      float oldCConstDWH = getDWHhConstant(ZZMass);
+      float oldCConstDZH = getDZHhConstant(ZZMass);
+      float newCConstD2jet = getDVBF2jetsConstant_shiftWP(ZZMass,false,NEWWP2J);
+      float newCConstD1jet = getDVBF1jetConstant_shiftWP(ZZMass,false,NEWWP1J);
+      float newCConstDWH = getDWHhConstant_shiftWP(ZZMass,false,NEWWPWH);
+      float newCConstDZH = getDZHhConstant_shiftWP(ZZMass,false,NEWWPZH);
       D2jet = 1/(newCConstD2jet/oldCConstD2jet*(1/D2jet-1)+1);
       D1jet = 1/(newCConstD1jet/oldCConstD1jet*(1/D1jet-1)+1);
       DWH = 1/(newCConstDWH/oldCConstDWH*(1/DWH-1)+1);
       DZH = 1/(newCConstDZH/oldCConstDZH*(1/DZH-1)+1);
-      Float_t DVH = fmax(DWH,DZH);
+      float DVH = max(DWH,DZH);
       
    
       // Fill m4l Z+X histograms
@@ -363,18 +341,20 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       // Fill KD Z+X histograms
       unblinded_histos->FillKDZX( ZZMass, KD, _yield_SR, _current_final_state, _current_category );
       
-      if(nCleanedJetsPt30 == 1) unblinded_histos->FillD1jetZX( ZZMass, D1jet, _yield_SR, _current_final_state, _current_category );
-      if(nCleanedJetsPt30 >= 2) unblinded_histos->FillD2jetZX( ZZMass, D2jet, _yield_SR, _current_final_state, _current_category );
-      if(nCleanedJetsPt30 >= 2) unblinded_histos->FillDWHZX( ZZMass, DWH, _yield_SR, _current_final_state, _current_category );
-      if(nCleanedJetsPt30 >= 2) unblinded_histos->FillDZHZX( ZZMass, DZH, _yield_SR, _current_final_state, _current_category );
+      if ( nCleanedJetsPt30 == 1 ) unblinded_histos->FillD1jetZX( ZZMass, D1jet, _yield_SR, _current_final_state, _current_category );
+      if ( nCleanedJetsPt30 >= 2 ) unblinded_histos->FillD2jetZX( ZZMass, D2jet, _yield_SR, _current_final_state, _current_category );
+      if ( nCleanedJetsPt30 >= 2 ) unblinded_histos->FillDWHZX( ZZMass, DWH, _yield_SR, _current_final_state, _current_category );
+      if ( nCleanedJetsPt30 >= 2 ) unblinded_histos->FillDZHZX( ZZMass, DZH, _yield_SR, _current_final_state, _current_category );
+      if ( nCleanedJetsPt30 >= 2 ) unblinded_histos->FillDVHZX( ZZMass, DVH, _yield_SR, _current_final_state, _current_category );
       
       if (blind(ZZMass))
       {
          blinded_histos->FillKDZX( ZZMass, KD, _yield_SR, _current_final_state, _current_category);
-         if(nCleanedJetsPt30 == 1) blinded_histos->FillD1jetZX( ZZMass, D1jet, _yield_SR, _current_final_state, _current_category);
-         if(nCleanedJetsPt30 >= 2) blinded_histos->FillD2jetZX( ZZMass, D2jet, _yield_SR, _current_final_state, _current_category);
-         if(nCleanedJetsPt30 >= 2) blinded_histos->FillDWHZX( ZZMass, DWH, _yield_SR, _current_final_state, _current_category);
-         if(nCleanedJetsPt30 >= 2) blinded_histos->FillDZHZX( ZZMass, DZH, _yield_SR, _current_final_state, _current_category);
+         if ( nCleanedJetsPt30 == 1 ) blinded_histos->FillD1jetZX( ZZMass, D1jet, _yield_SR, _current_final_state, _current_category);
+         if ( nCleanedJetsPt30 >= 2 ) blinded_histos->FillD2jetZX( ZZMass, D2jet, _yield_SR, _current_final_state, _current_category);
+         if ( nCleanedJetsPt30 >= 2 ) blinded_histos->FillDWHZX( ZZMass, DWH, _yield_SR, _current_final_state, _current_category);
+         if ( nCleanedJetsPt30 >= 2 ) blinded_histos->FillDZHZX( ZZMass, DZH, _yield_SR, _current_final_state, _current_category);
+         if ( nCleanedJetsPt30 >= 2 ) blinded_histos->FillDVHZX( ZZMass, DVH, _yield_SR, _current_final_state, _current_category );
       }
    } // End events loop
    

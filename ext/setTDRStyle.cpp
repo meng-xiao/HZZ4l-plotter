@@ -45,7 +45,7 @@ void setTDRStyle()
    //tdrStyle->SetErrorX(0.);
   
    tdrStyle->SetMarkerStyle(20);
-   tdrStyle->SetMarkerSize(0.6);
+   tdrStyle->SetMarkerSize(0.7);
   
 // For the fit/function:
    tdrStyle->SetOptFit(1);
@@ -97,18 +97,19 @@ void setTDRStyle()
 // For the axis titles:
 // tdrStyle->SetTitleColor(1, "XYZ");
 // tdrStyle->SetTitleFont(42, "XYZ");
-// tdrStyle->SetTitleSize(0.06, "XYZ");
+   tdrStyle->SetTitleSize(0.05, "XYZ");
 // tdrStyle->SetTitleXSize(Float_t size = 0.02); // Another way to set the size?
 // tdrStyle->SetTitleYSize(Float_t size = 0.02);
-   tdrStyle->SetTitleXOffset(1.2);
-   tdrStyle->SetTitleYOffset(1.4);
-// tdrStyle->SetTitleOffset(1.1, "Y"); // Another way to set the Offset
+// tdrStyle->SetTitleXOffset(1.2); // Another way to set the Offset
+// tdrStyle->SetTitleYOffset(1.4); // Another way to set the Offset
+   tdrStyle->SetTitleOffset(1.2,  "X");
+   tdrStyle->SetTitleOffset(1.25, "Y");
 
 // For the axis labels:
 //  tdrStyle->SetLabelColor(1, "XYZ");
 //  tdrStyle->SetLabelFont(42, "XYZ");
 //  tdrStyle->SetLabelOffset(0.007, "XYZ");
-//  tdrStyle->SetLabelSize(0.05, "XYZ");
+    tdrStyle->SetLabelSize(0.04, "XYZ");
 
 // For the axis:
    tdrStyle->SetAxisColor(1, "XYZ");

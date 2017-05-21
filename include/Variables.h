@@ -21,15 +21,20 @@ class Variables
 public:
    Variables ();
    ~Variables();
+
    
-   //=============
-   // M4l
-   //=============
+//=====
+// M4l
+//=====
+   
    struct M4lMain
    {
-      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
-      TString var_Y_label = "Events / 4 GeV";
-      TString var_cut_label = "";
+      TString var_X_label       = "m_{4#font[12]{l}} (GeV)";
+      TString var_X_label_4e    = "m_{4#font[12]{e}} (GeV)";
+      TString var_X_label_4mu   = "m_{4#font[12]{#mu}} (GeV)";
+      TString var_X_label_2e2mu = "m_{2#font[12]{e}2#font[12]{#mu}} (GeV)";
+      TString var_Y_label       = "Events / 4 GeV";
+      TString var_cut_label     = "";
       Int_t var_N_bin = 233;
       Float_t var_min = 70;
       Float_t var_max = 1002;
@@ -62,9 +67,12 @@ public:
 
    struct M4lMainZoomed
    {
-      TString var_X_label = "m_{4#font[12]{l}} (GeV)";
-      TString var_Y_label = "Events / 2 GeV";
-      TString var_cut_label = "";
+      TString var_X_label       = "m_{4#font[12]{l}} (GeV)";
+      TString var_X_label_4e    = "m_{4#font[12]{e}} (GeV)";
+      TString var_X_label_4mu   = "m_{4#font[12]{#mu}} (GeV)";
+      TString var_X_label_2e2mu = "m_{2#font[12]{e}2#font[12]{#mu}} (GeV)";
+      TString var_Y_label       = "Events / 2 GeV";
+      TString var_cut_label     = "";
       Int_t var_N_bin = 50;
       Float_t var_min = 70;
       Float_t var_max = 170;
@@ -94,9 +102,11 @@ public:
       Int_t rebinningDYTTbar = 1;
    };
    
-   //=============
-   // MZ1
-   //=============
+   
+//=====
+// MZ1
+//=====
+   
    struct MZ1
    {
       TString var_X_label = "m_{Z1} (GeV)";
@@ -136,9 +146,10 @@ public:
    };
    
    
-   //=============
-   // MZ2
-   //=============
+//=====
+// MZ2
+//=====
+   
    struct MZ2
    {
       TString var_X_label = "m_{Z2} (GeV)";
@@ -178,9 +189,10 @@ public:
    };
    
    
-   //=============
-   // KD
-   //=============
+//====
+// KD 
+//====
+   
    struct KD
    {
       TString var_X_label = "D_{bkg}^{kin}";
@@ -264,7 +276,7 @@ public:
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;
-      Bool_t var_log_y = 1;
+      Bool_t var_log_y = 0;
       Int_t restrict_count_var = 0;
       Float_t var_min_factor = 0;
       Int_t var_CMS_pos = 0;
@@ -301,7 +313,7 @@ public:
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;
-      Bool_t var_log_y = 1;
+      Bool_t var_log_y = 0;
       Int_t restrict_count_var = 0;
       Float_t var_min_factor = 0;
       Int_t var_CMS_pos = 0;
@@ -318,7 +330,7 @@ public:
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;
-      Bool_t var_log_y = 1;
+      Bool_t var_log_y = 0;
       Int_t restrict_count_var = 0;
       Float_t var_min_factor = 0;
       Int_t var_CMS_pos = 0;
@@ -338,7 +350,7 @@ public:
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;
-      Bool_t var_log_y = 1;
+      Bool_t var_log_y = 0;
       Int_t restrict_count_var = 0;
       Float_t var_min_factor = 0;
       Int_t var_CMS_pos = 0;
@@ -355,7 +367,7 @@ public:
       Float_t var_min = 0;
       Float_t var_max = 1;
       Bool_t var_log_x = 0;
-      Bool_t var_log_y = 1;
+      Bool_t var_log_y = 0;
       Int_t restrict_count_var = 0;
       Float_t var_min_factor = 0;
       Int_t var_CMS_pos = 0;
@@ -366,9 +378,48 @@ public:
       Float_t cut_u = 130.;
    };
    
-   //=============
-   // MZ1vsMZ2
-   //=============   
+   struct DVH
+   {
+      TString var_X_label = "D_{VH}";
+      TString var_Y_label = "Events / 0.05";
+      TString var_cut_label = "";
+      Int_t var_N_bin = 20;
+      Float_t var_min = 0;
+      Float_t var_max = 1;
+      Bool_t var_log_x = 0;
+      Bool_t var_log_y = 0;
+      Int_t restrict_count_var = 0;
+      Float_t var_min_factor = 0;
+      Int_t var_CMS_pos = 0;
+      Int_t varLegPos = 33;
+      Int_t rebinningDYTTbar = 4;
+   };
+   
+   struct DVH_M4L118130
+   {
+      TString var_X_label = "D_{VH}";
+      TString var_Y_label = "Events / 0.1";
+      TString var_cut_label = "118 < m_{4#font[12]{l}} < 130 GeV";
+      Int_t var_N_bin = 10;
+      Float_t var_min = 0;
+      Float_t var_max = 1;
+      Bool_t var_log_x = 0;
+      Bool_t var_log_y = 0;
+      Int_t restrict_count_var = 0;
+      Float_t var_min_factor = 0;
+      Int_t var_CMS_pos = 0;
+      Int_t varLegPos = 33;
+      Int_t rebinningDYTTbar = 4;
+      
+      Float_t cut_d = 118.;
+      Float_t cut_u = 130.;
+   };
+     
+   
+//=============
+// MZ1 vs MZ2
+//=============   
+ 
    struct MZ1vsMZ2
    {
       TString var_X_label = "m_{Z1} (GeV)";
@@ -410,9 +461,11 @@ public:
       Float_t cut_u = 130.;
    };
    
-   //=============
-   // KDvsM4l
-   //=============
+
+//===========
+// KD vs M4l
+//===========
+   
    struct KDvsM4l
    {
       TString var_X_label = "m_{4#font[12]{l}} (GeV)";
@@ -664,10 +717,6 @@ public:
       Int_t varLegPos = 33;
       Int_t rebinningDYTTbar = 1;
    };
-
-
-private:
-
+   
 };
-
 #endif

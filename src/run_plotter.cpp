@@ -117,6 +117,7 @@ int main( int argc, char *argv[] )
    plotter->Plot1D_single("Unblinded", "D2jet_M4L118130", "Plots", Settings::fs4l, Settings::inclusive);
    plotter->Plot1D_single("Unblinded", "DWH_M4L118130",   "Plots", Settings::fs4l, Settings::inclusive);
    plotter->Plot1D_single("Unblinded", "DZH_M4L118130",   "Plots", Settings::fs4l, Settings::inclusive);
+   plotter->Plot1D_single("Unblinded", "DVH_M4L118130",   "Plots", Settings::fs4l, Settings::inclusive);
 
    
    plotter->Plot2D_single("Unblinded", "MZ1vsMZ2",           "Plots", Settings::inclusive);

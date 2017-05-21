@@ -79,6 +79,9 @@ public:
    void FillDZH( float, float, float, int, int, int );
    void FillDZHZX( float, float, float, int, int );
    
+   void FillDVH( float, float, float, int, int, int );
+   void FillDVHZX( float, float, float, int, int );
+   
    void FillMZ1vsMZ2( float, float, float, float, int, int, int );
    
    void FillVectors( float, float, float, int, float, float, float, float, int, int) ;
@@ -137,7 +140,7 @@ public:
 private:
       
    float _lumi, _y_max;
-   bool VBF_tagged_, VH_tagged_, ttH_tagged_;
+   bool is_VBF_tagged_, is_VH_tagged_, is_ttH_tagged_, is_Djet_, is_DVH_;
 
    vector<double> mass_points;
 

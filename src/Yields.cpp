@@ -115,19 +115,15 @@ void Yields::MakeHistograms( TString input_file_name )
       _current_category = categoryMor17(nExtraLep, nExtraZ, nCleanedJetsPt30, nCleanedJetsPt30BTagged_bTagSF, jetQGL,
                                         p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, p_JQCD_SIG_ghg2_1_JHUGen_JECNominal, p_JJVBF_SIG_ghv1_1_JHUGen_JECNominal,
                                         p_JVBF_SIG_ghv1_1_JHUGen_JECNominal, pAux_JVBF_SIG_ghv1_1_JHUGen_JECNominal, p_HadWH_SIG_ghw1_1_JHUGen_JECNominal,
-                                        p_HadZH_SIG_ghz1_1_JHUGen_JECNominal, jetPhi, ZZMass, PFMET, true, false);
-      // Resonant status
-      _current_resonant_status = find_resonant_status();
-   
+                                        p_HadZH_SIG_ghz1_1_JHUGen_JECNominal, jetPhi, ZZMass, PFMET, true, false);   
       // K factors
       if ( APPLY_K_FACTORS ) _k_factor = calculate_K_factor(input_file_name);
 
       // Final event weight
-      
       _event_weight = (_lumi * 1000 * xsec * _k_factor * overallEventWeight) / gen_sum_weights;
    
       // Fill M4l histograms
-       yields_histos->FillYields( ZZMass, _event_weight, _current_final_state, _current_category, _current_resonant_status, _current_process );
+       yields_histos->FillYields( ZZMass, _event_weight, _current_final_state, _current_category, _current_process );
    } // end for loop
    
    cout << "[INFO] Histograms for " << input_file_name << " filled." << endl;
@@ -465,31 +461,3 @@ int Yields::FindFinalStateZX()
    return final_state;
 }
 //=============================
-
-//=================================
-int Yields::find_resonant_status()
-{
-
-   int current_resonant_status = -999;
-   
-   if ( _current_process == Settings::Data )
-   {
-      current_resonant_status = Settings::resonant;
-   }
-   else
-   {
-      Short_t GenHLepId[4] = { GenLep1Id, GenLep2Id, GenLep3Id, GenLep4Id };
-      Int_t nGenHLep = 0;
-	
-      for ( Int_t iGenHLep = 0; iGenHLep < 4; iGenHLep++ )
-      {
-         if ( abs(GenHLepId[iGenHLep]) == 11 || abs(GenHLepId[iGenHLep]) == 13 ) nGenHLep++;
-      }
-   
-      current_resonant_status = (nGenHLep == 4) ? Settings::resonant : Settings::nonresonant;
-   }
-   
-   return current_resonant_status;
-
-}
-//=================================

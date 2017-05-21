@@ -55,7 +55,6 @@ public:
    int FindFinalState();
    int FindFinalStateZX();
    int find_current_process( TString );
-   int find_resonant_status();
    void FillInclusive();
    void Save();
    void Delete();
@@ -94,7 +93,7 @@ private:
    Float_t DWH;
    Float_t DZH;
 
-   int _current_process, _current_final_state, _current_category, _current_resonant_status;
+   int _current_process, _current_final_state, _current_category;
    float _lumi, _k_factor, _SMP_signal_strength, _yield_SR, partial_sample_weight;
    double gen_sum_weights, _event_weight;
    
