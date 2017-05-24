@@ -32,13 +32,19 @@ int main( int argc, char *argv[] )
    TString Data        = path + "Data" + file_name;
    TString FakeRates   = path + "FakeRates" + file_name_FR;
    
-   // SM Signal
+   // SM POWHEG Signal
    TString ggH125      = path + "ggH125" + file_name;
    TString VBFH125     = path + "VBFH125" + file_name;
    TString WpH125      = path + "WplusH125" + file_name;
    TString WmH125      = path + "WminusH125" + file_name;
    TString ZH125       = path + "ZH125" + file_name;
    TString ttH125      = path + "ttH125" + file_name;
+   
+   // SM MCFM Signal
+   TString ggTo4e_0PM     = path + "ggTo4e_0PMH125_MCFM701" + file_name;
+   TString ggTo4mu_0PM    = path + "ggTo4mu_0PMH125_MCFM701" + file_name;
+   TString ggTo2e2mu_0PM  = path + "ggTo2e2mu_0PMH125_MCFM701" + file_name;
+   
    
    // BSM Signal
    TString ggTo4e_0MH     = path + "ggTo4e_0MHH125_MCFM701" + file_name;
@@ -63,11 +69,21 @@ int main( int argc, char *argv[] )
    TString ggZZ2e2tau  = path + "ggTo2e2tau" + file_name;
    TString ggZZ2mu2tau = path + "ggTo2mu2tau" + file_name;
    
+   // SM - bkg interference MCFM Signal
+   
+   // BSM - bkg interference MCFM Signal
+   
+   // SM - BSM interference MCFM Signal
+   
    Offshell_AC *offshell_AC = new Offshell_AC( 35.867);
    
 //===============
 // Produce plots 
 //===============
+   // DATA
+   offshell_AC->MakeHistograms(Data);
+   
+   // POWHEG SM SIGNAL
    offshell_AC->MakeHistograms(ggH125);
    offshell_AC->MakeHistograms(VBFH125);
    offshell_AC->MakeHistograms(WpH125);
@@ -75,14 +91,29 @@ int main( int argc, char *argv[] )
    offshell_AC->MakeHistograms(ZH125);
    offshell_AC->MakeHistograms(ttH125);
    
+   // MCFM SM SIGNAL
    offshell_AC->MakeHistograms(ggTo4e_0MH);
    offshell_AC->MakeHistograms(ggTo4mu_0MH);
    offshell_AC->MakeHistograms(ggTo2e2mu_0MH);
    
+   // SM Background
+   offshell_AC->MakeHistograms(ZZTo4l);
+   offshell_AC->MakeHistograms(ggZZ4e);
+   offshell_AC->MakeHistograms(ggZZ4mu);
+   offshell_AC->MakeHistograms(ggZZ2e2mu);
+   offshell_AC->MakeHistogramsZX(Data, FakeRates);
+   
+   // DZeroMinus BSM signal
+   offshell_AC->MakeHistograms(ggTo4e_0PM);
+   offshell_AC->MakeHistograms(ggTo4mu_0PM);
+   offshell_AC->MakeHistograms(ggTo2e2mu_0PM);
+   
+   // DZerohPlus BSM signal
    offshell_AC->MakeHistograms(ggTo4e_0PH);
    offshell_AC->MakeHistograms(ggTo4mu_0PH);
    offshell_AC->MakeHistograms(ggTo2e2mu_0PH);
-   
+
+   // DL1 BSM signal
    offshell_AC->MakeHistograms(ggTo4e_0PL1);
    offshell_AC->MakeHistograms(ggTo4mu_0PL1);
    offshell_AC->MakeHistograms(ggTo2e2mu_0PL1);
@@ -93,13 +124,17 @@ int main( int argc, char *argv[] )
 
    offshell_AC->GetHistos("Offshell_AC");
    
-   offshell_AC->Plot1D_AC("DZeroMinus", "Plots" );
-   offshell_AC->Plot1D_AC("DZerohPlus", "Plots" );
-   offshell_AC->Plot1D_AC("DL1", "Plots" );
-   
-   offshell_AC->Plot2D_AC("DZeroMinusvsM4l", "Plots");
-   offshell_AC->Plot2D_AC("DZerohPlusvsM4l", "Plots");
-   offshell_AC->Plot2D_AC("DL1vsM4l", "Plots");
+   offshell_AC->Plot1D_AC_SMvsBSM("DZeroMinus", "Plots" );
+   offshell_AC->Plot1D_AC_SMvsBSM("DZerohPlus", "Plots" );
+   offshell_AC->Plot1D_AC_SMvsBSM("DL1", "Plots" );
+
+   offshell_AC->Plot1D_AC_SMvsBSM_bkg("DZeroMinus", "Plots" );
+   offshell_AC->Plot1D_AC_SMvsBSM_bkg("DZerohPlus", "Plots" );
+   offshell_AC->Plot1D_AC_SMvsBSM_bkg("DL1", "Plots" );
+
+   offshell_AC->Plot2D_AC_SMvsBSM("DZeroMinusvsM4l", "Plots");
+   offshell_AC->Plot2D_AC_SMvsBSM("DZerohPlusvsM4l", "Plots");
+   offshell_AC->Plot2D_AC_SMvsBSM("DL1vsM4l", "Plots");
    
    delete offshell_AC;
 }

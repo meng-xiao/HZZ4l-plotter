@@ -133,6 +133,9 @@ void Offshell_AC::MakeHistograms( TString input_file_name )
       
       _event_weight = (_lumi * 1000 * xsec * _k_factor * overallEventWeight) / gen_sum_weights;
       
+      if (_current_process > Settings::acggZZ) _event_weight = _event_weight / 1000.; // hack till we correct MCFM xsec in csv file
+   
+      
       // Fill discriminant histograms
       
       Offshell_AC_histos->FillACHistos(_current_category, _current_final_state, _current_process, ZZMass, _event_weight,
@@ -148,9 +151,8 @@ void Offshell_AC::MakeHistograms( TString input_file_name )
 //=====================================================
 
 
-
 //===============================================================================
-void Offshell_AC::Calculate_SS_ZX_Yields( TString input_file_data_name, TString  input_file_FR_name )
+void Offshell_AC::MakeHistogramsZX( TString input_file_data_name, TString  input_file_FR_name )
 {
    
    FakeRates *FR = new FakeRates( input_file_FR_name );
@@ -179,10 +181,20 @@ void Offshell_AC::Calculate_SS_ZX_Yields( TString input_file_data_name, TString 
       
       _current_final_state = FindFinalStateZX();
       
-      _current_category = categoryMor17(nExtraLep, nExtraZ, nCleanedJetsPt30, nCleanedJetsPt30BTagged_bTagSF, jetQGL,
-                                        p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal, p_JQCD_SIG_ghg2_1_JHUGen_JECNominal, p_JJVBF_SIG_ghv1_1_JHUGen_JECNominal,
-                                        p_JVBF_SIG_ghv1_1_JHUGen_JECNominal, pAux_JVBF_SIG_ghv1_1_JHUGen_JECNominal, p_HadWH_SIG_ghw1_1_JHUGen_JECNominal,
-                                        p_HadZH_SIG_ghz1_1_JHUGen_JECNominal, jetPhi, ZZMass, PFMET, true, false);
+      _current_process = Settings::acData;
+      
+      _current_category = categoryAnomalousCouplings(nExtraLep,
+                                                     nExtraZ,
+                                                     nCleanedJetsPt30,
+                                                     nCleanedJetsPt30BTagged_bTagSF,
+                                                     p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal,
+                                                     p_JJVBF_SIG_ghv1_1_JHUGen_JECNominal,
+                                                     p_JJVBF_SIG_ghv4_1_JHUGen_JECNominal,
+                                                     p_HadWH_SIG_ghw1_1_JHUGen_JECNominal,
+                                                     p_HadZH_SIG_ghz1_1_JHUGen_JECNominal,
+                                                     p_HadWH_SIG_ghw4_1_JHUGen_JECNominal,
+                                                     p_HadZH_SIG_ghz4_1_JHUGen_JECNominal,
+                                                     ZZMass);
       
       
       // Calculate yield
@@ -191,7 +203,19 @@ void Offshell_AC::Calculate_SS_ZX_Yields( TString input_file_data_name, TString 
       _expected_yield_SR[_current_final_state][_current_category] += _yield_SR; // this number needs to be used when renormalizing histograms that have some cut/blinding
       _number_of_events_CR[_current_final_state][_current_category]++;
       
-   } // END events loop
+      if ( MERGE_2E2MU && _current_final_state == Settings::fs2mu2e ) _current_final_state = Settings::fs2e2mu; //We can only do this after _yield_SR is calculated
+      
+      // Calculate kinematic discriminants
+
+      // Fill Z+X histograms
+      Offshell_AC_histos->FillACZXHistos(_current_category, _current_final_state, _current_process, ZZMass, _yield_SR,
+                                       p_GG_SIG_ghg2_1_ghz1_1_JHUGen, p_GG_SIG_ghg2_1_ghz4_1_JHUGen, p_GG_SIG_ghg2_1_ghz2_1_JHUGen, p_GG_SIG_ghg2_1_ghz1prime2_1E4_JHUGen,
+                                       p_JJVBF_SIG_ghv1_1_JHUGen_JECNominal, p_JJVBF_SIG_ghv4_1_JHUGen_JECNominal, p_JJVBF_SIG_ghv2_1_JHUGen_JECNominal, p_JJVBF_SIG_ghv1prime2_1E4_JHUGen_JECNominal,
+                                       p_HadZH_SIG_ghz1_1_JHUGen_JECNominal, p_HadZH_SIG_ghz4_1_JHUGen_JECNominal, p_HadZH_SIG_ghz2_1_JHUGen_JECNominal, p_HadZH_SIG_ghz1prime2_1E4_JHUGen_JECNominal,
+                                       p_HadWH_SIG_ghw1_1_JHUGen_JECNominal, p_HadWH_SIG_ghw4_1_JHUGen_JECNominal, p_HadWH_SIG_ghw2_1_JHUGen_JECNominal, p_HadWH_SIG_ghw1prime2_1E4_JHUGen_JECNominal);
+      
+
+   } // End events loop
    
    for (  int i_cat = 0; i_cat < num_of_categories - 1; i_cat++  )
    {
@@ -209,7 +233,6 @@ void Offshell_AC::Calculate_SS_ZX_Yields( TString input_file_data_name, TString 
             _expected_yield_SR[Settings::fs2mu2e][i_cat]        = 0.;
             _number_of_events_CR[Settings::fs2mu2e][i_cat]      = 0.;
          }
-         
       }
    }
    for ( int i_fs = 0; i_fs < num_of_final_states - 1; i_fs++  )
@@ -234,9 +257,10 @@ void Offshell_AC::Calculate_SS_ZX_Yields( TString input_file_data_name, TString 
    cout << "========================================================================================" << endl;
    cout << endl;
    
-   cout << "[INFO] Z+X yields calculated using SS method." << endl;
+   cout << "[INFO] Z+X histograms filled." << endl;
 }
 //===============================================================================
+
 
 
 
@@ -284,17 +308,25 @@ void Offshell_AC::Delete()
 //==================
 
 //==================
-void Offshell_AC::Plot1D_AC( TString variable_name, TString folder )
+void Offshell_AC::Plot1D_AC_SMvsBSM( TString variable_name, TString folder )
 {
-   Offshell_AC_histos->Plot1D_AC( variable_name, folder );
+   Offshell_AC_histos->Plot1D_AC_SMvsBSM( variable_name, folder );
 
 }
 //==================
 
 //==================
-void Offshell_AC::Plot2D_AC( TString variable_name, TString folder )
+void Offshell_AC::Plot1D_AC_SMvsBSM_bkg( TString variable_name, TString folder )
 {
-   Offshell_AC_histos->Plot2D_AC( variable_name, folder );
+   Offshell_AC_histos->Plot1D_AC_SMvsBSM_bkg( variable_name, folder );
+   
+}
+//==================
+
+//==================
+void Offshell_AC::Plot2D_AC_SMvsBSM( TString variable_name, TString folder )
+{
+   Offshell_AC_histos->Plot2D_AC_SMvsBSM( variable_name, folder );
    
 }
 //==================
@@ -315,9 +347,13 @@ int Offshell_AC::find_current_process( TString input_file_name )
    else if ( input_file_name.Contains("ZH125") )                       current_process = Settings::acH125VH;
    else if ( input_file_name.Contains("ttH125") )                      current_process = Settings::acH125ttH;
    
-   else if ( input_file_name.Contains("ggTo4e_0MHH125_MCFM701") )       current_process = Settings::acH125_0MH;
-   else if ( input_file_name.Contains("ggTo4mu_0MHH125_MCFM701") )      current_process = Settings::acH125_0MH;
-   else if ( input_file_name.Contains("ggTo2e2mu_0MHH125_MCFM701") )    current_process = Settings::acH125_0MH;
+   else if ( input_file_name.Contains("ggTo4e_0PMH125_MCFM701") )      current_process = Settings::acH125ggH_0PM;
+   else if ( input_file_name.Contains("ggTo4mu_0PMH125_MCFM701") )     current_process = Settings::acH125ggH_0PM;
+   else if ( input_file_name.Contains("ggTo2e2mu_0PMH125_MCFM701") )   current_process = Settings::acH125ggH_0PM;
+   
+   else if ( input_file_name.Contains("ggTo4e_0MHH125_MCFM701") )      current_process = Settings::acH125_0MH;
+   else if ( input_file_name.Contains("ggTo4mu_0MHH125_MCFM701") )     current_process = Settings::acH125_0MH;
+   else if ( input_file_name.Contains("ggTo2e2mu_0MHH125_MCFM701") )   current_process = Settings::acH125_0MH;
    
    else if ( input_file_name.Contains("ggTo4e_0PHH125_MCFM701") )      current_process = Settings::acH125_0PH;
    else if ( input_file_name.Contains("ggTo4mu_0PHH125_MCFM701") )     current_process = Settings::acH125_0PH;

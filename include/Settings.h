@@ -133,12 +133,17 @@ public:
       acH125ttH = 5,
       acqqZZ = 6,
       acggZZ = 7,
-      acH125_0MH = 8,
-      acH125_0PH = 9,
-      acH125_0PL1 = 10,
-      acH125_0MHf05 = 11,
-      acH125_0PHf05 = 12,
-      acH125_0PL1f05 = 13,
+      acH125_0PM = 8,
+      acH125ggH_0PM = 9,
+      acH125VBF_0PM = 10,
+      acH125VH_0PM = 11,
+      acH125ttH_0PM = 12,
+      acH125_0MH = 13,
+      acH125_0PH = 14,
+      acH125_0PL1 = 15,
+      acH125_0MHf05 = 16,
+      acH125_0PHf05 = 17,
+      acH125_0PL1f05 = 18,
       MAX_NUM_OF_PROCESSES_AC
    };
    

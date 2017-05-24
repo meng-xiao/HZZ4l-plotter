@@ -91,6 +91,7 @@ public:
    void FillDvsM4l( float, float, int, float, float, float, float, float, int, int, int );
    
    void FillACHistos( int, int, int, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float);
+   void FillACZXHistos( int, int, int, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float);
    
    void FillYields( float, float, int, int, int );
    
@@ -114,8 +115,9 @@ public:
    void Plot2D_single( TString, TString, TString, int );
    void Plot2DError_single( TString, TString, TString, int );
    void Plot2DErrorAllCat( TString , TString , TString );
-   void Plot1D_AC( TString, TString );
-   void Plot2D_AC( TString, TString );
+   void Plot1D_AC_SMvsBSM( TString, TString );
+   void Plot1D_AC_SMvsBSM_bkg( TString, TString );
+   void Plot2D_AC_SMvsBSM( TString, TString );
    void FillYieldGraphs( float, float );
    void PrepareYamlFiles( TString , float , float, vector<vector<float>> );
    void PrintYields( vector<vector<float>> );
@@ -170,6 +172,7 @@ private:
    // Z+X
    TH1F *histos_1D_ZX[num_of_1D_plot_names][num_of_final_states][num_of_categories];
    TH1F *histos_1D_ZX_shape[num_of_1D_plot_names][num_of_final_states][num_of_categories];
+   TH1F *histos_1D_ZX_AC[num_of_1D_ACplot_names][num_of_m4l_slices][num_of_final_states][num_of_categories_AC][num_of_processes_AC];
    
 //==========
 // 2D plots

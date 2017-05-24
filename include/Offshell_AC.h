@@ -50,7 +50,7 @@ public:
    ~Offshell_AC();
    
    void MakeHistograms( TString );
-   void Calculate_SS_ZX_Yields( TString, TString );
+   void MakeHistogramsZX( TString, TString );
    float calculate_K_factor( TString );
    int FindFinalState();
    int FindFinalStateZX();
@@ -59,8 +59,9 @@ public:
    void Save();
    void Delete();
    void GetHistos( TString );
-   void Plot1D_AC( TString, TString );
-   void Plot2D_AC( TString, TString );
+   void Plot1D_AC_SMvsBSM( TString, TString );
+   void Plot1D_AC_SMvsBSM_bkg( TString, TString );
+   void Plot2D_AC_SMvsBSM( TString, TString );
    
 private:
 
