@@ -84,27 +84,33 @@ public:
    
    void FillMZ1vsMZ2( float, float, float, float, int, int, int );
    
-   void FillVectors( float, float, float, int, float, float, float, float, int, int) ;
-   void FillDvsM4l( float, float, int, float, float, float, float, float, int, int, int );
+   void FillVectors( float, float, float, int, float, float, float, float, float, int, int) ;
+   void FillDvsM4l( float, float, int, float, float, float, float, float, float, int, int, int );
    
    void FillYields( float, float, int, int, int );
    
    void SaveHistos( string );
    void SaveYieldHistos( string );
+   
    void DeleteHistos();
    void DeleteYieldsHistos();
+   
    void FillInclusive();
    void FillInclusiveYields();
+   
    void SmoothHistograms();
    void RenormalizeZX( vector<vector<float>> );
+   
    void GetHistos( TString );
    void GetYieldsHistos( TString );
-   void Plot1D_single( TString, TString, TString, int, int );
-   void Plot1D_all_cat( TString, TString, TString );
+   
+   void plot_1D_single( TString, TString, TString, int, int );
+   void plot_1D_all_cat( TString, TString, TString );
    void Plot1D_allFS( TString, TString, TString );
-   void Plot2D_single( TString, TString, TString, int );
-   void Plot2DError_single( TString, TString, TString, int );
-   void Plot2DErrorAllCat( TString , TString , TString );
+   void plot_2D_single( TString, TString, TString, int );
+   void plot_2D_error_single( TString, TString, TString, int );
+   void plot_2D_error_all_cat( TString , TString , TString );
+   
    void FillYieldGraphs( float, float );
    void PrepareYamlFiles( TString , float , float, vector<vector<float>> );
    void PrintYields( vector<vector<float>> );
@@ -120,6 +126,7 @@ public:
    int SetProcess( int, int );
    int SetPlotName( TString );
    float SetMassPoint( int );
+   
    bool GetVarLogX( TString );
    bool GetVarLogY( TString );
    

@@ -186,50 +186,58 @@ Histograms::Histograms( double lumi, string blinding )
             _histo_name = "KDvsM4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
             _histo_labels = ";" + Variables::KDvsM4l().var_X_label + ";" + Variables::KDvsM4l().var_Y_label;
             histos_2DError[Settings::KDvsM4l][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::KDvsM4l().var_X_N_bin,
-                                                                                    Variables::KDvsM4l().var_X_min, Variables::KDvsM4l().var_X_max, Variables::KDvsM4l().var_Y_N_bin,
-                                                                                    Variables::KDvsM4l().var_Y_min, Variables::KDvsM4l().var_Y_max);
+                                                                              Variables::KDvsM4l().var_X_min, Variables::KDvsM4l().var_X_max,
+                                                                              Variables::KDvsM4l().var_Y_N_bin, Variables::KDvsM4l().var_Y_min,
+                                                                              Variables::KDvsM4l().var_Y_max);
             
             _histo_name = "KDvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
             _histo_labels = ";" + Variables::KDvsM4lZoomed().var_X_label + ";" + Variables::KDvsM4lZoomed().var_Y_label;
             histos_2DError[Settings::KDvsM4lZoomed][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::KDvsM4lZoomed().var_X_N_bin,
-                                                                                          Variables::KDvsM4lZoomed().var_X_min, Variables::KDvsM4lZoomed().var_X_max,
-                                                                                          Variables::KDvsM4lZoomed().var_Y_N_bin, Variables::KDvsM4lZoomed().var_Y_min,
-                                                                                          Variables::KDvsM4lZoomed().var_Y_max);
+                                                                                    Variables::KDvsM4lZoomed().var_X_min, Variables::KDvsM4lZoomed().var_X_max,
+                                                                                    Variables::KDvsM4lZoomed().var_Y_N_bin, Variables::KDvsM4lZoomed().var_Y_min,
+                                                                                    Variables::KDvsM4lZoomed().var_Y_max);
             
             _histo_name = "KDvsM4lHighMass" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
             _histo_labels = ";" + Variables::KDvsM4lHighMass().var_X_label + ";" + Variables::KDvsM4lHighMass().var_Y_label;
             histos_2DError[Settings::KDvsM4lHighMass][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::KDvsM4lHighMass().var_X_N_bin,
-                                                                                            Variables::KDvsM4lHighMass().var_X_min, Variables::KDvsM4lHighMass().var_X_max,
-                                                                                            Variables::KDvsM4lHighMass().var_Y_N_bin, Variables::KDvsM4lHighMass().var_Y_min,
-                                                                                            Variables::KDvsM4l().var_Y_max);
+                                                                                      Variables::KDvsM4lHighMass().var_X_min, Variables::KDvsM4lHighMass().var_X_max,
+                                                                                      Variables::KDvsM4lHighMass().var_Y_N_bin, Variables::KDvsM4lHighMass().var_Y_min,
+                                                                                      Variables::KDvsM4l().var_Y_max);
             
             _histo_name = "D1jetvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
             _histo_labels = ";" + Variables::D1jetvsM4lZoomed().var_X_label + ";" + Variables::D1jetvsM4lZoomed().var_Y_label;
             histos_2DError[Settings::D1jetvsM4lZoomed][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D1jetvsM4lZoomed().var_X_N_bin,
-                                                                                             Variables::D1jetvsM4lZoomed().var_X_min, Variables::D1jetvsM4lZoomed().var_X_max,
-                                                                                             Variables::D1jetvsM4lZoomed().var_Y_N_bin, Variables::D1jetvsM4lZoomed().var_Y_min,
-                                                                                             Variables::D1jetvsM4lZoomed().var_Y_max);
+                                                                                       Variables::D1jetvsM4lZoomed().var_X_min, Variables::D1jetvsM4lZoomed().var_X_max,
+                                                                                       Variables::D1jetvsM4lZoomed().var_Y_N_bin, Variables::D1jetvsM4lZoomed().var_Y_min,
+                                                                                       Variables::D1jetvsM4lZoomed().var_Y_max);
             
             _histo_name = "D2jetvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
             _histo_labels = ";" + Variables::D2jetvsM4lZoomed().var_X_label + ";" + Variables::D2jetvsM4lZoomed().var_Y_label;
             histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::D2jetvsM4lZoomed().var_X_N_bin,
-                                                                                             Variables::D2jetvsM4lZoomed().var_X_min, Variables::D2jetvsM4lZoomed().var_X_max,
-                                                                                             Variables::D2jetvsM4lZoomed().var_Y_N_bin, Variables::D2jetvsM4lZoomed().var_Y_min,
-                                                                                             Variables::D2jetvsM4lZoomed().var_Y_max);
+                                                                                       Variables::D2jetvsM4lZoomed().var_X_min, Variables::D2jetvsM4lZoomed().var_X_max,
+                                                                                       Variables::D2jetvsM4lZoomed().var_Y_N_bin, Variables::D2jetvsM4lZoomed().var_Y_min,
+                                                                                       Variables::D2jetvsM4lZoomed().var_Y_max);
             
             _histo_name = "DWHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
             _histo_labels = ";" + Variables::DWHvsM4lZoomed().var_X_label + ";" + Variables::DWHvsM4lZoomed().var_Y_label;
             histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DWHvsM4lZoomed().var_X_N_bin,
-                                                                                           Variables::DWHvsM4lZoomed().var_X_min, Variables::DWHvsM4lZoomed().var_X_max,
-                                                                                           Variables::DWHvsM4lZoomed().var_Y_N_bin, Variables::DWHvsM4lZoomed().var_Y_min,
-                                                                                           Variables::DWHvsM4lZoomed().var_Y_max);
+                                                                                     Variables::DWHvsM4lZoomed().var_X_min, Variables::DWHvsM4lZoomed().var_X_max,
+                                                                                     Variables::DWHvsM4lZoomed().var_Y_N_bin, Variables::DWHvsM4lZoomed().var_Y_min,
+                                                                                     Variables::DWHvsM4lZoomed().var_Y_max);
             
             _histo_name = "DZHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
             _histo_labels = ";" + Variables::DZHvsM4lZoomed().var_X_label + ";" + Variables::DZHvsM4lZoomed().var_Y_label;
             histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DZHvsM4lZoomed().var_X_N_bin,
-                                                                                           Variables::DZHvsM4lZoomed().var_X_min, Variables::DZHvsM4lZoomed().var_X_max,
-                                                                                           Variables::DZHvsM4lZoomed().var_Y_N_bin, Variables::DZHvsM4lZoomed().var_Y_min,
-                                                                                           Variables::DZHvsM4lZoomed().var_Y_max);
+                                                                                     Variables::DZHvsM4lZoomed().var_X_min, Variables::DZHvsM4lZoomed().var_X_max,
+                                                                                     Variables::DZHvsM4lZoomed().var_Y_N_bin, Variables::DZHvsM4lZoomed().var_Y_min,
+                                                                                     Variables::DZHvsM4lZoomed().var_Y_max);
+                                                                                           
+            _histo_name = "DVHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            _histo_labels = ";" + Variables::DVHvsM4lZoomed().var_X_label + ";" + Variables::DVHvsM4lZoomed().var_Y_label;
+            histos_2DError[Settings::DVHvsM4lZoomed][i_fs][i_cat][i_proc] = new TH2F(_histo_name.c_str(), _histo_labels.c_str(), Variables::DVHvsM4lZoomed().var_X_N_bin,
+                                                                                     Variables::DVHvsM4lZoomed().var_X_min, Variables::DVHvsM4lZoomed().var_X_max,
+                                                                                     Variables::DVHvsM4lZoomed().var_Y_N_bin, Variables::DVHvsM4lZoomed().var_Y_min,
+                                                                                     Variables::DVHvsM4lZoomed().var_Y_max);
          }
       }
    }
@@ -690,8 +698,8 @@ void Histograms::FillDVHZX( float M4l, float DVH, float weight, int fs, int cat 
 
 
 
-//=========
-// MZ1vsMZ2
+//===========
+// MZ1 vs MZ2
 //====================================================================================
 void Histograms::FillMZ1vsMZ2( float M4l, float MZ1, float MZ2, float weight, int fs, int cat, int proc )
 {
@@ -707,7 +715,7 @@ void Histograms::FillMZ1vsMZ2( float M4l, float MZ1, float MZ2, float weight, in
 
 
 //====================================================================================
-void Histograms::FillVectors( float M4l, float ZZMassErrCorr, float KD, int nCleanedJetsPt30, float D1jet, float D2jet, float DWH, float DZH, int fs, int cat)
+void Histograms::FillVectors( float M4l, float ZZMassErrCorr, float KD, int nCleanedJetsPt30, float D1jet, float D2jet, float DWH, float DZH, float DVH, int fs, int cat)
 {
    vector_X[Settings::KDvsM4l][fs][cat].push_back(M4l);
    vector_Y[Settings::KDvsM4l][fs][cat].push_back(KD);
@@ -749,15 +757,19 @@ void Histograms::FillVectors( float M4l, float ZZMassErrCorr, float KD, int nCle
       vector_Y[Settings::DZHvsM4lZoomed][fs][cat].push_back(DZH);
       vector_EX[Settings::DZHvsM4lZoomed][fs][cat].push_back(ZZMassErrCorr);
       vector_EY[Settings::DZHvsM4lZoomed][fs][cat].push_back(0.);
+
+      vector_X[Settings::DVHvsM4lZoomed][fs][cat].push_back(M4l);
+      vector_Y[Settings::DVHvsM4lZoomed][fs][cat].push_back(DVH);
+      vector_EX[Settings::DVHvsM4lZoomed][fs][cat].push_back(ZZMassErrCorr);
+      vector_EY[Settings::DVHvsM4lZoomed][fs][cat].push_back(0.);
    }
-   
 }
 //====================================================================================
 
 
 
 //====================================================================================
-void Histograms::FillDvsM4l( float M4l, float KD, int nCleanedJetsPt30, float D1jet, float D2jet, float DWH, float DZH, float weight, int fs, int cat, int proc )
+void Histograms::FillDvsM4l( float M4l, float KD, int nCleanedJetsPt30, float D1jet, float D2jet, float DWH, float DZH, float DVH, float weight, int fs, int cat, int proc )
 {
    histos_2DError[Settings::KDvsM4l][fs][cat][proc]        ->Fill(M4l, KD, (proc == Settings::Data) ? 1. : weight);
    histos_2DError[Settings::KDvsM4lZoomed][fs][cat][proc]  ->Fill(M4l, KD, (proc == Settings::Data) ? 1. : weight);
@@ -765,8 +777,9 @@ void Histograms::FillDvsM4l( float M4l, float KD, int nCleanedJetsPt30, float D1
    
    if (nCleanedJetsPt30 == 1) histos_2DError[Settings::D1jetvsM4lZoomed][fs][cat][proc]->Fill(M4l, D1jet, (proc == Settings::Data) ? 1. : weight);
    if (nCleanedJetsPt30 >= 2) histos_2DError[Settings::D2jetvsM4lZoomed][fs][cat][proc]->Fill(M4l, D2jet, (proc == Settings::Data) ? 1. : weight);
-   if (nCleanedJetsPt30 >= 2) histos_2DError[Settings::DWHvsM4lZoomed][fs][cat][proc]  ->Fill(M4l, DWH, (proc == Settings::Data) ? 1. : weight);
-   if (nCleanedJetsPt30 >= 2) histos_2DError[Settings::DZHvsM4lZoomed][fs][cat][proc]  ->Fill(M4l, DZH, (proc == Settings::Data) ? 1. : weight);
+   if (nCleanedJetsPt30 >= 2) histos_2DError[Settings::DWHvsM4lZoomed][fs][cat][proc]  ->Fill(M4l, DWH,   (proc == Settings::Data) ? 1. : weight);
+   if (nCleanedJetsPt30 >= 2) histos_2DError[Settings::DZHvsM4lZoomed][fs][cat][proc]  ->Fill(M4l, DZH,   (proc == Settings::Data) ? 1. : weight);
+   if (nCleanedJetsPt30 >= 2) histos_2DError[Settings::DVHvsM4lZoomed][fs][cat][proc]  ->Fill(M4l, DVH,   (proc == Settings::Data) ? 1. : weight);
 }
 //====================================================================================
 
@@ -980,6 +993,11 @@ void Histograms::FillInclusive()
          histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][Settings::H125VBF]);
          histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][Settings::H125VH]);
          histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][Settings::H125ttH]);
+         
+         histos_2DError[Settings::DVHvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::DVHvsM4lZoomed][i_fs][i_cat][Settings::H125ggH]);
+         histos_2DError[Settings::DVHvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::DVHvsM4lZoomed][i_fs][i_cat][Settings::H125VBF]);
+         histos_2DError[Settings::DVHvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::DVHvsM4lZoomed][i_fs][i_cat][Settings::H125VH]);
+         histos_2DError[Settings::DVHvsM4lZoomed][i_fs][i_cat][Settings::H125]->Add(histos_2DError[Settings::DVHvsM4lZoomed][i_fs][i_cat][Settings::H125ttH]);
       }
    }
 
@@ -1047,7 +1065,7 @@ void Histograms::FillInclusive()
             histos_2DError[Settings::D2jetvsM4lZoomed][Settings::fs4l][i_cat][i_proc]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_proc]);
             histos_2DError[Settings::DWHvsM4lZoomed][Settings::fs4l][i_cat][i_proc]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_proc]);
             histos_2DError[Settings::DZHvsM4lZoomed][Settings::fs4l][i_cat][i_proc]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_proc]);
-
+            histos_2DError[Settings::DVHvsM4lZoomed][Settings::fs4l][i_cat][i_proc]->Add(histos_2DError[Settings::DVHvsM4lZoomed][i_fs][i_cat][i_proc]);
          }
       }
    }
@@ -1116,6 +1134,7 @@ void Histograms::FillInclusive()
             histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][Settings::inclusive][i_proc]->Add(histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_proc]);
             histos_2DError[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive][i_proc]->Add(histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_proc]);
             histos_2DError[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive][i_proc]->Add(histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_proc]);
+            histos_2DError[Settings::DVHvsM4lZoomed][i_fs][Settings::inclusive][i_proc]->Add(histos_2DError[Settings::DVHvsM4lZoomed][i_fs][i_cat][i_proc]);
          }
       }
    }
@@ -1205,6 +1224,11 @@ void Histograms::FillInclusive()
          vector_Y[Settings::DZHvsM4lZoomed][Settings::fs4l][i_cat].insert(vector_Y[Settings::DZHvsM4lZoomed][Settings::fs4l][i_cat].end(),vector_Y[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),vector_Y[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
          vector_EX[Settings::DZHvsM4lZoomed][Settings::fs4l][i_cat].insert(vector_EX[Settings::DZHvsM4lZoomed][Settings::fs4l][i_cat].end(),vector_EX[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),vector_EX[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
          vector_EY[Settings::DZHvsM4lZoomed][Settings::fs4l][i_cat].insert(vector_EY[Settings::DZHvsM4lZoomed][Settings::fs4l][i_cat].end(),vector_EY[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),vector_EY[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
+     
+         vector_X[Settings::DVHvsM4lZoomed][Settings::fs4l][i_cat].insert(vector_X[Settings::DVHvsM4lZoomed][Settings::fs4l][i_cat].end(),vector_X[Settings::DVHvsM4lZoomed][i_fs][i_cat].begin(),vector_X[Settings::DVHvsM4lZoomed][i_fs][i_cat].end());
+         vector_Y[Settings::DVHvsM4lZoomed][Settings::fs4l][i_cat].insert(vector_Y[Settings::DVHvsM4lZoomed][Settings::fs4l][i_cat].end(),vector_Y[Settings::DVHvsM4lZoomed][i_fs][i_cat].begin(),vector_Y[Settings::DVHvsM4lZoomed][i_fs][i_cat].end());
+         vector_EX[Settings::DVHvsM4lZoomed][Settings::fs4l][i_cat].insert(vector_EX[Settings::DVHvsM4lZoomed][Settings::fs4l][i_cat].end(),vector_EX[Settings::DVHvsM4lZoomed][i_fs][i_cat].begin(),vector_EX[Settings::DVHvsM4lZoomed][i_fs][i_cat].end());
+         vector_EY[Settings::DVHvsM4lZoomed][Settings::fs4l][i_cat].insert(vector_EY[Settings::DVHvsM4lZoomed][Settings::fs4l][i_cat].end(),vector_EY[Settings::DVHvsM4lZoomed][i_fs][i_cat].begin(),vector_EY[Settings::DVHvsM4lZoomed][i_fs][i_cat].end());
       }
    }
 
@@ -1280,21 +1304,62 @@ void Histograms::FillInclusive()
          vector_EX[Settings::D2jetvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_EX[Settings::D2jetvsM4lZoomed][i_fs][Settings::inclusive].end(),vector_EX[Settings::D2jetvsM4lZoomed][i_fs][i_cat].begin(),vector_EX[Settings::D2jetvsM4lZoomed][i_fs][i_cat].end());
          vector_EY[Settings::D2jetvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_EY[Settings::D2jetvsM4lZoomed][i_fs][Settings::inclusive].end(),vector_EY[Settings::D2jetvsM4lZoomed][i_fs][i_cat].begin(),vector_EY[Settings::D2jetvsM4lZoomed][i_fs][i_cat].end());
          
-         vector_X[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_X[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive].end(),vector_X[Settings::DWHvsM4lZoomed][i_fs][i_cat].begin(),vector_X[Settings::DWHvsM4lZoomed][i_fs][i_cat].end());
-         vector_Y[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_Y[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive].end(),vector_Y[Settings::DWHvsM4lZoomed][i_fs][i_cat].begin(),vector_Y[Settings::DWHvsM4lZoomed][i_fs][i_cat].end());
-         vector_EX[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_EX[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive].end(),vector_EX[Settings::DWHvsM4lZoomed][i_fs][i_cat].begin(),vector_EX[Settings::DWHvsM4lZoomed][i_fs][i_cat].end());
-         vector_EY[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_EY[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive].end(),vector_EY[Settings::DWHvsM4lZoomed][i_fs][i_cat].begin(),vector_EY[Settings::DWHvsM4lZoomed][i_fs][i_cat].end());
+         // DWHvsM4lZoomed
+         vector_X[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_X[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive].end(),
+                                                                              vector_X[Settings::DWHvsM4lZoomed][i_fs][i_cat].begin(),
+                                                                              vector_X[Settings::DWHvsM4lZoomed][i_fs][i_cat].end());
+                                                                              
+         vector_Y[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_Y[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive].end(),
+                                                                              vector_Y[Settings::DWHvsM4lZoomed][i_fs][i_cat].begin(),
+                                                                              vector_Y[Settings::DWHvsM4lZoomed][i_fs][i_cat].end());
+                                                                              
+         vector_EX[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_EX[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive].end(),
+                                                                               vector_EX[Settings::DWHvsM4lZoomed][i_fs][i_cat].begin(),
+                                                                               vector_EX[Settings::DWHvsM4lZoomed][i_fs][i_cat].end());
+                                                                               
+         vector_EY[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_EY[Settings::DWHvsM4lZoomed][i_fs][Settings::inclusive].end(),
+                                                                               vector_EY[Settings::DWHvsM4lZoomed][i_fs][i_cat].begin(),
+                                                                               vector_EY[Settings::DWHvsM4lZoomed][i_fs][i_cat].end());
          
-         vector_X[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_X[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive].end(),vector_X[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),vector_X[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
-         vector_Y[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_Y[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive].end(),vector_Y[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),vector_Y[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
-         vector_EX[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_EX[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive].end(),vector_EX[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),vector_EX[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
-         vector_EY[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_EY[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive].end(),vector_EY[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),vector_EY[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
+         // DZHvsM4lZoomed
+         vector_X[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_X[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive].end(),
+                                                                              vector_X[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),
+                                                                              vector_X[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
+                                                                              
+         vector_Y[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_Y[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive].end(),
+                                                                              vector_Y[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),
+                                                                              vector_Y[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
+                                                                              
+         vector_EX[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_EX[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive].end(),
+                                                                               vector_EX[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),
+                                                                               vector_EX[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
+                                                                               
+         vector_EY[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_EY[Settings::DZHvsM4lZoomed][i_fs][Settings::inclusive].end(),
+                                                                               vector_EY[Settings::DZHvsM4lZoomed][i_fs][i_cat].begin(),
+                                                                               vector_EY[Settings::DZHvsM4lZoomed][i_fs][i_cat].end());
+         
+         // DVHvsM4lZoomed
+         vector_X[Settings::DVHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_X[Settings::DVHvsM4lZoomed][i_fs][Settings::inclusive].end(),
+                                                                              vector_X[Settings::DVHvsM4lZoomed][i_fs][i_cat].begin(),
+                                                                              vector_X[Settings::DVHvsM4lZoomed][i_fs][i_cat].end());  
+         
+         vector_Y[Settings::DVHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_Y[Settings::DVHvsM4lZoomed][i_fs][Settings::inclusive].end(),
+                                                                              vector_Y[Settings::DVHvsM4lZoomed][i_fs][i_cat].begin(),
+                                                                              vector_Y[Settings::DVHvsM4lZoomed][i_fs][i_cat].end());
+         
+         vector_EX[Settings::DVHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_EX[Settings::DVHvsM4lZoomed][i_fs][Settings::inclusive].end(),
+                                                                               vector_EX[Settings::DVHvsM4lZoomed][i_fs][i_cat].begin(),
+                                                                               vector_EX[Settings::DVHvsM4lZoomed][i_fs][i_cat].end());
+         
+         vector_EY[Settings::DVHvsM4lZoomed][i_fs][Settings::inclusive].insert(vector_EY[Settings::DVHvsM4lZoomed][i_fs][Settings::inclusive].end(),
+                                                                               vector_EY[Settings::DVHvsM4lZoomed][i_fs][i_cat].begin(),
+                                                                               vector_EY[Settings::DVHvsM4lZoomed][i_fs][i_cat].end());
       }
    }
 }
 //==============================
 
-
+   
 
 
 //==============================
@@ -1725,69 +1790,85 @@ void Histograms::SaveHistos( string file_name )
          //==========================
          // 2D plots with mass error
          //==========================
-         histos_2DError_data[Settings::KDvsM4l][i_fs][i_cat] = new TGraphErrors (vector_X[Settings::KDvsM4l][i_fs][i_cat].size(),
-                                                                                    &(vector_X[Settings::KDvsM4l][i_fs][i_cat][0]),
-                                                                                    &(vector_Y[Settings::KDvsM4l][i_fs][i_cat][0]),
-                                                                                    &(vector_EX[Settings::KDvsM4l][i_fs][i_cat][0]),
-                                                                                    &(vector_EY[Settings::KDvsM4l][i_fs][i_cat][0]));
+         histos_2DError_data[Settings::KDvsM4l][i_fs][i_cat] = new TGraphErrors( vector_X[Settings::KDvsM4l][i_fs][i_cat].size(),
+                                                                                 &(vector_X[Settings::KDvsM4l][i_fs][i_cat][0]),
+                                                                                 &(vector_Y[Settings::KDvsM4l][i_fs][i_cat][0]),
+                                                                                 &(vector_EX[Settings::KDvsM4l][i_fs][i_cat][0]),
+                                                                                 &(vector_EY[Settings::KDvsM4l][i_fs][i_cat][0]) );
          _histo_name = "KDvsM4l" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
          histos_2DError_data[Settings::KDvsM4l][i_fs][i_cat]->SetName(_histo_name.c_str());
          histos_2DError_data[Settings::KDvsM4l][i_fs][i_cat]->Write();
          
-         histos_2DError_data[Settings::KDvsM4lZoomed][i_fs][i_cat] = new TGraphErrors (vector_X[Settings::KDvsM4lZoomed][i_fs][i_cat].size(),
-                                                                                 &(vector_X[Settings::KDvsM4lZoomed][i_fs][i_cat][0]),
-                                                                                 &(vector_Y[Settings::KDvsM4lZoomed][i_fs][i_cat][0]),
-                                                                                 &(vector_EX[Settings::KDvsM4lZoomed][i_fs][i_cat][0]),
-                                                                                 &(vector_EY[Settings::KDvsM4lZoomed][i_fs][i_cat][0]));
+         
+         histos_2DError_data[Settings::KDvsM4lZoomed][i_fs][i_cat] = new TGraphErrors( vector_X[Settings::KDvsM4lZoomed][i_fs][i_cat].size(),
+                                                                                       &(vector_X[Settings::KDvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                       &(vector_Y[Settings::KDvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                       &(vector_EX[Settings::KDvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                       &(vector_EY[Settings::KDvsM4lZoomed][i_fs][i_cat][0]) );
          _histo_name = "KDvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
          histos_2DError_data[Settings::KDvsM4lZoomed][i_fs][i_cat]->SetName(_histo_name.c_str());
          histos_2DError_data[Settings::KDvsM4lZoomed][i_fs][i_cat]->Write();
          
-         histos_2DError_data[Settings::KDvsM4lHighMass][i_fs][i_cat] = new TGraphErrors (vector_X[Settings::KDvsM4lHighMass][i_fs][i_cat].size(),
-                                                                                 &(vector_X[Settings::KDvsM4lHighMass][i_fs][i_cat][0]),
-                                                                                 &(vector_Y[Settings::KDvsM4lHighMass][i_fs][i_cat][0]),
-                                                                                 &(vector_EX[Settings::KDvsM4lHighMass][i_fs][i_cat][0]),
-                                                                                 &(vector_EY[Settings::KDvsM4lHighMass][i_fs][i_cat][0]));
+         
+         histos_2DError_data[Settings::KDvsM4lHighMass][i_fs][i_cat] = new TGraphErrors( vector_X[Settings::KDvsM4lHighMass][i_fs][i_cat].size(),
+                                                                                         &(vector_X[Settings::KDvsM4lHighMass][i_fs][i_cat][0]),
+                                                                                         &(vector_Y[Settings::KDvsM4lHighMass][i_fs][i_cat][0]),
+                                                                                         &(vector_EX[Settings::KDvsM4lHighMass][i_fs][i_cat][0]),
+                                                                                         &(vector_EY[Settings::KDvsM4lHighMass][i_fs][i_cat][0]) );
          _histo_name = "KDvsM4lHighMass" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
          histos_2DError_data[Settings::KDvsM4lHighMass][i_fs][i_cat]->SetName(_histo_name.c_str());
          histos_2DError_data[Settings::KDvsM4lHighMass][i_fs][i_cat]->Write();
          
-         histos_2DError_data[Settings::D1jetvsM4lZoomed][i_fs][i_cat] = new TGraphErrors (vector_X[Settings::D1jetvsM4lZoomed][i_fs][i_cat].size(),
-                                                                                 &(vector_X[Settings::D1jetvsM4lZoomed][i_fs][i_cat][0]),
-                                                                                 &(vector_Y[Settings::D1jetvsM4lZoomed][i_fs][i_cat][0]),
-                                                                                 &(vector_EX[Settings::D1jetvsM4lZoomed][i_fs][i_cat][0]),
-                                                                                 &(vector_EY[Settings::D1jetvsM4lZoomed][i_fs][i_cat][0]));
+         
+         histos_2DError_data[Settings::D1jetvsM4lZoomed][i_fs][i_cat] = new TGraphErrors( vector_X[Settings::D1jetvsM4lZoomed][i_fs][i_cat].size(),
+                                                                                          &(vector_X[Settings::D1jetvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                          &(vector_Y[Settings::D1jetvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                          &(vector_EX[Settings::D1jetvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                          &(vector_EY[Settings::D1jetvsM4lZoomed][i_fs][i_cat][0]) );
          _histo_name = "D1jetvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
          histos_2DError_data[Settings::D1jetvsM4lZoomed][i_fs][i_cat]->SetName(_histo_name.c_str());
          histos_2DError_data[Settings::D1jetvsM4lZoomed][i_fs][i_cat]->Write();
+      
          
-         histos_2DError_data[Settings::D2jetvsM4lZoomed][i_fs][i_cat] = new TGraphErrors (vector_X[Settings::D2jetvsM4lZoomed][i_fs][i_cat].size(),
-                                                                                 &(vector_X[Settings::D2jetvsM4lZoomed][i_fs][i_cat][0]),
-                                                                                 &(vector_Y[Settings::D2jetvsM4lZoomed][i_fs][i_cat][0]),
-                                                                                 &(vector_EX[Settings::D2jetvsM4lZoomed][i_fs][i_cat][0]),
-                                                                                 &(vector_EY[Settings::D2jetvsM4lZoomed][i_fs][i_cat][0]));
+         histos_2DError_data[Settings::D2jetvsM4lZoomed][i_fs][i_cat] = new TGraphErrors( vector_X[Settings::D2jetvsM4lZoomed][i_fs][i_cat].size(),
+                                                                                          &(vector_X[Settings::D2jetvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                          &(vector_Y[Settings::D2jetvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                          &(vector_EX[Settings::D2jetvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                          &(vector_EY[Settings::D2jetvsM4lZoomed][i_fs][i_cat][0]) );
          _histo_name = "D2jetvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
          histos_2DError_data[Settings::D2jetvsM4lZoomed][i_fs][i_cat]->SetName(_histo_name.c_str());
          histos_2DError_data[Settings::D2jetvsM4lZoomed][i_fs][i_cat]->Write();
+      
          
-         histos_2DError_data[Settings::DWHvsM4lZoomed][i_fs][i_cat] = new TGraphErrors (vector_X[Settings::DWHvsM4lZoomed][i_fs][i_cat].size(),
-                                                                                 &(vector_X[Settings::DWHvsM4lZoomed][i_fs][i_cat][0]),
-                                                                                 &(vector_Y[Settings::DWHvsM4lZoomed][i_fs][i_cat][0]),
-                                                                                 &(vector_EX[Settings::DWHvsM4lZoomed][i_fs][i_cat][0]),
-                                                                                 &(vector_EY[Settings::DWHvsM4lZoomed][i_fs][i_cat][0]));
+         histos_2DError_data[Settings::DWHvsM4lZoomed][i_fs][i_cat] = new TGraphErrors( vector_X[Settings::DWHvsM4lZoomed][i_fs][i_cat].size(),
+                                                                                        &(vector_X[Settings::DWHvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                        &(vector_Y[Settings::DWHvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                        &(vector_EX[Settings::DWHvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                        &(vector_EY[Settings::DWHvsM4lZoomed][i_fs][i_cat][0]) );
          _histo_name = "DWHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
          histos_2DError_data[Settings::DWHvsM4lZoomed][i_fs][i_cat]->SetName(_histo_name.c_str());
          histos_2DError_data[Settings::DWHvsM4lZoomed][i_fs][i_cat]->Write();
+      
          
-         histos_2DError_data[Settings::DZHvsM4lZoomed][i_fs][i_cat] = new TGraphErrors (vector_X[Settings::DZHvsM4lZoomed][i_fs][i_cat].size(),
-                                                                                 &(vector_X[Settings::DZHvsM4lZoomed][i_fs][i_cat][0]),
-                                                                                 &(vector_Y[Settings::DZHvsM4lZoomed][i_fs][i_cat][0]),
-                                                                                 &(vector_EX[Settings::DZHvsM4lZoomed][i_fs][i_cat][0]),
-                                                                                 &(vector_EY[Settings::DZHvsM4lZoomed][i_fs][i_cat][0]));
+         histos_2DError_data[Settings::DZHvsM4lZoomed][i_fs][i_cat] = new TGraphErrors( vector_X[Settings::DZHvsM4lZoomed][i_fs][i_cat].size(),
+                                                                                        &(vector_X[Settings::DZHvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                        &(vector_Y[Settings::DZHvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                        &(vector_EX[Settings::DZHvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                        &(vector_EY[Settings::DZHvsM4lZoomed][i_fs][i_cat][0]) );
          _histo_name = "DZHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
-         histos_2DError_data[Settings::DZHvsM4lZoomed][i_fs][i_cat]->SetName(_histo_name.c_str());
+         histos_2DError_data[Settings::DZHvsM4lZoomed][i_fs][i_cat]->SetName( _histo_name.c_str() );
          histos_2DError_data[Settings::DZHvsM4lZoomed][i_fs][i_cat]->Write();
       
+      
+         histos_2DError_data[Settings::DVHvsM4lZoomed][i_fs][i_cat] = new TGraphErrors( vector_X[Settings::DVHvsM4lZoomed][i_fs][i_cat].size(),
+                                                                                        &(vector_X[Settings::DZHvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                        &(vector_Y[Settings::DZHvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                        &(vector_EX[Settings::DZHvsM4lZoomed][i_fs][i_cat][0]),
+                                                                                        &(vector_EY[Settings::DZHvsM4lZoomed][i_fs][i_cat][0]) );
+         _histo_name = "DVHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_2DError_data[Settings::DVHvsM4lZoomed][i_fs][i_cat]->SetName( _histo_name.c_str() );
+         histos_2DError_data[Settings::DVHvsM4lZoomed][i_fs][i_cat]->Write();
+         
          
          for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
          {
@@ -1842,6 +1923,7 @@ void Histograms::SaveHistos( string file_name )
             histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_proc]->Write();
             histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_proc]->Write();
             histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_proc]->Write();
+            histos_2DError[Settings::DVHvsM4lZoomed][i_fs][i_cat][i_proc]->Write();
          }
       }
    }
@@ -1938,7 +2020,7 @@ void Histograms::DeleteHistos()
          delete histos_2DError_data[Settings::D2jetvsM4lZoomed][i_fs][i_cat];
          delete histos_2DError_data[Settings::DWHvsM4lZoomed][i_fs][i_cat];
          delete histos_2DError_data[Settings::DZHvsM4lZoomed][i_fs][i_cat];
-         
+         delete histos_2DError_data[Settings::DVHvsM4lZoomed][i_fs][i_cat];
          
          for ( int i_proc = 0; i_proc < num_of_processes; i_proc++ )
          {
@@ -1993,6 +2075,7 @@ void Histograms::DeleteHistos()
             delete histos_2DError[Settings::D2jetvsM4lZoomed][i_fs][i_cat][i_proc];
             delete histos_2DError[Settings::DWHvsM4lZoomed][i_fs][i_cat][i_proc];
             delete histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_proc];
+            delete histos_2DError[Settings::DVHvsM4lZoomed][i_fs][i_cat][i_proc];
          }
       }
    }
@@ -2132,6 +2215,9 @@ void Histograms::GetHistos( TString file_name )
             
             _histo_name = "DZHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
             histos_2DError[Settings::DZHvsM4lZoomed][i_fs][i_cat][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
+
+            _histo_name = "DVHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + "_" + _s_process.at(i_proc) + _blinding;
+            histos_2DError[Settings::DVHvsM4lZoomed][i_fs][i_cat][i_proc] = (TH2F*)histo_file->Get(_histo_name.c_str());
          }
       }
    }
@@ -2244,6 +2330,8 @@ void Histograms::GetHistos( TString file_name )
          _histo_name = "DZHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
          histos_2DError_data[Settings::DZHvsM4lZoomed][i_fs][i_cat] = (TGraphErrors*)histo_file->Get(_histo_name.c_str());
          
+         _histo_name = "DVHvsM4lZoomed" + _s_final_state.at(i_fs) + "_" + _s_category.at(i_cat) + _blinding;
+         histos_2DError_data[Settings::DVHvsM4lZoomed][i_fs][i_cat] = (TGraphErrors*)histo_file->Get(_histo_name.c_str());
       }
    }
 }
@@ -2251,7 +2339,7 @@ void Histograms::GetHistos( TString file_name )
 
 
 
-//=============================================
+//===================================================
 void Histograms::GetYieldsHistos( TString file_name )
 {
    TFile* histo_file = TFile::Open(file_name);
@@ -2269,12 +2357,12 @@ void Histograms::GetYieldsHistos( TString file_name )
    }
       
 }
-//=============================================
+//===================================================
 
 
 
-//========================================================================================================
-void Histograms::Plot1D_single( TString filename, TString variable_name, TString folder, int fs, int cat )
+//=========================================================================================================
+void Histograms::plot_1D_single( TString filename, TString variable_name, TString folder, int fs, int cat )
 {
    int plot_index = SetPlotName( variable_name);
    
@@ -2499,18 +2587,18 @@ void Histograms::Plot1D_single( TString filename, TString variable_name, TString
    _out_file_name = folder + "/" + variable_name + "_" + filename + "_" + _s_final_state.at(fs) + "_" + _s_category.at(cat);
    SavePlots(c, _out_file_name);
 }
-//========================================================================================================
+//=========================================================================================================
 
 
 
-//=====================================================================================
-void Histograms::Plot1D_all_cat( TString filename, TString variable_name , TString folder )
+//==========================================================================================
+void Histograms::plot_1D_all_cat( TString filename, TString variable_name , TString folder )
 {
-   int plot_index = SetPlotName( variable_name);
+   int plot_index = SetPlotName( variable_name );
    
    TCanvas *c;
    
-   if (variable_name == "M4lMain")
+   if ( variable_name == "M4lMain" )
    {
       c = new TCanvas(variable_name, variable_name, 650, 500);
    }
@@ -2646,13 +2734,13 @@ void Histograms::Plot1D_all_cat( TString filename, TString variable_name , TStri
       if ( GetVarLogY( variable_name) )
       {
          stack->SetMinimum(0.5);
-         stack->SetMaximum((data_max + data_max_error)*100);
+         stack->SetMaximum((data_max + data_max_error)*200);
       }
       
       else
       {
          stack->SetMinimum(1e-5);
-         stack->SetMaximum((data_max + data_max_error)*1.1);
+         stack->SetMaximum((data_max + data_max_error)*1.5);
       }
 
       // Axis title
@@ -2752,11 +2840,10 @@ void Histograms::Plot1D_all_cat( TString filename, TString variable_name , TStri
       
       _out_file_name = folder + "/" + variable_name + "_" + filename + "_" + _s_final_state.at(Settings::fs4l) + "_" + _s_category.at(i_cat);
       SavePlots(c, _out_file_name);
-      
    }
    delete c;
 }
-//=====================================================================================
+//==========================================================================================
 
 
 
@@ -2899,13 +2986,13 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
 
 
 
-//========================================================================================================
-void Histograms::Plot2D_single( TString filename, TString variable_name, TString folder, int cat )
+//=================================================================================================
+void Histograms::plot_2D_single( TString filename, TString variable_name, TString folder, int cat )
 {
-   int plot_index = SetPlotName( variable_name);
+   int plot_index = SetPlotName( variable_name );
 
    gStyle->SetPadLeftMargin(0.14);
-   gStyle->SetPadRightMargin(0.12);
+   gStyle->SetPadRightMargin(0.15);
 
    TCanvas *c = new TCanvas(variable_name, variable_name, 600, 600);
    
@@ -2918,10 +3005,10 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
    stack = (TH2F*)histos_2D[plot_index][Settings::fs4l][cat][Settings::H125]->Clone();
    stack->Add(histos_2D[plot_index][Settings::fs4l][cat][Settings::qqZZ]);
    stack->Add(histos_2D[plot_index][Settings::fs4l][cat][Settings::ggZZ]);
-   
-   stack->SetTitleOffset(1.2, "X");
-   stack->SetTitleOffset(1.3, "Y");
-   stack->SetTitleOffset(1.45, "Z");
+      
+   stack->SetTitleOffset(1.00, "X");
+   stack->SetTitleOffset(1.25, "YZ");
+   stack->SetLabelOffset(0.01, "XYZ");
    stack->SetTitleSize(0.05, "XYZ");
    stack->SetLabelSize(0.04, "XYZ");
    stack->GetZaxis()->SetTitle("Events / bin");
@@ -2955,7 +3042,9 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
 
    // Draw legend
    TLegend *legend;
-   legend = Create2DLegend("left",histos_2D[plot_index][Settings::fs4e][cat][Settings::Data],histos_2D[plot_index][Settings::fs4mu][cat][Settings::Data],histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::Data]);
+   legend = Create2DLegend( "left", histos_2D[plot_index][Settings::fs4e][cat][Settings::Data],
+                                    histos_2D[plot_index][Settings::fs4mu][cat][Settings::Data],
+                                    histos_2D[plot_index][Settings::fs2e2mu][cat][Settings::Data] );
    legend->Draw();
    
    TPaveText *text;
@@ -2968,8 +3057,8 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
    // Adjust color axis
    c->Update();
    TPaletteAxis *pal = (TPaletteAxis*)stack->GetListOfFunctions()->FindObject("palette");
-   pal->SetX1NDC(0.875);
-   pal->SetX2NDC(0.90);
+   pal->SetX1NDC(0.855);
+   pal->SetX2NDC(0.875);
    
    // Draw lumi
    CMS_lumi *lumi = new CMS_lumi;
@@ -2980,18 +3069,17 @@ void Histograms::Plot2D_single( TString filename, TString variable_name, TString
       
    delete c;  
 }
-//========================================================================================================
+//=================================================================================================
 
 
 
-//========================================================================================================
-void Histograms::Plot2DError_single( TString filename, TString variable_name, TString folder, int cat )
+//=======================================================================================================
+void Histograms::plot_2D_error_single( TString filename, TString variable_name, TString folder, int cat )
 {
-   int plot_index = SetPlotName( variable_name);
+   int plot_index = SetPlotName( variable_name );
    
-   gStyle->SetPadLeftMargin(0.12);
-   gStyle->SetPadRightMargin(0.14);
-   gStyle->SetEndErrorSize(0.);
+   gStyle->SetPadLeftMargin(0.14);
+   gStyle->SetPadRightMargin(0.15);
    
    TCanvas *c = new TCanvas(variable_name, variable_name, 600, 600);
    
@@ -3004,9 +3092,9 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
    stack->Add(histos_2DError[plot_index][Settings::fs4l][cat][Settings::qqZZ]);
    stack->Add(histos_2DError[plot_index][Settings::fs4l][cat][Settings::ggZZ]);
    
-   stack->SetTitleOffset(1.2, "X");
-   stack->SetTitleOffset(1.1, "Y");
-   stack->SetTitleOffset(1.3, "Z");
+   stack->SetTitleOffset(1.00, "X");
+   stack->SetTitleOffset(1.25, "YZ");
+   stack->SetLabelOffset(0.01, "XYZ");
    stack->SetTitleSize(0.05, "XYZ");
    stack->SetLabelSize(0.04, "XYZ");
    stack->GetZaxis()->SetTitle("Events / bin");
@@ -3038,15 +3126,19 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
    
    //Draw legend
    TLegend *legend;
-   legend = Create2DErrorLegend("right",histos_2DError_data[plot_index][Settings::fs4e][cat],histos_2DError_data[plot_index][Settings::fs4mu][cat],histos_2DError_data[plot_index][Settings::fs2e2mu][cat]);
+   legend = Create2DErrorLegend( "right", histos_2DError_data[plot_index][Settings::fs4e][cat],
+                                          histos_2DError_data[plot_index][Settings::fs4mu][cat],
+                                          histos_2DError_data[plot_index][Settings::fs2e2mu][cat] );
    legend->Draw();
    
-   //----- adjust color axis
+   // Adjust color axis
    c->Update();
-   TPaletteAxis* pal = (TPaletteAxis*)stack->GetListOfFunctions()->FindObject("palette");
-   pal->SetX1NDC(0.875);
-   pal->SetX2NDC(0.90);
-   pal->SetY2NDC(0.78);
+   
+   TPaletteAxis *pal = (TPaletteAxis*)stack->GetListOfFunctions()->FindObject("palette");
+   pal->SetX1NDC(0.855);
+   pal->SetX2NDC(0.875);
+   pal->SetY1NDC(0.130);
+   pal->SetY2NDC(0.840);
    
    // Draw lumi
    CMS_lumi *lumi = new CMS_lumi;
@@ -3057,29 +3149,27 @@ void Histograms::Plot2DError_single( TString filename, TString variable_name, TS
    
    delete c; 
 }
-//========================================================================================================
+//=======================================================================================================
 
 
 
-//===========================================================================================
-void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TString folder )
+//===============================================================================================
+void Histograms::plot_2D_error_all_cat( TString filename, TString variable_name, TString folder )
 {
-   int plot_index = SetPlotName( variable_name);
+   int plot_index = SetPlotName( variable_name );
    
-   gStyle->SetPadLeftMargin(0.12);
-   gStyle->SetPadRightMargin(0.14);
-   gStyle->SetEndErrorSize(0.);
+   gStyle->SetPadLeftMargin(0.14);
+   gStyle->SetPadRightMargin(0.15);
    
    TCanvas *c = new TCanvas(variable_name, variable_name, 600, 600);
    
-   TPad* plot_pad = new TPad("plot_pad", "plot_pad", 0., 0.05, 1., 0.85);
-   TPad* legend_pad = new TPad("legend_pad", "legend_pad", 0.12, 0.81, 1., 0.95);
+   TPad* plot_pad = new TPad("plot_pad", "plot_pad", 0.0, 0.05, 1.0, 0.85);
+   TPad* legend_pad = new TPad("legend_pad", "legend_pad", gStyle->GetPadLeftMargin(), 0.81, 1 - gStyle->GetPadRightMargin(), 0.95);
    
    if ( GetVarLogX( variable_name) ) plot_pad->SetLogx();
    if ( GetVarLogY( variable_name) ) plot_pad->SetLogy();
    
    
-   plot_pad->SetTopMargin(0.06);
    plot_pad->Draw();
    legend_pad->Draw();
    
@@ -3091,14 +3181,14 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    stack->Add(histos_2DError[plot_index][Settings::fs4l][Settings::inclusive][Settings::qqZZ]);
    stack->Add(histos_2DError[plot_index][Settings::fs4l][Settings::inclusive][Settings::ggZZ]);
    
-   stack->SetTitleOffset(1.2, "X");
-   stack->SetTitleOffset(1.1, "Y");
-   stack->SetTitleOffset(1.3, "Z");
+   stack->SetTitleOffset(1.00, "X");
+   stack->SetTitleOffset(1.25, "YZ");
+   stack->SetLabelOffset(0.01, "XYZ");
    stack->SetTitleSize(0.05, "XYZ");
    stack->SetLabelSize(0.04, "XYZ");
    stack->GetZaxis()->SetTitle("Events / bin");
    
-   stack->GetYaxis()->SetRangeUser(0.,1.);
+//   stack->GetYaxis()->SetRangeUser(0.0, 1.0);
    
    MakeCOLZGrey(false);
    stack->Draw("COLZ");
@@ -3155,9 +3245,10 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    // Adjust axis color
    c->Update();
    TPaletteAxis* pal = (TPaletteAxis*)stack->GetListOfFunctions()->FindObject("palette");
-   pal->SetX1NDC(0.875);
-   pal->SetX2NDC(0.90);
-   pal->SetY2NDC(0.93);
+   pal->SetX1NDC(0.855);
+   pal->SetX2NDC(0.875);
+   pal->SetY1NDC(0.130);
+   pal->SetY2NDC(0.950);
    
    TLine *wp_line;
    if (plot_index == Settings::DWHvsM4lZoomed || plot_index == Settings::DZHvsM4lZoomed || plot_index == Settings::D1jetvsM4lZoomed || plot_index == Settings::D2jetvsM4lZoomed )
@@ -3170,7 +3261,16 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
    legend_pad->cd();
    //Draw legend
    TLegend *legend;
-   legend = Create2DLegendAllCat ("top",histos_2DError_data[plot_index][Settings::fs4e][Settings::untagged],histos_2DError_data[plot_index][Settings::fs4mu][Settings::untagged],histos_2DError_data[plot_index][Settings::fs2e2mu][Settings::untagged], histos_2DError_data[plot_index][Settings::fs4l][Settings::untagged], histos_2DError_data[plot_index][Settings::fs4l][Settings::VBF_1j_tagged], histos_2DError_data[plot_index][Settings::fs4l][Settings::VBF_2j_tagged], histos_2DError_data[plot_index][Settings::fs4l][Settings::VH_lepton_tagged], histos_2DError_data[plot_index][Settings::fs4l][Settings::VH_hadron_tagged], histos_2DError_data[plot_index][Settings::fs4l][Settings::ttH_tagged], histos_2DError_data[plot_index][Settings::fs4l][Settings::VH_MET_tagged]);
+   legend = Create2DLegendAllCat( "top", histos_2DError_data[plot_index][Settings::fs4e][Settings::untagged],
+                                         histos_2DError_data[plot_index][Settings::fs4mu][Settings::untagged],
+                                         histos_2DError_data[plot_index][Settings::fs2e2mu][Settings::untagged],
+                                         histos_2DError_data[plot_index][Settings::fs4l][Settings::untagged],
+                                         histos_2DError_data[plot_index][Settings::fs4l][Settings::VBF_1j_tagged],
+                                         histos_2DError_data[plot_index][Settings::fs4l][Settings::VBF_2j_tagged],
+                                         histos_2DError_data[plot_index][Settings::fs4l][Settings::VH_lepton_tagged],
+                                         histos_2DError_data[plot_index][Settings::fs4l][Settings::VH_hadron_tagged],
+                                         histos_2DError_data[plot_index][Settings::fs4l][Settings::ttH_tagged],
+                                         histos_2DError_data[plot_index][Settings::fs4l][Settings::VH_MET_tagged] );
    legend->Draw();
    
    // Draw lumi
@@ -3182,12 +3282,12 @@ void Histograms::Plot2DErrorAllCat( TString filename, TString variable_name, TSt
       
    delete c;
 }
-//===========================================================================================
+//===============================================================================================
 
 
 
-//========================================================================================================
-void Histograms::FillYieldGraphs( float M4l_down, float M4l_up)
+//==============================================================
+void Histograms::FillYieldGraphs( float M4l_down, float M4l_up )
 { 
    TFile *f_signal_fits = new TFile("Signal_fits.root", "recreate");
    
@@ -3322,7 +3422,7 @@ void Histograms::FillYieldGraphs( float M4l_down, float M4l_up)
    f_signal_fits->Close();
    delete f_signal_fits;
 }
-//========================================================================================================
+//==============================================================
 
 
 
@@ -3940,6 +4040,7 @@ int Histograms::SetPlotName( TString variable_name )
    else if ( variable_name == "D2jetvsM4lZoomed" )return Settings::D2jetvsM4lZoomed;
    else if ( variable_name == "DWHvsM4lZoomed" )  return Settings::DWHvsM4lZoomed;
    else if ( variable_name == "DZHvsM4lZoomed" )  return Settings::DZHvsM4lZoomed;
+   else if ( variable_name == "DVHvsM4lZoomed" )  return Settings::DVHvsM4lZoomed;
    
    else
    {
@@ -4006,6 +4107,7 @@ bool Histograms::GetVarLogX ( TString variable_name )
    else if (variable_name == "D2jetvsM4lZoomed")return bool(Variables::D2jetvsM4lZoomed().var_log_x);
    else if (variable_name == "DWHvsM4lZoomed")  return bool(Variables::DWHvsM4lZoomed().var_log_x);
    else if (variable_name == "DZHvsM4lZoomed")  return bool(Variables::DZHvsM4lZoomed().var_log_x);
+   else if (variable_name == "DVHvsM4lZoomed")  return bool(Variables::DVHvsM4lZoomed().var_log_x);
    
    else
    {
@@ -4072,6 +4174,7 @@ bool Histograms::GetVarLogY ( TString variable_name )
    else if (variable_name == "D2jetvsM4lZoomed")return bool(Variables::D2jetvsM4lZoomed().var_log_y);
    else if (variable_name == "DWHvsM4lZoomed")  return bool(Variables::DWHvsM4lZoomed().var_log_y);
    else if (variable_name == "DZHvsM4lZoomed")  return bool(Variables::DZHvsM4lZoomed().var_log_y);
+   else if (variable_name == "DVHvsM4lZoomed")  return bool(Variables::DVHvsM4lZoomed().var_log_y);
 
    else
    {
@@ -4084,25 +4187,33 @@ bool Histograms::GetVarLogY ( TString variable_name )
 
 
 
-//=========================================================================================================
+//============================================================================================================
 TLegend* Histograms::CreateLegend( string position, TH1F *data, TH1F *h125, TH1F *qqZZ, TH1F *ggZZ, TH1F *ZX )
 {
    TLegend *leg;
-   if(position == "right") leg = new TLegend( .64, .65, .97, .9 );
-   else if(position == "left") leg = new TLegend(.18,.65,.51,.9);
+   
+   if ( position == "right" )
+   {
+      leg = new TLegend( .71, .67, .91, .87 );
+   }
+   else
+   {
+      leg = new TLegend( .18, .65, .51, .90 );
+   }
+   
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
    leg->SetFillStyle(0);
    
-   leg->AddEntry( data, "Data", "p" );
-   leg->AddEntry( h125,"H(125)","f");
+   leg->AddEntry( data, "Data", "p E" );
+   leg->AddEntry( h125, "H(125)","f");
    leg->AddEntry( qqZZ, "q#bar{q}#rightarrowZZ, Z#gamma*", "f" );
    leg->AddEntry( ggZZ, "gg#rightarrowZZ, Z#gamma*", "f" );
-   leg->AddEntry( ZX, "Z+X", "f" );
+   leg->AddEntry( ZX,   "Z+X", "f" );
    
    return leg;
 }
-//=========================================================================================================
+//============================================================================================================
 
 
 
@@ -4110,13 +4221,21 @@ TLegend* Histograms::CreateLegend( string position, TH1F *data, TH1F *h125, TH1F
 TLegend* Histograms::CreateLegendVBF( string position, TH1F *data, TH1F *h125VBF, TH1F *h125_other, TH1F *qqZZ, TH1F *ggZZ, TH1F *ZX )
 {
    TLegend *leg;
-   if(position == "right") leg = new TLegend( .64, .65, .95, .9 );
-   else if(position == "left") leg = new TLegend(.18,.65,.51,.9);
+   
+   if ( position == "right" )
+   {
+      leg = new TLegend( .71, .63, .91, .87 );
+   }
+   else
+   {
+      leg = new TLegend(.18,.65,.51,.9);
+   }
+   
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
    leg->SetFillStyle(0);
    
-   leg->AddEntry( data, "Data", "p" );
+   leg->AddEntry( data, "Data", "p E" );
    leg->AddEntry( h125VBF,"H(125), VBF","f");
    leg->AddEntry( h125_other,"H(125), other","f");
    leg->AddEntry( qqZZ, "q#bar{q}#rightarrowZZ, Z#gamma*", "f" );
@@ -4139,7 +4258,7 @@ TLegend* Histograms::CreateLegendVH( string position, TH1F *data, TH1F *h125VH, 
    leg->SetBorderSize(0);
    leg->SetFillStyle(0);
    
-   leg->AddEntry( data, "Data", "p" );
+   leg->AddEntry( data, "Data", "p E" );
    leg->AddEntry( h125VH,"H(125), VH","f");
    leg->AddEntry( h125_other,"H(125), other","f");
    leg->AddEntry( qqZZ, "q#bar{q}#rightarrowZZ, Z#gamma*", "f" );
@@ -4162,7 +4281,7 @@ TLegend* Histograms::CreateLegendttH( string position, TH1F *data, TH1F *h125ttH
    leg->SetBorderSize(0);
    leg->SetFillStyle(0);
    
-   leg->AddEntry( data, "Data", "p" );
+   leg->AddEntry( data, "Data", "p E" );
    leg->AddEntry( h125ttH,"H(125), ttH","f");
    leg->AddEntry( h125_other,"H(125), other","f");
    leg->AddEntry( qqZZ, "q#bar{q}#rightarrowZZ, Z#gamma*", "f" );
@@ -4175,33 +4294,35 @@ TLegend* Histograms::CreateLegendttH( string position, TH1F *data, TH1F *h125ttH
 
 
 
-//==========================================================================================
-TLegend* Histograms::Create2DLegend( string position, TH2F *fs4e, TH2F *fs4mu,TH2F *fs2e2mu)
+//===========================================================================================
+TLegend* Histograms::Create2DLegend( string position, TH2F *fs4e, TH2F *fs4mu, TH2F *fs2e2mu)
 {
    TLegend *leg;
-   if(position == "left") leg = new TLegend(0.14,0.82,0.27,0.94);
+   if ( position == "left" ) leg = new TLegend(0.18, 0.80, 0.27, 0.92);
    
    leg->SetFillStyle(0);
    leg->SetBorderSize(0);
    leg->SetTextFont(42);
    leg->SetTextSize(0.032);
-   leg->AddEntry(fs4e,"4e","p");
-   leg->AddEntry(fs4mu,"4mu","p");
-   leg->AddEntry(fs2e2mu,"2e2mu","p");
-   leg->Draw();
+   
+   leg->AddEntry(fs4e,   "4e",    "p");
+   leg->AddEntry(fs4mu,  "4mu",   "p");
+   leg->AddEntry(fs2e2mu,"2e2mu", "p");
+   
+//   leg->Draw();
 
    return leg;
 }
-//==========================================================================================
+//===========================================================================================
 
 
 
-//==========================================================================================
+//=======================================================================================================================================================================
 TLegend* Histograms::Create2DLegendAllCat( string position, TGraphErrors *fs4e, TGraphErrors *fs4mu, TGraphErrors *fs2e2mu, TGraphErrors *untagged, TGraphErrors *VBF1jet,
                                                             TGraphErrors *VBF2jet, TGraphErrors *VHlep, TGraphErrors *VHhad, TGraphErrors *ttH, TGraphErrors *VHmet)
 {
    TLegend *leg;
-   leg = new TLegend(0.00,0.00,0.84,1.00);
+   leg = new TLegend(0.00, 0.00, 1.00, 1.00);
    
    leg->SetFillStyle(0);
    leg->SetBorderSize(1);
@@ -4209,25 +4330,24 @@ TLegend* Histograms::Create2DLegendAllCat( string position, TGraphErrors *fs4e, 
    leg->SetTextSize(0.18);
    leg->SetNColumns(3);
    
-   leg->AddEntry(fs4e,"4e","lp");
-   leg->AddEntry(untagged,"untagged","lp");
-   leg->AddEntry(VHlep,"VH-lept. tagged","lp");
+   leg->AddEntry(fs4e,     "4e",              "lp");
+   leg->AddEntry(untagged, "untagged",        "lp");
+   leg->AddEntry(VHlep,    "VH-lept. tagged", "lp");
    
-   leg->AddEntry(fs4mu,"4mu","lp");
-   leg->AddEntry(VBF1jet,"VBF-1j tagged","lp");
-   leg->AddEntry(VHhad,"VH-hadr. tagged","lp");
+   leg->AddEntry(fs4mu,   "4mu",             "lp");
+   leg->AddEntry(VBF1jet, "VBF-1j tagged",   "lp");
+   leg->AddEntry(VHhad,   "VH-hadr. tagged", "lp");
    
-   leg->AddEntry(fs2e2mu,"2e2mu","lp");
-   leg->AddEntry(VBF2jet,"VBF-2j tagged","lp");
-   leg->AddEntry(VHmet,"VH-MET tagged","lp");
-   leg->AddEntry((TObject*)0, "", "");
-   leg->AddEntry((TObject*)0, "", "");
-   leg->AddEntry(ttH,"ttH tagged","lp");
-   leg->Draw();
+   leg->AddEntry(fs2e2mu,     "2e2mu",                  "lp");
+   leg->AddEntry(VBF2jet,     "VBF-2j tagged",          "lp");
+   leg->AddEntry(VHmet,       "VH-E_{T}^{miss} tagged", "lp");
+   leg->AddEntry((TObject*)0, "",                       "");
+   leg->AddEntry((TObject*)0, "",                       "");
+   leg->AddEntry(ttH,         "ttH tagged",             "lp");
    
    return leg;
 }
-//==========================================================================================
+//=======================================================================================================================================================================
 
 
 
@@ -4235,16 +4355,16 @@ TLegend* Histograms::Create2DLegendAllCat( string position, TGraphErrors *fs4e, 
 TLegend* Histograms::Create2DErrorLegend( string position, TGraphErrors *fs4e, TGraphErrors *fs4mu,TGraphErrors *fs2e2mu)
 {
    TLegend *leg;
-   if(position == "right") leg = new TLegend(0.87,0.82,0.97,0.94);
+   if(position == "right") leg = new TLegend(0.855, 0.855, 0.955, 0.955);
    
    leg->SetFillStyle(0);
    leg->SetBorderSize(0);
    leg->SetTextFont(42);
    leg->SetTextSize(0.032);
-   leg->AddEntry(fs4e,"4e","lp");
-   leg->AddEntry(fs4mu,"4mu","lp");
-   leg->AddEntry(fs2e2mu,"2e2mu","lp");
-   leg->Draw();
+   
+   leg->AddEntry(fs4e,    "4e",    "lp");
+   leg->AddEntry(fs4mu,   "4mu",   "lp");
+   leg->AddEntry(fs2e2mu, "2e2mu", "lp");
    
    return leg;
 }
@@ -4252,13 +4372,15 @@ TLegend* Histograms::Create2DErrorLegend( string position, TGraphErrors *fs4e, T
 
 
 
-//=======================================================================================================================
-TPaveText* Histograms::CreateCutText( string position, TString cut_label)
+//========================================================================
+TPaveText* Histograms::CreateCutText( string position, TString cut_label )
 {
    TPaveText *pav;
-   if (position == "left under legend")    pav = new TPaveText(.18, .57, .51, .63 ,"brNDC");
+   
+   if (position == "left under legend")    pav = new TPaveText(.18, .57, .51, .66 ,"brNDC");
    if (position == "right under legend")   pav = new TPaveText(.63, .57, .93, .63 ,"brNDC");
-   if (position == "left under 2D legend") pav = new TPaveText(.18, .75, .31, .81 ,"brNDC");
+   if (position == "left under 2D legend") pav = new TPaveText(.18, .72, .31, .78 ,"brNDC");
+   
    pav->SetFillStyle(0);
    pav->SetBorderSize(0);
    pav->SetTextAlign(11);
@@ -4268,7 +4390,7 @@ TPaveText* Histograms::CreateCutText( string position, TString cut_label)
    
    return pav;
 }
-//=======================================================================================================================
+//========================================================================
 
 
 

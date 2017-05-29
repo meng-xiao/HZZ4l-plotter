@@ -68,6 +68,7 @@ public:
       D2jetvsM4lZoomed = 4,
       DWHvsM4lZoomed   = 5,
       DZHvsM4lZoomed   = 6,
+      DVHvsM4lZoomed   = 7,
       MAX_NUM_OF_2D_ERROR_PLOT_NAMES
    };
    

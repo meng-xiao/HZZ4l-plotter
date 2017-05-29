@@ -190,18 +190,18 @@ void Plotter::MakeHistograms( TString input_file_name )
       {
          if (_current_process == Settings::Data)
          {
-            blinded_histos->FillVectors( ZZMass, ZZMassErrCorr, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _current_final_state, _current_category);
+            blinded_histos->FillVectors( ZZMass, ZZMassErrCorr, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, DVH, _current_final_state, _current_category);
          }
       
-         blinded_histos->FillDvsM4l( ZZMass, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _event_weight, _current_final_state, _current_category, _current_process );
+         blinded_histos->FillDvsM4l( ZZMass, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, DVH, _event_weight, _current_final_state, _current_category, _current_process );
       }
       
       if (_current_process == Settings::Data)
       {
-         unblinded_histos->FillVectors( ZZMass, ZZMassErrCorr, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _current_final_state, _current_category );
+         unblinded_histos->FillVectors( ZZMass, ZZMassErrCorr, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, DVH, _current_final_state, _current_category );
       }
       
-      unblinded_histos->FillDvsM4l( ZZMass, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, _event_weight, _current_final_state, _current_category, _current_process );
+      unblinded_histos->FillDvsM4l( ZZMass, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, DVH, _event_weight, _current_final_state, _current_category, _current_process );
       
    } // end for loop
    
@@ -463,22 +463,21 @@ void Plotter::Delete()
 
 
 //==================
-void Plotter::Plot1D_single( TString file_name, TString variable_name, TString folder, int fs, int cat )
+void Plotter::plot_1D_single( TString file_name, TString variable_name, TString folder, int fs, int cat )
 {
-   histo_map[file_name]->Plot1D_single( file_name, variable_name, folder, fs, cat );
+   histo_map[file_name]->plot_1D_single( file_name, variable_name, folder, fs, cat );
    
 }
 //==================
 
 
 
-//==================
-void Plotter::Plot1D_all_cat( TString file_name, TString variable_name, TString folder)
+//=======================================================================================
+void Plotter::plot_1D_all_cat( TString file_name, TString variable_name, TString folder )
 {
-   histo_map[file_name]->Plot1D_all_cat( file_name, variable_name, folder);
-   
+   histo_map[file_name]->plot_1D_all_cat( file_name, variable_name, folder);
 }
-//==================
+//=======================================================================================
 
 
 
@@ -492,33 +491,30 @@ void Plotter::Plot1D_allFS( TString file_name, TString variable_name, TString fo
 
 
 
-//==================
-void Plotter::Plot2D_single( TString file_name, TString variable_name, TString folder, int cat )
+//===============================================================================================
+void Plotter::plot_2D_single( TString file_name, TString variable_name, TString folder, int cat )
 {
-   histo_map[file_name]->Plot2D_single( file_name, variable_name, folder, cat );
-   
+   histo_map[file_name]->plot_2D_single( file_name, variable_name, folder, cat );
 }
-//==================
+//===============================================================================================
 
 
 
-//==================
-void Plotter::Plot2DError_single( TString file_name, TString variable_name, TString folder, int cat )
+//=====================================================================================================
+void Plotter::plot_2D_error_single( TString file_name, TString variable_name, TString folder, int cat )
 {
-   histo_map[file_name]->Plot2DError_single( file_name, variable_name, folder, cat );
-   
+   histo_map[file_name]->plot_2D_error_single( file_name, variable_name, folder, cat ); 
 }
-//==================
+//=====================================================================================================
 
 
 
-//==================
-void Plotter::Plot2DErrorAllCat( TString file_name, TString variable_name, TString folder )
+//=============================================================================================
+void Plotter::plot_2D_error_all_cat( TString file_name, TString variable_name, TString folder )
 {
-   histo_map[file_name]->Plot2DErrorAllCat( file_name, variable_name, folder );
-   
+   histo_map[file_name]->plot_2D_error_all_cat( file_name, variable_name, folder );
 }
-//==================
+//=============================================================================================
 
 
 

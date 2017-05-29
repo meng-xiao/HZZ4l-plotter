@@ -73,12 +73,12 @@ public:
    void Save();
    void Delete();
    void GetHistos( TString );
-   void Plot1D_single( TString, TString, TString, int, int );
-   void Plot1D_all_cat( TString, TString, TString);
+   void plot_1D_single( TString, TString, TString, int, int );
+   void plot_1D_all_cat( TString, TString, TString);
    void Plot1D_allFS( TString, TString, TString);
-   void Plot2D_single( TString, TString, TString, int );
-   void Plot2DError_single( TString, TString, TString, int );
-   void Plot2DErrorAllCat( TString , TString , TString );
+   void plot_2D_single( TString, TString, TString, int );
+   void plot_2D_error_single( TString, TString, TString, int );
+   void plot_2D_error_all_cat( TString , TString , TString );
    void SetBlinding( float, float);
    void SetBlinding( float, float, float, float);
    
@@ -91,8 +91,6 @@ private:
    
    map<TString, Histograms*> histo_map;
    
-   TColor *_tclr;
-
    TH1F* hCounters;
    
    Long64_t n_gen_events;

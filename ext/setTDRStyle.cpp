@@ -4,7 +4,10 @@ void setTDRStyle()
 {
    TStyle *tdrStyle = new TStyle("tdrStyle","Style for P-TDR");
 
-// For the canvas:
+//=======
+// CANVAS
+//=======
+
    tdrStyle->SetCanvasBorderMode(0);
    tdrStyle->SetCanvasColor(kWhite);
    tdrStyle->SetCanvasDefH(600); //Height of canvas
@@ -12,7 +15,11 @@ void setTDRStyle()
    tdrStyle->SetCanvasDefX(0);   //POsition on screen
    tdrStyle->SetCanvasDefY(0);
 
-// For the Pad:
+
+//====
+// PAD
+//====
+
    tdrStyle->SetPadBorderMode(0);
    //tdrStyle->SetPadBorderSize(Width_t size = 1);
    tdrStyle->SetPadColor(kWhite);
@@ -22,7 +29,11 @@ void setTDRStyle()
    tdrStyle->SetGridStyle(3);
    tdrStyle->SetGridWidth(1);
 
-// For the frame:
+
+//======
+// FRAME
+//======
+
    tdrStyle->SetFrameBorderMode(0);
    tdrStyle->SetFrameBorderSize(1);
    tdrStyle->SetFrameFillColor(0);
@@ -30,36 +41,50 @@ void setTDRStyle()
    tdrStyle->SetFrameLineColor(1);
    tdrStyle->SetFrameLineStyle(1);
    tdrStyle->SetFrameLineWidth(1);
-  
-// For the histo:
-   //tdrStyle->SetHistFillColor(1);
-   //tdrStyle->SetHistFillStyle(0);
+
+
+//===========
+// HISTOGRAMS
+//===========
+
+// tdrStyle->SetHistFillColor(1);
+// tdrStyle->SetHistFillStyle(0);
    tdrStyle->SetHistLineColor(1);
    tdrStyle->SetHistLineStyle(0);
    tdrStyle->SetHistLineWidth(1);
-   //tdrStyle->SetLegoInnerR(Float_t rad = 0.5);
-   //tdrStyle->SetNumberContours(Int_t number = 20);
-
+// tdrStyle->SetLegoInnerR(Float_t rad = 0.5);
+// tdrStyle->SetNumberContours(Int_t number = 20);
    tdrStyle->SetEndErrorSize(2);
-   //tdrStyle->SetErrorMarker(20);
-   //tdrStyle->SetErrorX(0.);
-  
+// tdrStyle->SetErrorMarker(20);
+// tdrStyle->SetErrorX(0.);
    tdrStyle->SetMarkerStyle(20);
    tdrStyle->SetMarkerSize(0.7);
-  
-// For the fit/function:
+
+
+//=========  
+// FUNCTION
+//=========
+
    tdrStyle->SetOptFit(1);
    tdrStyle->SetFitFormat("5.4g");
    tdrStyle->SetFuncColor(2);
    tdrStyle->SetFuncStyle(1);
    tdrStyle->SetFuncWidth(1);
 
-//For the date:
+
+//=====
+// DATE
+//=====
+
    tdrStyle->SetOptDate(0);
 // tdrStyle->SetDateX(Float_t x = 0.01);
 // tdrStyle->SetDateY(Float_t y = 0.01);
 
-// For the statistics box:
+
+//===========
+// STATISTICS
+//===========
+
    tdrStyle->SetOptFile(0);
    tdrStyle->SetOptStat(0); // To display the mean and RMS:   SetOptStat("mr");
    tdrStyle->SetStatColor(kWhite);
@@ -74,13 +99,21 @@ void setTDRStyle()
 // tdrStyle->SetStatX(Float_t x = 0);
 // tdrStyle->SetStatY(Float_t y = 0);
 
-// Margins:
+
+//========
+// MARGINS
+//========
+
    tdrStyle->SetPadTopMargin(0.05);
    tdrStyle->SetPadBottomMargin(0.13);
    tdrStyle->SetPadLeftMargin(0.16);
    tdrStyle->SetPadRightMargin(0.02);
 
-// For the Global title:
+
+//=============
+// GLOBAL TITLE
+//=============
+
    tdrStyle->SetOptTitle(0);
    tdrStyle->SetTitleFont(42);
    tdrStyle->SetTitleColor(1);
@@ -94,7 +127,11 @@ void setTDRStyle()
 // tdrStyle->SetTitleStyle(Style_t style = 1001);
 // tdrStyle->SetTitleBorderSize(2);
 
-// For the axis titles:
+
+//===========
+// AXIS TITLE
+//===========
+
 // tdrStyle->SetTitleColor(1, "XYZ");
 // tdrStyle->SetTitleFont(42, "XYZ");
    tdrStyle->SetTitleSize(0.05, "XYZ");
@@ -102,16 +139,24 @@ void setTDRStyle()
 // tdrStyle->SetTitleYSize(Float_t size = 0.02);
 // tdrStyle->SetTitleXOffset(1.2); // Another way to set the Offset
 // tdrStyle->SetTitleYOffset(1.4); // Another way to set the Offset
-   tdrStyle->SetTitleOffset(1.2,  "X");
+   tdrStyle->SetTitleOffset(1.00, "X");
    tdrStyle->SetTitleOffset(1.25, "Y");
 
-// For the axis labels:
-//  tdrStyle->SetLabelColor(1, "XYZ");
-//  tdrStyle->SetLabelFont(42, "XYZ");
-//  tdrStyle->SetLabelOffset(0.007, "XYZ");
-    tdrStyle->SetLabelSize(0.04, "XYZ");
 
-// For the axis:
+//============
+// AXIS LABELS
+//============
+
+// tdrStyle->SetLabelColor(1, "XYZ");
+// tdrStyle->SetLabelFont(42, "XYZ");
+   tdrStyle->SetLabelOffset(0.008, "XYZ");
+   tdrStyle->SetLabelSize(0.04, "XYZ");
+
+
+//=====
+// AXIS
+//=====
+
    tdrStyle->SetAxisColor(1, "XYZ");
    tdrStyle->SetStripDecimals(kTRUE);
    tdrStyle->SetTickLength(0.03, "XYZ");
@@ -119,27 +164,34 @@ void setTDRStyle()
    tdrStyle->SetPadTickX(1);  // To get tick marks on the opposite side of the frame
    tdrStyle->SetPadTickY(1);
 
-// Change for log plots:
+
+//==========
+// LOG PLOTS
+//==========
+
    tdrStyle->SetOptLogx(0);
    tdrStyle->SetOptLogy(0);
    tdrStyle->SetOptLogz(0);
 
-// Postscript options:
+
+//===================
+// POSTSCRIPT OPTIONS
+//===================
+
    tdrStyle->SetPaperSize(20.,20.);
 // tdrStyle->SetLineScalePS(Float_t scale = 3);
 // tdrStyle->SetLineStyleString(Int_t i, const char* text);
 // tdrStyle->SetHeaderPS(const char* header);
 // tdrStyle->SetTitlePS(const char* pstitle);
-
 // tdrStyle->SetBarOffset(Float_t baroff = 0.5);
 // tdrStyle->SetBarWidth(Float_t barwidth = 0.5);
 // tdrStyle->SetPaintTextFormat(const char* format = "g");
 // tdrStyle->SetPalette(Int_t ncolors = 0, Int_t* colors = 0);
 // tdrStyle->SetTimeOffset(Double_t toffset);
 // tdrStyle->SetHistMinimumZero(kTRUE);
-
    tdrStyle->SetHatchesLineWidth(5);
    tdrStyle->SetHatchesSpacing(0.05);
+
 
    tdrStyle->cd();
 }
