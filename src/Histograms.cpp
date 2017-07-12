@@ -2369,12 +2369,7 @@ void Histograms::plot_1D_single( TString filename, TString variable_name, TStrin
    TCanvas *c;
    if(variable_name == "M4lMain") c = new TCanvas(variable_name, variable_name, 650, 500);
    else c = new TCanvas(variable_name, variable_name, 600, 600);
-   
-   // Set custom margins for plots where last label is cut off otherwise
-   if ( (plot_index == Settings::MZ1) ||  (plot_index == Settings::MZ1_M4L118130) ) c->SetRightMargin(0.05);
-   if ( (plot_index == Settings::MZ2) ||  (plot_index == Settings::MZ2_M4L118130) ) c->SetRightMargin(0.05);
-   if ( (plot_index == Settings::M4lMainHighMass) )                                 c->SetRightMargin(0.07);
-   
+      
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
    
@@ -2559,13 +2554,13 @@ void Histograms::plot_1D_single( TString filename, TString variable_name, TStrin
    
    if ( plot_index == Settings::D1jet_M4L118130 || plot_index == Settings::KD_M4L118130 || plot_index == Settings::MZ1_M4L118130 )
    {
-      text = CreateCutText("left under legend", "118 < m_{4#font[12]{l}} < 130 GeV");
+      text = CreateCutText("right top", "118 < m_{4#font[12]{l}} < 130 GeV");
       text->Draw();
    }
    else if ( plot_index == Settings::D2jet_M4L118130 || plot_index == Settings::DWH_M4L118130 || plot_index == Settings::DZH_M4L118130 ||
              plot_index == Settings::DVH_M4L118130   || plot_index == Settings::MZ2_M4L118130)
    {
-      text = CreateCutText("right under legend", "118 < m_{4#font[12]{l}} < 130 GeV");
+      text = CreateCutText("left top", "118 < m_{4#font[12]{l}} < 130 GeV");
       text->Draw();
    }
    
@@ -2607,11 +2602,6 @@ void Histograms::plot_1D_all_cat( TString filename, TString variable_name , TStr
       c = new TCanvas(variable_name, variable_name, 600, 600);
    }
    
-   // Set custom margins for plots where last label is cut off otherwise
-   if ( (plot_index == Settings::MZ1) || (plot_index == Settings::MZ1_M4L118130) ) c->SetRightMargin(0.05);
-   if ( (plot_index == Settings::MZ2) || (plot_index == Settings::MZ2_M4L118130) ) c->SetRightMargin(0.05);
-   if ( (plot_index == Settings::M4lMainHighMass) )                                c->SetRightMargin(0.07);
-
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
 
@@ -2740,7 +2730,7 @@ void Histograms::plot_1D_all_cat( TString filename, TString variable_name , TStr
       else
       {
          stack->SetMinimum(1e-5);
-         stack->SetMaximum((data_max + data_max_error)*1.5);
+         stack->SetMaximum((data_max + data_max_error)*1.6);
       }
 
       // Axis title
@@ -2858,11 +2848,6 @@ void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString
       c = new TCanvas(variable_name, variable_name, 650, 500);
    else
       c = new TCanvas(variable_name, variable_name, 600, 600);
-   
-   // Set custom margins for plots where last label is cut off otherwise
-   if ( (plot_index == Settings::MZ1) || (plot_index == Settings::MZ1_M4L118130) ) c->SetRightMargin(0.05);
-   if ( (plot_index == Settings::MZ2) || (plot_index == Settings::MZ2_M4L118130) ) c->SetRightMargin(0.05);
-   if ( (plot_index == Settings::M4lMainHighMass) )                                c->SetRightMargin(0.07);
    
    if ( GetVarLogX( variable_name) ) c->SetLogx();
    if ( GetVarLogY( variable_name) ) c->SetLogy();
@@ -4194,11 +4179,11 @@ TLegend* Histograms::CreateLegend( string position, TH1F *data, TH1F *h125, TH1F
    
    if ( position == "right" )
    {
-      leg = new TLegend( .71, .67, .91, .87 );
+      leg = new TLegend(.71, .71, .91, .91);
    }
    else
    {
-      leg = new TLegend( .18, .65, .51, .90 );
+      leg = new TLegend(.21, .71, .41, .91);
    }
    
    leg->SetFillColor(0);
@@ -4224,11 +4209,11 @@ TLegend* Histograms::CreateLegendVBF( string position, TH1F *data, TH1F *h125VBF
    
    if ( position == "right" )
    {
-      leg = new TLegend( .71, .63, .91, .87 );
+      leg = new TLegend(.71, .67, .91, .91);
    }
    else
    {
-      leg = new TLegend(.18,.65,.51,.9);
+      leg = new TLegend(.21, .67, .41, .91);
    }
    
    leg->SetFillColor(0);
@@ -4252,8 +4237,16 @@ TLegend* Histograms::CreateLegendVBF( string position, TH1F *data, TH1F *h125VBF
 TLegend* Histograms::CreateLegendVH( string position, TH1F *data, TH1F *h125VH, TH1F *h125_other, TH1F *qqZZ, TH1F *ggZZ, TH1F *ZX )
 {
    TLegend *leg;
-   if(position == "right") leg = new TLegend( .64, .65, .95, .9 );
-   else if(position == "left") leg = new TLegend(.18,.65,.51,.9);
+ 
+   if ( position == "right" )
+   {
+      leg = new TLegend(.71, .67, .91, .91);
+   }
+   else
+   {
+      leg = new TLegend(.21, .67, .41, .91);
+   }
+   
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
    leg->SetFillStyle(0);
@@ -4275,8 +4268,16 @@ TLegend* Histograms::CreateLegendVH( string position, TH1F *data, TH1F *h125VH, 
 TLegend* Histograms::CreateLegendttH( string position, TH1F *data, TH1F *h125ttH, TH1F *h125_other, TH1F *qqZZ, TH1F *ggZZ, TH1F *ZX )
 {
    TLegend *leg;
-   if(position == "right") leg = new TLegend( .64, .65, .95, .9 );
-   else if(position == "left") leg = new TLegend(.18,.65,.51,.9);
+   
+   if ( position == "right" )
+   {
+      leg = new TLegend(.71, .67, .91, .91);
+   }
+   else
+   {
+      leg = new TLegend(.21, .67, .41, .91);
+   }
+   
    leg->SetFillColor(0);
    leg->SetBorderSize(0);
    leg->SetFillStyle(0);
@@ -4377,14 +4378,14 @@ TPaveText* Histograms::CreateCutText( string position, TString cut_label )
 {
    TPaveText *pav;
    
-   if (position == "left under legend")    pav = new TPaveText(.18, .57, .51, .66 ,"brNDC");
-   if (position == "right under legend")   pav = new TPaveText(.63, .57, .93, .63 ,"brNDC");
-   if (position == "left under 2D legend") pav = new TPaveText(.18, .72, .31, .78 ,"brNDC");
+   if ( position == "left top" )    pav = new TPaveText(.21, .81, .51, .91 ,"brNDC");
+   if ( position == "right top" )   pav = new TPaveText(.61, .81, .91, .91 ,"brNDC");
+   if ( position == "left under 2D legend" ) pav = new TPaveText(.18, .72, .31, .78 ,"brNDC");
    
    pav->SetFillStyle(0);
    pav->SetBorderSize(0);
    pav->SetTextAlign(11);
-   pav->SetTextSize(0.037);
+   pav->SetTextSize(0.032);
    pav->SetTextFont(42);
    pav->AddText(cut_label);
    
@@ -4398,11 +4399,11 @@ TPaveText* Histograms::CreateCutText( string position, TString cut_label )
 TPaveText* Histograms::CreateCatText( string position, TString cat_label)
 {
    TPaveText *pav;
-   if (position == "top left")  pav = new TPaveText(.18, .85, .52, .91,"brNDC");
+   if (position == "top left")  pav = new TPaveText(.21, .81, .51, .91,"brNDC");
    pav->SetFillStyle(0);
    pav->SetBorderSize(0);
    pav->SetTextAlign(11);
-   pav->SetTextSize(0.037);
+   pav->SetTextSize(0.032);
    pav->SetTextFont(42);
    pav->AddText(cat_label);
    
