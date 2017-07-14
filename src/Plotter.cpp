@@ -482,9 +482,9 @@ void Plotter::plot_1D_all_cat( TString file_name, TString variable_name, TString
 
 
 //==================
-void Plotter::Plot1D_allFS( TString file_name, TString variable_name, TString folder)
+void Plotter::plot_1D_all_fs( TString file_name, TString variable_name, TString folder)
 {
-   histo_map[file_name]->Plot1D_allFS( file_name, variable_name, folder);
+   histo_map[file_name]->plot_1D_all_fs( file_name, variable_name, folder);
    
 }
 //==================

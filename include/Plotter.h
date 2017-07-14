@@ -75,7 +75,7 @@ public:
    void GetHistos( TString );
    void plot_1D_single( TString, TString, TString, int, int );
    void plot_1D_all_cat( TString, TString, TString);
-   void Plot1D_allFS( TString, TString, TString);
+   void plot_1D_all_fs( TString, TString, TString);
    void plot_2D_single( TString, TString, TString, int );
    void plot_2D_error_single( TString, TString, TString, int );
    void plot_2D_error_all_cat( TString , TString , TString );

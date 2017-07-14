@@ -479,7 +479,7 @@ void Histograms::FillMZ1( float M4l, float MZ1, float weight, int fs, int cat, i
 {
    histos_1D[Settings::MZ1][fs][cat][proc]->Fill(MZ1, (proc == Settings::Data) ? 1. : weight);
    
-   if( M4l >= Variables::MZ1_M4L118130().cut_d && M4l <= Variables::MZ1_M4L118130().cut_u)
+   if ( M4l >= Variables::MZ1_M4L118130().cut_d && M4l <= Variables::MZ1_M4L118130().cut_u )
    {
       histos_1D[Settings::MZ1_M4L118130][fs][cat][proc]->Fill(MZ1, (proc == Settings::Data) ? 1. : weight);
    }
@@ -2838,7 +2838,7 @@ void Histograms::plot_1D_all_cat( TString filename, TString variable_name , TStr
 
 
 //=====================================================================================
-void Histograms::Plot1D_allFS( TString filename, TString variable_name , TString folder )
+void Histograms::plot_1D_all_fs( TString filename, TString variable_name , TString folder )
 {
    int plot_index = SetPlotName( variable_name);
    
@@ -3044,6 +3044,8 @@ void Histograms::plot_2D_single( TString filename, TString variable_name, TStrin
    TPaletteAxis *pal = (TPaletteAxis*)stack->GetListOfFunctions()->FindObject("palette");
    pal->SetX1NDC(0.855);
    pal->SetX2NDC(0.875);
+   pal->SetY1NDC(0.130);
+   pal->SetY2NDC(0.950);
    
    // Draw lumi
    CMS_lumi *lumi = new CMS_lumi;
@@ -3235,16 +3237,16 @@ void Histograms::plot_2D_error_all_cat( TString filename, TString variable_name,
    pal->SetY1NDC(0.130);
    pal->SetY2NDC(0.950);
    
-   TLine *wp_line;
-   if (plot_index == Settings::DWHvsM4lZoomed || plot_index == Settings::DZHvsM4lZoomed || plot_index == Settings::D1jetvsM4lZoomed || plot_index == Settings::D2jetvsM4lZoomed )
+   if ( plot_index == Settings::DVHvsM4lZoomed || plot_index == Settings::DWHvsM4lZoomed || plot_index == Settings::DZHvsM4lZoomed ||
+        plot_index == Settings::D1jetvsM4lZoomed || plot_index == Settings::D2jetvsM4lZoomed )
    {
-      wp_line = CreateDashedLine( plot_index );
-      plot_pad->cd(); // for some reason TLine can only be drawn on canvas and not on TPad
+      TLine *wp_line;
+      wp_line = CreateDashedLine(plot_index);
       wp_line->Draw();
    }
    
-   legend_pad->cd();
    //Draw legend
+   legend_pad->cd();
    TLegend *legend;
    legend = Create2DLegendAllCat( "top", histos_2DError_data[plot_index][Settings::fs4e][Settings::untagged],
                                          histos_2DError_data[plot_index][Settings::fs4mu][Settings::untagged],
@@ -4418,10 +4420,11 @@ TLine* Histograms::CreateDashedLine( int plot_index)
 {
    TLine *line;
    
-   if (plot_index == Settings::DWHvsM4lZoomed)   line = new TLine(100.,0.8,170.,0.8);
-   if (plot_index == Settings::DZHvsM4lZoomed)   line = new TLine(100.,0.8,170.,0.8);
-   if (plot_index == Settings::D1jetvsM4lZoomed) line = new TLine(100.,0.697,170.,0.697);
-   if (plot_index == Settings::D2jetvsM4lZoomed) line = new TLine(100.,1.043-460./(100.+634.),170.,1.043-460./(170.+634.));
+   if ( plot_index == Settings::DWHvsM4lZoomed )   line = new TLine(100., 0.5, 170., 0.5);
+   if ( plot_index == Settings::DZHvsM4lZoomed )   line = new TLine(100., 0.5, 170., 0.5);
+   if ( plot_index == Settings::DVHvsM4lZoomed )   line = new TLine(100., 0.5, 170., 0.5);
+   if ( plot_index == Settings::D1jetvsM4lZoomed ) line = new TLine(100., 0.5, 170., 0.5);
+   if ( plot_index == Settings::D2jetvsM4lZoomed ) line = new TLine(100., 0.5, 170., 0.5);
       
    line->SetLineStyle(9);
    line->SetLineWidth(2);
@@ -4433,19 +4436,22 @@ TLine* Histograms::CreateDashedLine( int plot_index)
 
 
 
-//================================================
+//======================================================
 void Histograms::DrawLogX( TCanvas *c, int cat, int fs )
 {
    int x_low = 100;
    int x_up  = 1000;
    int step  = 100;
+   
+   float b = c->GetBottomMargin();
       
    float u_y_max = c->GetUymax();
    
-   if ( cat == Settings::inclusive && fs == Settings::fs4l) _y_max = u_y_max;
+   if ( cat == Settings::inclusive && fs == Settings::fs4l ) _y_max = u_y_max;
    
    float factor = u_y_max/_y_max;
-   float y_latex = -2;
+   
+   float y_latex = b - 0.4;
        
    cout << "Factor = " << factor << endl;
    
@@ -4468,7 +4474,7 @@ void Histograms::DrawLogX( TCanvas *c, int cat, int fs )
       latex->Draw();
    }
 }
-//================================================
+//======================================================
 
 
 
