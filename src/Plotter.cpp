@@ -52,7 +52,8 @@ Plotter::~Plotter()
 void Plotter::MakeHistograms( TString input_file_name )
 {
 
-   input_file = new TFile("./" + input_file_name);
+   input_file = TFile::Open( input_file_name);
+   cout<< input_file_name<<endl;
    
    hCounters = (TH1F*)input_file->Get("ZZTree/Counters");
    n_gen_events = (Long64_t)hCounters->GetBinContent(1);
@@ -66,11 +67,48 @@ void Plotter::MakeHistograms( TString input_file_name )
    Long64_t nentries = fChain->GetEntriesFast();
 
    Long64_t nbytes = 0, nb = 0;
+
+	fChain->SetBranchStatus("*", 0);
+	fChain->SetBranchStatus("ZZMass", 1);
+	fChain->SetBranchStatus("ZZMassErrCorr", 1);
+	fChain->SetBranchStatus("p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal", 1);
+	fChain->SetBranchStatus("p_JJVBF_SIG_ghv1_1_JHUGen_JECNominal", 1);
+	fChain->SetBranchStatus("CRflag", 1);
+	fChain->SetBranchStatus("nCleanedJetsPt30", 1);
+	fChain->SetBranchStatus("Z1Flav", 1);
+	fChain->SetBranchStatus("Z2Flav", 1);
+	fChain->SetBranchStatus("LepEta", 1);
+	fChain->SetBranchStatus("LepPt", 1);
+	fChain->SetBranchStatus("LepLepId", 1);
+	fChain->SetBranchStatus("p_QQB_BKG_MCFM", 1);
+	fChain->SetBranchStatus("p_GG_SIG_ghg2_1_ghz1_1_JHUGen", 1);
+	fChain->SetBranchStatus("JetPt", 1);
+	fChain->SetBranchStatus("JetEta", 1);
+	fChain->SetBranchStatus("JetPhi", 1);
+	fChain->SetBranchStatus("JetMass", 1);
+	fChain->SetBranchStatus("JetQGLikelihood", 1);
+	fChain->SetBranchStatus("nExtraLep", 1);
+	fChain->SetBranchStatus("nExtraZ", 1);
+	fChain->SetBranchStatus("nCleanedJetsPt30BTagged_bTagSF", 1);
+	fChain->SetBranchStatus("p_JQCD_SIG_ghg2_1_JHUGen_JECNominal", 1);
+	fChain->SetBranchStatus("p_JVBF_SIG_ghv1_1_JHUGen_JECNominal", 1);
+	fChain->SetBranchStatus("pAux_JVBF_SIG_ghv1_1_JHUGen_JECNominal", 1);
+	fChain->SetBranchStatus("p_HadWH_SIG_ghw1_1_JHUGen_JECNominal", 1);
+	fChain->SetBranchStatus("p_HadZH_SIG_ghz1_1_JHUGen_JECNominal", 1);
+	fChain->SetBranchStatus("PFMET", 1);
+	fChain->SetBranchStatus("overallEventWeight", 1);
+	fChain->SetBranchStatus("ZZsel", 1);
+	fChain->SetBranchStatus("xsec", 1);
+	fChain->SetBranchStatus("KFactor_EW_qqZZ", 1);
+	fChain->SetBranchStatus("KFactor_QCD_qqZZ_M", 1);
+	fChain->SetBranchStatus("KFactor_QCD_ggZZ_Nominal", 1);
    
    for (Long64_t jentry=0; jentry<nentries;jentry++)
    {
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
+      if(jentry%1000==0)
+	      cout<< jentry<<endl;
       nb = fChain->GetEntry(jentry);
       nbytes += nb;
    
@@ -142,6 +180,7 @@ void Plotter::MakeHistograms( TString input_file_name )
        
        unblinded_histos->FillM4l( ZZMass, _event_weight, _current_final_state, _current_category, _current_process );
       
+       /*
       // Fill MZ1 histograms
       if ( blind(ZZMass) )
       {
@@ -158,6 +197,7 @@ void Plotter::MakeHistograms( TString input_file_name )
       
       unblinded_histos->FillMZ2( ZZMass, Z2Mass, _event_weight, _current_final_state, _current_category, _current_process );
       
+      */
       // Fill KD histograms
       if ( blind(ZZMass) )
       {
@@ -177,6 +217,7 @@ void Plotter::MakeHistograms( TString input_file_name )
       if ( nCleanedJetsPt30 >=2 ) unblinded_histos->FillDZH( ZZMass, DZH, _event_weight, _current_final_state, _current_category, _current_process );
       if ( nCleanedJetsPt30 >=2 ) unblinded_histos->FillDVH( ZZMass, DVH, _event_weight, _current_final_state, _current_category, _current_process );
       
+      /*
       // Fill MZ1 vs MZ2 histograms
       if ( blind(ZZMass) )
       {
@@ -185,6 +226,7 @@ void Plotter::MakeHistograms( TString input_file_name )
       
       unblinded_histos->FillMZ1vsMZ2( ZZMass, Z1Mass, Z2Mass, _event_weight, _current_final_state, _current_category, _current_process );
       
+      */
       // Fill 2D histograms vs M4l with error
       if ( blind(ZZMass) || _current_process != Settings::Data )
       {
@@ -202,6 +244,7 @@ void Plotter::MakeHistograms( TString input_file_name )
       }
       
       unblinded_histos->FillDvsM4l( ZZMass, KD, nCleanedJetsPt30, D1jet, D2jet, DWH, DZH, DVH, _event_weight, _current_final_state, _current_category, _current_process );
+      
       
    } // end for loop
    
@@ -255,9 +298,10 @@ void Plotter::SetBlinding(float blinding_lower_0, float blinding_upper_0, float 
 void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_file_FR_name )
 {
    
+	cout<< input_file_FR_name<<"\t"<<input_file_data_name<<endl;
    FakeRates *FR = new FakeRates( input_file_FR_name );
 
-   input_file_data = new TFile("./" + input_file_data_name);
+   input_file_data = TFile::Open(input_file_data_name);
    input_tree_data = (TTree*)input_file_data->Get("CRZLLTree/candTree");
    Init( input_tree_data, input_file_data_name );
 
@@ -267,6 +311,35 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
    Long64_t nentries = fChain->GetEntriesFast();
 
    Long64_t nbytes = 0, nb = 0;
+	fChain->SetBranchStatus("*", 0);
+	fChain->SetBranchStatus("ZZMass", 1);
+	fChain->SetBranchStatus("ZZMassErrCorr", 1);
+	fChain->SetBranchStatus("p_JJQCD_SIG_ghg2_1_JHUGen_JECNominal", 1);
+	fChain->SetBranchStatus("p_JJVBF_SIG_ghv1_1_JHUGen_JECNominal", 1);
+	fChain->SetBranchStatus("CRflag", 1);
+	fChain->SetBranchStatus("nCleanedJetsPt30", 1);
+	fChain->SetBranchStatus("Z1Flav", 1);
+	fChain->SetBranchStatus("Z2Flav", 1);
+	fChain->SetBranchStatus("LepEta", 1);
+	fChain->SetBranchStatus("LepPt", 1);
+	fChain->SetBranchStatus("LepLepId", 1);
+	fChain->SetBranchStatus("p_QQB_BKG_MCFM", 1);
+	fChain->SetBranchStatus("p_GG_SIG_ghg2_1_ghz1_1_JHUGen", 1);
+	fChain->SetBranchStatus("JetPt", 1);
+	fChain->SetBranchStatus("JetEta", 1);
+	fChain->SetBranchStatus("JetPhi", 1);
+	fChain->SetBranchStatus("JetMass", 1);
+	fChain->SetBranchStatus("JetQGLikelihood", 1);
+	fChain->SetBranchStatus("nExtraLep", 1);
+	fChain->SetBranchStatus("nExtraZ", 1);
+	fChain->SetBranchStatus("nCleanedJetsPt30BTagged_bTagSF", 1);
+	fChain->SetBranchStatus("p_JQCD_SIG_ghg2_1_JHUGen_JECNominal", 1);
+	fChain->SetBranchStatus("p_JVBF_SIG_ghv1_1_JHUGen_JECNominal", 1);
+	fChain->SetBranchStatus("pAux_JVBF_SIG_ghv1_1_JHUGen_JECNominal", 1);
+	fChain->SetBranchStatus("p_HadWH_SIG_ghw1_1_JHUGen_JECNominal", 1);
+	fChain->SetBranchStatus("p_HadZH_SIG_ghz1_1_JHUGen_JECNominal", 1);
+	fChain->SetBranchStatus("PFMET", 1);
+	fChain->SetBranchStatus("overallEventWeight", 1);
 
    for (Long64_t jentry=0; jentry<nentries;jentry++)
    {
@@ -275,6 +348,8 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       if (ientry < 0) break;
       nb = fChain->GetEntry(jentry);
       nbytes += nb;
+      if(jentry%1000==0)
+	      cout<< jentry<<endl;
    
       if ( !CRflag ) continue;
       if ( !test_bit(CRflag, CRZLLss) ) continue;
@@ -322,6 +397,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       unblinded_histos->FillM4lZX( ZZMass, _yield_SR, _current_final_state, _current_category );
       blinded_histos->FillM4lZX( ZZMass, _yield_SR, _current_final_state, _current_category);
       
+      /*
       // Fill mZ1 Z+X histograms
       unblinded_histos->FillMZ1ZX( ZZMass, Z1Mass, _yield_SR, _current_final_state, _current_category );
       
@@ -337,7 +413,7 @@ void Plotter::MakeHistogramsZX( TString input_file_data_name, TString  input_fil
       {
          blinded_histos->FillMZ2ZX( ZZMass, Z2Mass, _yield_SR, _current_final_state, _current_category);
       }
-      
+    */  
       // Fill KD Z+X histograms
       unblinded_histos->FillKDZX( ZZMass, KD, _yield_SR, _current_final_state, _current_category );
       

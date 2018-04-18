@@ -24,14 +24,15 @@ int main( int argc, char *argv[] )
    gROOT->ProcessLine(".L ./ext/setTDRStyle_cpp.so");
    gROOT->ProcessLine("setTDRStyle();");
 
-   TString path = "Moriond_2017/";
+   TString path = "root://lxcms03//data3/Higgs/170203/";
    TString file_name = "/ZZ4lAnalysis.root";
-   TString file_name_FR = "/FakeRate_SS_Moriond368.root";
+   TString file_name_FR = "/afs/cern.ch/work/x/xiaomeng/test/myWorkingArea/4lOff/CMSSW_8_0_24_patch1/src/ZZAnalysis/AnalysisStep/data/FakeRates/FakeRate_SS_Moriond368.root";
    
    //Data
    TString Data        = path + "Data" + file_name;
-   TString FakeRates   = path + "FakeRates" + file_name_FR;
+   //TString FakeRates   = path + "FakeRates" + file_name_FR;
    
+   TString FakeRates   = file_name_FR;
    // Signal
    TString ggH120      = path + "ggH120" + file_name;
    TString ggH124      = path + "ggH124" + file_name;
